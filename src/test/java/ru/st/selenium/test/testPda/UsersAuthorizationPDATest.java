@@ -6,11 +6,13 @@ import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.openqa.selenium.By;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,7 +26,7 @@ import static com.codeborne.selenide.Selenide.open;
  * Вы также можете сделать скриншот в любом месте теста одной строчкой - screenshot("my_file_name");
  * При этом Selenide создаст два файла: my_file_name.png и my_file_name.html
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 /**
  * Раздел - Стр. авторизации
  */

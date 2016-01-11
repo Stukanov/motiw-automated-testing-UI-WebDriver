@@ -21,7 +21,9 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.ModuleDocflowAdministrationObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,7 +33,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Раздел - РКД (Регистрационная карточка документа)
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
 
     /**

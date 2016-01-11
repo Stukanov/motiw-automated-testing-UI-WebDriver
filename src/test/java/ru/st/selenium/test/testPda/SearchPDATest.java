@@ -5,11 +5,13 @@ import ru.st.selenium.pages.pagespda.LoginPagePDA;
 import ru.st.selenium.pages.pagespda.SearchPagePDA;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.Page;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,7 +20,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * раздел - Поиск
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class SearchPDATest extends BaseObjectTestCase {
 
 

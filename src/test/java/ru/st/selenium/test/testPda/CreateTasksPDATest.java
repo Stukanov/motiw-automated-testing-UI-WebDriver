@@ -8,6 +8,7 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -20,7 +21,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Раздел - Создать задачу
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class CreateTasksPDATest extends BaseObjectTestCase {
 
 

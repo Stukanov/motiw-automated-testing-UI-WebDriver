@@ -6,10 +6,12 @@ import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.*;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,7 +20,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Раздел - Сегодня
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class TodayPDATest extends BaseObjectTestCase {
 
     /*

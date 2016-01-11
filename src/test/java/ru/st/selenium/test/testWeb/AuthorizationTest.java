@@ -8,12 +8,14 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 /**
  * Раздел - Стр. авторизации
  */

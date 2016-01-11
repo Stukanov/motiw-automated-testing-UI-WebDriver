@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.BaseInternalLogic;
@@ -38,9 +39,9 @@ public class InternalPage extends Page implements BaseInternalLogic {
     @FindBy(id = "task")
     private SelenideElement menuTask;
 
-     /*
-     * =====================================================================================================Документы
-     */
+    /*
+    * =====================================================================================================Документы
+    */
     @FindBy(css = "#doc")
     private SelenideElement menuDocument;
 
@@ -49,7 +50,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      */
     @FindBy(css = "#L_DOCUMENT_NEW-menupoint")
     private SelenideElement createDoc;
-    
+
     /*
      * Календарь
      */
@@ -165,6 +166,18 @@ public class InternalPage extends Page implements BaseInternalLogic {
     @FindBy(id = "L_MENU_MYOPTIONS-menupoint")
     private SelenideElement menuMyOptions;
 
+    /*
+    * Информация о системе
+     */
+    @FindBy(id = "L_MENU_SISTEM_INFORMATION-menupoint")
+    private SelenideElement tester;
+
+    /*
+     * Поисковая система
+     */
+    @FindBy(id = "L_SEARCH_ADMIN-menupoint")
+    private SelenideElement searchSystem;
+
 
     /*
      * Уходим во фрейм объекта
@@ -172,7 +185,6 @@ public class InternalPage extends Page implements BaseInternalLogic {
     public void goToFremFlow() {
         getWebDriver().switchTo().frame(fremFlow);
     }
-
 
 
     /**
@@ -237,7 +249,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
     /**
      * Переход в меню - Администрирование ДО/Редактор словарей
      */
-    public DictionaryEditorPage goToDictionaryEditor(){
+    public DictionaryEditorPage goToDictionaryEditor() {
         subMenuClicker(instrMenu, docAdministrationMenu, dictionaryEditorMenu);
         return page(DictionaryEditorPage.class);
     }
@@ -272,9 +284,9 @@ public class InternalPage extends Page implements BaseInternalLogic {
     /**
      * Документы/Создать документ
      */
-    public NewDocumentPage goToNewDocument(){
+    public NewDocumentPage goToNewDocument() {
         menuClicker(menuDocument, createDoc);
-       return page(NewDocumentPage.class);
+        return page(NewDocumentPage.class);
     }
 
     /**
@@ -286,12 +298,28 @@ public class InternalPage extends Page implements BaseInternalLogic {
     }
 
     /**
-     * Переход в меню - Администрирование/Подразделения
+     * Инициализация - Администрирование/Подразделения (Пользователи)
      */
     public CreateUsersPage initializationUsersPage() {
         return page(CreateUsersPage.class);
     }
 
+    /**
+     * Администрирование - Информация о системе
+     */
+    public SystemInformationPage goToSystemInfo() {
+        subMenuClicker(instrMenu, administration, tester);
+        return page(SystemInformationPage.class);
+    }
+
+    /**
+     * Переходим - Поисковая система
+     */
+    public SearchAdminPage goToSearchSystemPage() {
+        subMenuClicker(instrMenu, administration, searchSystem);
+        return page(SearchAdminPage.class);
+
+    }
 
     /**
      * Выход из системы
@@ -323,8 +351,8 @@ public class InternalPage extends Page implements BaseInternalLogic {
      */
     public InternalPage checkUserWorkflow() {
         goToTopFrem();
-        $(By.xpath("//*[@id='doc-search']/a")).shouldNotBe(Condition.visible) ;
-        menuDocument.shouldNotBe(Condition.visible) ;
+        $(By.xpath("//*[@id='doc-search']/a")).shouldNotBe(Condition.visible);
+        menuDocument.shouldNotBe(Condition.visible);
         return this;
 
     }

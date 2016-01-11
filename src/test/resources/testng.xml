@@ -22,7 +22,7 @@
 		<parameter name="path" value="/"/>
 		<classes>
 			<class name="ru.st.selenium.test.testWeb.AuthorizationTest"/>
-			<class name="ru.st.selenium.test.testWeb.SystemInformation"/>
+			<class name="ru.st.selenium.test.testWeb.SystemInformationTest"/>
 			<class name="ru.st.selenium.test.testWeb.UsersTest"/>
 			<class name="ru.st.selenium.test.testWeb.TypesOfTableTest"/>
 			<class name="ru.st.selenium.test.testWeb.DirectoriesTest"/>

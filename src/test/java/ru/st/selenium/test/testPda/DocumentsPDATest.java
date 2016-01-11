@@ -22,9 +22,11 @@ import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.ModuleDocflowAdministrationObjectTestCase;
 
+import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -33,7 +35,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Раздел - Документы
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
 
     /**
