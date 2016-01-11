@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Regression functional Test system Motiw" verbose="5" data-provider-thread-count="1">
+	<listeners>
+		<listener class-name="com.codeborne.selenide.testng.TextReport" />
+	</listeners>
+
+	<test name="Functional UI Test PDA">
+		<parameter name="path" value="/"/>
+		<classes>
+		    <class name="ru.st.selenium.test.testPda.UsersAuthorizationPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.CreateTasksPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.DocumentsPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.SearchPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.OptionsPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.TodayPDATest"/>
+		    <class name="ru.st.selenium.test.testPda.HelpPDATest"/>
+		</classes>
+	</test>
+
+	<test name="Functional UI Test Web">
+		<parameter name="path" value="/"/>
+		<classes>
+			<class name="ru.st.selenium.test.testWeb.AuthorizationTest"/>
+			<class name="ru.st.selenium.test.testWeb.SystemInformation"/>
+			<class name="ru.st.selenium.test.testWeb.UsersTest"/>
+			<class name="ru.st.selenium.test.testWeb.TypesOfTableTest"/>
+			<class name="ru.st.selenium.test.testWeb.DirectoriesTest"/>
+			<class name="ru.st.selenium.test.testWeb.TasksTypeTest"/>
+			<class name="ru.st.selenium.test.testWeb.DocumentRegistrationCardsTest"/>
+			<class name="ru.st.selenium.test.testWeb.CreateTask"/>
+			<class name="ru.st.selenium.test.testWeb.DictionaryEditorTest"/>
+			<class name="ru.st.selenium.test.testWeb.CreateDocumentTest"/>
+		</classes>
+	</test>
+</suite>

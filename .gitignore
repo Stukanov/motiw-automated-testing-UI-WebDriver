@@ -1,0 +1,5 @@
+# ----Игнорируемые директории----
+/target/
+/.idea/
+/selenide-tests-example.iml
+/build/
