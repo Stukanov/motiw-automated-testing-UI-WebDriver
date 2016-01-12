@@ -5,7 +5,7 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.openqa.selenium.By;
@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Раздел - Стр. авторизации
  */
-public class UsersAuthorizationPDATest extends BaseObjectTestCase {
+public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
 
 
     /**

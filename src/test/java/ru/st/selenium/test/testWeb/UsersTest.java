@@ -202,6 +202,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
         loginPage.loginAs(workflow);
         assertTrue(loginPage.isLoggedInAs(workflow));
         createUsersPage.initializationInternalPage().checkUserWorkflow();
+
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
 
@@ -233,7 +234,6 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
 
         usersPage.deleteDepartment(departmentUser);
         usersPage.deleteDepartment(departmentUser1);
-
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());

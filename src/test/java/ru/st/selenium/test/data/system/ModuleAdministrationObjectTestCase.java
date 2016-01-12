@@ -12,55 +12,13 @@ import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTables;
 import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTablesField;
 import ru.st.selenium.model.CorrectionMethod;
 import ru.st.selenium.model.OpenFilesForEdit;
-import ru.st.selenium.model.Administration.Users.Department;
-import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.model.Administration.Users.Module;
-import ru.st.selenium.model.Administration.Users.Status;
 import ru.st.selenium.model.ShiftDirection;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.TestBase;
 
 /**
  * Данные раздела - Администрирование
  */
-public class ModuleAdministrationObjectTestCase extends BaseObjectTestCase {
-
-
-    //---Администрирование----------------------------------------------------------
-    //-----Пользователи/Подразделения----------------------------------------------------------
-
-    /**
-     * Метод создания полностью случайного объекта - "Подразделение"
-     */
-    public Department getRandomDepartment() {
-        Department department = new Department()
-                .setDepName(randomString(20))
-                .setConditionalNumber((randomString(20)))
-                .setCounter((randomInt(2147483647)))
-                .setResetDate(randomDateTime())
-                .setNumeratorTemplate("{counter}-{department}-" + " "
-                        + randomString(20));
-        return department;
-    }
-
-    /**
-     * Метод создания полностью случайного объекта - "Пользователь"
-     */
-    public Employee getRandomEmployer() {
-        String pass = randomString(10);
-        String newpass = randomString(10);
-        Employee user = new Employee()
-                .setLastName(randomString(10)).setName(randomString(10)).setPatronymic(randomString(10)) // ФИО
-                .setIsMan(randomBoolean())
-                .setBirthDate(randomDate())
-                .setJobTitle(randomString(20))
-                .setLoginName(randomString(10))
-                .setPassword(pass).setСonfirmationPassword(pass)
-                .setNewPassword(newpass).setNewСonfirmationPassword(newpass)
-                .setAdditionalNumber(randomInt(100))
-                .setUserForcedSorting(randomInt(100)).setStatus(randomEnum(Status.class))
-                .setNeedsPasswordChange(randomBoolean()).setModule(randomEnum(Module.class));
-        return user;
-    }
+public class ModuleAdministrationObjectTestCase extends ModuleTaskTestCase {
 
 
     //---Администрирование----------------------------------------------------------

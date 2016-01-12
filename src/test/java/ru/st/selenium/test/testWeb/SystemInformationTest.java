@@ -10,7 +10,7 @@ import ru.st.selenium.pages.pagesweb.Administration.SystemInformationPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
@@ -23,7 +23,7 @@ import static org.testng.AssertJUnit.assertTrue;
  * Информация о системе И Поисковая система
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class SystemInformationTest extends BaseObjectTestCase {
+public class SystemInformationTest extends ModuleTaskTestCase {
 
 
     /*

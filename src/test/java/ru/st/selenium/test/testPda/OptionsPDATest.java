@@ -4,7 +4,7 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -20,14 +20,14 @@ import static org.testng.Assert.assertTrue;
  * Раздел - Настройки
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class OptionsPDATest extends BaseObjectTestCase {
+public class OptionsPDATest extends ModuleTaskTestCase {
 
 
 
     /**
      * проверка - Аттачминг файлов в форме задачи
      */
-    @Test(dataProvider = "objectDataTask", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

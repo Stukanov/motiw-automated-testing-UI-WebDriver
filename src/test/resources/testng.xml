@@ -28,7 +28,7 @@
 			<class name="ru.st.selenium.test.testWeb.DirectoriesTest"/>
 			<class name="ru.st.selenium.test.testWeb.TasksTypeTest"/>
 			<class name="ru.st.selenium.test.testWeb.DocumentRegistrationCardsTest"/>
-			<class name="ru.st.selenium.test.testWeb.CreateTask"/>
+			<class name="ru.st.selenium.test.testWeb.CreateTaskTest"/>
 			<class name="ru.st.selenium.test.testWeb.DictionaryEditorTest"/>
 			<class name="ru.st.selenium.test.testWeb.CreateDocumentTest"/>
 		</classes>

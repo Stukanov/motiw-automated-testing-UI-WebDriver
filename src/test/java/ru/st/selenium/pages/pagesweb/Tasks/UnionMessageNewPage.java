@@ -7,11 +7,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import ru.st.selenium.logicinterface.Task.UnionMessageNewLogic;
 import ru.st.selenium.model.Task.Checkpoint;
 import ru.st.selenium.model.Task.IWG;
 import ru.st.selenium.model.Task.Project;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
+import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 
 
@@ -21,7 +23,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * Страница - Задачи/Создать задачу
  */
-public class UnionMessageNewPage extends Page {
+public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
 
     /**
      * Кнопка выбора проекта
@@ -460,7 +462,8 @@ public class UnionMessageNewPage extends Page {
      */
     public UnionMessageNewPage waitForLivesearchMask() {
         waitMillisecond(0.7);
-        $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);;
+        $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
+        ;
         return this;
     }
 
@@ -490,11 +493,11 @@ public class UnionMessageNewPage extends Page {
             return this;
         else
             for (Employee author : authors) {
-               $(authorsField).shouldNotBe(Condition.disabled);
+                $(authorsField).shouldNotBe(Condition.disabled);
                 authorsField.click();
                 editorField.setValue(author.getLastName());
                 $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + author
-                                        .getLastName() + "')]")).shouldBe(Condition.visible);
+                        .getLastName() + "')]")).shouldBe(Condition.visible);
                 getWebDriver().findElement(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + author.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
@@ -540,7 +543,7 @@ public class UnionMessageNewPage extends Page {
     /**
      * Добавление ОР через livesearch -  ввод пробела, затем поиск по фамилии
      */
-    public UnionMessageNewPage setResppersons(Employee[] resppersons) {
+    public UnionMessageNewPage setExecutiveManagers(Employee[] resppersons) {
         if (resppersons == null)
             return this;
         else
@@ -648,7 +651,7 @@ public class UnionMessageNewPage extends Page {
     /**
      * Ввод даты начала
      */
-    public UnionMessageNewPage setBegin(String begin) {
+    public UnionMessageNewPage setDataBegin(String begin) {
         if (begin == null) {
             return this;
         } else {
@@ -715,9 +718,9 @@ public class UnionMessageNewPage extends Page {
                 checkboxReadyFirst.click();
             }
 
-/*
-TODO Создание КТ с привязкой к Дате окончания/Начала
- checkpointLinkedField.click();
+             /*
+            TODO Создание КТ с привязкой к Дате окончания/Начала
+                checkpointLinkedField.click();
 			if (checkpoints[i].getLinkedTo() == LinkedTo.NULL)
 				{continue outer;}
 
@@ -925,6 +928,34 @@ TODO Создание КТ с привязкой к Дате окончания/
         $(By.xpath("//a[contains (@href, 'newproject')]")).shouldBe(Condition.visible);
         return this;
     }
+
+    /**
+     * Создание задачи
+     * @param task
+     */
+    @Override
+    public void createTask(Task task) {
+        ensurePageLoaded();
+        setEnd(task.getDateEnd())
+                .createProject(task.getProject())
+                .setTaskName(task.getTaskName())
+                .setTaskDescription(task.getDescription())
+                .setDataBegin(task.getDateBegin())
+                .setImportance(task.getIsImportant())
+                .setAuthors(task.getAuthors())
+                .setControllers(task.getControllers())
+                .setWorkers(task.getWorkers())
+                .setExecutiveManagers(task.getExecutiveManagers())
+                .setTaskType(task.getTasktype())
+                .setIWG(task.getIWG())
+                .setCheckpoints(task.getCheckpoints())
+                .setReport(task.getIsWithReport())
+                .setSecret(task.getIsSecret())
+                .setReview(task.getIsForReview())
+                .clickSaveTask()
+                .assertWindowTaskCreated();
+    }
+
 
 }
 

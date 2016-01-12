@@ -1,34 +1,22 @@
 package ru.st.selenium.pages.pagesweb.Tasks;
 
-import ru.st.selenium.model.Task.Action;
-import ru.st.selenium.model.Task.Checkpoint;
-import ru.st.selenium.model.Task.IWG;
-import ru.st.selenium.model.Task.Project;
+import com.codeborne.selenide.Condition;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.st.selenium.logicinterface.Task.UnionMessageLogic;
+import ru.st.selenium.model.Task.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /**
  * Форма (редактирования) задачи
  */
-public class UnionMessagePage extends Page {
+public class UnionMessagePage extends Page implements UnionMessageLogic {
 
-
-    public UnionMessagePage switchToWindow() {
-        /*String parentWindow = driver.getWindowHandle();
-		Set<String> handles =  driver.getWindowHandles();
-		driver.close();
-		   for(String windowHandle  : handles)
-		       {
-		       if(!windowHandle.equals(parentWindow))
-		          {
-		          driver.switchTo().window(windowHandle);
-		          }
-		        } */
-        return this;
-    }
 
     public UnionMessagePage verifyEnd(String end) {
         // TODO Auto-generated method stub
@@ -120,10 +108,58 @@ public class UnionMessagePage extends Page {
         return this;
     }
 
-    public UnionMessagePage switchBack() {
-        getWebDriver().switchTo().window(getWebDriver().getWindowHandle());
+    /**
+     * Проверяем создание задачи
+     *
+     * @param valueTask
+     */
+    @Override
+    public UnionMessagePage verifyCreateTask(Task valueTask) {
+        /*
+         Window PopUp. Store your parent window
+         */
+        String parentWindowHandler = getWebDriver().getWindowHandle();
+        getWebDriver().switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.xpath("//body[@id='unionmessage']//li//span[text()='Действия']"))));
+        ensurePageLoaded();
+        if (valueTask == null) {
+            return null;
+        } else
+            verifyEnd(valueTask.getDateEnd())
+                    .verifyProject(valueTask.getProject())
+                    .verifyTaskDescription(valueTask.getDescription())
+                    .verifyBegin(valueTask.getDateBegin())
+                    .verifyImportance(valueTask.getIsImportant())
+                    .verifyAuthors(valueTask.getAuthors())
+                    .verifyControllers(valueTask.getControllers())
+                    .verifyWorkers(valueTask.getWorkers())
+                    .verifyResppersons(valueTask.getExecutiveManagers())
+                    .verifyTaskType(valueTask.getTasktype())
+                    .verifyIWG(valueTask.getIWG())
+                    .verifyCheckpoints(valueTask.getCheckpoints())
+                    .verifyReport(valueTask.getIsWithReport())
+                    .verifySecret(valueTask.getIsSecret())
+                    .verifyReview(valueTask.getIsForReview())
+                    .postAction(valueTask.getActions())
+                    .verifyAction();
+
+        closeWindow();
+        getWebDriver().switchTo().window(parentWindowHandler);  // Switch back to parent window
         return this;
     }
 
 
+    /**
+     * Проверка загрузки формы задачи
+     */
+    public UnionMessagePage ensurePageLoaded() {
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Действия']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Описание']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Файлы']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Планирование']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='События']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Контакты']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Журнал']")).shouldBe(Condition.visible);
+        $(By.xpath("//body[@id='unionmessage']//li//span[text()='Дополнительно']")).shouldBe(Condition.visible);
+        return this;
+    }
 }

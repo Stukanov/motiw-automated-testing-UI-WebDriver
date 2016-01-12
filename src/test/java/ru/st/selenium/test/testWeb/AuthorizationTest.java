@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.test.data.TestBase;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
@@ -19,7 +19,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Раздел - Стр. авторизации
  */
-public class AuthorizationTest extends BaseObjectTestCase {
+public class AuthorizationTest extends TestBase {
 
 
     // Проверка - Авторизация не прошла - fail password

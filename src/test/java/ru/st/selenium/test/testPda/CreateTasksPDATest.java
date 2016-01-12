@@ -7,7 +7,7 @@ import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
@@ -22,7 +22,7 @@ import static org.testng.Assert.assertTrue;
  * Раздел - Создать задачу
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class CreateTasksPDATest extends BaseObjectTestCase {
+public class CreateTasksPDATest extends ModuleTaskTestCase {
 
 
     Task editTask = getRandomObjectTask();
@@ -31,7 +31,7 @@ public class CreateTasksPDATest extends BaseObjectTestCase {
     /**
      * проверка - Создание задачи
      */
-    @Test(priority = 1, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
     public void checkTaskCreation(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
@@ -80,7 +80,7 @@ public class CreateTasksPDATest extends BaseObjectTestCase {
      * проверка - Редактирование задачи
      * TODO - добавить До запуска метода установку зн-ия - Удаление себя из задач == Да
      */
-    @Test(priority = 2, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 2, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
     public void checkEditingTasks(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
@@ -134,7 +134,7 @@ public class CreateTasksPDATest extends BaseObjectTestCase {
     /**
      * проверка - Закрытие задачи (Отправка в архив)
      */
-    @Test(priority = 3, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 3, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyCompletionOfTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

@@ -6,7 +6,7 @@ import ru.st.selenium.pages.pagespda.HelpHtmlPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -23,7 +23,7 @@ import static org.testng.Assert.assertTrue;
  * Раздел - Помощь
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class HelpPDATest extends BaseObjectTestCase {
+public class HelpPDATest extends ModuleTaskTestCase {
 
 
     /**

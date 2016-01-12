@@ -31,7 +31,6 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectTestC
     // Проверяем создание - Редактор словарей
     @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void createDictionaryEditor() throws Exception {
-
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее

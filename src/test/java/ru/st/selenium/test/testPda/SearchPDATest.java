@@ -4,7 +4,7 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
 import ru.st.selenium.pages.pagespda.SearchPagePDA;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -21,7 +21,7 @@ import static org.testng.Assert.assertTrue;
  * раздел - Поиск
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class SearchPDATest extends BaseObjectTestCase {
+public class SearchPDATest extends ModuleTaskTestCase {
 
 
 

@@ -14,6 +14,8 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -33,14 +35,29 @@ public class InternalPage extends Page implements BaseInternalLogic {
     private ElementsCollection menuElements;
 
     /*
-     * =====================================================================================================Задачи
+     * =====================================================================================================ЗАДАЧИ
      */
 
+    /*
+    Основное меню Задачи
+     */
     @FindBy(id = "task")
     private SelenideElement menuTask;
 
     /*
-    * =====================================================================================================Документы
+     * Задачи/Задачи
+     */
+    @FindBy(id = "L_MENU_UNIONTASKS-menupoint")
+    private SelenideElement tasks;
+
+    /*
+     * Задачи/Создать задачу
+     */
+    @FindBy(id = "L_INFORMER_CREATETASK-menupoint")
+    private SelenideElement createTask;
+
+    /*
+    * =====================================================================================================ДОКУМЕНТЫ
     */
     @FindBy(css = "#doc")
     private SelenideElement menuDocument;
@@ -70,7 +87,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
     private SelenideElement instrMenu;
 
     /*
-     * =======================================================================================================Администирование
+     * =======================================================================================================АДМИНИСТРИРОВАНИЕ
      */
     /*
      Администирование
@@ -236,6 +253,21 @@ public class InternalPage extends Page implements BaseInternalLogic {
         goToFremFlow();
     }
 
+    /**
+     * Переход в Задачи/Создать задачу
+     */
+    public UnionMessageNewPage goToUnionMessageNew() {
+        menuClicker(menuTask, createTask);
+        return page(UnionMessageNewPage.class);
+    }
+
+    /**
+     * Переход в Задачи/Задачи
+     */
+    public UnionTasksPage goToUnionTasks() {
+        menuClicker(menuTask, tasks);
+        return page(UnionTasksPage.class);
+    }
 
     /**
      * Переход в меню - Администрирование ДО/Регистрационные карточки документов

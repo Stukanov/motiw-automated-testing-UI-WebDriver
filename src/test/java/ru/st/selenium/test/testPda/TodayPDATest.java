@@ -5,7 +5,7 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
-import ru.st.selenium.test.data.system.BaseObjectTestCase;
+import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -21,7 +21,7 @@ import static org.testng.Assert.assertTrue;
  * Раздел - Сегодня
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-public class TodayPDATest extends BaseObjectTestCase {
+public class TodayPDATest extends ModuleTaskTestCase {
 
     /*
      Инициализируем модель - Задача #2 (атрибуты и лента для редактирования)
@@ -37,7 +37,7 @@ public class TodayPDATest extends BaseObjectTestCase {
     /**
      * проверка - Отображение информации в разедел - Сегодня
      */
-    @Test(dataProvider = "objectDataTask", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyInfoToday(Task task) throws Exception {
        LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
