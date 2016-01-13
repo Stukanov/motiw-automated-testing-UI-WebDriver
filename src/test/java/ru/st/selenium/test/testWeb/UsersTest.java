@@ -32,8 +32,8 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
 
 
     /*
-     * Инициализация переменных - Подразделение
-     */
+      * Инициализация переменных - Подразделение
+      */
     Department department1 = getRandomDepartment();
     Department department2 = getRandomDepartment();
     Department department2_1 = getRandomDepartment();
@@ -132,7 +132,6 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
 
     }
 
-
     // Проверка - Создание - Пользователи
     @Test(priority = 2, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyCreatingUsers() throws Exception {
@@ -158,9 +157,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
         createUsersPage.editUser(editUser, user2);
 
         createUsersPage.createUser(changepass);
-
         createUsersPage.createUser(workflow); // Создание пользователя с правом на модуль "WORKFLOW"
-
         createUsersPage.createUser(docflow); // Создание пользователя с правом на модуль "DOCFLOW"
 
         /**
@@ -191,7 +188,6 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
         assertTrue(loginPage.isLoggedInAs(changepass));
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
-
 
         loginPage.loginAs(docflow);
         assertTrue(loginPage.isLoggedInAs(docflow));

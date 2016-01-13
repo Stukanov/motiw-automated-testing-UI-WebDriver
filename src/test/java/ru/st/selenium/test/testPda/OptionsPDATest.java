@@ -22,18 +22,14 @@ import static org.testng.Assert.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class OptionsPDATest extends ModuleTaskTestCase {
 
-
-
     /**
      * проверка - Аттачминг файлов в форме задачи
      */
     @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
-
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
-
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
@@ -44,14 +40,11 @@ public class OptionsPDATest extends ModuleTaskTestCase {
         optionsPagePDA.selAttachFiles(true); // устанавливаем признак - возможность прикрепления файлов
         internalPagePDA.goToHome(); // уходим домой
 
-
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-
         newTaskPagePDA.createTask(task);
-
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
@@ -61,10 +54,8 @@ public class OptionsPDATest extends ModuleTaskTestCase {
         //----------------------------------------------------------------ФОРМА - Задачи
 
         TaskPagePDA taskForm = editTaskPagePDA.goToTask(); // Инициализируем стр. формы - Созданной задачи и переходим на нее
-
         taskForm.openShapeCreatedTask(task); // Открываем форму созданной задачи
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
-
         taskForm.addAttachFiles(randomString(15)); // Аттачим файлы
 
         internalPagePDA.logout(); // Выход из системы

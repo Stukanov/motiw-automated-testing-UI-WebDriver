@@ -8,14 +8,50 @@
     <version>1.0</version>
 
     <properties>
+        <!-- Dependencies Versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>6.9.10</testng.version>
         <compiler.version>1.7</compiler.version>
         <selenide.version>3.0</selenide.version>
-        <allure.version>1.4.16</allure.version>
-        <aspectj.version>1.8.5</aspectj.version>
+        <allure.version>1.4.20</allure.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <qatools.allure.version>2.2</qatools.allure.version>
+        <!-- Plugin Versions -->
+        <aspectj.version>1.8.5</aspectj.version>
+
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>${allure.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <name>Allure TestNG Example</name>
+    <description>Allure TestNG and WebDriver Usage Example</description>
 
     <build>
         <plugins>
@@ -28,7 +64,6 @@
                     <target>${compiler.version}</target>
                 </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -60,39 +95,19 @@
                     <stopPort>1234</stopPort>
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>selenide</artifactId>
-            <version>${selenide.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.yandex.qatools.allure</groupId>
-            <artifactId>allure-testng-adaptor</artifactId>
-            <version>${allure.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>${qatools.allure.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 
 </project>

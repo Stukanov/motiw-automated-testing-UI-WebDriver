@@ -13,6 +13,11 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,15 +32,17 @@ import static com.codeborne.selenide.Selenide.open;
  * При этом Selenide создаст два файла: my_file_name.png и my_file_name.html
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Features("Авторизация")
+@Title("Авторизация в систему")
+@Description("Проверка авторизации корневого пользователя системы с массивом данных")
 /**
  * Раздел - Стр. авторизации
  */
 public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
 
-
-    /**
-     * проверка валидации авторизации - авторизация проходит успешно
-    */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Валидная авторизация")
+    @Description("Пользователь авторизируется в систему под валидными учетными данными")
     @Test(priority = 3, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyLoginSuccess() throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
@@ -43,28 +50,34 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Проверяем отображение п.м. системы
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
+        makeScreenshot();
         internalPagePDA.logout(); // Выход из системы
     }
 
-    /**
-     * проверка невалидного логина И пароля - авторизация не проходит
-     */
+
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Невалидная авторизация")
+    @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
+            "не проходит")
     @Test(priority = 1, dataProvider = "verifyFailAuthorization", retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyFailAuthorization(String login, String pass) throws Exception {
-       LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+        LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
+        makeScreenshot();
         assertTrue(loginPagePDA.isNotLoggedInPDA());
         $(By.cssSelector("#error")).shouldBe(Condition.exactText("Доступ запрещен"));
 
     }
 
-    /**
-     * 2-я проверка невалидного логина И пароля - авторизация не проходит
-     */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Невалидная авторизация")
+    @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
+            "не проходит")
     @Test(priority = 2, dataProvider = "secondVerifyFailAuthorization", retryAnalyzer = TestRetryAnalyzer.class)
     public void secondVerifyFailAuthorization(String login, String pass) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
+        makeScreenshot();
         assertTrue(loginPagePDA.isNotLoggedInPDA());
     }
 

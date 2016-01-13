@@ -1,15 +1,13 @@
 package ru.st.selenium.test.testPda;
 
 import com.codeborne.selenide.testng.TextReport;
-import ru.st.selenium.pages.pagespda.LoginPagePDA;
-import ru.st.selenium.pages.pagespda.SearchPagePDA;
+import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.test.data.TestRetryAnalyzer;
 import ru.st.selenium.test.data.system.ModuleTaskTestCase;
 import ru.st.selenium.test.listeners.RetryListener;
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
 
@@ -22,8 +20,6 @@ import static org.testng.Assert.assertTrue;
  */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 public class SearchPDATest extends ModuleTaskTestCase {
-
-
 
     /**
      * проверка - Посик в системе - SOLR
@@ -38,13 +34,12 @@ public class SearchPDATest extends ModuleTaskTestCase {
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
-
-       /*  TODO поиск задачи через SOLR
-       NewTaskPagePDA newTaskPage = internalPagePDA.goToCreateTask();  // Инициализируем стр. формы создание задачи и переходим на нее
+        /*  TODO поиск задачи через SOLR
+        NewTaskPagePDA newTaskPage = internalPagePDA.goToCreateTask();  // Инициализируем стр. формы создание задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
 
-       newTaskPage.createTask(task);
+        newTaskPage.createTask(task);
         EditTaskPagePDA editTaskPage = newTaskPage.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи

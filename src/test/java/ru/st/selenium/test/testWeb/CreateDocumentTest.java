@@ -38,7 +38,7 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCase {
 
-    /*
+   /*
     Проверяем создание документа
      */
     @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = TestRetryAnalyzer.class)

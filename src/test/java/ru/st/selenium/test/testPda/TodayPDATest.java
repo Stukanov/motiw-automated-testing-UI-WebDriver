@@ -12,18 +12,21 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-/**
- * Раздел - Сегодня
- */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Features("Раздел - Сегодня")
 public class TodayPDATest extends ModuleTaskTestCase {
 
-    /*
+   /*
      Инициализируем модель - Задача #2 (атрибуты и лента для редактирования)
     */
     Task editTask = getRandomObjectTask();
@@ -34,9 +37,9 @@ public class TodayPDATest extends ModuleTaskTestCase {
     String textActions = randomString(15);
 
 
-    /**
-     * проверка - Отображение информации в разедел - Сегодня
-     */
+    @Severity(SeverityLevel.NORMAL)
+    @Title("Отображение информация в разделе Сегодня")
+    @Description("Проверяем отображение информации в разедел - Сегодня")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyInfoToday(Task task) throws Exception {
        LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
@@ -52,44 +55,29 @@ public class TodayPDATest extends ModuleTaskTestCase {
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-
         newTaskPagePDA.createTask(task);
-
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
-
         editTaskPagePDA.inputValidationFormTask(task); // Проверяем отображение значений в форме предпросмотра создания задачи
 
         //----------------------------------------------------------------ФОРМА - Задачи
-
         TaskPagePDA taskForm = editTaskPagePDA.goToTask(); // Инициализируем стр. формы - Созданной задачи и переходим на нее
-
         taskForm.openShapeCreatedTask(task); // Открываем созданную задачу
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
-
         internalPagePDA.goToHome();
-
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-
         tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
         tasksReportsPagePDA.openTaskInGrid(task); // открываем форму в гриде задач
 
         //----------------------------------------------------------------ФОРМА - Задачи - Атрибуты
 
         taskForm.openFormEditTask(task, EMPLOYEE_ADMIN); // открываем форму редактирования атрибутов задачи
-
         editTaskPagePDA.editAttributesOfTasks(editTask); // редактируем задачу
-
         taskForm.saveActionsInTheTape(textActions); // добавляем пользовательский текст в задачу и проверяем его сохранение
-
         internalPagePDA.goToHome();
-
         TodayPagePDA todayPagePDA = internalPagePDA.goToToday(); // Переходим на стр.
-
-
         todayPagePDA.verifyInformationDisplaySectionToday(textActions);
-
 
         internalPagePDA.logout(); // Выход из системы
         assertTrue(loginPagePDA.isNotLoggedInPDA());

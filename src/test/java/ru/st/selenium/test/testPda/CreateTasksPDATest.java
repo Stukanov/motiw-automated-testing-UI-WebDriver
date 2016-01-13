@@ -13,42 +13,38 @@ import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAll
 import ru.st.selenium.test.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-/**
- * Раздел - Создать задачу
- */
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Features("Создать задачу")
 public class CreateTasksPDATest extends ModuleTaskTestCase {
-
 
     Task editTask = getRandomObjectTask();
 
-
-    /**
-     * проверка - Создание задачи
-     */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Создание задачи")
+    @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
     public void checkTaskCreation(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
-
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
-
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
-
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-
         newTaskPagePDA.createTask(task);
-
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
@@ -58,17 +54,14 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
         //----------------------------------------------------------------ФОРМА - Задачи
 
         TaskPagePDA taskForm = editTaskPagePDA.goToTask(); // Инициализируем стр. формы - Созданной задачи и переходим на нее
-
         taskForm.openShapeCreatedTask(task); // Открываем созданную задачу
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
-
         internalPagePDA.goToHome();
 
         //----------------------------------------------------------------ГРИД - Задачи
         // TODO дописать переход в папку если Задачи в папке а не в корне!!! частно из-за этого падают тесты
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
         tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
-
         internalPagePDA.logout(); // Выход из системы
 
         assertTrue(loginPagePDA.isNotLoggedInPDA());

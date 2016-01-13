@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.page;
 
@@ -32,11 +33,12 @@ public class LoginPagePDA extends Page {
 
 
     /**
-     * вводим Логин пользователя
+     * вводим Логин и Пароль пользователя
      *
      * @param login input text login
      * @param passw input text password
      */
+    @Step("вводим Логин и Пароль пользователя")
     public void loginAs(String login, String passw) {
         inputLogin.clear();
         inputLogin.setValue(login);

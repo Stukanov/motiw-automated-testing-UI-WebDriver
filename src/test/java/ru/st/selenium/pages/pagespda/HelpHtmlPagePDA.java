@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.pages.Page;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Collection;
 
@@ -149,6 +150,7 @@ public class HelpHtmlPagePDA extends Page {
      *
      * @return true or false display items per page
      */
+    @Step("Проверяем общее количество элементов помощи")
     public boolean checkPresenceElementsOfAid() {
         helpElements.shouldHaveSize(19); // проверяем отображение 19 элементов помощи (Сохранить; Завершить задачу и пр.)
         return !helpElements.isEmpty();
@@ -165,6 +167,7 @@ public class HelpHtmlPagePDA extends Page {
      *
      * @return page HelpHtml
      */
+    @Step("Проверяем отображение текста в элементах помощи")
     public HelpHtmlPagePDA visibleElementsTextHelp() {
         elementsTextHelp.shouldHave(exactTexts("- Сохранить", "- Завершить задачу", "- Вернуть задачу на доработку", "- Ознакомиться",
                 "- Приступить", "- Прерваться", "- Закончить", "- Согласовать документ", "- Согласовать с замечаниями", "- Отказаться согласовать",

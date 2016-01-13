@@ -9,12 +9,12 @@
 		<parameter name="path" value="/"/>
 		<classes>
 		    <class name="ru.st.selenium.test.testPda.UsersAuthorizationPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.CreateTasksPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.DocumentsPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.SearchPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.OptionsPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.TodayPDATest"/>
-		    <class name="ru.st.selenium.test.testPda.HelpPDATest"/>
+			<class name="ru.st.selenium.test.testPda.CreateTasksPDATest"/>
+			<class name="ru.st.selenium.test.testPda.DocumentsPDATest"/>
+			<class name="ru.st.selenium.test.testPda.SearchPDATest"/>
+			<class name="ru.st.selenium.test.testPda.OptionsPDATest"/>
+			<class name="ru.st.selenium.test.testPda.TodayPDATest"/>
+			<class name="ru.st.selenium.test.testPda.HelpPDATest"/>
 		</classes>
 	</test>
 
@@ -33,4 +33,6 @@
 			<class name="ru.st.selenium.test.testWeb.CreateDocumentTest"/>
 		</classes>
 	</test>
+
+
 </suite>

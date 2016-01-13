@@ -27,8 +27,8 @@ public class SystemInformationTest extends ModuleTaskTestCase {
 
 
     /*
-     * Проверка отсутствия незапущенных служб (красные элементы на странице)
-     */
+      * Проверка отсутствия незапущенных служб (красные элементы на странице)
+      */
     @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyNotRedSystemInfo() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);

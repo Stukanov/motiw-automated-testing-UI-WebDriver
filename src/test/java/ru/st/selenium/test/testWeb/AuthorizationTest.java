@@ -21,13 +21,12 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 public class AuthorizationTest extends TestBase {
 
-
     // Проверка - Авторизация не прошла - fail password
     @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb", retryAnalyzer = TestRetryAnalyzer.class)
     public void notSuccessfulAuthorization(Employee user) throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(user);
-        assertTrue("Log in to the system fails" ,loginPage.isNotLoggedIn());
+        assertTrue("Log in to the system fails", loginPage.isNotLoggedIn());
     }
 
 

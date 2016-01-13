@@ -1,16 +1,21 @@
 package ru.st.selenium.test.data;
 
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.DataProvider;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Administration.Users.Module;
 import ru.st.selenium.model.Administration.Users.Status;
+import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
+
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class TestBase {
 
@@ -333,6 +338,13 @@ public abstract class TestBase {
         return user;
     }
 
-
+    /**
+     * Сделать аттач операции в Allure report
+     * @return
+     */
+    @Attachment
+    public byte[] makeScreenshot() {
+        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    }
 
 }
