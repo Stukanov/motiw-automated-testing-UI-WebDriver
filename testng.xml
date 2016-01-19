@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression functional Test system Motiw" verbose="5" data-provider-thread-count="1">
+
 	<listeners>
 		<listener class-name="com.codeborne.selenide.testng.TextReport" />
 	</listeners>
 
-	<test name="ru.st.selenium.test.testPda">
-		<parameter name="ru.st.selenium.test.testPda" value="/"/>
+	<test name="Regression PDA">
 		<classes>
-		    <class name="ru.st.selenium.test.testPda.UsersAuthorizationPDATest"/>
-			<class name="ru.st.selenium.test.testPda.CreateTasksPDATest"/>
-			<class name="ru.st.selenium.test.testPda.DocumentsPDATest"/>
-			<class name="ru.st.selenium.test.testPda.SearchPDATest"/>
-			<class name="ru.st.selenium.test.testPda.OptionsPDATest"/>
-			<class name="ru.st.selenium.test.testPda.TodayPDATest"/>
-			<class name="ru.st.selenium.test.testPda.HelpPDATest"/>
+		    <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.CreateTasksPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.DocumentsPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.SearchPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.OptionsPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.TodayPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.HelpPDATest"/>
 		</classes>
 	</test> <!--Functional Tests PDA-->
 
-	<test name="ru.st.selenium.test.testWeb">
-		<parameter name="ru.st.selenium.test.testWeb" value="/"/>
+	<test name="Regression Web">
 		<classes>
-			<class name="ru.st.selenium.test.testWeb.AuthorizationTest"/>
-			<class name="ru.st.selenium.test.testWeb.SystemInformationTest"/>
-			<class name="ru.st.selenium.test.testWeb.UsersTest"/>
-			<class name="ru.st.selenium.test.testWeb.TypesOfTableTest"/>
-			<class name="ru.st.selenium.test.testWeb.DirectoriesTest"/>
-			<class name="ru.st.selenium.test.testWeb.TasksTypeTest"/>
-			<class name="ru.st.selenium.test.testWeb.DocumentRegistrationCardsTest"/>
-			<class name="ru.st.selenium.test.testWeb.CreateTaskTest"/>
-			<class name="ru.st.selenium.test.testWeb.DictionaryEditorTest"/>
-			<class name="ru.st.selenium.test.testWeb.CreateDocumentTest"/>
+			<class name="ru.st.selenium.tests.testWeb.AuthorizationTest"/>
+			<class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
+			<class name="ru.st.selenium.tests.testWeb.UsersTest"/>
+			<class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
+			<class name="ru.st.selenium.tests.testWeb.DirectoriesTest"/>
+			<class name="ru.st.selenium.tests.testWeb.TasksTypeTest"/>
+			<class name="ru.st.selenium.tests.testWeb.DocumentRegistrationCardsTest"/>
+			<class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
+			<class name="ru.st.selenium.tests.testWeb.DictionaryEditorTest"/>
+			<class name="ru.st.selenium.tests.testWeb.CreateDocumentTest"/>
 		</classes>
 	</test> <!--Functional Tests Web-->
-
 
 </suite>
