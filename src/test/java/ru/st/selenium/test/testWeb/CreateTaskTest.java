@@ -45,7 +45,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
      * @param task
      * @throws Exception
      */
-    @Test(priority = 1, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataTask")
     public void createTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 

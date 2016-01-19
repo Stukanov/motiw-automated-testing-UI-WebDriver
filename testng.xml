@@ -5,8 +5,8 @@
 		<listener class-name="com.codeborne.selenide.testng.TextReport" />
 	</listeners>
 
-	<test name="Functional UI Test PDA">
-		<parameter name="path" value="/"/>
+	<test name="ru.st.selenium.test.testPda">
+		<parameter name="ru.st.selenium.test.testPda" value="/"/>
 		<classes>
 		    <class name="ru.st.selenium.test.testPda.UsersAuthorizationPDATest"/>
 			<class name="ru.st.selenium.test.testPda.CreateTasksPDATest"/>
@@ -16,10 +16,10 @@
 			<class name="ru.st.selenium.test.testPda.TodayPDATest"/>
 			<class name="ru.st.selenium.test.testPda.HelpPDATest"/>
 		</classes>
-	</test>
+	</test> <!--Functional Tests PDA-->
 
-	<test name="Functional UI Test Web">
-		<parameter name="path" value="/"/>
+	<test name="ru.st.selenium.test.testWeb">
+		<parameter name="ru.st.selenium.test.testWeb" value="/"/>
 		<classes>
 			<class name="ru.st.selenium.test.testWeb.AuthorizationTest"/>
 			<class name="ru.st.selenium.test.testWeb.SystemInformationTest"/>
@@ -32,7 +32,7 @@
 			<class name="ru.st.selenium.test.testWeb.DictionaryEditorTest"/>
 			<class name="ru.st.selenium.test.testWeb.CreateDocumentTest"/>
 		</classes>
-	</test>
+	</test> <!--Functional Tests Web-->
 
 
 </suite>

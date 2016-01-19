@@ -98,7 +98,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setFieldType(new TypeListFieldsInt());
 
 
-        Directories directories = new Directories("wd_Справочник_for_DRC " + randomString(10)) /* Название справочника*/
+        Directories directories = new Directories("wD_Справочник_for_DRC " + randomString(10)) /* Название справочника*/
                 // Вкладка - Настройки
                 .setShareRecords(true) // Общедоступность записей
                 .setAccessToRecords(true) // Настройка доступа к записям
@@ -207,7 +207,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
         /*
           3. СТРОКА (Уникальное == Да)
          */
-        DocRegisterCardsField fieldString = new DocRegisterCardsField()
+        DocRegisterCardsField fieldUniqueString = new DocRegisterCardsField()
                 .setFieldNameDoc("Строка (Уникальное) " + randomString(5)) // Имя поля документа
                 .setFieldIdentifierDoc("STRING" + randomIdentifier(5)) // Идентификатор поля
                 .setFieldTypeDoc(new FieldTypeStringDoc()
@@ -319,7 +319,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setFieldNameDoc("Документ " + randomString(5))
                 .setFieldIdentifierDoc("DOCUMENT" + randomIdentifier(5)) // Идентификатор поля
                 .setFieldTypeDoc(new FieldTypeDocumentDoc()
-                        .setDisplayNameTemplate("{" + randomIdentifier(10) + "}; " + "{" + randomIdentifier(10) + "}; " + randomString(10)))
+                        .setDisplayNameTemplate("{" + fieldUniqueString.getFieldIdentifierDoc() + "}; " + "{" + randomIdentifier(10) + "}; " + randomString(10)))
                 .setEditableField(true); // Обязательное при редактировании (true == Да; false == Нет)
 
         /*
@@ -341,7 +341,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setFieldNameDoc("Нумератор " + randomString(5))
                 .setFieldIdentifierDoc("NUMERATOR" + randomIdentifier(5)) // Идентификатор поля
                 .setFieldTypeDoc(new FieldTypeNumeratorDoc()
-                        .setNumeratorTemplateDoc("{" + fieldString.getFieldIdentifierDoc() + "}-{counter}-{counter(" + fieldDepartment.getFieldIdentifierDoc() + ",%04d)}-[8]-{DD}.{YYYY} "
+                        .setNumeratorTemplateDoc("{" + fieldUniqueString.getFieldIdentifierDoc() + "}-{counter}-{counter(" + fieldDepartment.getFieldIdentifierDoc() + ",%04d)}-[8]-{DD}.{YYYY} "
                                 + randomString(10))
                         .setEditionAvailableWhileCreation(true)) // Изменяемое при создании
                 .setObligatoryFieldDoc(ObligatoryFieldDocument.REQUIRED_WHEN_CREATION) // Обязательное поле == Обязательное при создании
@@ -373,7 +373,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setEditableField(true); // Обязательное при редактировании (true == Да; false == Нет)*/
 
         // Инициализация РКД и её настроек
-        DocRegisterCards registerCards = new DocRegisterCards("S_Тестовая карточка " + randomString(20))
+        DocRegisterCards registerCards = new DocRegisterCards("wD_Тестовая карточка " + randomString(20))
 
                 // Статус документа
                 .setDocumentStatesOnReview("На рассмотрении " + randomString(20)) // - На рассмотрении
@@ -382,7 +382,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setDocumentStatesOnExecution("На исполнении " + randomString(20)) // - На исполнении
                 .setDocumentStatesInArchive("В архиве " + randomString(20)) // - В архиве
 
-                .setDisplayNameTemplate("{" + fieldNumerator.getFieldIdentifierDoc() + "}, " + "{" + fieldString.getFieldIdentifierDoc() + "} "
+                .setDisplayNameTemplate("{" + fieldNumerator.getFieldIdentifierDoc() + "}, " + "{" + fieldUniqueString.getFieldIdentifierDoc() + "} "
                         + randomString(15)) // Шаблон отображения
 
                 // Направление смещения при попадании на нерабочее время
@@ -420,12 +420,12 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
                 .setCheckBoxUseAllPossibleRoutes(true) // Использовать все возможные маршруты
 
                 // Типы полей документа
-                .setDocRegisterCardsFields(new DocRegisterCardsField[]{fieldNumber, fieldDate, fieldString, fieldStringOnlyYesDirectory,
+                .setDocRegisterCardsFields(new DocRegisterCardsField[]{fieldNumber, fieldDate, fieldUniqueString, fieldStringOnlyYesDirectory,
                         fieldStringOnlyNoDirectory, fieldText, fieldTextOnlyYesDirectory, fieldDictionary, fieldDepartment, fieldEmployee,
                         fieldEmployeeSuperviserAndDefaultValue, fieldEmployeeForInformation, fieldDocument, fieldDocumentSearchRules, fieldNumerator, fieldDirectory})
 
                 // Копирование полей при создании задачи
-                .setCopyingFieldsWhenCreatingATask(fieldStringIsListChoiceTasksTypes.getFieldID() + "=" + fieldString.getFieldIdentifierDoc() + ";" + " " + fieldTextTasksTypes.getFieldID() + "="
+                .setCopyingFieldsWhenCreatingATask(fieldStringIsListChoiceTasksTypes.getFieldID() + "=" + fieldUniqueString.getFieldIdentifierDoc() + ";" + " " + fieldTextTasksTypes.getFieldID() + "="
                         + fieldText.getFieldIdentifierDoc() + ";" + " " + fieldIntTasksTypes.getFieldID() + "=" + fieldNumber.getFieldIdentifierDoc() + ";" + " " + fieldDateTasksTypes.getFieldID() + "=" + fieldDate.getFieldIdentifierDoc() + ";")
 
                 // TODO доработать инициализацию полей для трансляции пользователей
@@ -448,7 +448,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
 
                                 (DocRegisterCardsField) fieldDate.setValueField(randomDateTime()),
 
-                                (DocRegisterCardsField) fieldString.setValueField(randomString(50)),
+                                (DocRegisterCardsField) fieldUniqueString.setValueField(randomString(50)),
                                 (DocRegisterCardsField) fieldStringOnlyNoDirectory.setValueField(randomString(25)),
 
                                 (DocRegisterCardsField) fieldText.setValueField(randomString(200)),

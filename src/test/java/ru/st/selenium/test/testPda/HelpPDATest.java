@@ -16,7 +16,6 @@ import ru.st.selenium.test.listeners.alluretestng.retrylistener.RetryListenerAll
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
-import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -37,7 +36,6 @@ public class HelpPDATest extends ModuleTaskTestCase {
 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
-
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
