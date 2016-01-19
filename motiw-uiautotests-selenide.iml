@@ -31,6 +31,8 @@
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-support:2.48.2" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-leg-rc:2.48.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.13" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.13" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.9.10" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.48" level="project" />
     <orderEntry type="library" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
@@ -43,7 +45,6 @@
     <orderEntry type="library" name="Maven: org.jvnet.jaxb2_commons:jaxb2-basics-runtime:0.9.3" level="project" />
     <orderEntry type="library" name="Maven: ru.yandex.qatools.properties:properties-loader:1.5" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils-core:1.8.3" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tika:tika-core:1.7" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.3" level="project" />
   </component>
