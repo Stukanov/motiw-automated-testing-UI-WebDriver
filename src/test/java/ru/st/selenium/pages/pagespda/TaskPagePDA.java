@@ -19,8 +19,8 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 public class TaskPagePDA extends TasksReportsPagePDA {
 
-    public static final String FILE = "src/tests/java/../resources/files/hello_world.txt";
-    public static final String FILE1 = "src/tests/java/../resources/files/Договор аренды.doc";
+    public static final String FILE = "src/test/java/../resources/files/hello_world.txt";
+    public static final String FILE1 = "src/test/java/../resources/files/Договор аренды.doc";
     public static final String SUBMIT_BUTTON_ADD_FILE = "input[name='myfile1']";
 
     /*
@@ -64,7 +64,6 @@ public class TaskPagePDA extends TasksReportsPagePDA {
      * Проверяем отображение формы созданной задачи
      *
      * @param task return values of attributes of the task
-     * @return
      */
     public TaskPagePDA openShapeCreatedTask(Task task) {
         $(By.cssSelector("div.save_button")).shouldBe(Condition.present);
@@ -75,7 +74,6 @@ public class TaskPagePDA extends TasksReportsPagePDA {
     /**
      * Проверяем отображениия кнопок в форме задачи
      *
-     * @return
      */
     public boolean resultsDisplayButtons() {
         buttonMenu.shouldHaveSize(5); // проверяем, что отображается 5 кнопок в форме задачи (Сохранить; Завершить выполнение; Play; Pause; Stop)
@@ -86,7 +84,6 @@ public class TaskPagePDA extends TasksReportsPagePDA {
      * Открываем форму редактирования задачи (Атрибуты задачи)
      *
      * @param task return values of attributes of the task
-     * @return
      */
     public EditTaskPagePDA openFormEditTask(Task task, Employee user) {
         $(By.xpath("//a[contains(text(),'" + task.getTaskName() + "')][ancestor::ul[@class='ui-listview']]")).click();
@@ -146,7 +143,7 @@ public class TaskPagePDA extends TasksReportsPagePDA {
             $(By.xpath("//div[@class='message-file-container'][text()='Файлы:']")).shouldHave(Condition.visible);
             $(By.xpath("//ul[@class='ui-listview']//div/span[text()='" + textAction + "']")).shouldBe(Condition.visible);
             assertTrue(file.exists());
-            assertTrue(file.getPath().replace(File.separatorChar, '/').endsWith("src/tests/resources/files/hello_world.txt"));
+            assertTrue(file.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/files/hello_world.txt"));
         }
         for (int a = 0; a < 2; a++) {
             addFile.click();
@@ -157,7 +154,7 @@ public class TaskPagePDA extends TasksReportsPagePDA {
             $(By.xpath("//div[@class='message-file-container'][text()='Файлы:']")).shouldHave(Condition.visible);
             $(By.xpath("//ul[@class='ui-listview']//div/span[text()='" + textAction + "']")).shouldBe(Condition.visible);
             assertTrue(file1.exists());
-            assertTrue(file1.getPath().replace(File.separatorChar, '/').endsWith("src/tests/resources/files/Договор аренды.doc"));
+            assertTrue(file1.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/files/Договор аренды.doc"));
         }
         return this;
     }
