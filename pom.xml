@@ -24,7 +24,7 @@
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <compiler.version>1.7</compiler.version>
 
-        <path.chrome.linux32>src\test\resources\drivers\chromedriver_win32\chromedriver.exe</path.chrome.linux32>
+        <path.chrome.linux32>src\test\resources\drivers\chromedriver_linux32\chromedriver</path.chrome.linux32>
         <path.ie>\src\test\resources\drivers\IEDriverServer_Win32_2.48.0\IEDriverServer.exe</path.ie>
         <runner.browser>chrome</runner.browser>
 
@@ -90,25 +90,25 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
 
-                    <systemPropertyVariables>
-                        <webdriver.chrome.driver>${path.chrome.linux32}</webdriver.chrome.driver>
-                        <webdriver.ie.driver>${path.ie}</webdriver.ie.driver>
-                        <browser>${runner.browser}</browser>
-                    </systemPropertyVariables>
+            <!--    <systemPropertyVariables>
+                   <webdriver.chrome.driver>${path.chrome.linux32}</webdriver.chrome.driver>
+                   <webdriver.ie.driver>${path.ie}</webdriver.ie.driver>
+                   <browser>${runner.browser}</browser>
+               </systemPropertyVariables> -->
 
-                </configuration>
+           </configuration>
 
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+           <dependencies>
+               <dependency>
+                   <groupId>org.aspectj</groupId>
+                   <artifactId>aspectjweaver</artifactId>
+                   <version>${aspectj.version}</version>
+               </dependency>
+           </dependencies>
+       </plugin>
 
-            <!--Needed only to show reports locally. Run jetty:run and
-            open localhost:8080 to show the report-->
+       <!--Needed only to show reports locally. Run jetty:run and
+       open localhost:8080 to show the report-->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
