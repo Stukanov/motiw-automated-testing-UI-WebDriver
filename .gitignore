@@ -1,5 +1,5 @@
 # ----Игнорируемые директории----
 /target/
 /.idea/
-/selenide-tests-example.iml
+/ru.motiw.ui.autotests.iml
 /build/
