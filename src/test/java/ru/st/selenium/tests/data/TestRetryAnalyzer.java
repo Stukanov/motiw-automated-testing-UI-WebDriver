@@ -11,7 +11,6 @@ public class TestRetryAnalyzer extends AbstractAllureRetryAnalyzer {
     private int retryCount;
     private final int MAX_RETRY_COUNT = 2; // кол-во прогонов при падении теста
 
-
     /* Below method returns 'true' if the test method has to be retried else 'false'
     * and it takes the 'Result' as parameter of the test method that just ran
     */

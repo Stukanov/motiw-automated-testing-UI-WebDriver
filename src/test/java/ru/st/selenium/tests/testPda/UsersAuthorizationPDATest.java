@@ -50,7 +50,6 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Проверяем отображение п.м. системы
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
-        makeScreenshot();
         internalPagePDA.logout(); // Выход из системы
     }
 
@@ -63,7 +62,6 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
     public void verifyFailAuthorization(String login, String pass) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
-        makeScreenshot();
         assertTrue(loginPagePDA.isNotLoggedInPDA());
         $(By.cssSelector("#error")).shouldBe(Condition.exactText("Доступ запрещен"));
 
@@ -77,7 +75,6 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
     public void secondVerifyFailAuthorization(String login, String pass) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
-        makeScreenshot();
         assertTrue(loginPagePDA.isNotLoggedInPDA());
     }
 

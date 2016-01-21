@@ -19,7 +19,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Раздел - Стр. авторизации
  */
-public class AuthorizationTest extends TestBase {
+public class UsersAuthorizationTest extends TestBase {
 
     // Проверка - Авторизация не прошла - fail password
     @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb", retryAnalyzer = TestRetryAnalyzer.class)

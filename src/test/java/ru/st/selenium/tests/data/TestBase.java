@@ -1,6 +1,7 @@
 package ru.st.selenium.tests.data;
 
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.DataProvider;
@@ -336,15 +337,6 @@ public abstract class TestBase {
                 .setUserForcedSorting(randomInt(100)).setStatus(randomEnum(Status.class))
                 .setNeedsPasswordChange(randomBoolean()).setModule(randomEnum(Module.class));
         return user;
-    }
-
-    /**
-     * Сделать аттач операции в Allure report
-     * @return
-     */
-    @Attachment
-    public byte[] makeScreenshot() {
-        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 }

@@ -3,7 +3,10 @@ package ru.st.selenium.pages.pagespda;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
@@ -11,6 +14,9 @@ import ru.st.selenium.pages.Page;
 import static com.codeborne.selenide.Condition.present;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 
 /*
@@ -63,7 +69,7 @@ public class SearchPagePDA extends Page {
         return this;
     }
 
-    // иногда мне кажется, что компилятор игнорирует все мои комментарии
+    // иногда мне кажется, что компилятор игнорирует все мои комментарии 0_O
 
     /**
      * Осуществляем поиск Контакта пользователя
@@ -71,9 +77,8 @@ public class SearchPagePDA extends Page {
      * @param surname user for searchUser
      */
     public SearchPagePDA searchContact(Employee surname) {
-        chooseFilterDialog();
-        filterСontact.click();
-        filterApply.click();
+        filterDialog.click();
+        chooseContactFilterDialog();
         $(By.xpath("//img[@class='menu_help_image']")).shouldBe(present, visible);
         search.setValue("" + surname.getLastName() + "").pressEnter();
         $(By.xpath("//div[@id='contact']//a[contains(text(),'" + surname.getLastName() + "')]")).shouldBe(Condition.visible);
@@ -81,14 +86,18 @@ public class SearchPagePDA extends Page {
     }
 
     /**
-     * Открытие диалога выбора фильтрации
+     * Выбор фильтра - Контакты (для настройки отображения контакта при поиске)
      */
-    public void chooseFilterDialog(){
-        filterDialog.click();
-        filterSetAll.shouldBe(Condition.visible);
-        filterSetAll.click();
-        waitMillisecond(1);
+    public void chooseContactFilterDialog() {
+        try {
+            (new WebDriverWait(getWebDriver(), 0, 50))
+                    .until(ExpectedConditions.presenceOfElementLocated(By
+                            .xpath("//div[@id='filter_dialog']//fieldset//input[@id='ff_contact']/..//span[2][contains(@class,'checkbox-off')]")));
+            filterСontact.click();
+            filterApply.click();
+        } catch (WebDriverException e) {
+            filterApply.click();
+        }
     }
-
 
 }

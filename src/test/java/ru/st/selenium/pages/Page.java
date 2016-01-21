@@ -223,10 +223,11 @@ public abstract class Page {
     /**
      * Метод проверки Видимости элемента
      */
-    public boolean isElementVisible(By locator) {
+    public boolean isElementVisible(By locator) throws InterruptedException {
         boolean value = false;
-        if ($(locator).shouldBe(Condition.visible).isDisplayed())
+        if (getWebDriver().findElements(locator).size() > 0) {
             value = true;
+        }
         return value;
     }
 

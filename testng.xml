@@ -20,7 +20,7 @@
 
 	<test name="Regression Web">
 		<classes>
-			<class name="ru.st.selenium.tests.testWeb.AuthorizationTest"/>
+			<class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
 			<class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
 			<class name="ru.st.selenium.tests.testWeb.UsersTest"/>
 			<class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>

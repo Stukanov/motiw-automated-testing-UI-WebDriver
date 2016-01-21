@@ -15,7 +15,7 @@ public class ScreenShotUtil {
      * Method for taking ScreenShot. You should use {@link com.codeborne.selenide.Screenshots} class for this.
      */
     public static void takeScreenShot() {
-//        You could to something like this and save file as you want :
+        // You could to something like this and save file as you want :
         File screenShotFile = Screenshots.takeScreenShotAsFile();
         System.out.println("ScreenShot method called");
 

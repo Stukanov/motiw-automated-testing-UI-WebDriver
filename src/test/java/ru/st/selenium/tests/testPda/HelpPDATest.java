@@ -45,7 +45,6 @@ public class HelpPDATest extends ModuleTaskTestCase {
         helpPage.checkPresenceElementsOfAid(); // Проверяем общее количество элементов помощи
         helpPage.visibleElementsTextHelp(); // Проверяем отображение текста в элементах помощи
         assertEquals(19, helpPage.results().size()); // проверяем кол-во элементов на стр-це ппомочи
-        makeScreenshot();
 
         internalPagePDA.logout(); // Выход из системы
         assertTrue(loginPagePDA.isNotLoggedInPDA());
