@@ -63,7 +63,6 @@ public class SearchPDATest extends ModuleTaskTestCase {
         searchPagePDA.searchTask(task); // Производим поиск задачи по - Названию */
 
         SearchPagePDA searchPagePDA = internalPagePDA.goToSearch(); // Переходим в раздел Поиска
-        //TODO Добавить выбор фильтрации - КОНТАКТЫ - НЕРАБОТАЕТ СЕЙЧАС!!!
         searchPagePDA.searchContact(EMPLOYEE_ADMIN); // проверяем поиск Контакта пользователя по Фамилии
 
 

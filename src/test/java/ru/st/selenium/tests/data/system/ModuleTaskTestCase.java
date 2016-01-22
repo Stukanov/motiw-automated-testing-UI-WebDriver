@@ -123,12 +123,12 @@ public abstract class ModuleTaskTestCase extends TestBase {
         Employee[] author = new Employee[]{getRandomEmployer().setLastName("Автор задачи " + randomString(5)),
                 getRandomEmployer().setLastName("Автор1 задачи " + randomString(5))};
         // Ответственный руководители
-        Employee[] resppers = new Employee[]{getRandomEmployer().setLastName("ОР задачи " + randomString(5)),
-                getRandomEmployer().setLastName("ОР1 задачи " + randomString(5))};
+        Employee[] executiveManagers = new Employee[]{getRandomEmployer().setLastName("ОР задачи " + randomString(5))};
         // Контролеры
         Employee[] controller = new Employee[] {getRandomEmployer().setLastName("Контролер задачи " + randomString(5))};
         // Исполнители
-        Employee[] worker = new Employee[]{getRandomEmployer().setLastName("Исполнитель задачи " + randomString(5))};
+        Employee[] worker = new Employee[]{getRandomEmployer().setLastName("Исполнитель задачи " + randomString(5)),
+                getRandomEmployer().setLastName("Исполнитель1 задачи " + randomString(5))};
 
         // Исполнители для задачи типа ИРГ
         Employee[] IWGWorker = new Employee[]{getRandomEmployer().setLastName("Исп. ИРГ " + randomString(5)),
@@ -157,8 +157,8 @@ public abstract class ModuleTaskTestCase extends TestBase {
         Task task = getRandomTask()
                 .setAuthors(new Employee[]{author[0], author[1]})
                 .setControllers(new Employee[]{controller[0]})
-                .setWorkers(new Employee[]{worker[0]})
-                .setExecutiveManagers(new Employee[]{resppers[0], resppers[1]})
+                .setWorkers(new Employee[]{worker[0], worker[1]})
+                .setExecutiveManagers(new Employee[]{executiveManagers[0]})
                 .setCheckpoints(new Checkpoint[]{checkPoint[0], checkPoint[1]})
                 .setIWG(new IWG[]{
                         iwg[0]
@@ -180,7 +180,7 @@ public abstract class ModuleTaskTestCase extends TestBase {
 
                         author,
 
-                        resppers,
+                        executiveManagers,
 
                         controller,
 

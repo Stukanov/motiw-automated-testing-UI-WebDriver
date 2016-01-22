@@ -149,7 +149,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Поле ответственные руководители
      */
     @FindBy(xpath = "//*[contains (@onclick, 'respperson')]/../../../td[2]/div")
-    private SelenideElement resppersonsField;
+    private SelenideElement executiveManagersField;
 
     /**
      * Поле исполнители
@@ -298,13 +298,13 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     private SelenideElement importantTask;
 
     /**
-     * Вкладка планирование
+     * Вкладка Планирование
      */
     @FindBy(xpath = "//li[contains (@id, 'planning')]//span[contains (@class, 'strip')]")
     private SelenideElement planningTab;
 
     /**
-     * Вкладка дополнительно
+     * Вкладка Дополнительно
      */
     @FindBy(xpath = "//li[contains (@id, 'additional')]//span[contains (@class, 'strip')]")
     private SelenideElement additionalTab;
@@ -486,77 +486,40 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     }
 
     /**
-     * Добавление авторов через livesearch - поиск по фамилии
+     * Добавление пользователей через livesearch - Поиск по фамилии
      */
-    public UnionMessageNewPage setAuthors(Employee authors[]) {
-        if (authors == null)
-            return this;
+    protected UnionMessageNewPage choiceUsersThroughTheSearchLiveSurname(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
+        if (employees == null) return this;
         else
-            for (Employee author : authors) {
-                $(authorsField).shouldNotBe(Condition.disabled);
-                authorsField.click();
-                editorField.setValue(author.getLastName());
-                $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + author
+            for (Employee employee : employees) {
+                $(fieldCustomRole).shouldNotBe(Condition.disabled);
+                fieldCustomRole.click();
+                valueField.setValue(employee.getLastName());
+                $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee
                         .getLastName() + "')]")).shouldBe(Condition.visible);
-                getWebDriver().findElement(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + author.getLastName() + "')]")).click();
+                $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
         return this;
     }
 
     /**
-     * Добавление контролеров через livesearch -  ввод пробела, затем поиск по фамилии
+     * Добавление Пользователей (ОР, Исполнители и т.д..) через livesearch -  ввод пробела, затем поиск по фамилии
      */
-    public UnionMessageNewPage setControllers(Employee[] controllers) {
-        if (controllers == null)
-            return this;
+    protected UnionMessageNewPage choiceUsersThroughTheSearchLiveForSpace(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
+        if (employees == null) return this;
         else
-            for (Employee controller : controllers) {
-                $(сontrollersField).shouldBe(Condition.visible);
-                сontrollersField.click();
-                editorField.sendKeys(Keys.SPACE);
+            for (Employee employee : employees) {
+                $(fieldCustomRole).shouldBe(Condition.visible);
+                fieldCustomRole.click();
+                valueField.sendKeys(Keys.SPACE);
                 waitForLivesearchMask();
-                getWebDriver().findElement(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + controller.getLastName() + "')]")).click();
+                $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
         return this;
     }
 
-    /**
-     * Добавление исполниетелей через livesearch -  ввод пробела, затем поиск по фамилии
-     */
-    public UnionMessageNewPage setWorkers(Employee[] workers) {
-        if (workers == null)
-            return this;
-        else
-            for (Employee worker : workers) {
-                $(workersField).shouldBe(Condition.visible);
-                workersField.click();
-                editorField.sendKeys(Keys.SPACE);
-                waitForLivesearchMask();
-                getWebDriver().findElement(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + worker.getLastName() + "')]")).click();
-                waitForTaskMask();
-            }
-        return this;
-    }
-
-    /**
-     * Добавление ОР через livesearch -  ввод пробела, затем поиск по фамилии
-     */
-    public UnionMessageNewPage setExecutiveManagers(Employee[] resppersons) {
-        if (resppersons == null)
-            return this;
-        else
-            for (Employee respperson : resppersons) {
-                $(resppersonsField).shouldHave(Condition.appear);
-                resppersonsField.click();
-                editorField.sendKeys(Keys.SPACE);
-                waitForLivesearchMask();
-                getWebDriver().findElement(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + respperson.getLastName() + "')]")).click();
-                waitForTaskMask();
-            }
-        return this;
-    }
 
     /**
      * Добавление названия задачи
@@ -580,6 +543,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Проверка что появилось окно и ссылка на созданную задачу
      */
     public UnionMessageNewPage assertWindowTaskCreated() {
+        // TODO - Доделать проверку!!!
         $(buttonTaskSavedOK).shouldBe(Condition.visible);
        /* assertTrue(isElementPresent($(By.xpath("//a[contains (@href, '/user/unionmessage')]"))));
         assertTrue(isElementPresent($(By.xpath("/*//*[contains (@class, 'x-window-plain')]"))));*/
@@ -883,6 +847,8 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 saveIWG(); // Сохранить текущую ИРГ
                 verifyCreateIWG(anIwg.getNameIWG()); // Проверяем отображение ИРГ в гриде
             }
+            goToTopFrem(); // уходим в ТОП фрейм
+            gotoFrame(); // возвращаемся в основной фрейм для дальнейшей работы в задаче
         }
         return this;
     }
@@ -930,11 +896,12 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     }
 
     /**
-     * Создание задачи
+     * Создание обычной задачи
+     *
      * @param task
      */
     @Override
-    public void createTask(Task task) {
+    public void creatingTask(Task task) {
         ensurePageLoaded();
         setEnd(task.getDateEnd())
                 .createProject(task.getProject())
@@ -942,21 +909,43 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setTaskDescription(task.getDescription())
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant())
-                .setAuthors(task.getAuthors())
-                .setControllers(task.getControllers())
-                .setWorkers(task.getWorkers())
-                .setExecutiveManagers(task.getExecutiveManagers())
+                // выбор пользователя по ФИО - Авторы - через searchlive
+                .choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), authorsField, editorField)
+                // выбор пользователя - Контролер - через searchlive
+                .choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), сontrollersField, editorField)
+                // выбор пользователя - Исполнителей - через searchlive
+                .choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), workersField, editorField)
+                // выбор пользователя - Ответственные руководители - через searchlive
+                .choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField)
+                .setTaskType(task.getTasktype()) // выбор - Тип задачи
+                .setCheckpoints(task.getCheckpoints()) // Контрольные точки // TODO вынести в отдельный метод
+                .setReport(task.getIsWithReport())
+                .setSecret(task.getIsSecret())
+                .setReview(task.getIsForReview())
+                .clickSaveTask()
+                .assertWindowTaskCreated();
+
+    }
+
+    @Override
+    public void creatingTaskWithTheTaskOfIWG(Task task) {
+        ensurePageLoaded();
+        setEnd(task.getDateEnd())
+                .createProject(task.getProject())
+                .setTaskName(task.getTaskName())
+                .setTaskDescription(task.getDescription())
+                .setDataBegin(task.getDateBegin())
+                .setImportance(task.getIsImportant())
+                // выбор пользователя - Ответственные руководители - через searchlive
+                .choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField)
                 .setTaskType(task.getTasktype())
                 .setIWG(task.getIWG())
-                .setCheckpoints(task.getCheckpoints())
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
                 .clickSaveTask()
                 .assertWindowTaskCreated();
     }
-
-
 }
 
 

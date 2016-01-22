@@ -1,6 +1,5 @@
 package ru.st.selenium.tests.testWeb;
 
-
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -19,19 +18,23 @@ import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-/**
- * Задачи
- */
+@Features("Создать задачу")
+@Title("Проверка создания задач")
 public class CreateTaskTest extends ModuleTaskTestCase {
 
     /**
-     * Проверка создания задачи
+     * Проверка создания обычной задачи
      *
      * @param department
      * @param author
@@ -42,10 +45,12 @@ public class CreateTaskTest extends ModuleTaskTestCase {
      * @param IWGResppers
      * @param IWGСontroller
      * @param task
-     * @throws Exception
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Создание задачи")
+    @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTask")
-    public void createTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
+    public void verifyCreateTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -55,7 +60,6 @@ public class CreateTaskTest extends ModuleTaskTestCase {
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
-        //TODO разнести тест на несколько мелких тестовых методов (Создание задачи; Создание задачи с ИРГ; Кт и пр..)
         // Создаем подразделения для пользователей
         CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
         createDepartmentPage.beforeAdd();
@@ -68,26 +72,15 @@ public class CreateTaskTest extends ModuleTaskTestCase {
         createUsersPage.createUser(author[1].setDepartment(department));
         // Ответственные руководители задачи
         createUsersPage.createUser(resppers[0].setDepartment(department));
-        createUsersPage.createUser(resppers[1].setDepartment(department));
         // Контролеры задачи
         createUsersPage.createUser(controller[0].setDepartment(department));
         // Исполнители задачи
         createUsersPage.createUser(worker[0].setDepartment(department));
-        // Исполнители задачи ИРГ
-        createUsersPage.createUser(IWGWorker[0].setDepartment(department));
-        createUsersPage.createUser(IWGWorker[1].setDepartment(department));
-        createUsersPage.createUser(IWGWorker[2].setDepartment(department));
-        // Ответственные руководители задачи ИРГ
-        createUsersPage.createUser(IWGResppers[0].setDepartment(department));
-        createUsersPage.createUser(IWGResppers[1].setDepartment(department));
-        // Контролеры задачи ИРГ
-        createUsersPage.createUser(IWGСontroller[0].setDepartment(department));
-        createUsersPage.createUser(IWGСontroller[1].setDepartment(department));
-
+        createUsersPage.createUser(worker[1].setDepartment(department));
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
         UnionMessageNewPage unionMessageNewPage = internalPage.goToUnionMessageNew();
-        unionMessageNewPage.createTask(task);
+        unionMessageNewPage.creatingTask(task);
 
         /*
          Проверяем отображение созданной задачи в гриде.
@@ -106,4 +99,74 @@ public class CreateTaskTest extends ModuleTaskTestCase {
 
     }
 
+    /**
+     * Проверяем создание задачи типа ИРГ
+     * @param department подразделение, в к-е будет добавлятсья пользователь
+     *
+     * @param author Авторы задачи
+     * @param resppers Ответственные руководители задачи
+     * @param controller Контролеры задачи
+     * @param worker Исполнители задачи
+     *
+     * @param IWGWorker Исполнители задачи ИРГ
+     * @param IWGResppers ОР задачи ИРГ
+     * @param IWGСontroller Контролеры задачи
+     *
+     * @param task Задача со всеми её параметрами
+     */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Создание задачи типа ИРГ")
+    @Description("Проверяем создание задачи ИРГ с набором атрибутов")
+    @Test(priority = 2, dataProvider = "objectDataTask")
+    public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
+                               Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+
+        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        loginPage.loginAs(ADMIN);
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+        assertTrue(loginPage.isLoggedIn());
+
+        // Создаем подразделения для пользователей
+        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
+        createDepartmentPage.beforeAdd();
+        createDepartmentPage.createDepartment(department);
+
+        // Инициализируем страницу - Администрирование/Пользователи
+        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+
+        // Ответственные руководители задачи
+        createUsersPage.createUser(resppers[0].setDepartment(department));
+
+        // Исполнители задачи ИРГ
+        createUsersPage.createUser(IWGWorker[0].setDepartment(department));
+        createUsersPage.createUser(IWGWorker[1].setDepartment(department));
+        createUsersPage.createUser(IWGWorker[2].setDepartment(department));
+        // Ответственные руководители задачи ИРГ
+        createUsersPage.createUser(IWGResppers[0].setDepartment(department));
+        createUsersPage.createUser(IWGResppers[1].setDepartment(department));
+        // Контролеры задачи ИРГ
+        createUsersPage.createUser(IWGСontroller[0].setDepartment(department));
+        createUsersPage.createUser(IWGСontroller[1].setDepartment(department));
+
+        // Инициализация и переход на страницу - Задачи/Создать задачу
+        UnionMessageNewPage unionMessageNewPage = internalPage.goToUnionMessageNew();
+        unionMessageNewPage.creatingTaskWithTheTaskOfIWG(task);
+
+        /*
+         Проверяем отображение созданной задачи в гриде.
+         Инициализация и переход на страницу - Задачи/Создать задачу
+          */
+        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        unionTasksPage.openTask(task);
+
+        UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
+        unionMessagePage.verifyCreateTask(task);
+
+        // Выход
+        internalPage.logout();
+        // Проверка - пользователь разлогинен
+        assertTrue(loginPage.isNotLoggedIn());
+    }
 }
