@@ -1,4 +1,4 @@
-package ru.st.selenium.pages.pagespda;
+package ru.st.selenium.pages.pagespda.Task;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;

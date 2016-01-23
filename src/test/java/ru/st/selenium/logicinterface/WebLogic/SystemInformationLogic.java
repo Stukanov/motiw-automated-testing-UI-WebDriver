@@ -1,4 +1,4 @@
-package ru.st.selenium.logicinterface;
+package ru.st.selenium.logicinterface.WebLogic;
 
 /**
  * Информация о системе

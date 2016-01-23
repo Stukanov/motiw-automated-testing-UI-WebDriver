@@ -3,6 +3,7 @@ package ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards;
 
 import ru.st.selenium.model.AccessRights;
 import ru.st.selenium.model.CorrectionMethod;
+import ru.st.selenium.model.DocflowAdministration.AutoCalculationOfNumeratorFields;
 import ru.st.selenium.model.OpenFilesForEdit;
 import ru.st.selenium.model.ShiftDirection;
 
@@ -57,7 +58,7 @@ public class DocRegisterCards {
 
     private boolean checkBoxUseAllPossibleRoutes;
 
-    private OpenFilesForEdit autoСalculationNumeratorFields;
+    private AutoCalculationOfNumeratorFields autoСalculationNumeratorFields;
 
     private DocRegisterCardsField[] docRegisterCardsFields;
 
@@ -273,11 +274,11 @@ public class DocRegisterCards {
      *
      * @return DocRegisterCards
      */
-    public OpenFilesForEdit getAutoСalculationNumeratorFields() {
+    public AutoCalculationOfNumeratorFields getAutoСalculationNumeratorFields() {
         return autoСalculationNumeratorFields;
     }
 
-    public DocRegisterCards setAutoСalculationNumeratorFields(OpenFilesForEdit autoСalculationNumeratorFields) {
+    public DocRegisterCards setAutoСalculationNumeratorFields(AutoCalculationOfNumeratorFields autoСalculationNumeratorFields) {
         this.autoСalculationNumeratorFields = autoСalculationNumeratorFields;
         return this;
     }

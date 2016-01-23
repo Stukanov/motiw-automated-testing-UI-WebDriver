@@ -4,6 +4,10 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.tests.data.TestRetryAnalyzer;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.RetryListener;
@@ -55,7 +59,7 @@ public class TodayPDATest extends ModuleTaskTestCase {
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-        newTaskPagePDA.createTask(task);
+        newTaskPagePDA.creatingTask(task);
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи

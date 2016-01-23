@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagesweb.Administration;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
-import ru.st.selenium.logicinterface.SearchSystemLogic;
+import ru.st.selenium.logicinterface.WebLogic.SearchSystemLogic;
 import ru.st.selenium.pages.Page;
 
 import static com.codeborne.selenide.Selenide.$;

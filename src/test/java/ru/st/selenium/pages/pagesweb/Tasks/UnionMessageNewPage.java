@@ -7,7 +7,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import ru.st.selenium.logicinterface.Task.UnionMessageNewLogic;
+import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageNewLogic;
 import ru.st.selenium.model.Task.Checkpoint;
 import ru.st.selenium.model.Task.IWG;
 import ru.st.selenium.model.Task.Project;
@@ -486,11 +486,14 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     }
 
     /**
-     * Добавление пользователей через livesearch - Поиск по фамилии
+     * Добавление пользователей в роль задачи, через livesearch - Поиск по фамилии
+     *
+     * @param employees
+     * @param fieldCustomRole
+     * @param valueField
      */
-    protected UnionMessageNewPage choiceUsersThroughTheSearchLiveSurname(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
-        if (employees == null) return this;
-        else
+    protected void choiceUsersThroughTheSearchLiveSurname(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
+        if (employees != null) {
             for (Employee employee : employees) {
                 $(fieldCustomRole).shouldNotBe(Condition.disabled);
                 fieldCustomRole.click();
@@ -500,15 +503,19 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
-        return this;
+        }
     }
 
     /**
-     * Добавление Пользователей (ОР, Исполнители и т.д..) через livesearch -  ввод пробела, затем поиск по фамилии
+     * Добавление Пользователей (ОР, Исполнители и т.д..) через livesearch, ввод SPACE и поиск пользователя из выпадающего списка
+     * (контекстное меню)
+     *
+     * @param employees
+     * @param fieldCustomRole
+     * @param valueField
      */
-    protected UnionMessageNewPage choiceUsersThroughTheSearchLiveForSpace(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
-        if (employees == null) return this;
-        else
+    protected void choiceUsersThroughTheSearchLiveForSpace(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
+        if (employees != null) {
             for (Employee employee : employees) {
                 $(fieldCustomRole).shouldBe(Condition.visible);
                 fieldCustomRole.click();
@@ -517,9 +524,8 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
-        return this;
+        }
     }
-
 
     /**
      * Добавление названия задачи
@@ -908,16 +914,16 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setTaskName(task.getTaskName())
                 .setTaskDescription(task.getDescription())
                 .setDataBegin(task.getDateBegin())
-                .setImportance(task.getIsImportant())
-                // выбор пользователя по ФИО - Авторы - через searchlive
-                .choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), authorsField, editorField)
-                // выбор пользователя - Контролер - через searchlive
-                .choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), сontrollersField, editorField)
-                // выбор пользователя - Исполнителей - через searchlive
-                .choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), workersField, editorField)
-                // выбор пользователя - Ответственные руководители - через searchlive
-                .choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField)
-                .setTaskType(task.getTasktype()) // выбор - Тип задачи
+                .setImportance(task.getIsImportant());
+        // выбор пользователя по ФИО - Авторы - через searchlive
+        choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), authorsField, editorField);
+        // выбор пользователя - Контролер - через searchlive
+        choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), сontrollersField, editorField);
+        // выбор пользователя - Исполнителей - через searchlive
+        choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), workersField, editorField);
+        // выбор пользователя - Ответственные руководители - через searchlive
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField);
+        setTaskType(task.getTasktype()) // выбор - Тип задачи
                 .setCheckpoints(task.getCheckpoints()) // Контрольные точки // TODO вынести в отдельный метод
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
@@ -927,6 +933,11 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
 
     }
 
+    /**
+     * Создание обычной задачи с задачей ИРГ
+     *
+     * @param task передаются все необходимые атрибуты задачи
+     */
     @Override
     public void creatingTaskWithTheTaskOfIWG(Task task) {
         ensurePageLoaded();
@@ -935,10 +946,10 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setTaskName(task.getTaskName())
                 .setTaskDescription(task.getDescription())
                 .setDataBegin(task.getDateBegin())
-                .setImportance(task.getIsImportant())
-                // выбор пользователя - Ответственные руководители - через searchlive
-                .choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField)
-                .setTaskType(task.getTasktype())
+                .setImportance(task.getIsImportant());
+        // выбор пользователя - Ответственные руководители - через searchlive
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField);
+        setTaskType(task.getTasktype())
                 .setIWG(task.getIWG())
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())

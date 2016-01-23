@@ -8,8 +8,10 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.logicinterface.BaseInternalLogic;
+import ru.st.selenium.logicinterface.WebLogic.BaseInternalLogic;
 import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Selenide.$;

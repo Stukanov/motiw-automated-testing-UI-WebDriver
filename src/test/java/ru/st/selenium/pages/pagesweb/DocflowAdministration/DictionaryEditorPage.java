@@ -6,7 +6,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.DictionaryEditorLogic;
+import ru.st.selenium.logicinterface.WebLogic.DictionaryEditorLogic;
 import ru.st.selenium.model.AccessRights;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditorField;

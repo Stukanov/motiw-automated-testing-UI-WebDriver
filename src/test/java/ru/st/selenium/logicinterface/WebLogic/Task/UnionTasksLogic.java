@@ -1,9 +1,9 @@
-package ru.st.selenium.logicinterface.Task;
+package ru.st.selenium.logicinterface.WebLogic.Task;
 
 import ru.st.selenium.model.Task.Task;
 
 /**
- * Задачи
+ * Задачи/Задачи
  */
 public interface UnionTasksLogic {
 

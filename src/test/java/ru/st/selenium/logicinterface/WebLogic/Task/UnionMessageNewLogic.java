@@ -1,7 +1,6 @@
-package ru.st.selenium.logicinterface.Task;
+package ru.st.selenium.logicinterface.WebLogic.Task;
 
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 
 /**
  * Создать задачу

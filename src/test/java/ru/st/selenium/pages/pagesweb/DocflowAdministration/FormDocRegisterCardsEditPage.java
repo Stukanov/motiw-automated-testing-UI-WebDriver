@@ -4,8 +4,9 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.FormDocRegisterCardsEditLogic;
+import ru.st.selenium.logicinterface.WebLogic.FormDocRegisterCardsEditLogic;
 import ru.st.selenium.model.AccessRights;
+import ru.st.selenium.model.DocflowAdministration.AutoCalculationOfNumeratorFields;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.*;
 import ru.st.selenium.model.OpenFilesForEdit;
 import ru.st.selenium.model.ShiftDirection;
@@ -867,13 +868,13 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     /**
      * Автоматическое вычисление полей-нумераторов
      */
-    public FormDocRegisterCardsEditPage selAutoСalculationNumeratorFields(OpenFilesForEdit autoСalculationNumeratorFields) {
+    public FormDocRegisterCardsEditPage selAutoСalculationNumeratorFields(AutoCalculationOfNumeratorFields autoСalculationNumeratorFields) {
         if (autoСalculationNumeratorFields == null) {
             return this;
-        } else if (autoСalculationNumeratorFields == OpenFilesForEdit.NO) {
+        } else if (autoСalculationNumeratorFields == AutoCalculationOfNumeratorFields.NO) {
             clickAutoСalculationNumeratorFields.click();
             selectingSecondAdjustmentPosition();
-        } else if (autoСalculationNumeratorFields == OpenFilesForEdit.YES) {
+        } else if (autoСalculationNumeratorFields == AutoCalculationOfNumeratorFields.YES) {
             clickAutoСalculationNumeratorFields.click();
             selectingThirdAdjustmentPosition();
         }

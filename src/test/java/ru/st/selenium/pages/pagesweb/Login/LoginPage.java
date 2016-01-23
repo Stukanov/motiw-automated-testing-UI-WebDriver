@@ -2,7 +2,7 @@ package ru.st.selenium.pages.pagesweb.Login;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.AuthorizationLogic;
+import ru.st.selenium.logicinterface.WebLogic.AuthorizationLogic;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;

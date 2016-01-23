@@ -1,4 +1,4 @@
-package ru.st.selenium.pages.pagespda;
+package ru.st.selenium.pages.pagespda.Task;
 
 import org.openqa.selenium.By;
 import ru.st.selenium.model.Task.Task;

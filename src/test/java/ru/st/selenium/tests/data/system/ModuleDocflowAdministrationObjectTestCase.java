@@ -11,6 +11,7 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypesField;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.CorrectionMethod;
+import ru.st.selenium.model.DocflowAdministration.AutoCalculationOfNumeratorFields;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditorField;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.*;
@@ -395,7 +396,7 @@ public class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrat
 
                 .setOpenFilesForEditDoc(OpenFilesForEdit.YES) // Открывать файлы для редактирования
 
-                .setAutoСalculationNumeratorFields(OpenFilesForEdit.YES) // Автоматическое вычисление полей-нумераторов
+                .setAutoСalculationNumeratorFields(AutoCalculationOfNumeratorFields.YES) // Автоматическое вычисление полей-нумераторов
 
                 .setAccessDoc(AccessRights.AVAILABLETOALL) // выбираем права Доступа к РКД
 

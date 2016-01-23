@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagesweb.Tasks;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.logicinterface.Task.UnionMessageLogic;
+import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageLogic;
 import ru.st.selenium.model.Task.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;

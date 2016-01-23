@@ -39,7 +39,7 @@ public class SearchPDATest extends ModuleTaskTestCase {
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
 
-        newTaskPage.createTask(task);
+        newTaskPage.creatingTask(task);
         EditTaskPagePDA editTaskPage = newTaskPage.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи

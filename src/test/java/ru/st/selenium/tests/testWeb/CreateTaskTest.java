@@ -14,6 +14,7 @@ import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessagePage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
+import ru.st.selenium.tests.data.TestRetryAnalyzer;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
@@ -30,7 +31,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 @Features("Создать задачу")
-@Title("Проверка создания задач")
+@Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskTestCase {
 
     /**
@@ -49,7 +50,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataTask")
+    @Test(priority = 1, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyCreateTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -117,7 +118,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи типа ИРГ")
     @Description("Проверяем создание задачи ИРГ с набором атрибутов")
-    @Test(priority = 2, dataProvider = "objectDataTask")
+    @Test(priority = 2, dataProvider = "objectDataTask", retryAnalyzer = TestRetryAnalyzer.class)
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 

@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagesweb.DocflowAdministration;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.DocRegisterCardsLogic;
+import ru.st.selenium.logicinterface.WebLogic.DocRegisterCardsLogic;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.pages.Page;
 

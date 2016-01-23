@@ -5,7 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.TypesOfTablesEditFormLogic;
+import ru.st.selenium.logicinterface.WebLogic.TypesOfTablesEditFormLogic;
 import ru.st.selenium.model.Administration.FieldsObject.*;
 import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTables;
 import ru.st.selenium.model.OpenFilesForEdit;

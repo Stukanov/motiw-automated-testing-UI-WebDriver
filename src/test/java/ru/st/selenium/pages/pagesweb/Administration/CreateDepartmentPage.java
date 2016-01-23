@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.logicinterface.DepartmentsLogic;
+import ru.st.selenium.logicinterface.WebLogic.DepartmentsLogic;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.pages.Page;
 

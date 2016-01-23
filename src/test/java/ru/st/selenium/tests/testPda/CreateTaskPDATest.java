@@ -6,6 +6,10 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.*;
+import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
+import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.tests.data.TestRetryAnalyzer;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.RetryListener;
@@ -25,7 +29,8 @@ import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
 @Features("Создать задачу")
-public class CreateTasksPDATest extends ModuleTaskTestCase {
+@Title("Проверка создания задач в PDA-интерфейсе")
+public class CreateTaskPDATest extends ModuleTaskTestCase {
 
     Task editTask = getRandomObjectTask();
 
@@ -33,7 +38,7 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
-    public void checkTaskCreation(Task task) throws Exception {
+    public void verifyCreateTaskTest(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
@@ -44,7 +49,7 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-        newTaskPagePDA.createTask(task);
+        newTaskPagePDA.creatingTask(task);
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
@@ -73,6 +78,9 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
      * проверка - Редактирование задачи
      * TODO - добавить До запуска метода установку зн-ия - Удаление себя из задач == Да
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Редактирование задачи")
+    @Description("Проверяем редактирование задачи с набором новых атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTaskPDA", retryAnalyzer = TestRetryAnalyzer.class)
     public void checkEditingTasks(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
@@ -89,7 +97,7 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
 
-        newTaskPagePDA.createTask(task);
+        newTaskPagePDA.creatingTask(task);
 
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
@@ -143,7 +151,7 @@ public class CreateTasksPDATest extends ModuleTaskTestCase {
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
 
-        newTaskPagePDA.createTask(task);
+        newTaskPagePDA.creatingTask(task);
 
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 

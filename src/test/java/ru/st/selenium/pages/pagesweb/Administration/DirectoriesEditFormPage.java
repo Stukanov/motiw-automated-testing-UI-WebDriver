@@ -5,7 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.DirectoriesEditFormLogic;
+import ru.st.selenium.logicinterface.WebLogic.DirectoriesEditFormLogic;
 import ru.st.selenium.model.Administration.Directories.Directories;
 import ru.st.selenium.model.Administration.Directories.DirectoriesField;
 import ru.st.selenium.model.Administration.FieldsObject.*;

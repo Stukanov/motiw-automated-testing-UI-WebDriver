@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.logicinterface.DocumentLogic;
+import ru.st.selenium.logicinterface.WebLogic.DocumentLogic;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditorField;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCardsField;

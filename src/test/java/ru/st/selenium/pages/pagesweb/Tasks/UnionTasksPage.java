@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.Task.UnionTasksLogic;
+import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;

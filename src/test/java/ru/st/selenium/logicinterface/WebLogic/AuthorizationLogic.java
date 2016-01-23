@@ -1,4 +1,4 @@
-package ru.st.selenium.logicinterface;
+package ru.st.selenium.logicinterface.WebLogic;
 
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;

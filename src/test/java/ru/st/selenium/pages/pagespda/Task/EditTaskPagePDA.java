@@ -1,4 +1,4 @@
-package ru.st.selenium.pages.pagespda;
+package ru.st.selenium.pages.pagespda.Task;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
@@ -99,14 +99,13 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
     public EditTaskPagePDA editAttributesOfTasks(Task editTask) {
         setTaskName(editTask.getTaskName()) // Название задачи
                 .setTasksDescription(editTask.getDescription()) // Описание задачи
-                .setDateEnd(editTask.getDateEnd()) // Дата окончания задачи
-                .setImportantTask(editTask.getIsImportant()) // признак - Важная задача
-                .setPrivateTask(editTask.getIsSecret()); // признак - Секретная задача
+                .setDateEnd(editTask.getDateEnd()); // Дата окончания задачи
+        rangeOfValuesF​romTheCheckbox(editTask.getIsImportant(), importantTask); // признак - Важная задача
+        rangeOfValuesF​romTheCheckbox(editTask.getIsSecret(), privateTask); // признак - Секретная задача
         saveChangesToTask();
         waitMillisecond(1.5);
         checkTheAttributesAreSaved(editTask); // проверяем отображение изменений (системное действие) в ленте действий
         verifyAttributesOfTask(editTask); // проверяем отображение новых значений в полях задачи
-
         return this;
     }
 

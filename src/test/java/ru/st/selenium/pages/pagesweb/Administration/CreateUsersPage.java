@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.logicinterface.UsersLogic;
+import ru.st.selenium.logicinterface.WebLogic.UsersLogic;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Administration.Users.Module;

@@ -8,7 +8,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.logicinterface.TasksTypesEditFormLogic;
+import ru.st.selenium.logicinterface.WebLogic.TasksTypesEditFormLogic;
 import ru.st.selenium.model.Administration.FieldsObject.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.CorrectionMethod;

@@ -9,7 +9,7 @@
 	<test name="Regression PDA">
 		<classes>
 		    <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.CreateTasksPDATest"/>
+			<class name="ru.st.selenium.tests.testPda.CreateTaskPDATest"/>
 			<class name="ru.st.selenium.tests.testPda.DocumentsPDATest"/>
 			<class name="ru.st.selenium.tests.testPda.SearchPDATest"/>
 			<class name="ru.st.selenium.tests.testPda.OptionsPDATest"/>
