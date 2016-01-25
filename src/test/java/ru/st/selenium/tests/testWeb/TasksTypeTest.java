@@ -14,25 +14,24 @@ import ru.st.selenium.pages.pagesweb.Administration.TaskTypesEditPage;
 import ru.st.selenium.pages.pagesweb.Administration.TypesOfTablesEditPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 /**
  * Типы задач
  */
 public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
 
     // Add Create Types Task
-    @Test(priority = 1, dataProvider = "objectDataTasksTypes", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataTasksTypes", retryAnalyzer = Retry.class)
     public void verifyCreateTaskTypes(Directories directories, TypesOfTables typesOfTables,
                                       TasksTypes tasksTypes) throws Exception {
 

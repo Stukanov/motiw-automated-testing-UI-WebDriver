@@ -368,7 +368,6 @@ public class ModuleAdministrationObjectTestCase extends ModuleTaskTestCase {
 
         return new Object[][]{
 
-
                 {
                         // Справочник
                         directories,
@@ -376,7 +375,6 @@ public class ModuleAdministrationObjectTestCase extends ModuleTaskTestCase {
                         typesOfTables,
                         // Типы задач
                         tasksTypes,
-
                 }
         };
 

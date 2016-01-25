@@ -2,29 +2,32 @@ package ru.st.selenium.tests.testPda;
 
 import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.*;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-/**
- * раздел - Поиск
- */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Features("Поиск")
+@Title("Проверка поиск объектов системы (SOLR)")
 public class SearchPDATest extends ModuleTaskTestCase {
 
-    /**
-     * проверка - Посик в системе - SOLR
-     */
-    @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Поиск объектов (Расширенный поиск)")
+    @Description("Проверяем расширенный поиск проинициализированных объектов системы - Контакты, Задачи, Документы и пр..")
+    @Test(priority = 1, retryAnalyzer = Retry.class)
     public void verifySearch() throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

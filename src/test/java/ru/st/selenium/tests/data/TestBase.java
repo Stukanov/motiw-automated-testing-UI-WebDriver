@@ -1,22 +1,16 @@
 package ru.st.selenium.tests.data;
 
-
-import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.DataProvider;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Administration.Users.Module;
 import ru.st.selenium.model.Administration.Users.Status;
-import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class TestBase {
 

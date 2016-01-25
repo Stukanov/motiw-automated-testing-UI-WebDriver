@@ -6,29 +6,33 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.*;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-/**
- * Раздел - Настройки
- */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Features("Настройки")
+@Title("Проверка работу настроек в PDA-интерфейсе")
 public class OptionsPDATest extends ModuleTaskTestCase {
 
-    /**
-     * проверка - Аттачминг файлов в форме задачи
-     */
-    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Аттачминг файлов")
+    @Description("Проверяем аттачминг файлов в форме созданной задачи (Лента действий)")
+    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = Retry.class)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация

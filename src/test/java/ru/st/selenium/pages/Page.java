@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -33,8 +34,8 @@ public abstract class Page {
      * -подтверждаем удаление, отменяем удаление, подтверждаем сохранение
      *
      * @param element             getText() из диалогового окна, собственно, сообщение к-е показывается
-     * @param webElementButton    подтверждение (взаимодействие над объектом)
      * @param expectedMessageText проверяемое сообщение
+     * @param webElementButton    подтверждение (взаимодействие над объектом)
      */
     public static String checkingMessagesConfirmationOfTheObject(SelenideElement element, String expectedMessageText, SelenideElement webElementButton) {
         String actualMessageText = element.shouldBe(Condition.exactText(expectedMessageText)).getText();
@@ -223,6 +224,7 @@ public abstract class Page {
      */
     public boolean isElementVisible(By locator) throws InterruptedException {
         boolean value = false;
+        waitMillisecond(0.5);
         if (getWebDriver().findElements(locator).size() > 0) {
             value = true;
         }

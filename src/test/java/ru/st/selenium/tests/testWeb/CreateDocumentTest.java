@@ -21,18 +21,18 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsP
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 /**
  * Документы / Создать документ
  */
@@ -41,7 +41,7 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCas
    /*
     Проверяем создание документа
      */
-    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
     public void CreateDocument(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                DocRegisterCards registerCards, Document document) throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);

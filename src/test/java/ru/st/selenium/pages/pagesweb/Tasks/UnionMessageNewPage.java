@@ -19,6 +19,7 @@ import ru.st.selenium.pages.Page;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Страница - Задачи/Создать задачу
@@ -108,6 +109,12 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      */
     @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[1]//*[contains (@class, 'col-value')]")
     private SelenideElement clickTaskName;
+
+    /**
+     * Номер задачи
+     */
+    @FindBy(xpath = "//div[@id='numerator']")
+    private SelenideElement taskNumber;
 
     /**
      * Поле приоритета
@@ -530,9 +537,9 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Добавление названия задачи
      */
-    public UnionMessageNewPage setTaskName(String taskname) {
+    public UnionMessageNewPage setTaskName(String taskName) {
         clickTaskName.click();
-        editorField.setValue(taskname);
+        editorField.setValue(taskName);
         return this;
     }
 
@@ -549,12 +556,11 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Проверка что появилось окно и ссылка на созданную задачу
      */
     public UnionMessageNewPage assertWindowTaskCreated() {
-        // TODO - Доделать проверку!!!
-        $(buttonTaskSavedOK).shouldBe(Condition.visible);
-       /* assertTrue(isElementPresent($(By.xpath("//a[contains (@href, '/user/unionmessage')]"))));
-        assertTrue(isElementPresent($(By.xpath("/*//*[contains (@class, 'x-window-plain')]"))));*/
+        $(By.xpath("//a[contains (@href, '/user/unionmessage')]")).shouldBe(Condition.visible);
+        buttonTaskSavedOK.click();
         return this;
     }
+
 
     /**
      * Установка типа задачи
@@ -924,7 +930,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
         // выбор пользователя - Ответственные руководители - через searchlive
         choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField);
         setTaskType(task.getTasktype()) // выбор - Тип задачи
-                .setCheckpoints(task.getCheckpoints()) // Контрольные точки // TODO вынести в отдельный метод
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
@@ -954,6 +959,22 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
+                .clickSaveTask()
+                .assertWindowTaskCreated();
+    }
+
+
+    /**
+     * Создание обычной задачи с КТ
+     *
+     * @param task передаются все необходимые атрибуты задачи
+     */
+    @Override
+    public void creationOfATaskCheckpoints(Task task) {
+        ensurePageLoaded();
+        setTaskName(task.getTaskName())
+                .setEnd(task.getDateEnd())
+                .setCheckpoints(task.getCheckpoints()) // Контрольные точки
                 .clickSaveTask()
                 .assertWindowTaskCreated();
     }

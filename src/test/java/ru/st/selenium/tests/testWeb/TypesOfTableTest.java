@@ -12,18 +12,18 @@ import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
 import ru.st.selenium.pages.pagesweb.Administration.TypesOfTablesEditPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 /**
  * Типы таблиц
  */
@@ -31,7 +31,7 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
 
 
     // Add Create Types Of Table
-    @Test(priority = 1, dataProvider = "objectDataTypesOfTable", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataTypesOfTable", retryAnalyzer = Retry.class)
     public void createTypesOfTable(Directories directories, TypesOfTables typesOfTables) throws Exception {
 
         // Авторизация

@@ -8,14 +8,13 @@ import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.*;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -26,7 +25,7 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 @Features("Раздел - Сегодня")
 public class TodayPDATest extends ModuleTaskTestCase {
 
@@ -43,8 +42,8 @@ public class TodayPDATest extends ModuleTaskTestCase {
 
     @Severity(SeverityLevel.NORMAL)
     @Title("Отображение информация в разделе Сегодня")
-    @Description("Проверяем отображение информации в разедел - Сегодня")
-    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Description("Проверяем отображение сохраненной информации в разедел - Сегодня")
+    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = Retry.class)
     public void verifyInfoToday(Task task) throws Exception {
        LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

@@ -4,15 +4,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.openqa.selenium.By;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -25,15 +24,9 @@ import static org.testng.Assert.assertTrue;
 import static com.codeborne.selenide.Selenide.open;
 
 
-/**
- * Автоматически делать скриншот, после каждого упавшего теста
- * Чтобы делать скриншоты после зелёных тестов, нужно вызвать такую команду перед запуском тестов: java ScreenShooter.captureSuccessfulTests = true;
- * Вы также можете сделать скриншот в любом месте теста одной строчкой - screenshot("my_file_name");
- * При этом Selenide создаст два файла: my_file_name.png и my_file_name.html
- */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 @Features("Авторизация")
-@Title("Авторизация в систему")
+@Title("Авторизация в систему PDA")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
 /**
  * Раздел - Стр. авторизации
@@ -43,7 +36,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Валидная авторизация")
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
-    @Test(priority = 3, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 3, retryAnalyzer = Retry.class)
     public void verifyLoginSuccess() throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
@@ -58,7 +51,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
     @Title("Невалидная авторизация")
     @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
             "не проходит")
-    @Test(priority = 1, dataProvider = "verifyFailAuthorization", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "verifyFailAuthorization", retryAnalyzer = Retry.class)
     public void verifyFailAuthorization(String login, String pass) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
@@ -71,7 +64,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
     @Title("Невалидная авторизация")
     @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
             "не проходит")
-    @Test(priority = 2, dataProvider = "secondVerifyFailAuthorization", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 2, dataProvider = "secondVerifyFailAuthorization", retryAnalyzer = Retry.class)
     public void secondVerifyFailAuthorization(String login, String pass) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);

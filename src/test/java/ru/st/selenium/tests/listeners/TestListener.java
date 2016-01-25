@@ -1,20 +1,14 @@
-package ru.st.selenium.tests.listeners.alluretestng.retrylistener;
+package ru.st.selenium.tests.listeners;
 
 
+import java.util.Set;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
-import ru.yandex.qatools.allure.Allure;
-import ru.yandex.qatools.allure.events.TestCaseFinishedEvent;
-import ru.yandex.qatools.allure.events.TestCasePendingEvent;
 
-import java.util.Set;
+public class TestListener implements ITestListener {
 
-
-public class RetryListenerAllure implements ITestListener {
-
-    Allure lifecycle = Allure.LIFECYCLE;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
@@ -27,8 +21,8 @@ public class RetryListenerAllure implements ITestListener {
     }
 
     @Override
-    public void onTestFailure(ITestResult result) {
-        fireRetryTest("The test has been failed then retried", result);
+    public void onTestFailure(ITestResult iTestResult) {
+
     }
 
     @Override
@@ -59,17 +53,5 @@ public class RetryListenerAllure implements ITestListener {
                 }
             }
         }
-    }
-
-    protected void fireRetryTest(String message, ITestResult result) {
-        if (((IAllureRetryAnalyzer) result.getMethod().getRetryAnalyzer()).retry(result, true)) {
-            Throwable throwable = new RetryException(message, result.getThrowable());
-            getLifecycle().fire(new TestCasePendingEvent().withThrowable(throwable));
-            getLifecycle().fire(new TestCaseFinishedEvent());
-        }
-    }
-
-    protected Allure getLifecycle() {
-        return lifecycle;
     }
 }

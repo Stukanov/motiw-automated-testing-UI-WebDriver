@@ -7,31 +7,39 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.TestBase;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
-import ru.st.selenium.tests.listeners.RetryListener;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-/**
- * Раздел - Стр. авторизации
- */
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Features("Авторизация")
+@Title("Авторизация в систему PDA")
+@Description("Проверка авторизации корневого пользователя системы с массивом данных")
 public class UsersAuthorizationTest extends TestBase {
 
-    // Проверка - Авторизация не прошла - fail password
-    @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb", retryAnalyzer = TestRetryAnalyzer.class)
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Невалидная авторизация")
+    @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
+            "не проходит")
+    @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb", retryAnalyzer = Retry.class)
     public void notSuccessfulAuthorization(Employee user) throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(user);
         assertTrue("Log in to the system fails", loginPage.isNotLoggedIn());
     }
 
-
-    // Метод - проверка авторизации, валидность логина/пароля и выход из системы
-    @Test(priority = 2, retryAnalyzer = TestRetryAnalyzer.class)
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Валидная авторизация")
+    @Description("Пользователь авторизируется в систему под валидными учетными данными")
+    @Test(priority = 2, retryAnalyzer = Retry.class)
     public void loginSuccess() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

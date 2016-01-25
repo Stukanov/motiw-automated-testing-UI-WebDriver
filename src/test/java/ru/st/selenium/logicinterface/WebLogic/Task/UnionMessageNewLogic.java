@@ -12,6 +12,8 @@ public interface UnionMessageNewLogic {
 
    void creatingTaskWithTheTaskOfIWG(Task task);
 
+   void creationOfATaskCheckpoints(Task task);
+
 
 }
 

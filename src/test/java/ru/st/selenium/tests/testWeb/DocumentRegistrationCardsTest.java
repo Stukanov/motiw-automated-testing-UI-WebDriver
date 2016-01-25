@@ -19,11 +19,10 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.FormDocRegisterCardsE
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -33,13 +32,13 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Раздел - РКД (Регистрационная карточка документа)
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
 
     /**
      * Проверяем создания РКД
      */
-    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
 
@@ -73,19 +72,14 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
         //-----------------------------------------------------------------------------------РКД
         // Переход в раздел Администрирование ДО/Регистрационные карточки документов
         GridDocRegisterCardsPage gridDocRegisterCardsPage = internalPage.goToGridDocRegisterCards();
-
         // Добавить РКД
         gridDocRegisterCardsPage.addDocRegisterCards();
-
         // Добавление РКД с проинициализированными объектами
         FormDocRegisterCardsEditPage formDocRegisterCardsEditPage = gridDocRegisterCardsPage.goToDocRegisterCardsEditPage();
-
         // Добавление полей РКД
         formDocRegisterCardsEditPage.addFieldsDocRegisterCards(registerCards);
-
         // Добавление настроек РКД
         formDocRegisterCardsEditPage.addSettingsDocRegisterCards(registerCards);
-
         // Сохранение настроек РКД
         formDocRegisterCardsEditPage.saveAllChangesInDoc(registerCards);
 

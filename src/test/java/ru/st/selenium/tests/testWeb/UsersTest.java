@@ -13,18 +13,17 @@ import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Login.RestorePasswordPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 /**
  * Пользователи
  */
@@ -86,7 +85,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
     /*
      * проверяем - создание Подразделений
      */
-    @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, retryAnalyzer = Retry.class)
     public void verifyCreatingAndRemovalDepartments() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
@@ -133,7 +132,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
     }
 
     // Проверка - Создание - Пользователи
-    @Test(priority = 2, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 2, retryAnalyzer = Retry.class)
     public void verifyCreatingUsers() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

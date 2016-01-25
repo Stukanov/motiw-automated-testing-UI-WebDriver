@@ -5,17 +5,18 @@ import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.HelpHtmlPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -24,13 +25,14 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
-@Features("Раздел - Помощь")
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Features("Помощь")
 public class HelpPDATest extends ModuleTaskTestCase {
 
     @Severity(SeverityLevel.MINOR)
-    @Description("Проверяем наличие элементов помощи на странице")
-    @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Title("Проверяем отображение элементов помощи")
+    @Description("Проверяем наличие элементов и расшифровку Кнопок (элементов) на странице помощи")
+    @Test(priority = 1, retryAnalyzer = Retry.class)
     public void verifyElementsHelp() throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

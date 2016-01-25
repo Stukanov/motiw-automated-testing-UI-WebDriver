@@ -17,31 +17,36 @@ import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.FormDocRegisterCardsEditPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
+import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-/**
- * Раздел - Документы
- */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Features("Документы")
+@Title("Проверка раздела Документы в PDA-интерфейсе")
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
 
-    /**
-     * Создаем РКД для проверки работы объекта Документ
-     */
-    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = TestRetryAnalyzer.class)
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Проверяем создание документа")
+    @Description("Проверяем создание РКД с набором атрибутов")
+    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
 
@@ -91,14 +96,19 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         // Сохранение настроек РКД
         formDocRegisterCardsEditPage.saveAllChangesInDoc(registerCards);
 
+        //-------------------------------------------------------------------------------Создать документ
+        NewDocumentPage newDocumentPage = internalPage.goToNewDocument();
+        newDocumentPage.createDocument(document);
+
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    /**
-     * проверка - Отображение грида документа
-     */
-    @Test(priority = 2, retryAnalyzer = TestRetryAnalyzer.class)
+
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Проверяем отображение документа в гриде")
+    @Description("Проверяем отображение документов в гриде документов (отчет Контролирования)")
+    @Test(priority = 2, retryAnalyzer = Retry.class)
     public void checkMapGridOfDocuments() throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

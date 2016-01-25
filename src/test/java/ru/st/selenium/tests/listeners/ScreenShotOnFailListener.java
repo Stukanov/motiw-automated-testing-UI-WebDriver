@@ -17,28 +17,24 @@ import ru.yandex.qatools.allure.annotations.Attachment;
  */
 public class ScreenShotOnFailListener implements ITestListener {
 
-    private Logger log = LoggerFactory.getLogger(ScreenShotOnFailListener.class);
-
 
     @Override
     public void onTestStart(ITestResult result) {
-        log.info("Test class started: " + result.getTestClass().getName());
-        log.info("Test started: " + result.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        log.info("Test SUCCESS: " + result.getName());
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
+        /**
+         * Автоматически делать скриншот, после каждого упавшего теста
+         * Чтобы делать скриншоты после зелёных тестов, нужно вызвать такую команду перед запуском тестов: java ScreenShooter.captureSuccessfulTests = true;
+         * Вы также можете сделать скриншот в любом месте теста одной строчкой - screenshot("my_file_name");
+         * При этом Selenide создаст два файла: my_file_name.png и my_file_name.html
+         */
         ScreenShotUtil.takeScreenShot();
-        makeScreenshot();
-        log.info("Test FAILED: " + result.getName());
-        if (result.getThrowable() != null) {
-            result.getThrowable().printStackTrace();
-        }
     }
 
     @Override

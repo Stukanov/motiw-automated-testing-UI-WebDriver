@@ -8,18 +8,17 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestRetryAnalyzer;
+import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.RetryListener;
-import ru.st.selenium.tests.listeners.alluretestng.retrylistener.RetryListenerAllure;
+import ru.st.selenium.tests.listeners.TestListener;
 
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListenerAllure.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 /**
  * Редактор словарей
  */
@@ -29,7 +28,7 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectTestC
     DictionaryEditor dictionaryEditor = getRandomDictionaryEditor();
 
     // Проверяем создание - Редактор словарей
-    @Test(priority = 1, retryAnalyzer = TestRetryAnalyzer.class)
+    @Test(priority = 1, retryAnalyzer = Retry.class)
     public void createDictionaryEditor() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression functional Test system Motiw" verbose="5" data-provider-thread-count="1">
-
 	<listeners>
-		<listener class-name="com.codeborne.selenide.testng.TextReport" />
+		<listener class-name="com.codeborne.selenide.testng.TextReport"/>
 	</listeners>
-
 	<test name="Regression PDA">
 		<classes>
 		    <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
@@ -17,7 +15,6 @@
 			<class name="ru.st.selenium.tests.testPda.HelpPDATest"/>
 		</classes>
 	</test> <!--Functional Tests PDA-->
-
 	<test name="Regression Web">
 		<classes>
 			<class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
