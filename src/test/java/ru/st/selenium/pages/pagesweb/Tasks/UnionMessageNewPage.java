@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,10 +17,9 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.testng.Assert.assertTrue;
+
 
 /**
  * Страница - Задачи/Создать задачу
@@ -113,7 +113,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Номер задачи
      */
-    @FindBy(xpath = "//div[@id='numerator']")
+    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[2]//*[contains (@class, 'col-value')]")
     private SelenideElement taskNumber;
 
     /**
@@ -309,6 +309,12 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      */
     @FindBy(xpath = "//li[contains (@id, 'planning')]//span[contains (@class, 'strip')]")
     private SelenideElement planningTab;
+
+    /**
+     * Вкладка Планирование
+     */
+    @FindBy(xpath = "//li[contains (@id, 'tab_description')]//span[contains (@class, 'strip')]")
+    private SelenideElement planningDescription;
 
     /**
      * Вкладка Дополнительно
@@ -547,6 +553,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Клик сохранить задачу - ожидание маски
      */
     public UnionMessageNewPage clickSaveTask() {
+        planningDescription.click();
         buttonCreateTask.click();
         waitForTaskMask();
         return this;
@@ -555,8 +562,8 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Проверка что появилось окно и ссылка на созданную задачу
      */
-    public UnionMessageNewPage assertWindowTaskCreated() {
-        $(By.xpath("//a[contains (@href, '/user/unionmessage')]")).shouldBe(Condition.visible);
+    public UnionMessageNewPage assertWindowTaskCreated(String verifyMessage) {
+        $(By.xpath("//*[contains(text(),'" + verifyMessage + "')][ancestor::div[@class='ext-mb-content']]")).shouldBe(Condition.visible);
         buttonTaskSavedOK.click();
         return this;
     }
@@ -934,7 +941,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
                 .clickSaveTask()
-                .assertWindowTaskCreated();
+                .assertWindowTaskCreated(numberTask());
 
     }
 
@@ -960,7 +967,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
                 .clickSaveTask()
-                .assertWindowTaskCreated();
+                .assertWindowTaskCreated(numberTask());
     }
 
 
@@ -976,8 +983,27 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setEnd(task.getDateEnd())
                 .setCheckpoints(task.getCheckpoints()) // Контрольные точки
                 .clickSaveTask()
-                .assertWindowTaskCreated();
+                .assertWindowTaskCreated(numberTask());
     }
+
+    /*
+    Считываем номер в поле # для верификации созданной задачи
+    ИЛИ возвращаем сообщение - Создана новая задача
+     */
+    private String numberTask() {
+        try {
+            String number = taskNumber.getText();
+            return number;
+        } catch (WebDriverException e) {
+            String alertMessage = $(By.xpath("//*[contains(text(),'Создана')][ancestor::div[@class='ext-mb-content']]")).shouldBe(Condition.present).getText();
+            return alertMessage;
+
+        }
+
+
+    }
+
+
 }
 
 
