@@ -371,7 +371,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      */
     @Override
     public boolean hasMenuUserComplete() {
-        $(By.xpath("//div[@id='menu']")).waitWhile(Condition.appears, 10000);
+        $(By.xpath("//div[@id='menu']//div[@id='panel_2']")).waitUntil(Condition.present, 15000);
         menuElements.shouldHaveSize(8);
         return !menuElements.isEmpty();
     }

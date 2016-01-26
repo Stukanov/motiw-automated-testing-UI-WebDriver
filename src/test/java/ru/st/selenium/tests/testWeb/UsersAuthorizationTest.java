@@ -5,6 +5,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.TestBase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
@@ -15,6 +16,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
@@ -41,6 +43,10 @@ public class UsersAuthorizationTest extends TestBase {
     public void loginSuccess() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+        assertTrue(loginPage.isLoggedIn());
         assertTrue(loginPage.isLoggedInAs(ADMIN)); // Проверяем, что залогинен именно тот пользователь, к-й входил в систему
         // Выход из системы
         loginPage.initializedInsidePage().logout();
