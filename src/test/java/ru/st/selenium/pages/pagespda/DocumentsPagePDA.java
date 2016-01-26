@@ -36,12 +36,6 @@ public class DocumentsPagePDA extends Page {
     @FindBy(xpath = "//li[@class='ui-block-c']//a")
     private SelenideElement controlled;
 
-    /*
-     * Грид документа - На контроле (Тип документа)
-     *
-     */
-
-
     /**
      * Проверяем отображение гридов документа
      *

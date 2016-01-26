@@ -25,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Создать задачу")
+@Features("Создать задачу (PDA)")
 @Title("Проверка создания Задач в PDA-интерфейсе")
 public class CreateTaskPDATest extends ModuleTaskTestCase {
 
