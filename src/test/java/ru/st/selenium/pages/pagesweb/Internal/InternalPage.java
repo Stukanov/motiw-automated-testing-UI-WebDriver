@@ -30,7 +30,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
     /*
      * Ссылки на все пункты меню
      */
-    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]/div[not(@id='menu-button-more' and @class='menu-point-hidden')]")
+    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]//div[contains(@class,'menu-point')]")
     private ElementsCollection menuElements;
 
     /*
@@ -372,7 +372,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
     @Override
     public boolean hasMenuUserComplete() {
         $(By.xpath("//div[@id='menu']//div[@id='panel_2']")).waitUntil(Condition.present, 15000);
-        menuElements.shouldHaveSize(8);
+        menuElements.shouldHaveSize(9);
         return !menuElements.isEmpty();
     }
 
