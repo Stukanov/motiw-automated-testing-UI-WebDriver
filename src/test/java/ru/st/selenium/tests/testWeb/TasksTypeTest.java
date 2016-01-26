@@ -18,6 +18,11 @@ import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -25,12 +30,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
-/**
- * Типы задач
- */
+@Features("Типы задач")
+@Title("Проверка создания Типа задачи в Web-интерфейсе")
 public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
 
-    // Add Create Types Task
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Создание Типа задач с полным набором полей")
+    @Description("Проверяем создание объекта Типа задачи со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataTasksTypes", retryAnalyzer = Retry.class)
     public void verifyCreateTaskTypes(Directories directories, TypesOfTables typesOfTables,
                                       TasksTypes tasksTypes) throws Exception {

@@ -28,9 +28,6 @@ import static com.codeborne.selenide.Selenide.open;
 @Features("Авторизация")
 @Title("Авторизация в систему PDA")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
-/**
- * Раздел - Стр. авторизации
- */
 public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
 
     @Severity(SeverityLevel.BLOCKER)

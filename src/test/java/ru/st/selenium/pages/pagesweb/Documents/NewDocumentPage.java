@@ -649,6 +649,9 @@ public class NewDocumentPage extends Page implements DocumentLogic {
 
     }
 
+    /**
+     * Резолюции
+     */
     @Override
     public void createWithResolution() {
 

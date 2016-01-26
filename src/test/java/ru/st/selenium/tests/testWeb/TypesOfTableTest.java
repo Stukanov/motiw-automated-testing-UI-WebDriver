@@ -1,6 +1,5 @@
 package ru.st.selenium.tests.testWeb;
 
-
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -16,21 +15,25 @@ import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.tests.listeners.TestListener;
-
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
-/**
- * Типы таблиц
- */
+@Features("Типы таблиц")
+@Title("Проверка создания Типа таблиц в Web-интерфейсе")
 public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
 
 
-    // Add Create Types Of Table
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Создание Типа таблицы с полным набором полей")
+    @Description("Проверяем создание объекта Типа таблицы со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataTypesOfTable", retryAnalyzer = Retry.class)
     public void createTypesOfTable(Directories directories, TypesOfTables typesOfTables) throws Exception {
 
@@ -44,23 +47,18 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
         //------------------------------------------------ Администрирование/Справочники
         // Переход в раздел Администрирование/Справочники
         TaskTypeListObjectPage directoriesPage = internalPage.goToDirectories();
-
         // Добавляем объект - Справочник
         directoriesPage.addDirectories(directories);
-
         // переходим в форму редактирования Справочника
         DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
-
         // Добавляем настройки И поля спр-ка
         directoriesEditPage.addFieldDirectories(directories);
 
         //------------------------------------------------- Администрирование/Типы таблиц
         TaskTypeListObjectPage typesOfTablesPage = internalPage.goToTypesOfTables();
         typesOfTablesPage.addTypesOfTables(typesOfTables);
-
         // переходим в форму редактирования - Типы таблицы
         TypesOfTablesEditPage typesOfTablesEditPage = typesOfTablesPage.goToTypesOfTablesEditPage();
-
         // Добавляем настройки и поля Типы таблицы
         typesOfTablesEditPage.addFieldTypesOfTables(typesOfTables);
 
@@ -68,7 +66,6 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
         internalPage.logout();
         // Проверка - пользователь разлогинен
         assertTrue(loginPage.isNotLoggedIn());
-
 
         /**
          * Проверяем удаление объекта - Типы таблиц

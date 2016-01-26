@@ -12,6 +12,8 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.DocumentsPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
+import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
+import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Administration.DirectoriesEditFormPage;
 import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
@@ -46,7 +48,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
     @Severity(SeverityLevel.BLOCKER)
     @Title("Проверяем создание документа")
     @Description("Проверяем создание РКД с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataDRC")
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
 
@@ -58,41 +60,50 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
+        //---------------------------------------------------------------------------------Пользователи и Подразделения
+        // Инициализируем страницу и переходим на нее - Администрирование/Пользователи (Подразделения)
+        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
 
-        //----------------------------------------------------------------------Справочники
-        // Переход в раздел Администрирование/Справочники
-        TaskTypeListObjectPage directoriesPage = internalPage.goToDirectories();
+        createDepartmentPage.beforeAdd();
+        createDepartmentPage.createDepartment(departments[0]);
+        createDepartmentPage.createDepartment(departments[1]);
 
-        // добавляем объект - Справочник
-        directoriesPage.addDirectories(directories);
+        // Инициализируем страницу - Администрирование/Пользователи (пользователи)
+        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
 
-        // переходим в форму редактирования Справочника
-        DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
+        createUsersPage.beforeAdd();
 
-        // Добавляем настройки И поля спр-ка
-        directoriesEditPage.addFieldDirectories(directories);
+        createUsersPage.createUser(employees[0].setDepartment(departments[0]));
+        createUsersPage.createUser(employees[1].setDepartment(departments[1]));
+        createUsersPage.createUser(employees[2].setDepartment(departments[1]));
+        createUsersPage.createUser(employees[3].setDepartment(departments[0]));
 
         //-----------------------------------------------------------------------------------Редактор словарей
         // Переход в раздел - Администрирование ДО/Редактор словарей
         DictionaryEditorPage dictionaryEditorPage = internalPage.goToDictionaryEditor();
         dictionaryEditorPage.addDictionaryEditor(dictionaryEditor);
 
+        //----------------------------------------------------------------------Справочники
+        // Переход в раздел Администрирование/Справочники
+        TaskTypeListObjectPage directoriesPage = internalPage.goToDirectories();
+        // добавляем объект - Справочник
+        directoriesPage.addDirectories(directories);
+        // переходим в форму редактирования Справочника
+        DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
+        // Добавляем настройки И поля спр-ка
+        directoriesEditPage.addFieldDirectories(directories);
+
         //-----------------------------------------------------------------------------------РКД
         // Переход в раздел Администрирование ДО/Регистрационные карточки документов
         GridDocRegisterCardsPage gridDocRegisterCardsPage = internalPage.goToGridDocRegisterCards();
-
         // Добавить РКД
         gridDocRegisterCardsPage.addDocRegisterCards();
-
         // Добавление РКД с проинициализированными объектами
         FormDocRegisterCardsEditPage formDocRegisterCardsEditPage = gridDocRegisterCardsPage.goToDocRegisterCardsEditPage();
-
         // Добавление полей РКД
         formDocRegisterCardsEditPage.addFieldsDocRegisterCards(registerCards);
-
         // Добавление настроек РКД
         formDocRegisterCardsEditPage.addSettingsDocRegisterCards(registerCards);
-
         // Сохранение настроек РКД
         formDocRegisterCardsEditPage.saveAllChangesInDoc(registerCards);
 
@@ -100,28 +111,27 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         NewDocumentPage newDocumentPage = internalPage.goToNewDocument();
         newDocumentPage.createDocument(document);
 
+
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn());
-    }
 
 
-    @Severity(SeverityLevel.BLOCKER)
-    @Title("Проверяем отображение документа в гриде")
-    @Description("Проверяем отображение документов в гриде документов (отчет Контролирования)")
-    @Test(priority = 2, retryAnalyzer = Retry.class)
-    public void checkMapGridOfDocuments() throws Exception {
+        /**
+         * Проверяем отображение документов в гриде документов (отчет Контролирования)
+         */
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
-
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
         DocumentsPagePDA documentsPagePDA = internalPagePDA.goToDocuments();
-
-        documentsPagePDA.checkMapGridsDocuments(); //TODO 1 - Реализовать - проверка созданного документа в гриде PDA; -проверка отображение заполненных зн-ий в ПДА
+        // Проверяем отображение отчетов "контролирования"
+        documentsPagePDA.checkMapGridsDocuments();
+        // Проверяем отображение созданного документа в гриде
+        documentsPagePDA.checkTheDisplayOfTheDocumentGrid(registerCards);
 
         internalPagePDA.logout(); // Выход из системы
         assertTrue(loginPagePDA.isNotLoggedInPDA());

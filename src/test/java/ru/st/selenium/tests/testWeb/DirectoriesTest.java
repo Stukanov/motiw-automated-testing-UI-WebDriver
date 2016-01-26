@@ -13,6 +13,11 @@ import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -21,13 +26,14 @@ import static org.testng.AssertJUnit.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
-/**
- * Справочники
- */
+@Features("Справочник")
+@Title("Проверка создания Справочник в Web-интерфейсе")
 public class DirectoriesTest extends ModuleAdministrationObjectTestCase {
 
 
-    // verify create Directories
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Создание Справочника с полным набором полей")
+    @Description("Проверяем создание объекта Справочник со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataDirectories", retryAnalyzer = Retry.class)
     public void createDirectories(Directories directories) throws Exception {
         // Авторизация

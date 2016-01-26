@@ -1,9 +1,17 @@
 package ru.st.selenium.pages.pagespda;
 
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.impl.CollectionElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.pages.Page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 /*
  * Страница - Документы
@@ -28,6 +36,11 @@ public class DocumentsPagePDA extends Page {
     @FindBy(xpath = "//li[@class='ui-block-c']//a")
     private SelenideElement controlled;
 
+    /*
+     * Грид документа - На контроле (Тип документа)
+     *
+     */
+
 
     /**
      * Проверяем отображение гридов документа
@@ -38,6 +51,19 @@ public class DocumentsPagePDA extends Page {
         onReview.click();
         toExecution.click();
         controlled.click();
+        return this;
+    }
+
+    /**
+     * Проверяем отображение созданного документа в гриде
+     * @param docRegisterCards
+     *
+     * TODO добавить проверку на Название документа и Дату регистрации
+     */
+    public DocumentsPagePDA checkTheDisplayOfTheDocumentGrid(DocRegisterCards docRegisterCards) {
+        controlled.click();
+        $(By.xpath("//*[@id='mainblock']//tbody//td[3]//text[text()='" + docRegisterCards.getDocRegisterCardsName() + "']"))
+                .shouldBe(Condition.visible);
         return this;
     }
 

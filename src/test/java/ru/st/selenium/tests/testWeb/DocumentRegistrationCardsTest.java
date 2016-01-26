@@ -23,21 +23,24 @@ import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.st.selenium.tests.listeners.TestListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-
-/**
- * Раздел - РКД (Регистрационная карточка документа)
- */
+@Features("РКД (Регистрационная карточка документа)")
+@Title("Проверка создания Регистрационная карточка документа в Web-интерфейсе")
 @Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
 public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
 
-    /**
-     * Проверяем создания РКД
-     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Создание РКД с полным набором полей и надстройками")
+    @Description("Проверяем создание объекта Регистрационная карточка документа со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
