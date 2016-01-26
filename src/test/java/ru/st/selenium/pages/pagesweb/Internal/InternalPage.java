@@ -30,7 +30,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
     /*
      * Ссылки на все пункты меню
      */
-    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]//div[contains(@class,'menu-point')]")
+    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]//div[contains(@class,'menu-point') and not(@class='menu-point-hidden')]")
     private ElementsCollection menuElements;
 
     /*
