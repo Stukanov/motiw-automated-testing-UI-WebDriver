@@ -9,11 +9,8 @@ import ru.st.selenium.pages.pagesweb.Administration.SearchAdminPage;
 import ru.st.selenium.pages.pagesweb.Administration.SystemInformationPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,14 +19,14 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Информация о системе И Поисковая система
  */
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class SystemInformationTest extends ModuleTaskTestCase {
 
 
     /*
       * Проверка отсутствия незапущенных служб (красные элементы на странице)
       */
-    @Test(priority = 1, retryAnalyzer = Retry.class)
+    @Test(priority = 1)
     public void verifyNotRedSystemInfo() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
@@ -52,7 +49,7 @@ public class SystemInformationTest extends ModuleTaskTestCase {
     /*
       * Проверяем отсутствие ошибок в поисковой системе над конкретным объектом
       */
-    @Test(priority = 2, retryAnalyzer = Retry.class)
+    @Test(priority = 2)
     public void verifyNotIndexingErrors() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

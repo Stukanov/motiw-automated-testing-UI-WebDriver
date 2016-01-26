@@ -11,10 +11,8 @@ import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
 import ru.st.selenium.pages.pagesweb.Administration.TypesOfTablesEditPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -25,7 +23,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Типы таблиц")
 @Title("Проверка создания Типа таблиц в Web-интерфейсе")
 public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
@@ -34,7 +32,7 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Типа таблицы с полным набором полей")
     @Description("Проверяем создание объекта Типа таблицы со всеми типами полей")
-    @Test(priority = 1, dataProvider = "objectDataTypesOfTable", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataTypesOfTable")
     public void createTypesOfTable(Directories directories, TypesOfTables typesOfTables) throws Exception {
 
         // Авторизация

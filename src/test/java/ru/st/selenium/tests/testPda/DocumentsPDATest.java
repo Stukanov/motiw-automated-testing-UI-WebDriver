@@ -22,13 +22,11 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsP
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -40,7 +38,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Документы")
 @Title("Проверка раздела Документы в PDA-интерфейсе")
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {

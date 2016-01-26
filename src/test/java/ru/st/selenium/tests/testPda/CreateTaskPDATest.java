@@ -10,9 +10,7 @@ import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
-import ru.st.selenium.tests.listeners.RetryListener;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -26,7 +24,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, RetryListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Создать задачу")
 @Title("Проверка создания Задач в PDA-интерфейсе")
 public class CreateTaskPDATest extends ModuleTaskTestCase {
@@ -36,7 +34,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataTaskPDA", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataTaskPDA")
     public void verifyCreateTaskTest(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
@@ -69,9 +67,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         internalPagePDA.logout(); // Выход из системы
 
         assertTrue(loginPagePDA.isNotLoggedInPDA());
-
     }
-
 
     /**
      * проверка - Редактирование задачи
@@ -80,7 +76,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Редактирование задачи")
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
-    @Test(priority = 2, dataProvider = "objectDataTaskPDA", retryAnalyzer = Retry.class)
+    @Test(priority = 2, dataProvider = "objectDataTaskPDA")
     public void checkEditingTasks(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
@@ -130,11 +126,10 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
 
     }
 
-
     /**
      * проверка - Закрытие задачи (Отправка в архив)
      */
-    @Test(priority = 3, dataProvider = "objectDataTaskPDA", retryAnalyzer = Retry.class)
+    @Test(priority = 3, dataProvider = "objectDataTaskPDA")
     public void verifyCompletionOfTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 

@@ -14,10 +14,8 @@ import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessagePage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -28,7 +26,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Создать задачу")
 @Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskTestCase {
@@ -49,7 +47,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataTask", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataTask")
     public void verifyCreateTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -117,7 +115,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи типа ИРГ")
     @Description("Проверяем создание задачи ИРГ с набором атрибутов")
-    @Test(priority = 2, dataProvider = "objectDataTask", retryAnalyzer = Retry.class)
+    @Test(priority = 2, dataProvider = "objectDataTask")
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -173,7 +171,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание задачи с КТ (контрольные точки)")
     @Description("Проверяем создание задачи c набором Контрольных точек")
-    @Test(priority = 2, dataProvider = "objectDataTask", retryAnalyzer = Retry.class)
+    @Test(priority = 2, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                     Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 

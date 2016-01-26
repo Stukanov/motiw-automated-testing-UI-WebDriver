@@ -14,10 +14,8 @@ import ru.st.selenium.pages.pagesweb.Administration.TaskTypesEditPage;
 import ru.st.selenium.pages.pagesweb.Administration.TypesOfTablesEditPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -29,7 +27,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Типы задач")
 @Title("Проверка создания Типа задачи в Web-интерфейсе")
 public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
@@ -37,7 +35,7 @@ public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Типа задач с полным набором полей")
     @Description("Проверяем создание объекта Типа задачи со всеми типами полей")
-    @Test(priority = 1, dataProvider = "objectDataTasksTypes", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataTasksTypes")
     public void verifyCreateTaskTypes(Directories directories, TypesOfTables typesOfTables,
                                       TasksTypes tasksTypes) throws Exception {
 

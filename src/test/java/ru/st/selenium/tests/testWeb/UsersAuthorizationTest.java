@@ -7,9 +7,7 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.TestBase;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -19,7 +17,7 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import static com.codeborne.selenide.Selenide.open;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Авторизация")
 @Title("Авторизация в систему PDA")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
@@ -29,7 +27,7 @@ public class UsersAuthorizationTest extends TestBase {
     @Title("Невалидная авторизация")
     @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
             "не проходит")
-    @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb")
     public void notSuccessfulAuthorization(Employee user) throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(user);
@@ -39,7 +37,7 @@ public class UsersAuthorizationTest extends TestBase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Валидная авторизация")
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
-    @Test(priority = 2, retryAnalyzer = Retry.class)
+    @Test(priority = 2)
     public void loginSuccess() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

@@ -6,13 +6,11 @@ import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.pagespda.*;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -24,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Настройки")
 @Title("Проверка работу настроек в PDA-интерфейсе")
 public class OptionsPDATest extends ModuleTaskTestCase {
@@ -32,7 +30,7 @@ public class OptionsPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Аттачминг файлов")
     @Description("Проверяем аттачминг файлов в форме созданной задачи (Лента действий)")
-    @Test(dataProvider = "objectDataTaskPDA", priority = 1, retryAnalyzer = Retry.class)
+    @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация

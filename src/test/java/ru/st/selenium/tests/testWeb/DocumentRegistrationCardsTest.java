@@ -19,10 +19,8 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.FormDocRegisterCardsE
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.Retry;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
-import ru.st.selenium.tests.listeners.TestListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -35,13 +33,13 @@ import static org.testng.AssertJUnit.assertTrue;
 
 @Features("РКД (Регистрационная карточка документа)")
 @Title("Проверка создания Регистрационная карточка документа в Web-интерфейсе")
-@Listeners({ScreenShotOnFailListener.class, TextReport.class, TestListener.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание РКД с полным набором полей и надстройками")
     @Description("Проверяем создание объекта Регистрационная карточка документа со всеми типами полей")
-    @Test(priority = 1, dataProvider = "objectDataDRC", retryAnalyzer = Retry.class)
+    @Test(priority = 1, dataProvider = "objectDataDRC")
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
 
