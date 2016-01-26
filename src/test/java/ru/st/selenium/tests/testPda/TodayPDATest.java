@@ -24,7 +24,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Раздел - Сегодня")
+@Features("Сегодня (PDA)")
 public class TodayPDATest extends ModuleTaskTestCase {
 
    /*
@@ -39,7 +39,7 @@ public class TodayPDATest extends ModuleTaskTestCase {
 
 
     @Severity(SeverityLevel.NORMAL)
-    @Title("Отображение информация в разделе Сегодня")
+    @Title("Отображение информации в разделе Сегодня")
     @Description("Проверяем отображение сохраненной информации в разедел - Сегодня")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyInfoToday(Task task) throws Exception {

@@ -39,16 +39,16 @@ import static org.testng.Assert.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Документы")
+@Features("Документы (PDA)")
 @Title("Проверка раздела Документы в PDA-интерфейсе")
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
 
     @Severity(SeverityLevel.BLOCKER)
-    @Title("Проверяем создание документа")
-    @Description("Проверяем создание РКД с набором атрибутов")
+    @Title("Проверяем работу документов")
+    @Description("Проверяем создание РКД с набором атрибутов, а также отображение его в отчете контролирования")
     @Test(priority = 1, dataProvider = "objectDataDRC")
-    public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
-                                                     DocRegisterCards registerCards, Document document) throws Exception {
+    public void checkWorkDocumentsPDA(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
+                                      DocRegisterCards registerCards, Document document) throws Exception {
 
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
 

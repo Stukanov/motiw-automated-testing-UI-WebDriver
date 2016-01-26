@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Поиск")
+@Features("Поиск (PDA)")
 @Title("Проверка поиск объектов системы (SOLR)")
 public class SearchPDATest extends ModuleTaskTestCase {
 

@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression functional Test system Motiw" verbose="5" data-provider-thread-count="1">
-	<listeners>
-		<listener class-name="com.codeborne.selenide.testng.TextReport"/>
-	</listeners>
-	<test name="Regression PDA">
-		<classes>
-		    <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.CreateTaskPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.DocumentsPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.SearchPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.OptionsPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.TodayPDATest"/>
-			<class name="ru.st.selenium.tests.testPda.HelpPDATest"/>
-		</classes>
-	</test> <!--Functional Tests PDA-->
-	<test name="Regression Web">
-		<classes>
-			<class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
-			<class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
-			<class name="ru.st.selenium.tests.testWeb.UsersTest"/>
-			<class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
-			<class name="ru.st.selenium.tests.testWeb.DirectoriesTest"/>
-			<class name="ru.st.selenium.tests.testWeb.TasksTypeTest"/>
-			<class name="ru.st.selenium.tests.testWeb.DocumentRegistrationCardsTest"/>
-			<class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
-			<class name="ru.st.selenium.tests.testWeb.DictionaryEditorTest"/>
-			<class name="ru.st.selenium.tests.testWeb.CreateDocumentTest"/>
-		</classes>
-	</test> <!--Functional Tests Web-->
+    <listeners>
+        <listener class-name="com.codeborne.selenide.testng.TextReport"/>
+    </listeners>
+
+    <test name="Регрессионная проверка системы Мотив - PDA-интерфейс">
+        <classes>
+            <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.CreateTaskPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.DocumentsPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.SearchPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.OptionsPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.TodayPDATest"/>
+            <class name="ru.st.selenium.tests.testPda.HelpPDATest"/>
+        </classes>
+    </test>
+
+    <test name="Регрессионная проверка системы - модуль - Пользователи (Web-интерфейс)">
+        <classes>
+            <class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
+            <class name="ru.st.selenium.tests.testWeb.UsersTest"/>
+        </classes>
+    </test>
+
+    <test name="Регрессионная проверка системы - модуль - Задачи (Web-интерфейс)">
+        <classes>
+            <class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
+        </classes>
+    </test>
+
+    <test name="Регрессионная проверка системы - модуль - Администрирование (Web-интерфейс)">
+        <classes>
+            <class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
+            <class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
+            <class name="ru.st.selenium.tests.testWeb.DirectoriesTest"/>
+            <class name="ru.st.selenium.tests.testWeb.TasksTypeTest"/>
+        </classes>
+    </test>
+
+    <test name="Регрессионная проверка системы - модуль - Документы (Web-интерфейс)">
+        <classes>
+            <class name="ru.st.selenium.tests.testWeb.DictionaryEditorTest"/>
+            <class name="ru.st.selenium.tests.testWeb.DocumentRegistrationCardsTest"/>
+            <class name="ru.st.selenium.tests.testWeb.CreateDocumentTest"/>
+        </classes>
+    </test>
 
 </suite>

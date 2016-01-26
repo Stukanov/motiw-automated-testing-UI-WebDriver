@@ -1,6 +1,5 @@
 package ru.st.selenium.tests.testPda;
 
-
 import com.codeborne.selenide.testng.TextReport;
 import ru.st.selenium.pages.pagespda.HelpHtmlPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
@@ -23,7 +22,7 @@ import static org.testng.Assert.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Помощь")
+@Features("Помощь (PDA)")
 public class HelpPDATest extends ModuleTaskTestCase {
 
     @Severity(SeverityLevel.MINOR)

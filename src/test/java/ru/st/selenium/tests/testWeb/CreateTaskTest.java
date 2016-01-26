@@ -27,7 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Создать задачу")
+@Features("Создать задачу (Web)")
 @Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskTestCase {
 
@@ -48,8 +48,8 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTask")
-    public void verifyCreateTaskTest(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                               Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+    public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
+                                 Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);

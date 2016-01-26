@@ -23,12 +23,12 @@ import static org.testng.Assert.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Настройки")
+@Features("Настройки (PDA)")
 @Title("Проверка работу настроек в PDA-интерфейсе")
 public class OptionsPDATest extends ModuleTaskTestCase {
 
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Аттачминг файлов")
+    @Title("Аттачминг файлов в задаче")
     @Description("Проверяем аттачминг файлов в форме созданной задачи (Лента действий)")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {

@@ -32,10 +32,10 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     Task editTask = getRandomObjectTask();
 
     @Severity(SeverityLevel.BLOCKER)
-    @Title("Создание задачи")
+    @Title("Создание задачи (PDA)")
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTaskPDA")
-    public void verifyCreateTaskTest(Task task) throws Exception {
+    public void verifyCreateTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
@@ -77,7 +77,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Title("Редактирование задачи")
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTaskPDA")
-    public void checkEditingTasks(Task task) throws Exception {
+    public void checkEditingTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
         // Авторизация
@@ -130,7 +130,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
      * проверка - Закрытие задачи (Отправка в архив)
      */
     @Test(priority = 3, dataProvider = "objectDataTaskPDA")
-    public void verifyCompletionOfTheTask(Task task) throws Exception {
+    public void verifyCompletionOfTheTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
         // Авторизация

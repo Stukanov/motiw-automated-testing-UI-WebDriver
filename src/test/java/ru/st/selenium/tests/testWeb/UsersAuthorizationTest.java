@@ -21,7 +21,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Авторизация")
-@Title("Авторизация в систему PDA")
+@Title("Авторизация в систему Web-интерфейс")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
 public class UsersAuthorizationTest extends TestBase {
 

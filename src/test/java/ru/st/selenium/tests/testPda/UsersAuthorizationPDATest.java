@@ -23,7 +23,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Авторизация")
+@Features("Авторизация (PDA)")
 @Title("Авторизация в систему PDA")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
 public class UsersAuthorizationPDATest extends ModuleTaskTestCase {
