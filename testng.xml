@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Regression functional Test system Motiw" verbose="5" data-provider-thread-count="1">
+<suite name="Regression functional GUI test system - Motiw" verbose="5" data-provider-thread-count="1">
     <listeners>
         <listener class-name="com.codeborne.selenide.testng.TextReport"/>
     </listeners>
 
-    <test name="Регрессионная проверка системы Мотив - PDA-интерфейс">
+    <test name="Модуль - PDA-интерфейс">
         <classes>
             <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
             <class name="ru.st.selenium.tests.testPda.CreateTaskPDATest"/>
@@ -17,20 +17,20 @@
         </classes>
     </test>
 
-    <test name="Регрессионная проверка системы - модуль - Пользователи (Web-интерфейс)">
+    <test name="Модуль - Пользователи (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
             <class name="ru.st.selenium.tests.testWeb.UsersTest"/>
         </classes>
     </test>
 
-    <test name="Регрессионная проверка системы - модуль - Задачи (Web-интерфейс)">
+    <test name="Модуль - Задачи (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
         </classes>
     </test>
 
-    <test name="Регрессионная проверка системы - модуль - Администрирование (Web-интерфейс)">
+    <test name="Модуль - Администрирование (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
             <class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
@@ -39,7 +39,7 @@
         </classes>
     </test>
 
-    <test name="Регрессионная проверка системы - модуль - Документы (Web-интерфейс)">
+    <test name="Модуль - Документы (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.DictionaryEditorTest"/>
             <class name="ru.st.selenium.tests.testWeb.DocumentRegistrationCardsTest"/>

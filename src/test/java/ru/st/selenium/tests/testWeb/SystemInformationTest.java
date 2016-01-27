@@ -1,6 +1,5 @@
 package ru.st.selenium.tests.testWeb;
 
-
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -11,21 +10,25 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-/**
- * Информация о системе И Поисковая система
- */
+@Features("Информация о системе И Поисковая система (Web)")
+@Title("Проверяем разделы Информация о системе И Поисковая система на наличие ошибок")
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class SystemInformationTest extends ModuleTaskTestCase {
 
 
-    /*
-      * Проверка отсутствия незапущенных служб (красные элементы на странице)
-      */
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверка отсутствия незапущенных служб")
+    @Description("Проверка на отсутствия незапущенных служб (красные элементы на странице)")
     @Test(priority = 1)
     public void verifyNotRedSystemInfo() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -46,9 +49,10 @@ public class SystemInformationTest extends ModuleTaskTestCase {
 
     }
 
-    /*
-      * Проверяем отсутствие ошибок в поисковой системе над конкретным объектом
-      */
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверяем наличие ошибок в индексах Поисковой системы")
+    @Description("Проверяем отсутствие ошибок в Поисковой системе над конкретным объектом")
     @Test(priority = 2)
     public void verifyNotIndexingErrors() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);

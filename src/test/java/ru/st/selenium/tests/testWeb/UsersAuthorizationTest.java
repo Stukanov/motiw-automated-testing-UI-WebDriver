@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Авторизация")
+@Features("Авторизация (Web)")
 @Title("Авторизация в систему Web-интерфейс")
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
 public class UsersAuthorizationTest extends TestBase {

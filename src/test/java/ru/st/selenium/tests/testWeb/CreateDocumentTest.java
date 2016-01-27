@@ -23,6 +23,11 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -31,14 +36,13 @@ import static org.testng.AssertJUnit.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-/**
- * Документы / Создать документ
- */
+@Features("Создать документ (Web)")
+@Title("Проверка создания документа в Web-интерфейсе")
 public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCase {
 
-   /*
-    Проверяем создание документа
-     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверяем создание документа")
+    @Description("Проверяем создание документа с набором заполняемых полей")
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void CreateDocument(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                DocRegisterCards registerCards, Document document) throws Exception {

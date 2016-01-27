@@ -28,7 +28,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Типы задач")
+@Features("Типы задач (Web)")
 @Title("Проверка создания Типа задачи в Web-интерфейсе")
 public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
 

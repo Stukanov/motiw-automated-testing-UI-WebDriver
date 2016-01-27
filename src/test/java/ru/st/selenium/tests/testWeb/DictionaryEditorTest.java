@@ -10,6 +10,11 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -17,15 +22,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-/**
- * Редактор словарей
- */
+@Features("Редактор словарей (Web)")
+@Title("Проверка создания Редактор словарей в Web-интерфейсе")
 public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectTestCase {
 
     // Инициализируем объект - Редактор словарей
     DictionaryEditor dictionaryEditor = getRandomDictionaryEditor();
 
-    // Проверяем создание - Редактор словарей
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверяем создание объекта Редактор словарей")
+    @Description("Проверяем создание объекта Редактор словарей с набором элементов")
     @Test(priority = 1)
     public void createDictionaryEditor() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
