@@ -715,71 +715,26 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Вводим статус документа: На рассмотрении
+     * Статусы документа:
+     * На рассмотрении
+     * Рассмотрен
+     * На подписании
+     * На исполнении
+     * В архив
+     *
+     * @param statesOnReview               вводимое значение статуса документа
+     * @param selectionStatusFieldDocument выбор поля Статуса (На рассмотрении, На исполнении, В архив...)
+     * @param setValueStatesDocument       передается значение статуса
+     * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage adValueDocumentStatesOnReview(String statesOnReview) {
+    public FormDocRegisterCardsEditPage enterTheNameOfTheStatusOfTheDocumentLifecycle(
+            String statesOnReview, SelenideElement selectionStatusFieldDocument, SelenideElement setValueStatesDocument) {
         if (statesOnReview == null) {
             return this;
         } else {
-            clickDocumentStatesOnReview.click();
-            setValueDocumentStates.clear();
-            setValueDocumentStates.setValue(statesOnReview);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим статус документа: Рассмотрен
-     */
-    public FormDocRegisterCardsEditPage adValueDocumentStatesReviewed(String statesReviewed) {
-        if (statesReviewed == null) {
-            return this;
-        } else {
-            clickDocumentStatesReviewed.click();
-            setValueDocumentStates.clear();
-            setValueDocumentStates.setValue(statesReviewed);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим статус документа: На подписании
-     */
-    public FormDocRegisterCardsEditPage adValueDocumentStatesOnApproval(String statesOnApproval) {
-        if (statesOnApproval == null) {
-            return this;
-        } else {
-            clickDocumentStatesOnApproval.click();
-            setValueDocumentStates.clear();
-            setValueDocumentStates.setValue(statesOnApproval);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим статус документа: На исполнении
-     */
-    public FormDocRegisterCardsEditPage adValueDocumentStatesOnExecution(String statesOnExecution) {
-        if (statesOnExecution == null) {
-            return this;
-        } else {
-            clickDocumentStatesOnExecution.click();
-            setValueDocumentStates.clear();
-            setValueDocumentStates.setValue(statesOnExecution);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим статус документа: В архив
-     */
-    public FormDocRegisterCardsEditPage adValueDocumentStatesInArchive(String statesInArchive) {
-        if (statesInArchive == null) {
-            return this;
-        } else {
-            clickDocumentStatesInArchive.click();
-            setValueDocumentStates.clear();
-            setValueDocumentStates.setValue(statesInArchive);
+            selectionStatusFieldDocument.click();
+            setValueStatesDocument.clear();
+            setValueStatesDocument.setValue(statesOnReview);
         }
         return this;
     }
@@ -814,37 +769,19 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
+     * Настройки по умолчанию при отправке документа на доработку:
      * Возврат на доработку с начала текущей схемы
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selAtFirstRevisionScheme(boolean atFirstRevisionScheme) {
-        if (atFirstRevisionScheme) {
-            clickAtFirstRevisionScheme.click();
-        }
-        return this;
-    }
-
-    /**
      * Возврат на доработку в ту же точку рассмотрения
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selForCompletionInTighterPoint(boolean forCompletionInTighterPoint) {
-        if (forCompletionInTighterPoint) {
-            clickForCompletionInTighterPoint.click();
-        }
-        return this;
-    }
-
-    /**
      * Возврат на доработку с новой схемой
      *
+     * @param optionalReturnForRevision передаваемая опция (true OR false)
+     * @param selectionOfOptions        выбор передаваемой опции (с начала схемы или в туже точку...)
      * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage selOnCompletionTheNewScheme(boolean onCompletionTheNewScheme) {
-        if (onCompletionTheNewScheme) {
-            clickOnCompletionTheNewScheme.click();
+    public FormDocRegisterCardsEditPage settingsForTheDefaultWhenYouSendTheDocumentBackForRevision(
+            boolean optionalReturnForRevision, SelenideElement selectionOfOptions) {
+        if (optionalReturnForRevision) {
+            selectionOfOptions.click();
         }
         return this;
     }
@@ -914,53 +851,27 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Изменение признака "Окончательная версия"
-     * Автор документа:
+     * Изменение признака "Окончательная версия":
+     * Автор документа
+     * Пользователь с правами редактирования
+     * Конролер типа документа
+     *
+     * @param finalVersionChanging                           передаваемая настройка (Значение на выбрано (null); Нет или Да)
+     * @param finalSelectionOfFeatureVersionForSelectedRoles выбираемая настройка для роли
+     * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage setDocAuthorFinalVersionFiles(SettingsFinalVersion finalVersionChanging) {
+    public FormDocRegisterCardsEditPage settingsChangingTheSignOfFinalVersion(SettingsFinalVersion finalVersionChanging,
+                                                                              SelenideElement finalSelectionOfFeatureVersionForSelectedRoles) {
         if (finalVersionChanging == null) {
             return this;
         } else if (finalVersionChanging == SettingsFinalVersion.NO) {
-            authorFinalVersionFiles.click();
+            finalSelectionOfFeatureVersionForSelectedRoles.click();
             selectingSecondAdjustmentPosition();
         } else if (finalVersionChanging == SettingsFinalVersion.YES) {
-            authorFinalVersionFiles.click();
+            finalSelectionOfFeatureVersionForSelectedRoles.click();
             selectingThirdAdjustmentPosition();
         }
-        return this;
-    }
 
-    /**
-     * Изменение признака "Окончательная версия"
-     * Пользователь с правами редактирования:
-     */
-    public FormDocRegisterCardsEditPage setUserWithEditRightFinalVersionFiles(SettingsFinalVersion finalVersionChanging) {
-        if (finalVersionChanging == null) {
-            return this;
-        } else if (finalVersionChanging == SettingsFinalVersion.NO) {
-            userWithEditRightFinalVersionFiles.click();
-            selectingSecondAdjustmentPosition();
-        } else if (finalVersionChanging == SettingsFinalVersion.YES) {
-            userWithEditRightFinalVersionFiles.click();
-            selectingThirdAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
-     * Изменение признака "Окончательная версия"
-     * Конролер типа документа:
-     */
-    public FormDocRegisterCardsEditPage setDocTypeControllerFinalVersionFiles(SettingsFinalVersion finalVersionChanging) {
-        if (finalVersionChanging == null) {
-            return this;
-        } else if (finalVersionChanging == SettingsFinalVersion.NO) {
-            docTypeControllerFinalVersionFiles.click();
-            selectingSecondAdjustmentPosition();
-        } else if (finalVersionChanging == SettingsFinalVersion.YES) {
-            docTypeControllerFinalVersionFiles.click();
-            selectingThirdAdjustmentPosition();
-        }
         return this;
     }
 
@@ -1024,58 +935,25 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
         return this;
     }
 
-
     /**
-     * Доступ к разделам документа при просмотре/редактировании
-     * -Маршрут
+     * Доступ к разделам документа при просмотре/редактировании:
+     * Маршрут
+     * Файлы
+     * Резолюции
+     * Журнал
      *
+     * @param accessToTab  передаваемое значение параметра (true OR false)
+     * @param selectionTab передаваемое значение выбираемой опции
      * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage clickCheckBoxAccessToSectionsDocumentRoute(boolean checkBoxAccessToSectionsDocumentRoute) {
-        if (checkBoxAccessToSectionsDocumentRoute) {
-            clickBoxAccessToSectionsDocumentRoute.click();
+    public FormDocRegisterCardsEditPage settingUpAccessToTheSectionsOfTheDocumentWhenViewingOREditing(
+            boolean accessToTab, SelenideElement selectionTab) {
+        if (accessToTab) {
+            selectionTab.click();
         }
         return this;
     }
 
-    /**
-     * Доступ к разделам документа при просмотре/редактировании
-     * -Файлы
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage clickCheckBoxAccessToSectionsDocumentFiles(boolean checkBoxAccessToSectionsDocumentFiles) {
-        if (checkBoxAccessToSectionsDocumentFiles) {
-            clickBoxAccessToSectionsDocumentFiles.click();
-        }
-        return this;
-    }
-
-    /**
-     * Доступ к разделам документа при просмотре/редактировании
-     * -Резолюции
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage clickCheckBoxAccessToSectionsDocumentResolution(boolean checkBoxAccessToSectionsDocumentResolution) {
-        if (checkBoxAccessToSectionsDocumentResolution) {
-            clickBoxAccessToSectionsDocumentResolution.click();
-        }
-        return this;
-    }
-
-    /**
-     * Доступ к разделам документа при просмотре/редактировании
-     * -Журнал
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage clickCheckBoxAccessToSectionsDocumentLog(boolean checkBoxAccessToSectionsDocumentLog) {
-        if (checkBoxAccessToSectionsDocumentLog) {
-            clickBoxAccessToSectionsDocumentLog.click();
-        }
-        return this;
-    }
 
     /**
      * Создание связанных документов
@@ -1097,7 +975,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
         }
         return this;
     }
-
 
     /*
      * ==========================================================================Вкладка - МАРШРУТЫ СОГЛАСОВАНИЯ (методы)
@@ -1263,78 +1140,20 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Уникальное поле
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selUniqueFieldDoc(boolean uniqueField) {
-        if (uniqueField) {
-            this.uniqueField.click();
-            selectingSecondAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
-     * Скрывать при создании
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selHideForCreation(boolean hideForCreation) {
-        if (hideForCreation) {
-            this.hideForCreation.click();
-            selectingSecondAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
-     * Скрывать в таблицах
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selHideInTables(boolean hideInTables) {
-        if (hideInTables) {
-            this.hideInTables.click();
-            selectingSecondAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
-     * Скрывать при поиске
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selHideForSearch(boolean hideForSearch) {
-        if (hideForSearch) {
-            this.hideForSearch.click();
-            selectingSecondAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
-     * Скрывать в карточке
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selHideInCards(boolean hideInCards) {
-        if (hideInCards) {
-            this.hideInCards.click();
-            selectingSecondAdjustmentPosition();
-        }
-        return this;
-    }
-
-    /**
+     * Настройки поля:
+     * Уникальное
+     * Скрывать при (создании; редактировании; поиске и пр..)
      * Использовать при создании связанного документа
+     * и etc...
      *
+     * @param setupChoiceField истинность выбора настройки поля, иначе настройка поля игнорируется
+     * @param fieldSettings    выбираемая настройку поля
      * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage selUsedToCreateTheLinkedDocumentField(boolean usedToCreateTheLinkedDocumentField) {
-        if (usedToCreateTheLinkedDocumentField) {
-            this.usedToCreateTheLinkedDocumentField.click();
+    public FormDocRegisterCardsEditPage advancedSetupChoiceField(boolean setupChoiceField, SelenideElement fieldSettings) {
+        if (setupChoiceField) {
+            fieldSettings.click();
+            // смещение на 2 позиции вниз
             selectingSecondAdjustmentPosition();
         }
         return this;
@@ -1345,32 +1164,13 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
      */
 
     /**
-     * Выбор поля типа Число
+     * Выбор типа поля документа
      *
+     * @param typeOfField передаваемое значение типа поля
      * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage selectFieldTypeNumber() {
-        typeFieldNumber.click();
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Дата
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeDate() {
-        typeFieldDate.click();
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Строка
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeString() {
-        typeFieldString.click();
+    public FormDocRegisterCardsEditPage selectTheTypeOfField(SelenideElement typeOfField) {
+        typeOfField.click();
         return this;
     }
 
@@ -1398,26 +1198,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Выбор поля типа Текст
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeText() {
-        typeFieldText.click();
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Словарь
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeDictionary() {
-        typeFieldDictionary.click();
-        return this;
-    }
-
-    /**
      * Выбор поля Словарь - для выбора значения типа Словарь
      *
      * @param dictionaryEditorName
@@ -1430,26 +1210,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
             clickFieldDictionary.click();
             $(By.xpath("//*[text()='" + dictionaryEditorName + "']")).click();
         }
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Подразделение
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeDepartment() {
-        typeFieldDepartment.click();
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Сотрудник
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selectFieldTypeEmployee() {
-        typeFieldEmployee.click();
         return this;
     }
 
@@ -1508,16 +1268,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Выбор поля типа Документ
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selFieldTypeDocument() {
-        typeFieldDocument.click();
-        return this;
-    }
-
-    /**
      * Выбор вкладки - Поиск (фильтрация документов)
      *
      * @return FormDocRegisterCardsEditPage
@@ -1565,16 +1315,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     }
 
     /**
-     * Выбор поля типа Нумератор
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selFieldTypeNumerator() {
-        typeFieldNumerator.click();
-        return this;
-    }
-
-    /**
      * Шаблон нумератора
      *
      * @return FormDocRegisterCardsEditPage
@@ -1586,26 +1326,6 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
             numeratorTemplate.clear();
             numeratorTemplate.setValue(numeratorTemplateField);
         }
-        return this;
-    }
-
-    /**
-     * Выбор поля типа Справочник
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage selFieldTypeDirectory() {
-        typeFieldDirectories.click();
-        return this;
-    }
-
-    /**
-     * Выбор поля Справочник - для выбора значения типа Справочник
-     *
-     * @return FormDocRegisterCardsEditPage
-     */
-    public FormDocRegisterCardsEditPage clickFieldDirectory() {
-        typeFieldStringOrTextDirectory.click();
         return this;
     }
 
@@ -1652,7 +1372,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     /**
      * Метод добавления всех типов полей документа
      *
-     * @param fieldsDocs
+     * @param fieldsDocs массив типов полей документа
      * @return FormDocRegisterCardsEditPage
      */
     public FormDocRegisterCardsEditPage addAllFieldsDoc(DocRegisterCardsField[] fieldsDocs) {
@@ -1668,11 +1388,11 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
 
                         // 1. ЧИСЛО
                         if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {
-                            selectFieldTypeNumber();
+                            selectTheTypeOfField(typeFieldNumber);
                             FieldTypeNumberDoc fieldNumber = (FieldTypeNumberDoc) fieldDoc.getFieldTypeDoc();
                             // 2. ДАТА
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeDateDoc) {
-                            selectFieldTypeDate();
+                            selectTheTypeOfField(typeFieldDate);
                             FieldTypeDateDoc fieldDate = (FieldTypeDateDoc) fieldDoc.getFieldTypeDoc();
                             if (fieldDate.getDefaultValue()) {
                                 selDefaultValueField(fieldDate.getDefaultValue()); // Значение по умолчанию == Текущая дата
@@ -1682,7 +1402,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                             }
                             // 3. СТРОКА
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeStringDoc) {
-                            selectFieldTypeString(); // Выбор поля типа "Строка"
+                            selectTheTypeOfField(typeFieldString); // Выбор поля типа "Строка"
                             FieldTypeStringDoc fieldString = (FieldTypeStringDoc) fieldDoc.getFieldTypeDoc();
                             if ((fieldString.getSelectOnlyFromDictionary() || !fieldString.getSelectOnlyFromDictionary()) && !fieldDoc.getUniqueField()) {
                                 selOnlyFromDictionary(fieldString.getSelectOnlyFromDictionary()); // Выбор только из спр-ка
@@ -1695,7 +1415,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                             }
                             // 4. ТЕКСТ
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeTextDoc) {
-                            selectFieldTypeText();
+                            selectTheTypeOfField(typeFieldText);
                             FieldTypeTextDoc fieldText = (FieldTypeTextDoc) fieldDoc.getFieldTypeDoc();
                             if (fieldText.getSelectOnlyFromDictionary()) {
                                 selOnlyFromDictionary(fieldText.getSelectOnlyFromDictionary()); // Выбор только из спр-ка
@@ -1707,16 +1427,16 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                             }
                             // 5. СЛОВАРЬ
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeDictionaryDoc) {
-                            selectFieldTypeDictionary();
+                            selectTheTypeOfField(typeFieldDictionary);
                             FieldTypeDictionaryDoc fieldDictionary = (FieldTypeDictionaryDoc) fieldDoc.getFieldTypeDoc();
                             chooseFieldDictionary(fieldDictionary.getDictionaryEditor().getDictionaryEditorName()); // Выбор поля "Словарь"
                             // 6. ПОДРАЗДЕЛЕНИЕ
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeDepartmentDoc) {
-                            selectFieldTypeDepartment();
+                            selectTheTypeOfField(typeFieldDepartment);
                             FieldTypeDepartmentDoc fieldDepartment = (FieldTypeDepartmentDoc) fieldDoc.getFieldTypeDoc();
                             // 7. СОТРУДНИК
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeEmployeeDoc) {
-                            selectFieldTypeEmployee();
+                            selectTheTypeOfField(typeFieldEmployee);
                             FieldTypeEmployeeDoc fieldEmployee = (FieldTypeEmployeeDoc) fieldDoc.getFieldTypeDoc();
                             if (fieldEmployee.getDefaultValue()) { // Значение по умолчанию == Текущий пользователь
                                 selDefaultValueField(fieldEmployee.getDefaultValue());
@@ -1732,7 +1452,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                             }
                             // 8. ДОКУМЕНТ
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeDocumentDoc) {
-                            selFieldTypeDocument();
+                            selectTheTypeOfField(typeFieldDocument);
                             FieldTypeDocumentDoc fieldDocument = (FieldTypeDocumentDoc) fieldDoc.getFieldTypeDoc();
                             setDisplayNameTemplateField(fieldDocument.getDisplayNameTemplate()); // Шаблон отображения
                             if (!fieldDocument.getSearchSimiliarDocuments()) {
@@ -1745,12 +1465,12 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                             }
                             // 9. НУМЕРАТОР
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeNumeratorDoc) {
-                            selFieldTypeNumerator();
+                            selectTheTypeOfField(typeFieldNumerator);
                             FieldTypeNumeratorDoc fieldNumerator = (FieldTypeNumeratorDoc) fieldDoc.getFieldTypeDoc();
                             enNumeratorTemplateField(fieldNumerator.getNumeratorTemplateDoc()); // Шаблон нумератора
                             // 9. СПРАВОЧНИК
                         } else if (fieldDoc.getFieldTypeDoc() instanceof FieldTypeDirectoryDoc) {
-                            selFieldTypeDirectory();
+                            selectTheTypeOfField(typeFieldDirectories);
                             FieldTypeDirectoryDoc fieldDirectory = (FieldTypeDirectoryDoc) fieldDoc.getFieldTypeDoc();
                             if (fieldDirectory.getDirectoryEntriesSelection()) { // Выбор записей спр-ка == Одна запись
                                 chooseTypeFieldStringTextOrDirectory(); // Выбор поля Справочник
@@ -1767,14 +1487,19 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
 
                         selEditableFieldDoc(fieldDoc.getEditableField()); // Редактируемость поля
                         selObligatoryFieldDoc(fieldDoc.getObligatoryFieldDoc()); // Обязательное поле
-                        selUniqueFieldDoc(fieldDoc.getUniqueField()); // Уникальное поле
-                        // Настройки Скрытия полей документа
-                        selHideForCreation(fieldDoc.getHideForCreationField()); // Скрывать при создании
-                        selHideInTables(fieldDoc.getHideInTablesField()); // Скрывать в таблицах
-                        selHideForSearch(fieldDoc.getHideForSearchField()); // Скрывать при поиске
-                        selHideInCards(fieldDoc.getHideInСardField()); // Скрывать в карточке
+
+                        // Уникальное поле
+                        advancedSetupChoiceField(fieldDoc.getUniqueField(), uniqueField);
+                        /*
+                         Настройки Скрытия полей документа:
+                          */
+                        // Скрывать при создании
+                        advancedSetupChoiceField(fieldDoc.getHideForCreationField(), hideForCreation);
+                        advancedSetupChoiceField(fieldDoc.getHideInTablesField(), hideInTables); // Скрывать в таблицах
+                        advancedSetupChoiceField(fieldDoc.getHideForSearchField(), hideForSearch); // Скрывать при поиске
+                        advancedSetupChoiceField(fieldDoc.getHideInСardField(), hideInCards); // Скрывать в карточке
                         // Использовать при создании связанного документа
-                        selUsedToCreateTheLinkedDocumentField(fieldDoc.getUsedToCreateTheLinkedDocument());
+                        advancedSetupChoiceField(fieldDoc.getUsedToCreateTheLinkedDocument(), usedToCreateTheLinkedDocumentField);
 
                         saveFieldDoc(); // Сохранить поле документа
 
@@ -1823,55 +1548,21 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
     /**
      * Вводим значение в поле - Поля документа, содержащие...
      * Авторов задач
-     */
-    public FormDocRegisterCardsEditPage setAuthorsObjectives(String authorsObjectives) {
-        if (authorsObjectives == null) {
-            return this;
-        } else {
-            setAuthorsObjectives.clear();
-            setAuthorsObjectives.setValue(authorsObjectives);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим значение в поле - Поля документа, содержащие...
      * Контролеров задач
-     */
-    public FormDocRegisterCardsEditPage setControllersOfTasks(String controllersOfTasks) {
-        if (controllersOfTasks == null) {
-            return this;
-        } else {
-            setControllersOfTasks.clear();
-            setControllersOfTasks.setValue(controllersOfTasks);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим значение в поле - Поля документа, содержащие...
      * Ответственных руководителей задач
-     */
-    public FormDocRegisterCardsEditPage setDecisionMakersOfTasks(String decisionMakersOfTasks) {
-        if (decisionMakersOfTasks == null) {
-            return this;
-        } else {
-            setDecisionMakersOfTasks.clear();
-            setDecisionMakersOfTasks.setValue(decisionMakersOfTasks);
-        }
-        return this;
-    }
-
-    /**
-     * Вводим значение в поле - Поля документа, содержащие...
      * Исполнителей задач
+     *
+     * @param valueEnteredInTheSetup вводимое значение в настроку поля
+     * @param fieldSettings          выбираемое поле - настройка (Авторов, Контролеров и т.д..)
+     * @return FormDocRegisterCardsEditPage
      */
-    public FormDocRegisterCardsEditPage setExecutorsOfTasks(String executorsOfTasks) {
-        if (executorsOfTasks == null) {
+    public FormDocRegisterCardsEditPage settingsFieldsDocumentContaining(String valueEnteredInTheSetup,
+                                                                         SelenideElement fieldSettings) {
+        if (valueEnteredInTheSetup == null) {
             return this;
         } else {
-            setExecutorsOfTasks.clear();
-            setExecutorsOfTasks.setValue(executorsOfTasks);
+            fieldSettings.clear();
+            fieldSettings.setValue(valueEnteredInTheSetup);
         }
         return this;
     }
@@ -1904,11 +1595,16 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
         clickGeneralTab()
                 .setNameDocRegisterCards(registerCards.getDocRegisterCardsName()); // Название РКД
         // Статусы документа
-        adValueDocumentStatesOnReview(registerCards.getDocumentStatesOnReview()) // - На рассмотрении
-                .adValueDocumentStatesReviewed(registerCards.getDocumentStatesReviewed()) // - Рассмотрен
-                .adValueDocumentStatesOnApproval(registerCards.getDocumentStatesOnApproval()) // - На подписании
-                .adValueDocumentStatesOnExecution(registerCards.getDocumentStatesOnExecution())  // - На исполнении
-                .adValueDocumentStatesInArchive(registerCards.getDocumentStatesInArchive()); // - В архиве
+        enterTheNameOfTheStatusOfTheDocumentLifecycle(registerCards.getDocumentStatesOnReview(),
+                clickDocumentStatesOnReview, setValueDocumentStates) // - На рассмотрении
+                .enterTheNameOfTheStatusOfTheDocumentLifecycle(registerCards.getDocumentStatesReviewed(),
+                        clickDocumentStatesReviewed, setValueDocumentStates) // - Рассмотрен
+                .enterTheNameOfTheStatusOfTheDocumentLifecycle(registerCards.getDocumentStatesOnApproval(),
+                        clickDocumentStatesOnApproval, setValueDocumentStates) // - На подписании
+                .enterTheNameOfTheStatusOfTheDocumentLifecycle(registerCards.getDocumentStatesOnExecution(),
+                        clickDocumentStatesOnExecution, setValueDocumentStates)  // - На исполнении
+                .enterTheNameOfTheStatusOfTheDocumentLifecycle(registerCards.getDocumentStatesInArchive(), clickDocumentStatesInArchive,
+                        setValueDocumentStates); // - В архиве
         // Шаблон отображения (Название документа)
         addDisplayNameTemplate(registerCards.getDisplayNameTemplate());
 
@@ -1918,9 +1614,12 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
         // TODO корректировка даты
 
         // Настройки по умолчанию при отправке документа на доработку:
-        selAtFirstRevisionScheme(registerCards.getAtFirstRevisionScheme()) // Возврат на доработку с начала текущей схемы
-                .selForCompletionInTighterPoint(registerCards.getForCompletionInTighterPoint()) // Возврат на доработку в ту же точку рассмотрения
-                .selOnCompletionTheNewScheme(registerCards.getOnCompletionTheNewScheme()); // Возврат на доработку с новой схемой
+        settingsForTheDefaultWhenYouSendTheDocumentBackForRevision(registerCards.getAtFirstRevisionScheme(),
+                clickAtFirstRevisionScheme) // Возврат на доработку с начала текущей схемы
+                .settingsForTheDefaultWhenYouSendTheDocumentBackForRevision(registerCards.getForCompletionInTighterPoint(),
+                        clickForCompletionInTighterPoint) // Возврат на доработку в ту же точку рассмотрения
+                .settingsForTheDefaultWhenYouSendTheDocumentBackForRevision(registerCards.getOnCompletionTheNewScheme(),
+                        clickOnCompletionTheNewScheme); // Возврат на доработку с новой схемой
 
         // Открывать файлы для редактирования
         selOpenFilesForEditDoc(registerCards.getOpenFilesForEditDoc());
@@ -1937,9 +1636,12 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                 .setRadioButtAccess(registerCards.getAccessDoc());
 
         // Изменение признака "Окончательная версия"
-        setDocAuthorFinalVersionFiles(registerCards.getDocAuthorFinalVersionFiles()) // Автор документа
-                .setUserWithEditRightFinalVersionFiles(registerCards.getUserWithEditRightFinalVersionFiles()) // Пользователь с правами редактирования
-                .setDocTypeControllerFinalVersionFiles(registerCards.getDocTypeControllerFinalVersionFiles()); // Контролер типа документа
+        settingsChangingTheSignOfFinalVersion(registerCards.getDocAuthorFinalVersionFiles(),
+                authorFinalVersionFiles) // Автор документа
+                .settingsChangingTheSignOfFinalVersion(registerCards.getUserWithEditRightFinalVersionFiles(),
+                        userWithEditRightFinalVersionFiles) // Пользователь с правами редактирования
+                .settingsChangingTheSignOfFinalVersion(registerCards.getDocTypeControllerFinalVersionFiles(),
+                        docTypeControllerFinalVersionFiles); // Контролер типа документа
 
         // Редактирование своих документов
         setEditionOwnDocumentsOnReview(registerCards.getEditionOwnDocumentsOnReview()) //  - На рассмотрении
@@ -1947,10 +1649,14 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                 .setEditionOwnDocumentsInArchive(registerCards.getEditionOwnDocumentInArchive()); // - В архиве
 
         // Доступ к разделам документа при просмотре/редактировании
-        clickCheckBoxAccessToSectionsDocumentRoute(registerCards.getAccessToSectionsDocumentRoute()) // - Маршрут
-                .clickCheckBoxAccessToSectionsDocumentFiles(registerCards.getAccessToSectionsDocumentFiles()) // - Файлы
-                .clickCheckBoxAccessToSectionsDocumentResolution(registerCards.getAccessToSectionsDocumentResolution()) // - Резолюции
-                .clickCheckBoxAccessToSectionsDocumentLog(registerCards.getAccessToSectionsDocumentLog()); // - Журнал
+        settingUpAccessToTheSectionsOfTheDocumentWhenViewingOREditing(registerCards.getAccessToSectionsDocumentRoute(),
+                clickBoxAccessToSectionsDocumentRoute) // - Маршрут
+                .settingUpAccessToTheSectionsOfTheDocumentWhenViewingOREditing(registerCards.getAccessToSectionsDocumentFiles(),
+                        clickBoxAccessToSectionsDocumentFiles) // - Файлы
+                .settingUpAccessToTheSectionsOfTheDocumentWhenViewingOREditing(registerCards.getAccessToSectionsDocumentResolution(),
+                        clickBoxAccessToSectionsDocumentResolution) // - Резолюции
+                .settingUpAccessToTheSectionsOfTheDocumentWhenViewingOREditing(registerCards.getAccessToSectionsDocumentLog(),
+                        clickBoxAccessToSectionsDocumentLog); // - Журнал
 
         // Создание связанных документов
         setCreationOfLinkedDocuments(registerCards.getCreationOfLinkedDocuments());
@@ -1968,10 +1674,10 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
                 .setCopyingFieldsWhenCreatingTask(registerCards.getCopyingFieldsWhenCreatingATask()) // Копирование полей при создании задачи
 
                 // Поля документа, содержащие...:
-                .setAuthorsObjectives(registerCards.getAuthorsObjectives()) // авторов задач
-                .setControllersOfTasks(registerCards.getControllersOfTasks()) // контролеров задач
-                .setDecisionMakersOfTasks(registerCards.getDecisionMakersOfTasks()) // ответственных руководителей задач
-                .setExecutorsOfTasks(registerCards.getExecutorsOfTasks()); // исполнителей задач
+                .settingsFieldsDocumentContaining(registerCards.getAuthorsObjectives(), setAuthorsObjectives) // авторов задач
+                .settingsFieldsDocumentContaining(registerCards.getControllersOfTasks(), setControllersOfTasks) // контролеров задач
+                .settingsFieldsDocumentContaining(registerCards.getDecisionMakersOfTasks(), setDecisionMakersOfTasks) // ответственных руководителей задач
+                .settingsFieldsDocumentContaining(registerCards.getExecutorsOfTasks(), setExecutorsOfTasks); // исполнителей задач
 
     }
 

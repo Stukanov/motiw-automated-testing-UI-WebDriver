@@ -17,9 +17,8 @@ import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Condition.present;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Condition.appears;
+import static com.codeborne.selenide.Condition.*;
+
 
 /*
  * Импорт для использования методов самого Selenium, в т.ч. объект WebDriver.

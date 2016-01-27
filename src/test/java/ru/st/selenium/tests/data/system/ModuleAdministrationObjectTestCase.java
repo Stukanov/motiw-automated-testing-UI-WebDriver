@@ -17,7 +17,7 @@ import ru.st.selenium.model.ShiftDirection;
 /**
  * Данные раздела - Администрирование
  */
-public class ModuleAdministrationObjectTestCase extends ModuleTaskTestCase {
+public abstract class ModuleAdministrationObjectTestCase extends ModuleTaskTestCase {
 
 
     //---Администрирование----------------------------------------------------------

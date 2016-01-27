@@ -136,7 +136,10 @@ public abstract class Page {
     //-----------------------------------------------------------------------------Переключение между - WINDOWS
 
     /**
-     * Метод появление новго окна
+     * Метод появление новго окна - переключение, т.е. взаимодействие с данным окном
+     * <p>
+     * пример использования,
+     * driver.switchTo().window(new WebDriverWait(driver, 10).until(newWindowForm(By.cssSelector("#searchField"))));
      *
      * @param locator element that should contain the new page
      */
@@ -161,17 +164,13 @@ public abstract class Page {
                 return found;
             }
         };
-
-        /* пример,
-         driver.switchTo().window(new WebDriverWait(driver, 10).until(newWindowForm(By.cssSelector("#searchField"))));
-         */
-
     }
 
     //-----------------------------------------------Waiting--------------------------------------------
 
     /**
      * Подождать в течение определенного количества времени
+     * Пример, использования метода - waitTime(0.5 OR 1);
      *
      * @param seconds timeout in seconds for wait
      */
@@ -181,25 +180,20 @@ public abstract class Page {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        /**
-         * Пример, использования метода - waitTime(0.5 OR 1);
-         */
     }
 
     /**
      * Подождать пока отобразится элемент на странице
+     * <p>
+     * Пример, использования метода - waitForPageUntilElementIsVisible(By.xpath("//*[@id='bAddRec-btnIconEl']"), 5000);
      *
-     * @param locator
-     * @param maxSeconds
+     * @param locator    элемент, с к-м взаимодействуем
+     * @param maxSeconds время в сек. для ожидания
      */
     public WebElement waitForPageUntilElementIsVisible(By locator,
                                                        int maxSeconds) {
         return (new WebDriverWait(getWebDriver(), maxSeconds)).until(ExpectedConditions
                 .visibilityOfElementLocated(locator));
-        /**
-         * Пример использования метода
-         * - waitForPageUntilElementIsVisible(By.xpath("//*[@id='bAddRec-btnIconEl']"), 5000);
-         */
     }
 
     //----------------------------------------------------Проверки------------------------------------------------
@@ -207,7 +201,7 @@ public abstract class Page {
     /**
      * Метод проверки наличия элемента на странице
      *
-     * @param locator
+     * @param locator передаваемый локатор элемента для представления
      */
     public boolean isElementPresent(By locator) {
         try {
@@ -221,6 +215,8 @@ public abstract class Page {
 
     /**
      * Метод проверки Видимости элемента
+     *
+     * @param locator передаваемый локатор элемента для представления
      */
     public boolean isElementVisible(By locator) throws InterruptedException {
         boolean value = false;

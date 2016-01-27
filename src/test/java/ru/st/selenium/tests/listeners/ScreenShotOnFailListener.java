@@ -3,8 +3,6 @@ package ru.st.selenium.tests.listeners;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.st.selenium.utils.ScreenShotUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
