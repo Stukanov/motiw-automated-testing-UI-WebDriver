@@ -39,7 +39,7 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание РКД с полным набором полей и надстройками")
-    @Description("Проверяем создание объекта Регистрационная карточка документа со всеми типами полей")
+    @Description("Создание объекта Регистрационная карточка документа со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {

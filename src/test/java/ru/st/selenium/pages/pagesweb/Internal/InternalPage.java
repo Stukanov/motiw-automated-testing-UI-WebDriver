@@ -92,7 +92,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      Администирование
      */
     @FindBy(id = "L_MENU_ADMINISTRATION-menupoint")
-    private SelenideElement administration;
+    private SelenideElement menuAdministration;
 
     /*
      * Инструменты/Администрирование/Пользователи
@@ -110,13 +110,25 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Инструменты/Администрирование/Справочники
      */
     @FindBy(id = "L_MENU_ADMIN_DICTIONARY-menupoint")
-    private SelenideElement directories;
+    private SelenideElement menuDirectories;
 
     /*
      * Инструменты/Администрирование/Типы задач
      */
     @FindBy(id = "L_MENU_ADMIN_TYPE_TASK-menupoint")
-    private SelenideElement typeTask;
+    private SelenideElement menuTypeTask;
+
+    /*
+     * Инструменты/Администрирование/Настройки системы
+     */
+    @FindBy(css = "#x-menu-el-L_MENU_SYSTEMOPTIONS-menupoint")
+    private SelenideElement menuSystemOptions;
+
+
+
+    /*
+     * =======================================================================================================АДМИНИСТРИРОВАНИЕ ДО
+     */
 
     /*
      * Администрирование ДО
@@ -147,6 +159,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      */
     @FindBy(id = "L_GLOBAL_DICTIONARY_EDITOR-menupoint")
     private SelenideElement dictionaryEditorMenu;
+
 
     /*
      Выход из Системы
@@ -289,7 +302,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Переход в меню - Администрирование/Справочники
      */
     public TaskTypeListObjectPage goToDirectories() {
-        subMenuClicker(instrMenu, administration, directories);
+        subMenuClicker(instrMenu, menuAdministration, menuDirectories);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -298,7 +311,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Переход в меню - Администрирование/Типы таблиц
      */
     public TaskTypeListObjectPage goToTypesOfTables() {
-        subMenuClicker(instrMenu, administration, menuTables);
+        subMenuClicker(instrMenu, menuAdministration, menuTables);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -307,7 +320,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Переход в меню - Администрирование/Типы таблиц
      */
     public TaskTypeListObjectPage goToTaskTypes() {
-        subMenuClicker(instrMenu, administration, typeTask);
+        subMenuClicker(instrMenu, menuAdministration, menuTypeTask);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -324,7 +337,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Переход в меню - Администрирование/Подразделения
      */
     public CreateDepartmentPage goToDepartments() {
-        subMenuClicker(instrMenu, administration, menuUsers);
+        subMenuClicker(instrMenu, menuAdministration, menuUsers);
         return page(CreateDepartmentPage.class);
     }
 
@@ -339,7 +352,7 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Администрирование - Информация о системе
      */
     public SystemInformationPage goToSystemInfo() {
-        subMenuClicker(instrMenu, administration, tester);
+        subMenuClicker(instrMenu, menuAdministration, tester);
         return page(SystemInformationPage.class);
     }
 
@@ -347,9 +360,16 @@ public class InternalPage extends Page implements BaseInternalLogic {
      * Переходим - Поисковая система
      */
     public SearchAdminPage goToSearchSystemPage() {
-        subMenuClicker(instrMenu, administration, searchSystem);
+        subMenuClicker(instrMenu, menuAdministration, searchSystem);
         return page(SearchAdminPage.class);
+    }
 
+    /**
+     * Переходим - Настройки системы
+     */
+    public SystemOptionsPage goToSystemOptionsPage() {
+        subMenuClicker(instrMenu, menuAdministration, menuSystemOptions);
+        return page(SystemOptionsPage.class);
     }
 
     /**

@@ -10,6 +10,9 @@ import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
+import ru.st.selenium.pages.pagesweb.Administration.SystemOptionsPage;
+import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
+import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -32,7 +35,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     Task editTask = getRandomObjectTask();
 
     @Severity(SeverityLevel.BLOCKER)
-    @Title("Создание задачи (PDA)")
+    @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1, dataProvider = "objectDataTaskPDA")
     public void verifyCreateTaskPDA(Task task) throws Exception {
@@ -69,31 +72,42 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         assertTrue(loginPagePDA.isNotLoggedInPDA());
     }
 
-    /**
-     * проверка - Редактирование задачи
-     * TODO - добавить До запуска метода установку зн-ия - Удаление себя из задач == Да
-     */
+
     @Severity(SeverityLevel.BLOCKER)
     @Title("Редактирование задачи")
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTaskPDA")
     public void checkEditingTaskPDA(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
+        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        loginPage.loginAs(ADMIN);
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+        assertTrue(loginPage.isLoggedIn());
+
+        SystemOptionsPage systemOptionsPage = internalPage.goToSystemOptionsPage();
+        // Выбор опции - Удаление себя из задач == Да
+        systemOptionsPage.selectAllowToDeleteOneSelfFromTasks();
+
+        // Выход
+        internalPage.logout();
+        // Проверка - пользователь разлогинен
+        assertTrue(loginPage.isNotLoggedIn());
+
+
+        LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
-
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-
         newTaskPagePDA.creatingTask(task);
-
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
@@ -110,7 +124,6 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         internalPagePDA.goToHome(); // Домашняя стр-ца
 
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-
         tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
         tasksReportsPagePDA.openTaskInGrid(task); // открываем форму в гриде задач
 
@@ -126,16 +139,14 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
 
     }
 
-    /**
-     * проверка - Закрытие задачи (Отправка в архив)
-     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Завершение задачи")
+    @Description("Проверяем завершение задачи (отправка в Архив)")
     @Test(priority = 3, dataProvider = "objectDataTaskPDA")
     public void verifyCompletionOfTheTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
-
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
-
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
@@ -144,9 +155,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 
         //----------------------------------------------------------------ФОРМА - создания Задачи
-
         newTaskPagePDA.creatingTask(task);
-
         EditTaskPagePDA editTaskPagePDA = newTaskPagePDA.goToPreview(); // Инициализируем стр. формы предпросмотра задачи и переходим на нее
 
         //----------------------------------------------------------------ФОРМА - Предпросмотр создания задачи
@@ -159,11 +168,8 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
 
         taskForm.openShapeCreatedTask(task); // Открываем форму созданной задачу
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
-
         internalPagePDA.goToHome();
-
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-
         taskForm.closeTask(task, randomString(15)); // Закрываем задачу (отправляем в архив)
 
         internalPagePDA.goToHome(); // Возвращаемся домой (внутренняя страница)

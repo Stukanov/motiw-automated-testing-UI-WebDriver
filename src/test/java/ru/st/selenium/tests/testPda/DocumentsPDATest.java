@@ -44,7 +44,7 @@ import static org.testng.Assert.assertTrue;
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
 
     @Severity(SeverityLevel.BLOCKER)
-    @Title("Проверяем работу документов")
+    @Title("Проверяем  отображение документа в гриде документа")
     @Description("Проверяем создание РКД с набором атрибутов, а также отображение его в отчете контролирования")
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void checkWorkDocumentsPDA(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,

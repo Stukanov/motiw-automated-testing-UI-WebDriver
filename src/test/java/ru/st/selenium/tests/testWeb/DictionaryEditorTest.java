@@ -30,8 +30,8 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectTestC
     DictionaryEditor dictionaryEditor = getRandomDictionaryEditor();
 
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Проверяем создание объекта Редактор словарей")
-    @Description("Проверяем создание объекта Редактор словарей с набором элементов")
+    @Title("Ссоздание объекта Редактор словарей")
+    @Description("Создание объекта Редактор словарей с набором элементов")
     @Test(priority = 1)
     public void createDictionaryEditor() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
