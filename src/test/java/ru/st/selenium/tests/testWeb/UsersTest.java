@@ -15,6 +15,11 @@ import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Login.RestorePasswordPage;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -22,9 +27,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-/**
- * Пользователи
- */
+@Features("Пользователи (Web)")
+@Title("Пользователи и Подразделения")
 public class UsersTest extends ModuleAdministrationObjectTestCase {
 
 
@@ -80,9 +84,10 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
             .setDepartment(departmentUser1);
 
 
-    /*
-     * проверяем - создание Подразделений
-     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверяем работу объекта - Подразделения")
+    @Description("Проверяем создание объекта Подразделение с разным уровнем подчиненности. Редактирование/Удаление подразделений " +
+            "и изменения вложенности иерархии Подразделений")
     @Test(priority = 1)
     public void verifyCreatingAndRemovalDepartments() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -129,7 +134,10 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
 
     }
 
-    // Проверка - Создание - Пользователи
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Проверяем работу объекта - Пользователи")
+    @Description("Проверяем создание, редактирование и пользователей и псевдонимов системы. Верификация под созданными" +
+            "пользователями")
     @Test(priority = 2)
     public void verifyCreatingUsers() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -202,7 +210,10 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
     }
 
 
-    // Проверяем Удаление ранее созданных пользователей и подразделений из Системы
+    //
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Удаление пользователей")
+    @Description("Проверяем Удаление ранее созданных пользователей и подразделений из Системы")
     @Test(dependsOnMethods = "verifyCreatingUsers")
     public void verifyRemovalUsers() throws Exception {
 

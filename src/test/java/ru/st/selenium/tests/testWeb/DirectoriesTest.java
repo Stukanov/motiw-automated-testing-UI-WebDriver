@@ -24,7 +24,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Features("Справочник")
+@Features("Справочник (Web)")
 @Title("Проверка создания Справочник в Web-интерфейсе")
 public class DirectoriesTest extends ModuleAdministrationObjectTestCase {
 

@@ -31,9 +31,10 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
+
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("РКД (Регистрационная карточка документа) (Web)")
 @Title("Проверка создания Регистрационная карточка документа в Web-интерфейсе")
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
 
     @Severity(SeverityLevel.CRITICAL)

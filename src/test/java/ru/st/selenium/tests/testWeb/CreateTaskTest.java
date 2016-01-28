@@ -1,7 +1,7 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -173,7 +173,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание задачи с КТ (контрольные точки)")
     @Description("Проверяем создание задачи c набором Контрольных точек")
-    @Test(priority = 2, dataProvider = "objectDataTask")
+    @Test(priority = 3, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                     Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -204,9 +204,5 @@ public class CreateTaskTest extends ModuleTaskTestCase {
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public void tearDown() throws Exception {
-        getWebDriver().quit();
-    }
 }
 
