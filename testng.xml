@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Regression functional GUI test system - Motiw" verbose="5" data-provider-thread-count="1">
+<suite name="regression functional GUI test" verbose="5" data-provider-thread-count="1">
     <listeners>
         <listener class-name="com.codeborne.selenide.testng.TextReport"/>
     </listeners>
