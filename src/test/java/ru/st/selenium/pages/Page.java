@@ -18,8 +18,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
  */
 public abstract class Page {
 
-    public static final String WEB_PAGE_URL = "http://motiw";
-    public static final String PDA_PAGE_URL = "http://pda.motiw";
+    public static final String WEB_PAGE_URL = "http://beta.test.lan";
+    public static final String PDA_PAGE_URL = "http://pda.beta.test.lan";
 
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
