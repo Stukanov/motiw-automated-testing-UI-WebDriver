@@ -209,7 +209,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Название Подразделения
      *
-     * @param text
+     * @param text input text
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage setNameDep(String text) {
@@ -221,7 +221,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Условный номер подразделения
      *
-     * @param text
+     * @param text input text
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage setConditionalNumber(String text) {
@@ -233,7 +233,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Значение счетчика подразделения
      *
-     * @param text
+     * @param text input text
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage setCounter(String text) {
@@ -245,7 +245,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Дата обнуления счетчика подразделения
      *
-     * @param text
+     * @param text input text
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage setResetDate(String text) {
@@ -257,7 +257,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Дата обнуления счетчика подразделения
      *
-     * @param text
+     * @param text input text
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage setNumeratorTemplate(String text) {
@@ -284,7 +284,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
      */
     public CreateDepartmentPage verifyCreateDep(String DepName) {
         $(By.xpath("//*[contains(text(),'" + DepName
-                + "')] [ancestor::*[contains(@id,'treeview')]]")).waitUntil(Condition.visible, 6000);
+                + "')] [ancestor::*[contains(@id,'treeview')]]")).waitUntil(Condition.visible, 10000);
         return this;
 
     }
@@ -298,7 +298,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
      */
     public CreateDepartmentPage waitForMask() {
         waitMillisecond(0.3);
-        $(By.xpath("//*[contains (@class, 'x-mask')]")).waitUntil(Condition.disappear, 10000);
+        $(By.xpath("//*[contains (@class, 'x-mask')]")).waitUntil(Condition.disappear, 30000);
         return this;
     }
 
@@ -399,7 +399,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Создание объекта - Подразделение
      *
-     * @param department
+     * @param department передаваемые атрибуты подразделения
      */
     @Override
     public void createDepartment(Department department) {
@@ -429,7 +429,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Подтверждение удаления подразделения
      *
-     * @param department
+     * @param department передаваемое Название подразделения
      */
     public CreateDepartmentPage confirmDeletionDepartment(Department department) {
         checkingMessagesConfirmationOfTheObject(getExpectedMessageTextToDialog,
@@ -441,8 +441,8 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Метод редактирования имеющегося подразделения
      *
-     * @param editedDepartment
-     * @param department
+     * @param editedDepartment передаваемые атрибуты полей редактируемого подразделения
+     * @param department передаваемые атрибуты начального подразделения
      */
     @Override
     public void editDepartments(Department editedDepartment, Department department) {

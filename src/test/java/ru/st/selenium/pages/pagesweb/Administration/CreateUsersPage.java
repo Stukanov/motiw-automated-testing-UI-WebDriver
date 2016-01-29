@@ -71,19 +71,19 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Кнопка - Добавить пользователя
      */
-    @FindBy(xpath = "(//a[contains(@id,'button-')])[4]")
+    @FindBy(xpath = "(//body[@id='createuser']/div[3]//a[contains(@id,'button-')])[1]")
     private SelenideElement buttonAddUser;
 
     /**
      * Кнопка - Удалить пользователя
      */
-    @FindBy(xpath = "(//div[contains (@id, 'panel')][contains (@class, 'box-target')]/a[2])[2]")
+    @FindBy(xpath = "(//body[@id='createuser']/div[3]//a[contains(@id,'button-')])[2]")
     private SelenideElement buttonDelUser;
 
     /**
      * Кнопка - Создать псевдоним
      */
-    @FindBy(xpath = "//div[contains (@id, 'panel')][contains (@class, 'box-target')]/a[4]")
+    @FindBy(xpath = "(//body[@id='createuser']/div[3]//a[contains(@id,'button-')])[4]")
     private SelenideElement buttonCreateAlias;
 
     /**
@@ -304,7 +304,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Фамилия
      *
-     * @param text
+     * @param text передаваемая - Фамилия - пользователя
      * @return CreateUserPage
      */
     public CreateUsersPage setLastNameField(String text) {
@@ -317,7 +317,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Имя
      *
-     * @param text
+     * @param text передаваемое - Имя - пользователя
      * @return CreateUserPage
      */
     public CreateUsersPage setNameField(String text) {
@@ -330,7 +330,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Отчество
      *
-     * @param text
+     * @param text передаваемая - Отчество - пользователя
      * @return CreateUsersPage
      */
     public CreateUsersPage setPatronymicField(String text) {
@@ -395,7 +395,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Пароль
      *
-     * @param text
+     * @param text передаваемый - пароль - пользователя
      * @return CreateUserPage
      */
     public CreateUsersPage setPasswordUser(String text) {
@@ -410,7 +410,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Подтверждение пароля
      *
-     * @param text
+     * @param text передаваемое - подтверждение пароля - пользователя
      * @return CreateUserPage
      */
     public CreateUsersPage setСonfirmationPassword(String text) {

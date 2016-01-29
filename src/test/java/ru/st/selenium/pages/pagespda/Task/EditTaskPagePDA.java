@@ -117,7 +117,7 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
     public EditTaskPagePDA verifyAttributesOfTask(Task editTask) {
         goToTask.click();
         $(By.xpath("//input[@id='input_prj_t' and @name='task_name']"))
-                .waitUntil(hasValue(" " + editTask.getTaskName() + " "), 5000); // Название задачи
+                .waitUntil(hasValue(" " + editTask.getTaskName() + " "), 10000); // Название задачи
         $(By.xpath("//textarea[@id='task_description']"))
                 .shouldHave(value(" " + editTask.getDescription() + " ")); // Описание задачи
         return this;
@@ -150,7 +150,7 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
     /**
      * Проверяем сохраненные изменения в ленте действий задачи
      *
-     * @param editTask
+     * @param editTask post in action
      * @return TaskPagePDA
      */
     public TaskPagePDA checkTheAttributesAreSaved(Task editTask) {
