@@ -137,7 +137,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверяем работу объекта - Пользователи")
     @Description("Проверяем создание, редактирование и пользователей и псевдонимов системы. Верификация под созданными" +
-            "пользователями")
+            " пользователями")
     @Test(priority = 2)
     public void verifyCreatingUsers() throws Exception {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);

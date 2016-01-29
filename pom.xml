@@ -16,6 +16,7 @@
         <selenide.version>3.0</selenide.version>
         <allure.version>1.4.20</allure.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <slf4j-simple.version>1.7.13</slf4j-simple.version>
         <qatools.allure.version>2.2</qatools.allure.version>
         <!-- Plugin Versions -->
         <aspectj.version>1.8.5</aspectj.version>
@@ -23,7 +24,6 @@
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <compiler.version>1.7</compiler.version>
-
     </properties>
 
     <dependencies>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.13</version>
+            <version>${slf4j-simple.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -85,19 +85,19 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
 
-           </configuration>
+                </configuration>
 
-           <dependencies>
-               <dependency>
-                   <groupId>org.aspectj</groupId>
-                   <artifactId>aspectjweaver</artifactId>
-                   <version>${aspectj.version}</version>
-               </dependency>
-           </dependencies>
-       </plugin>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-       <!--Needed only to show reports locally. Run jetty:run and
-       open localhost:8080 to show the report-->
+            <!--Needed only to show reports locally. Run jetty:run and
+            open localhost:8080 to show the report-->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>

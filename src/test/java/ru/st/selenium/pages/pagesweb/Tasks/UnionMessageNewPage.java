@@ -4,8 +4,10 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageNewLogic;
@@ -16,6 +18,7 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
+
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -229,8 +232,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
 
     /**
      * Поле поиска пользователя
-     *
-     * @FindBy
      */
     @FindBy(css = "#SearchEdit")
     private SelenideElement userSearchField;
@@ -476,7 +477,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     public UnionMessageNewPage waitForLivesearchMask() {
         waitMillisecond(0.7);
         $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
-        ;
         return this;
     }
 
@@ -501,9 +501,9 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Добавление пользователей в роль задачи, через livesearch - Поиск по фамилии
      *
-     * @param employees
-     * @param fieldCustomRole
-     * @param valueField
+     * @param employees       массив передаваемых пользователей (Фамилия пользователя)
+     * @param fieldCustomRole передаваемая выбираемая роль в задаче
+     * @param valueField      заполнение поля (input) Фамилией пользователя
      */
     protected void choiceUsersThroughTheSearchLiveSurname(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
         if (employees != null) {
@@ -523,9 +523,9 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Добавление Пользователей (ОР, Исполнители и т.д..) через livesearch, ввод SPACE и поиск пользователя из выпадающего списка
      * (контекстное меню)
      *
-     * @param employees
-     * @param fieldCustomRole
-     * @param valueField
+     * @param employees       массив передаваемых пользователей (Фамилия пользователя)
+     * @param fieldCustomRole передаваемая выбираемая роль в задаче
+     * @param valueField      заполнение поля (input) Фамилией пользователя
      */
     protected void choiceUsersThroughTheSearchLiveForSpace(Employee[] employees, SelenideElement fieldCustomRole, SelenideElement valueField) {
         if (employees != null) {
@@ -562,12 +562,11 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Проверка что появилось окно и ссылка на созданную задачу
      */
-    public UnionMessageNewPage assertWindowTaskCreated(String verifyMessage) {
-        $(By.xpath("//*[contains(text(),'" + verifyMessage + "')][ancestor::div[@class='ext-mb-content']]")).shouldBe(Condition.visible);
+    public UnionMessageNewPage assertWindowTaskCreated() {
+        $(By.xpath("//span[@class='ext-mb-text'][contains(text(),'Создана задача №')]")).shouldBe(Condition.visible);
         buttonTaskSavedOK.click();
         return this;
     }
-
 
     /**
      * Установка типа задачи
@@ -684,7 +683,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
         $(planningTab).shouldBe(Condition.visible);
         planningTab.click(); // Выбор вкладки - Планирование
         waitForTaskMask(); // Ожидание маски
-        outer:
         for (Checkpoint checkpoint : checkpoints) {
             buttonAddCheckpoint.click(); // Добавить КТ
             checkpointDateField.click();
@@ -770,8 +768,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Установка признака - Системные действия в родительской задаче
      *
-     * @param sysActionsInParentTask
-     * @return
+     * @param sysActionsInParentTask передаваемое булево зн-ия, для установки соответстующей настройки
      */
     public UnionMessageNewPage iwgSysActionsInParentTask(boolean sysActionsInParentTask) {
         if (sysActionsInParentTask) {
@@ -787,7 +784,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
         if (iwg == null) {
             return this;
         } else {
-            outer:
             // Общий массив ИРГ
             for (IWG anIwg : iwg) {
                 buttonAddIWG.click(); // Добавить ИРГ
@@ -800,7 +796,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 // ОР ИРГ
                 if (anIwg.getRespPersons() == null) {
                     cancelIWG(); // Отменить создание/редактирование ИРГ
-                    continue outer;
+                    continue;
                 } else {
                     for (int riwg = 0; riwg < (anIwg.getRespPersons().length); riwg++) {
                         buttonIwgAddRespPerson.click(); // добавить ОР ИРГ
@@ -822,7 +818,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 // Исполнители ИРГ
                 if (anIwg.getWorkers() == null) {
                     saveIWG(); // Сохранить текущую ИРГ
-                    continue outer;
+                    continue;
                 } else {
                     for (int wiwg = 0; wiwg < (anIwg.getWorkers().length); wiwg++) {
                         buttonIwgAddWorker.click(); // добавить Исполнителей ИРГ
@@ -843,7 +839,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 // Контролеры ИРГ
                 if (anIwg.getControllers() == null) {
                     saveIWG(); // Сохранить текущую ИРГ
-                    continue outer;
+                    continue;
                 } else {
                     for (int сiwg = 0; сiwg < (anIwg.getControllers().length); сiwg++) {
                         buttonIwgAddController.click(); // добавить Контролеров ИРГ
@@ -874,8 +870,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
 
     /**
      * Сохранить ИРГ
-     *
-     * @return
      */
     public UnionMessageNewPage saveIWG() {
         buttonIwgSave.click();
@@ -884,8 +878,6 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
 
     /**
      * Отменить ИРГ
-     *
-     * @return
      */
     public UnionMessageNewPage cancelIWG() {
         buttonIwgCancel.click();
@@ -895,8 +887,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Проверяем отображение добавленной подзадачи ИРГ в гриде ИРГ (ДО сохранения!)
      *
-     * @param nameIWG
-     * @return
+     * @param nameIWG передаем название ИРГ
      */
     public UnionMessageNewPage verifyCreateIWG(String nameIWG) {
         getWebDriver().switchTo().defaultContent(); // уходим в ТОР фрейм
@@ -917,7 +908,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
     /**
      * Создание обычной задачи
      *
-     * @param task
+     * @param task передаваемые атрибуты задачи
      */
     @Override
     public void creatingTask(Task task) {
@@ -941,7 +932,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
                 .clickSaveTask()
-                .assertWindowTaskCreated(numberTask());
+                .assertWindowTaskCreated();
 
     }
 
@@ -967,7 +958,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setSecret(task.getIsSecret())
                 .setReview(task.getIsForReview())
                 .clickSaveTask()
-                .assertWindowTaskCreated(numberTask());
+                .assertWindowTaskCreated();
     }
 
 
@@ -983,27 +974,16 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
                 .setEnd(task.getDateEnd())
                 .setCheckpoints(task.getCheckpoints()) // Контрольные точки
                 .clickSaveTask()
-                .assertWindowTaskCreated(numberTask());
-    }
-
-    /*
-    Считываем номер в поле # для верификации созданной задачи
-    ИЛИ возвращаем сообщение - Создана новая задача
-     */
-    private String numberTask() {
-        try {
-            String number = taskNumber.getText();
-            return number;
-        } catch (WebDriverException e) {
-            String alertMessage = $(By.xpath("//*[contains(text(),'Создана')][ancestor::div[@class='ext-mb-content']]")).shouldBe(Condition.present).getText();
-            return alertMessage;
-
-        }
-
-
+                .assertWindowTaskCreated();
     }
 
 
 }
+
+
+
+
+
+
 
 

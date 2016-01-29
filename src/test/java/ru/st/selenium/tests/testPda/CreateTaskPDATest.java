@@ -150,7 +150,6 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
-
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
 

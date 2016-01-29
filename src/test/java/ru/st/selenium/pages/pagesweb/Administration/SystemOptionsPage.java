@@ -58,6 +58,7 @@ public class SystemOptionsPage extends Page {
      */
     @Step("Выбор опции - Удаление себя из задач == Да")
     public SystemOptionsPage selectAllowToDeleteOneSelfFromTasks() {
+
         String initialValue = "Нет";
 
         ensurePageLoaded();
@@ -70,7 +71,6 @@ public class SystemOptionsPage extends Page {
             checkingMessagesConfirmationOfTheObject($(By.xpath("//div[count(div)=3]/div[2]//div[contains(@id,'messagebox') and (@data-errorqtip)]")),
                     "Изменения сохранены", clicAlertOk);
         }
-
 
         return this;
     }
