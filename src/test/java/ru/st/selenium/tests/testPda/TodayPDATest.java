@@ -2,6 +2,7 @@ package ru.st.selenium.tests.testPda;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
+import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
@@ -37,6 +38,9 @@ public class TodayPDATest extends ModuleTaskTestCase {
      */
     String textActions = randomString(15);
 
+    // Папка
+    Folder[] folder = getRandomArrayFolders();
+
 
     @Severity(SeverityLevel.NORMAL)
     @Title("Отображение информации в разделе Сегодня")
@@ -68,7 +72,7 @@ public class TodayPDATest extends ModuleTaskTestCase {
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
         internalPagePDA.goToHome();
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-        tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
+        tasksReportsPagePDA.checkDisplayTaskGrid(task, folder[0]); // Проверяем отображение созданной задачи в гриде Задач
         tasksReportsPagePDA.openTaskInGrid(task); // открываем форму в гриде задач
 
         //----------------------------------------------------------------ФОРМА - Задачи - Атрибуты

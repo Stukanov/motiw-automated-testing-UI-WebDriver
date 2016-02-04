@@ -41,7 +41,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     // Папка
     Folder[] folder = getRandomArrayFolders();
 
-    
+
     @Test(priority = 1)
     public void createFolderForTasks() {
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -94,7 +94,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
 
         //----------------------------------------------------------------ГРИД - Задачи
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-        tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
+        tasksReportsPagePDA.checkDisplayTaskGrid(task, folder[0]); // Проверяем отображение созданной задачи в гриде Задач
         internalPagePDA.logout(); // Выход из системы
 
         assertTrue(loginPagePDA.isNotLoggedInPDA());
@@ -152,7 +152,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         internalPagePDA.goToHome(); // Домашняя стр-ца
 
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-        tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
+        tasksReportsPagePDA.checkDisplayTaskGrid(task, folder[0]); // Проверяем отображение созданной задачи в гриде Задач
         tasksReportsPagePDA.openTaskInGrid(task); // открываем форму в гриде задач
 
         //----------------------------------------------------------------ФОРМА - Задачи - Атрибуты
@@ -197,7 +197,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         assertTrue(taskForm.resultsDisplayButtons()); // Проверяем отображения кнопок в форме задачи
         internalPagePDA.goToHome();
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
-        taskForm.closeTask(task, randomString(15)); // Закрываем задачу (отправляем в архив)
+        taskForm.closeTask(task, randomString(15), folder[0]); // Закрываем задачу (отправляем в архив)
 
         internalPagePDA.goToHome(); // Возвращаемся домой (внутренняя страница)
         internalPagePDA.goToTaskReports(); // переходим в грид задач

@@ -19,7 +19,6 @@ public abstract class Page {
     public static final String WEB_PAGE_URL = "http://motiw";
     public static final String PDA_PAGE_URL = "http://pda.motiw";
 
-
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
      */

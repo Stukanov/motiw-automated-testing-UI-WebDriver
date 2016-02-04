@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
 
@@ -114,12 +115,13 @@ public class TaskPagePDA extends TasksReportsPagePDA {
     /**
      * Закрываем задачу
      *
-     * @param textAction input text for feed action tasks
      * @param task return values of attributes of the task
+     * @param textAction input text for feed action tasks
+     * @param folderTask
      * @return TaskPagePDA
      */
-    public TaskPagePDA closeTask(Task task, String textAction) {
-        checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
+    public TaskPagePDA closeTask(Task task, String textAction, Folder folderTask) {
+        checkDisplayTaskGrid(task, folderTask); // Проверяем отображение созданной задачи в гриде Задач
         openTaskInGrid(task); // открываем форму задачи в гриде Задач
         action.setValue(textAction); // пишем действие
         completeTask.click(); // Завершить выполнение
