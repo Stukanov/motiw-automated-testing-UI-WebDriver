@@ -9,6 +9,9 @@ import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
+import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
+import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -21,6 +24,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
+import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
@@ -28,9 +32,9 @@ import static org.testng.Assert.assertTrue;
 @Features("Сегодня (PDA)")
 public class TodayPDATest extends ModuleTaskTestCase {
 
-   /*
-     Инициализируем модель - Задача #2 (атрибуты и лента для редактирования)
-    */
+    /*
+      Инициализируем модель - Задача #2 (атрибуты и лента для редактирования)
+     */
     Task editTask = getRandomObjectTask();
 
     /*
@@ -41,13 +45,31 @@ public class TodayPDATest extends ModuleTaskTestCase {
     // Папка
     Folder[] folder = getRandomArrayFolders();
 
+    @Test(priority = 1)
+    public void createFolderForTasks() {
+        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+
+        loginPage.loginAs(ADMIN);
+
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+
+        //---------------------------------------------------------------- Задачи/Задачи
+        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        // Добавляем Папки
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)});
+
+        internalPage.logout();
+        assertTrue(loginPage.isNotLoggedIn());
+    }
 
     @Severity(SeverityLevel.NORMAL)
     @Title("Отображение информации в разделе Сегодня")
     @Description("Проверяем отображение сохраненной информации в разедел - Сегодня")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyInfoToday(Task task) throws Exception {
-       LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+        LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);

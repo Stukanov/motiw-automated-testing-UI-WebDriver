@@ -3,8 +3,10 @@ package ru.st.selenium.pages.pagesweb.Tasks;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.impl.CollectionElement;
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
@@ -35,13 +37,6 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
      */
     @FindBy(xpath = "//iframe[contains(@id,'ext-comp') and contains(@src,'/user/smart_folder')]")
     private SelenideElement frameFilterWindow;
-
-    /*
-     * Первая запись грида
-     * // TODO переписать - использовать коллекцию, а фильтровать с помощью метода first()
-     */
-    @FindBy(xpath = "//*[@class='x-grid3-body']/div[1]")
-    private SelenideElement firstRecord;
 
     /*
      * Панель списка группировок на ПУГЗ (панель управления группировкой задач)
@@ -153,14 +148,20 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
      * Открытие формы задачи в гриде - Задачи/Задачи
      */
     @Override
-    public void openTask(Task task) {
+    public void openAnExistingTask(Task task) {
         ensurePageLoaded();
         goToTopFrem();
-        findTask(task.getTaskName());
-        $(firstRecord).shouldBe(Condition.visible);
-        goToFrame()
-                .waitForMask()
-                .openTask(task.getTaskName());
+        try {
+            findTask(task.getTaskName());
+        } catch (WebDriverException e) {
+            findTask(task.getTaskName());
+        }
+        goToFrame();
+        waitForMask();
+        $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
+                .first().shouldBe(Condition.visible);
+
+        openTask(task.getTaskName());
     }
 
     /**

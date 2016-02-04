@@ -8,6 +8,6 @@ import ru.st.selenium.model.Task.Task;
 public interface UnionTasksLogic {
 
 
-    void openTask(Task task);
+    void openAnExistingTask(Task task);
 
 }

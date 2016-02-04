@@ -1,7 +1,6 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -24,7 +23,6 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -87,7 +85,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openTask(task);
+        unionTasksPage.openAnExistingTask(task);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
@@ -159,7 +157,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openTask(task);
+        unionTasksPage.openAnExistingTask(task);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
@@ -193,7 +191,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openTask(task);
+        unionTasksPage.openAnExistingTask(task);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
