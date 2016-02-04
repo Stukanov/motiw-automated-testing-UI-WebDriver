@@ -47,17 +47,23 @@ public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
         assertTrue(loginPage.isLoggedIn());
 
 
-        //------------------------------------------------ Администрирование/Справочники
+        /*
+         * ------------------------------------------------ Администрирование/Справочники
+         * Создаем проинициализированный объект - Спр-к, к-й будет использоваться в дальнейшем для объекта "Типы задач"
+         */
         TaskTypeListObjectPage directoriesPage = internalPage.goToDirectories();
         // Добавляем объект - Справочник
         directoriesPage.addDirectories(directories);
         // переходим в форму редактирования Справочника
         DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
         // Добавляем настройки И поля спр-ка
-        directoriesEditPage.addFieldDirectories(directories);
+        directoriesEditPage.addSettingsAndFieldDirectories(directories);
 
 
-        //------------------------------------------------- Администрирование/Типы таблиц
+        /*
+         * ------------------------------------------------ Администрирование/Типы таблиц
+         * Создаем проинициализированный объект - Типы таблиц, к-й будет использоваться в дальнейшем для объекта "Типы задач"
+         */
         TaskTypeListObjectPage typesOfTablesPage = internalPage.goToTypesOfTables();
         typesOfTablesPage.addTypesOfTables(typesOfTables);
 
@@ -65,16 +71,42 @@ public class TasksTypeTest extends ModuleAdministrationObjectTestCase {
         TypesOfTablesEditPage typesOfTablesEditPage = typesOfTablesPage.goToTypesOfTablesEditPage();
 
         // Добавляем настройки и поля Типы таблицы
-        typesOfTablesEditPage.addFieldTypesOfTables(typesOfTables);
+        typesOfTablesEditPage.addSettingsAndFieldTypesOfTables(typesOfTables);
 
-        //------------------------------------------------- Администрирование/Типы задач
+        /*
+         * ------------------------------------------------- Администрирование/Типы задач
+         * Добавляем объект - Тип задачи
+         */
         TaskTypeListObjectPage taskTypesPage = internalPage.goToTaskTypes();
         taskTypesPage.addTasksTypes(tasksTypes);
-
-
         TaskTypesEditPage taskTypesEditPage = taskTypesPage.goToTaskTypesEditPage();
+        taskTypesEditPage.addSettingsAndFieldTasksTypes(tasksTypes);
 
-        taskTypesEditPage.addFieldTasksTypes(tasksTypes);
+        // разлогиниться
+        internalPage.logout();
+        // Проверка - пользователь разлогинен
+        assertTrue(loginPage.isNotLoggedIn());
+
+
+        /*
+         * Проверяем удаление объекта - Типы задач
+         */
+        loginPage.loginAs(ADMIN);
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+
+        //------------------------------------------------- Удаляем - Типы задач
+        internalPage.goToTaskTypes();
+        taskTypesEditPage.removeAnTasksTypes(tasksTypes);
+
+        //------------------------------------------------- Удаляем - Типы таблиц
+        internalPage.goToTypesOfTables();
+        typesOfTablesPage.removeTypesOfTables(typesOfTables);
+
+        //------------------------------------------------- Удаляем - Справочники
+        internalPage.goToDirectories();
+        // Удаляем объект - Справочник
+        directoriesPage.removeAnDirectories(directories);
 
         // разлогиниться
         internalPage.logout();

@@ -3,7 +3,7 @@ package ru.st.selenium.model.Task;
 import ru.st.selenium.model.Period;
 
 /**
- * Модель объекта системы - Контрольная точка (свойства)
+ * Контрольная точка (свойства)
  */
 public class Checkpoint {
 

@@ -401,7 +401,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      *
      * @return TypesOfTablesEditPage
      */
-    public TypesOfTablesEditPage selField() {
+    public TypesOfTablesEditPage selectField() {
         waitMillisecond(0.3);
         selectField.click();
         return this;
@@ -428,7 +428,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
     public TypesOfTablesEditPage chooseFieldDirectoryAndTable(String directoryFieldName) {
         waitMillisecond(0.3);
         selectField.click();
-        $(By.xpath("//*[text()='" + directoryFieldName + "']")).click();
+        scrollToAndClick("//*[text()='" + directoryFieldName + "']");
         return this;
     }
 
@@ -621,10 +621,10 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
     }
 
     /**
-     * ----------------------------------------------------------------------------Метод добавления всех типов полей--------------------------------
+     * Метод добавления всех типов полей - Типы таблиц
      *
-     * @param fieldsTypesOfTables
-     * @return
+     * @param fieldsTypesOfTables массив полей объекта - Типы таблиц, с предопределенными настройками к полям
+     * @return DirectoriesEditFormPage
      */
     public TypesOfTablesEditPage addAllFieldsTypesOfTables(TypesOfTablesField[] fieldsTypesOfTables) {
         if (fieldsTypesOfTables == null) {
@@ -677,10 +677,10 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsDirectory) {
                             selectTypeFieldDirectory();
                             TypeListFieldsDirectory fieldsDir = (TypeListFieldsDirectory) fieldTypesOfTables.getFieldType();
-                            selFieldDirectory(); // Выбор поля Спр-к
-                            $(By.xpath("//*[text()='" + fieldsDir.getDirectoryName() + "']")).click(); // Выбор справочника
-                            selField();
-                            $(By.xpath("//li[text()='" + fieldsDir.getNameDirectoryField() + "']")).click(); // Выбор поля справочника
+                            selFieldDirectory(); // Выбор поля: Спр-к
+                            scrollToAndClick("//*[text()='" + fieldsDir.getDirectoryName() + "']"); // выбор - Спр-ка из списка справочников
+                            selectField(); // Выбор поля: Поля
+                            scrollToAndClick("//li[text()='" + fieldsDir.getNameDirectoryField() + "']"); // выбор поля спр-ка
                             // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsMultiDirectory) {
                             selectTypeFieldMultipleDictionary();
@@ -742,15 +742,13 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * @param typesOfTables
      */
     @Override
-    public void addFieldTypesOfTables(TypesOfTables typesOfTables) {
+    public void addSettingsAndFieldTypesOfTables(TypesOfTables typesOfTables) {
         $$(By.xpath("//div[count(a)=4]/a//text()//..")).shouldBe(CollectionCondition.size(4)); // проверка отображения вкладок в форме редактирования Спр-ка
         clickFieldsTab() // Выбираем вкладку Поля
                 .waitingElementsTabFieldTypesOfTab() // Ожидаем появление элементов на вкладке Поля
                 .addAllFieldsTypesOfTables(typesOfTables.getTypesOfTablesFields()) // Добавление всех типов полей объекта
-
                 .clickSettingsTab() // выбор вкладки Настройки
                 .clickSaveObject() // Сохранить объект
-
                 .verifyCreateObject(typesOfTables.getTableTypeName()); // Проверяем отображение созданного объекта в гриде
     }
 

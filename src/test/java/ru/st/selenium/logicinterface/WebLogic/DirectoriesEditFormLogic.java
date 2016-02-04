@@ -9,7 +9,7 @@ import ru.st.selenium.model.Administration.Directories.Directories;
 public interface DirectoriesEditFormLogic {
 
 
-    void addFieldDirectories(Directories directories);
+    void addSettingsAndFieldDirectories(Directories directories);
 
     void editFieldDirectories(Directories directories);
 

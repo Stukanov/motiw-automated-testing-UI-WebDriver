@@ -3,6 +3,8 @@ package ru.st.selenium.tests.testPda;
 import com.codeborne.selenide.Selenide;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.AssertJUnit;
+import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagespda.*;
@@ -13,6 +15,7 @@ import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.pages.pagesweb.Administration.SystemOptionsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -32,12 +35,38 @@ import static org.testng.Assert.assertTrue;
 @Title("Проверка создания Задач в PDA-интерфейсе")
 public class CreateTaskPDATest extends ModuleTaskTestCase {
 
+    // Атрибуты задачи для редактирования задачи
     Task editTask = getRandomObjectTask();
+
+    // Папка
+    Folder[] folder = getRandomArrayFolders();
+
+    
+    @Test(priority = 1)
+    public void createFolderForTasks() {
+        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+
+        loginPage.loginAs(ADMIN);
+
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+
+        //---------------------------------------------------------------- Задачи/Задачи
+        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        // Добавляем Папки
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true),
+                folder[1].setUseFilter(false)});
+
+        internalPage.logout();
+        assertTrue(loginPage.isNotLoggedIn());
+    }
+
 
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataTaskPDA")
+    @Test(priority = 2, dataProvider = "objectDataTaskPDA")
     public void verifyCreateTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
@@ -64,7 +93,6 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         internalPagePDA.goToHome();
 
         //----------------------------------------------------------------ГРИД - Задачи
-        // TODO дописать переход в папку если Задачи в папке а не в корне!!! частно из-за этого падают тесты
         TasksReportsPagePDA tasksReportsPagePDA = internalPagePDA.goToTaskReports(); // переходим в грид - Задачи/Задачи
         tasksReportsPagePDA.checkDisplayTaskGrid(task); // Проверяем отображение созданной задачи в гриде Задач
         internalPagePDA.logout(); // Выход из системы
@@ -76,7 +104,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Редактирование задачи")
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
-    @Test(priority = 2, dataProvider = "objectDataTaskPDA")
+    @Test(priority = 3, dataProvider = "objectDataTaskPDA")
     public void checkEditingTaskPDA(Task task) throws Exception {
 
         LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
@@ -142,7 +170,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Завершение задачи")
     @Description("Проверяем завершение задачи (отправка в Архив)")
-    @Test(priority = 3, dataProvider = "objectDataTaskPDA")
+    @Test(priority = 4, dataProvider = "objectDataTaskPDA")
     public void verifyCompletionOfTheTaskPDA(Task task) throws Exception {
         LoginPagePDA loginPagePDA = Selenide.open(Page.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация

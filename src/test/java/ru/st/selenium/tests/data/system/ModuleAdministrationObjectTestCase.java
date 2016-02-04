@@ -496,7 +496,7 @@ public abstract class ModuleAdministrationObjectTestCase extends ModuleTaskTestC
                 .setFieldID("DIRECTORY" + randomIdentifier(5))
                 .setFieldType(new TypeListFieldsDirectory()
                         .setDirectoryName("Адресная книга")
-                        .setNameDirectoryField("Фамилия"));
+                        .setNameDirectoryField("Имя"));
 
         // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
         TypesOfTablesField fieldMultiDirectory = new TypesOfTablesField()

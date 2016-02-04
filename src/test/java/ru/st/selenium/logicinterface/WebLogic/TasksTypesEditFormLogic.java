@@ -7,7 +7,7 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
  */
 public interface TasksTypesEditFormLogic {
 
-    void addFieldTasksTypes(TasksTypes tasksTypes);
+    void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes);
 
     void editFieldTasksTypes(TasksTypes tasksTypes);
 

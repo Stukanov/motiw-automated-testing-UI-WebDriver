@@ -1031,7 +1031,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @param tasksTypes
      */
     @Override
-    public void addFieldTasksTypes(TasksTypes tasksTypes) {
+    public void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes) {
         $$(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a")).shouldBe(CollectionCondition.size(6)); // проверка отображения вкладок в форме редактирования Спр-ка
 
         clickFieldsTab() // Вкладка - Поля

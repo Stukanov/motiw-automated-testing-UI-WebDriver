@@ -86,7 +86,7 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCas
         // переходим в форму редактирования Справочника
         DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
         // Добавляем настройки И поля спр-ка
-        directoriesEditPage.addFieldDirectories(directories);
+        directoriesEditPage.addSettingsAndFieldDirectories(directories);
 
         //---------------------------------------------------------------------------------РКД
         // Переход в раздел Администрирование ДО/Регистрационные карточки документов

@@ -10,16 +10,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-/**
- * Абстрактное представление класса страницы в пользовательском интерфейсе
- */
 public abstract class Page {
 
-    public static final String WEB_PAGE_URL = "http://beta.test.lan";
-    public static final String PDA_PAGE_URL = "http://pda.beta.test.lan";
+    public static final String WEB_PAGE_URL = "http://motiw";
+    public static final String PDA_PAGE_URL = "http://pda.motiw";
+
 
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
@@ -28,6 +27,8 @@ public abstract class Page {
         getWebDriver().switchTo().defaultContent();
         return this;
     }
+
+    //-----------------------------------------------------------------------------------Alert
 
     /**
      * Проверяем отображения текста в диалоге (alert) и взаиможействуем с объектом, если Сообщение истенно - взаимодействуем
@@ -46,65 +47,69 @@ public abstract class Page {
         return null;
     }
 
+
+    //------------------------------------------------------------------------------------Нажатие на элемент
+
+    /**
+     * Имитации нажатия правой кнопки мыши. Клик осуществляется в центр элемента
+     *
+     * @param element               передаваемая переменная для взаимодействия
+     * @param elementWaitVisibility передаваемая переменная (элемент DOM) для взаимодействия, ожидание
+     *                              появления данного элемента
+     */
+    public void contextClickAction(SelenideElement element, WebElement elementWaitVisibility) {
+        actions.contextClick(element).perform();
+        (new WebDriverWait(getWebDriver(), 10))
+                .until(ExpectedConditions
+                        .visibilityOfElementLocated((By) elementWaitVisibility));
+    }
+
+    /**
+     * Кликнуть по невидимому элементу можно с помощью javascript
+     *
+     * @param element переменная для взаимодействия
+     */
+    public void clickOnInvisibleElement(SelenideElement element) {
+
+        String script = "var object = arguments[0];"
+                + "var theEvent = document.createEvent(\"MouseEvent\");"
+                + "theEvent.initMouseEvent(\"click\", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);"
+                + "object.dispatchEvent(theEvent);";
+
+        ((JavascriptExecutor) getWebDriver()).executeScript(script, element);
+    }
+
+    //------------------------------------------------------------------------------------Эмитация клавиш
+
     /**
      * Пользователяская API для эмуляции сложных пользовательских действий
      * (эмуляция клавиатуры и мыши)
      */
-    Actions action = new Actions(getWebDriver());
-
-    /**
-     * Метод имитирующий нажатие клавиши - Enter
-     */
-    public void pressEnter() {
-        action = action.sendKeys(Keys.chord(Keys.ENTER));
-        action.build().perform();
-    }
+    Actions actions = new Actions(getWebDriver());
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ОДНУ позицию вниз,
      * например, Скрывать...; Изменяемое при редактировании и etc., полей значение полей, выбирает значение == Да
      */
     public void selectingSecondAdjustmentPosition() {
-        action = action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
-        action.build().perform();
+        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
+        actions.build().perform();
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ДВЕ позиции вниз,
      */
     public void selectingThirdAdjustmentPosition() {
-        action = action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        action.build().perform();
+        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        actions.build().perform();
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ТРИ позиции вниз,
      */
     public void selectingFourthlyAdjustmentPosition() {
-        action = action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        action.build().perform();
-    }
-
-    /**
-     * Метод обращается к ensurePageLoaded и возвращает булевское значение,
-     * (false - не дождались загрузки стр.; true - дождались) ждет загрузки
-     * страницы
-     */
-    public boolean isPageLoaded() {
-        try {
-            ensurePageLoaded();
-            return true;
-        } catch (TimeoutException to) {
-            return false;
-        }
-    }
-
-    /**
-     * Метод - проверяет, где мы находимся здесь и сейчас, возвращает данную
-     * страницу И ждет загрузки страницы
-     */
-    public Page ensurePageLoaded() {
-        return this;
+        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        actions.build().perform();
     }
 
     /**
@@ -131,6 +136,23 @@ public abstract class Page {
      * пример - driver.findElement(By.linkText("urlLink")).sendKeys(selectLinkOpenInNewTab);
      */
     public static String selectLinkOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.RETURN);
+
+    //--------------------------------------------------------------------------------Скроллинг
+
+    /**
+     * Скроллинг к элементу вниз и выбор (сlick) данного элемента из списка
+     * <p>
+     * пример - scrollToAndClick()
+     *
+     * @param locator элемент к к-му необходимо проскроллировать список
+     */
+    public static void scrollToAndClick(String locator) {
+        SelenideElement element = $(By.xpath(locator));
+        ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView();"
+                , element);
+        waitMillisecond(0.3);
+        element.click();
+    }
 
 
     //-----------------------------------------------------------------------------Переключение между - WINDOWS
@@ -174,7 +196,7 @@ public abstract class Page {
      *
      * @param seconds timeout in seconds for wait
      */
-    public void waitMillisecond(double seconds) {
+    public static void waitMillisecond(double seconds) {
         try {
             Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException e) {
@@ -225,6 +247,28 @@ public abstract class Page {
             value = true;
         }
         return value;
+    }
+
+    /**
+     * Метод обращается к ensurePageLoaded и возвращает булевское значение,
+     * (false - не дождались загрузки стр.; true - дождались) ждет загрузки
+     * страницы
+     */
+    public boolean isPageLoaded() {
+        try {
+            ensurePageLoaded();
+            return true;
+        } catch (TimeoutException to) {
+            return false;
+        }
+    }
+
+    /**
+     * Метод - проверяет, где мы находимся здесь и сейчас, возвращает данную
+     * страницу И ждет загрузки страницы
+     */
+    public Page ensurePageLoaded() {
+        return this;
     }
 
 

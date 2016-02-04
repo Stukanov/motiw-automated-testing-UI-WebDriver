@@ -12,10 +12,8 @@ public class Department {
     private String resetdate;
     private String numeratortemplate;
 
-    /**
+    /*
      * Наименование родительского подразделения
-     *
-     * @return
      */
     public Department getParentDepartment() {
         return parent;
@@ -26,10 +24,8 @@ public class Department {
         return this;
     }
 
-    /**
+    /*
      * Название подразделения
-     *
-     * @return
      */
     public String getDepName() {
         return depname;
@@ -40,10 +36,8 @@ public class Department {
         return this;
     }
 
-    /**
+    /*
      * Условный номер
-     *
-     * @return
      */
     public String getConditionalNumber() {
         return conditionalnumber;
@@ -54,10 +48,8 @@ public class Department {
         return this;
     }
 
-    /**
+    /*
      * Счетчик
-     *
-     * @return
      */
     public String getCounter() {
         return counter;
@@ -68,10 +60,8 @@ public class Department {
         return this;
     }
 
-    /**
+    /*
      * Дата сброса счетчика
-     *
-     * @return
      */
     public String getResetDate() {
         return resetdate;
@@ -82,10 +72,8 @@ public class Department {
         return this;
     }
 
-    /**
+    /*
      * Шаблон нумератора
-     *
-     * @return
      */
     public String getNumeratorTemplate() {
         return numeratortemplate;

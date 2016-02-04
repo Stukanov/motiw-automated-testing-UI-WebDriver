@@ -13,8 +13,9 @@ import ru.st.selenium.model.OpenFilesForEdit;
 
 import static com.codeborne.selenide.Selenide.*;
 
+
 /**
- * Страница - форма редактирования объекта - Справочники
+ * Форма редактирования объекта - Справочники
  */
 public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements DirectoriesEditFormLogic {
 
@@ -206,7 +207,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     private SelenideElement openFileForEdit;
 
     /**
-     * Cсылка на справочник
+     * Ссылка на справочник
      */
     @FindBy(xpath = "//li[text()='Cсылка на справочник']")
     private SelenideElement typeFieldReferenceToTheDictionary;
@@ -473,62 +474,13 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     //-----------------------------------------------------------------------------------------Выбор Типов полей из выпадающего списка-------------------------------------
 
     /**
-     * СТРОКА
+     * Выбор типа поля объекта
      *
-     * @return DirectoriesEditFormPage
+     * @param typeOfField передаваемое значение типа поля
+     * @return FormDocRegisterCardsEditPage
      */
-    public DirectoriesEditFormPage selectTypeFieldString() {
-        typeFieldString.click();
-        return this;
-    }
-
-    /**
-     * ТЕКСТ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldText() {
-        typeFieldText.click();
-        return this;
-    }
-
-    /**
-     * ЦЕЛОЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldInteger() {
-        typeFieldInteger.click();
-        return this;
-    }
-
-    /**
-     * ВЕЩЕСТВЕННОЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldDouble() {
-        typeFieldDouble.click();
-        return this;
-    }
-
-    /**
-     * ДАТА
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldDate() {
-        typeFieldData.click();
-        return this;
-    }
-
-    /**
-     * ФАЙЛ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldFile() {
-        typeFieldFile.click();
+    public DirectoriesEditFormPage selectTheTypeOfField(SelenideElement typeOfField) {
+        typeOfField.click();
         return this;
     }
 
@@ -557,16 +509,6 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     }
 
     /**
-     * ССЫЛКА НА СПРАВОЧНИК
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldDirectory() {
-        typeFieldReferenceToTheDictionary.click();
-        return this;
-    }
-
-    /**
      * Клик в поле "Справочник:"
      *
      * @return DirectoriesEditFormPage
@@ -587,92 +529,12 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
         return this;
     }
 
+
     /**
-     * МНОЖЕСТВЕННАЯ ССЫЛКА
+     * Метод добавления всех типов полей - Справочник
      *
+     * @param fieldsDirectory массив полей объекта - Справочник, с предопределенными настройками к полям
      * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldMultipleDictionary() {
-        typeFieldMultipleReferenceToTheDictionary.click();
-        return this;
-    }
-
-    /**
-     * ЛОГИЧЕСКОЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldBoolean() {
-        typeFieldBoolean.click();
-        return this;
-    }
-
-    /**
-     * ТЕЛЕФОН
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldPhone() {
-        typeFieldPhone.click();
-        return this;
-    }
-
-    /**
-     * EMAIL
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldEmail() {
-        typeFieldEmail.click();
-        return this;
-    }
-
-    /**
-     * ИЗОБРАЖЕНИЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldImage() {
-        typeFieldImage.click();
-        return this;
-    }
-
-    /**
-     * ЦВЕТ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldColor() {
-        typeFieldColor.click();
-        return this;
-    }
-
-    /**
-     * ВЛОЖЕННЫЙ СПРАВОЧНИК
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldEnclosedDirectory() {
-        typeFieldEnclosedDirectory.click();
-        return this;
-    }
-
-    /**
-     * ПОДРАЗДЕЛЕНИЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public DirectoriesEditFormPage selectTypeFieldDepartment() {
-        typeFieldDepartment.click();
-        return this;
-    }
-
-
-    /**
-     * ----------------------------------------------------------------------------Метод добавления всех типов полей------------------------------------
-     *
-     * @param fieldsDirectory
-     * @return
      */
     public DirectoriesEditFormPage addAllFieldsDirectory(DirectoriesField[] fieldsDirectory) {
         if (fieldsDirectory == null) {
@@ -687,7 +549,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
 
                         // 1. СТРОКА
                         if (fieldDirectory.getFieldType() instanceof TypeListFieldsString) {
-                            selectTypeFieldString();
+                            selectTheTypeOfField(typeFieldString);
                             TypeListFieldsString fieldString = (TypeListFieldsString) fieldDirectory.getFieldType();
                             if (fieldString.getIsListChoice()) {
                                 selFromList(fieldString.getIsListChoice()); // Выбор из списка
@@ -697,73 +559,73 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
                             }
                             // 2. ТЕКСТ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsText) {
-                            selectTypeFieldText();
+                            selectTheTypeOfField(typeFieldText);
                             TypeListFieldsText fieldText = (TypeListFieldsText) fieldDirectory.getFieldType();
                             // 3. ЦЕЛОЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsInt) {
-                            selectTypeFieldInteger();
+                            selectTheTypeOfField(typeFieldInteger);
                             TypeListFieldsInt fieldInt = (TypeListFieldsInt) fieldDirectory.getFieldType();
                             // 4. ВЕЩЕСТВЕННОЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsDouble) {
-                            selectTypeFieldDouble();
+                            selectTheTypeOfField(typeFieldDouble);
                             TypeListFieldsDouble fieldsDouble = (TypeListFieldsDouble) fieldDirectory.getFieldType();
                             // 5. ДАТА
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsDate) {
-                            selectTypeFieldDate();
+                            selectTheTypeOfField(typeFieldData);
                             TypeListFieldsDate fieldsDate = (TypeListFieldsDate) fieldDirectory.getFieldType();
                             // 6. ФАЙЛ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsFile) {
-                            selectTypeFieldFile();
+                            selectTheTypeOfField(typeFieldFile);
                             TypeListFieldsFile fieldsFile = (TypeListFieldsFile) fieldDirectory.getFieldType();
                             if (fieldsFile.getOpenFilesForEdit() == OpenFilesForEdit.YES || fieldsFile.getOpenFilesForEdit() == OpenFilesForEdit.NO) {
                                 selOpenFilesForEdit(fieldsFile.getOpenFilesForEdit());
                             }
                             // 7. СПРАВОЧНИК
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsDirectory) {
-                            selectTypeFieldDirectory();
+                            selectTheTypeOfField(typeFieldReferenceToTheDictionary);
                             TypeListFieldsDirectory fieldsDir = (TypeListFieldsDirectory) fieldDirectory.getFieldType();
-                            selFieldDirectory(); // Выбор поля Спр-к
-                            $(By.xpath("//*[text()='" + fieldsDir.getDirectoryName() + "']")).click(); // Выбор справочника
-                            selectField();
-                            $(By.xpath("//li[text()='" + fieldsDir.getNameDirectoryField() + "']")).click(); // Выбор поля справочника
+                            selFieldDirectory(); // Выбор поля: Спр-к
+                            scrollToAndClick("//*[text()='" + fieldsDir.getDirectoryName() + "']"); // выбор - Спр-ка из списка справочников
+                            selectField(); // Выбор поля: Поля
+                            scrollToAndClick("//li[text()='" + fieldsDir.getNameDirectoryField() + "']"); // выбор поля спр-ка
                             // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsMultiDirectory) {
-                            selectTypeFieldMultipleDictionary();
+                            selectTheTypeOfField(typeFieldMultipleReferenceToTheDictionary);
                             TypeListFieldsMultiDirectory fieldsMultiDir = (TypeListFieldsMultiDirectory) fieldDirectory.getFieldType();
-                            selFieldDirectory(); // Выбор поля Спр-к
-                            $(By.xpath("//*[text()='" + fieldsMultiDir.getDirectoryName() + "']")).click();
+                            selFieldDirectory();
+                            scrollToAndClick("//*[text()='" + fieldsMultiDir.getDirectoryName() + "']");
                             selectField();
-                            pressEnter();
+                            scrollToAndClick("//li[text()='" + fieldsMultiDir.getNameDirectoryField() + "']");
                             // 8. ЛОГИЧЕСКОЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsBoolean) {
-                            selectTypeFieldBoolean();
+                            selectTheTypeOfField(typeFieldBoolean);
                             TypeListFieldsBoolean fieldsDate = (TypeListFieldsBoolean) fieldDirectory.getFieldType();
                             // 9. ТЕЛЕФОН
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsPhone) {
-                            selectTypeFieldPhone();
+                            selectTheTypeOfField(typeFieldPhone);
                             TypeListFieldsPhone fieldsPhone = (TypeListFieldsPhone) fieldDirectory.getFieldType();
                             // 10. EMAIL
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsEmail) {
-                            selectTypeFieldEmail();
+                            selectTheTypeOfField(typeFieldEmail);
                             TypeListFieldsEmail fieldsEmail = (TypeListFieldsEmail) fieldDirectory.getFieldType();
                             // 11. ИЗОБРАЖЕНИЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsImage) {
-                            selectTypeFieldImage();
+                            selectTheTypeOfField(typeFieldImage);
                             TypeListFieldsImage fieldsImage = (TypeListFieldsImage) fieldDirectory.getFieldType();
                             // 12. ЦВЕТ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsColor) {
-                            selectTypeFieldColor();
+                            selectTheTypeOfField(typeFieldColor);
                             TypeListFieldsColor fieldsColor = (TypeListFieldsColor) fieldDirectory.getFieldType();
                             // 14. ВЛОЖЕННЫЙ СПРАВОЧНИК
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsEnclosedDirectory) {
-                            selectTypeFieldEnclosedDirectory();
+                            selectTheTypeOfField(typeFieldEnclosedDirectory);
                             TypeListFieldsEnclosedDirectory fieldsEnclosedDirectory = (TypeListFieldsEnclosedDirectory) fieldDirectory.getFieldType();
                             selFieldDirectory(); // Выбор поля Спр-к
-                            $(By.xpath("//*[text()='" + fieldsEnclosedDirectory.getDirectoryName() + "']")).click();
-                            waitMillisecond(0.2);
+                            scrollToAndClick("//*[text()='" + fieldsEnclosedDirectory.getDirectoryName() + "']");
+                            waitMillisecond(0.5);
                             // 15. ПОДРАЗДЕЛЕНИЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsDepartment) {
-                            selectTypeFieldDepartment();
+                            selectTheTypeOfField(typeFieldDepartment);
                             TypeListFieldsDepartment fieldsDepartment = (TypeListFieldsDepartment) fieldDirectory.getFieldType();
                         }
 
@@ -792,10 +654,11 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
 
     /**
      * Добавление полей Справочника
+     *
      * @param directories
      */
     @Override
-    public void addFieldDirectories(Directories directories) {
+    public void addSettingsAndFieldDirectories(Directories directories) {
         $$(By.xpath("//div[count(a)=4]/a//text()//..")).shouldBe(CollectionCondition.size(4)); // проверка отображения вкладок в форме редактирования Спр-ка
         clickFieldsTab(); // Выбираем вкладку Поля
         waitingElementsTabField() // Ожидаем появления элементов на вкладке "Поля"
@@ -806,8 +669,9 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
                 .selMappingDevice(directories.getMappingDevice()) // Способ отображения
                 .selSearchSettings(directories.getSearchSettings()) // Настройка поиска
                 .clickSaveObject() // Сохранить объект
-                .verifyCreateObject(directories.getDirectoryName()); // Проверяем отображение сохраненного объекта в гриде
+                .verifyCreateObject(directories.getDirectoryName()); // Проверяем отображение сохраненного объекта в гриде Спр-ов
     }
+
 
     @Override
     public void editFieldDirectories(Directories directories) {

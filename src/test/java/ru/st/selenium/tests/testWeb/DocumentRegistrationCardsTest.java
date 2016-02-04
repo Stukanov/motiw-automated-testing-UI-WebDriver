@@ -64,7 +64,7 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
         DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
 
         // Добавляем настройки И поля спр-ка
-        directoriesEditPage.addFieldDirectories(directories);
+        directoriesEditPage.addSettingsAndFieldDirectories(directories);
 
         //-----------------------------------------------------------------------------------Редактор словарей
         // Переход в раздел - Администрирование ДО/Редактор словарей

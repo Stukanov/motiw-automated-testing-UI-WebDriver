@@ -812,7 +812,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     @Override
     public void createUser(Employee user) {
-        clickDepByName(user.getDepartment());
+        selectTheParentUnit(user.getDepartment());
         buttonAddUser() // Добавить пользователя
                 .gotoFremEditUser() // Переходим в iframe формы добавления пользователя
                 .setLastNameField(user.getLastName()) // ФИО
@@ -842,7 +842,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     @Override
     public void editUser(Employee editUser, Employee user) {
-        clickDepByName(user.getDepartment());
+        selectTheParentUnit(user.getDepartment());
         clickEditUserFormByName(user)// выбираем пользователя в гриде для редактирования
                 .gotoFremEditUser() // Переходим в iframe формы добавления пользователя
                 .setLastNameField(editUser.getLastName())

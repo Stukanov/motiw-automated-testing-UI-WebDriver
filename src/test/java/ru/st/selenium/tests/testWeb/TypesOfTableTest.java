@@ -50,7 +50,7 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
         // переходим в форму редактирования Справочника
         DirectoriesEditFormPage directoriesEditPage = directoriesPage.goToDirectoriesEditPage();
         // Добавляем настройки И поля спр-ка
-        directoriesEditPage.addFieldDirectories(directories);
+        directoriesEditPage.addSettingsAndFieldDirectories(directories);
 
         //------------------------------------------------- Администрирование/Типы таблиц
         TaskTypeListObjectPage typesOfTablesPage = internalPage.goToTypesOfTables();
@@ -58,25 +58,26 @@ public class TypesOfTableTest extends ModuleAdministrationObjectTestCase {
         // переходим в форму редактирования - Типы таблицы
         TypesOfTablesEditPage typesOfTablesEditPage = typesOfTablesPage.goToTypesOfTablesEditPage();
         // Добавляем настройки и поля Типы таблицы
-        typesOfTablesEditPage.addFieldTypesOfTables(typesOfTables);
+        typesOfTablesEditPage.addSettingsAndFieldTypesOfTables(typesOfTables);
 
         // Разлогиниться
         internalPage.logout();
         // Проверка - пользователь разлогинен
         assertTrue(loginPage.isNotLoggedIn());
 
-        /**
+        /*
          * Проверяем удаление объекта - Типы таблиц
          */
         loginPage.loginAs(ADMIN);
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+        assertTrue(loginPage.isLoggedIn());
 
-        //------------------------------------------------- Администрирование/Типы таблиц
+        //------------------------------------------------- Удаляем - Типы таблиц
         internalPage.goToTypesOfTables();
         typesOfTablesPage.removeTypesOfTables(typesOfTables);
 
-        //------------------------------------------------- Администрирование/Справочники
+        //------------------------------------------------- Удаляем - Справочники
         internalPage.goToDirectories();
         // Удаляем объект - Справочник
         directoriesPage.removeAnDirectories(directories);

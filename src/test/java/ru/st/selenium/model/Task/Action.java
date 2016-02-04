@@ -4,8 +4,8 @@ package ru.st.selenium.model.Task;
  *  Модель объекта системы - Действие
  *
  */
-
 public class Action {
+
 	private String actionText;
 	
 	/**

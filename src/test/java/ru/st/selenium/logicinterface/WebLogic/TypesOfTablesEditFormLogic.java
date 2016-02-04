@@ -7,7 +7,7 @@ import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTables;
  */
 public interface TypesOfTablesEditFormLogic {
 
-    void addFieldTypesOfTables(TypesOfTables typesOfTables);
+    void addSettingsAndFieldTypesOfTables(TypesOfTables typesOfTables);
 
     void editFieldTypesOfTables(TypesOfTables typesOfTables);
 

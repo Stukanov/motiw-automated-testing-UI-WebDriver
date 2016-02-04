@@ -351,7 +351,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     /**
      * Выбираем подразделение по имени
      */
-    public CreateDepartmentPage clickDepByName(Department department) {
+    public CreateDepartmentPage selectTheParentUnit(Department department) {
         waitForMask();
         $(By.xpath("//span[contains(text(),'" + department.getDepName()
                 + "')] [ancestor::tbody[contains(@id,'treeview')]]"))
@@ -404,8 +404,8 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     @Override
     public void createDepartment(Department department) {
         if (department.getParentDepartment() != null) {
-            clickDepByName(department.getParentDepartment()); // Выбираем подразделение
-            buttonAddDep() // Добавить подразделение - Подразделение
+            selectTheParentUnit(department.getParentDepartment()); // Выбираем подразделение
+            buttonAddDep() // Добавить объект - Подразделение
                     .setNameDep(department.getDepName()) // Название подразделения
                     .setConditionalNumber(department.getConditionalNumber()) // Условный номер
                     .setCounter(department.getCounter()) // Счетчик
@@ -446,7 +446,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
      */
     @Override
     public void editDepartments(Department editedDepartment, Department department) {
-        clickDepByName(editedDepartment)
+        selectTheParentUnit(editedDepartment)
                 .clickbuttonEditDep().setNameDep(department.getDepName())
                 .setConditionalNumber(department.getConditionalNumber())
                 .setCounter(department.getCounter())
@@ -463,12 +463,12 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
     @Override
     public void deleteDepartment(Department department) {
         ensurePageLoaded()
-                .clickDepByName(department) // Выбираем текущее подразделение в гриде
+                .selectTheParentUnit(department) // Выбираем текущее подразделение в гриде
                 .clickButtonRemoveDep(); // Удалить подразделение
         confirmDeletionDepartment(department);
         while (hasChild()) { // Пока есть подразделение потомок
             dndFirstChildToRoot(department) // Днд первое подразделение потомок в корень
-                    .clickDepByName(department) // Выбираем текущее подразделение в гриде
+                    .selectTheParentUnit(department) // Выбираем текущее подразделение в гриде
                     .clickButtonRemoveDep(); // Удалить подразделение
             confirmDeletionDepartment(department);
         }

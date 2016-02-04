@@ -125,7 +125,7 @@ public abstract class ModuleTaskTestCase extends TestBase {
         // Ответственный руководители
         Employee[] executiveManagers = new Employee[]{getRandomEmployer().setLastName("ОР задачи " + randomString(5))};
         // Контролеры
-        Employee[] controller = new Employee[] {getRandomEmployer().setLastName("Контролер задачи " + randomString(5))};
+        Employee[] controller = new Employee[]{getRandomEmployer().setLastName("Контролер задачи " + randomString(5))};
         // Исполнители
         Employee[] worker = new Employee[]{getRandomEmployer().setLastName("Исполнитель задачи " + randomString(5)),
                 getRandomEmployer().setLastName("Исполнитель1 задачи " + randomString(5))};
@@ -162,7 +162,7 @@ public abstract class ModuleTaskTestCase extends TestBase {
                 .setCheckpoints(new Checkpoint[]{checkPoint[0], checkPoint[1]})
                 .setIWG(new IWG[]{
                         iwg[0]
-                                .setRespPersons(new Employee[]{IWGResppers[0],IWGResppers[1]})
+                                .setRespPersons(new Employee[]{IWGResppers[0], IWGResppers[1]})
                                 .setWorkers(new Employee[]{IWGWorker[0], IWGWorker[1], IWGWorker[2]})
                                 .setControllers(new Employee[]{IWGСontroller[0]}),
                         iwg[1]
@@ -198,4 +198,46 @@ public abstract class ModuleTaskTestCase extends TestBase {
         };
     }
 
+
+    /**
+     * Метод создания полностью случайного объект - "Папка"
+     *
+     * @return folder c атрибутами полей объекта - Папка
+     */
+    public Folder getRandomFolder() {
+
+        Folder folder = new Folder()
+                .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
+                .setUseFilter(randomBoolean())
+                .setSharedFolder(randomBoolean()) // Общая папка
+                .setAddSharedFolderForAll(randomBoolean()) // Добавить всем
+                .setAddSharedFolderForNewUsers(randomBoolean()); // Добавлять для новых пользователей
+        return folder;
+    }
+
+    /**
+     * Метод создания полностью случайного массива объектов - "Папка"
+     *
+     * @return folders с атрибутами полей объекта - Папка
+     */
+    public Folder[] getRandomArrayFolders() {
+
+        Folder[] folders = new Folder[]{
+                new Folder()
+                        .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
+                        .setUseFilter(randomBoolean())
+                        .setSharedFolder(randomBoolean())
+                        .setAddSharedFolderForAll(randomBoolean())
+                        .setAddSharedFolderForNewUsers(randomBoolean()),
+
+                getRandomFolder()};
+        return folders;
+    }
+
 }
+
+
+
+
+
+

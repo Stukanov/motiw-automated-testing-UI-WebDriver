@@ -90,11 +90,15 @@ public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, Ty
      * @return TaskTypeListObjectPage
      */
     public TaskTypeListObjectPage verifyCreateObject(String ObjectName) {
+        // TODO проблема скроллинга - не ищет в DOM когда очень много объектов!
+        $(By.xpath("//*[contains(text(),'" + ObjectName + "')][ancestor::table]")).scrollTo();
         $(By.xpath("//*[contains(text(),'" + ObjectName + "')][ancestor::table]")).shouldBe(Condition.visible);
         return this;
     }
 
+
     //----------------------------------------------------------------------------------------СПРАВОЧНИКИ
+
     /**
      * Добавление нового спр-ка (Администрирование / Справочники)
      *
@@ -134,15 +138,16 @@ public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, Ty
     /**
      * Инициализация формы редактирования - Справочники
      */
-    public DirectoriesEditFormPage goToDirectoriesEditPage(){
+    public DirectoriesEditFormPage goToDirectoriesEditPage() {
         return page(DirectoriesEditFormPage.class);
     }
 
     //----------------------------------------------------------------------------------------ТИПЫ ТАБЛИЦ
+
     /**
      * Добавление объекта Типы таблиц (Администрирование / Типы таблиц)
      *
-     * @param typesOfTables
+     * @param typesOfTables передаём строковое зн-ие (Имя объекта)
      */
     @Override
     public void addTypesOfTables(TypesOfTables typesOfTables) {
@@ -160,7 +165,7 @@ public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, Ty
     /**
      * Удаление объекта Типы таблиц из системы
      *
-     * @param typesOfTables
+     * @param typesOfTables передаём строковое зн-ие (Имя объекта)
      */
     @Override
     public void removeTypesOfTables(TypesOfTables typesOfTables) {
@@ -178,15 +183,16 @@ public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, Ty
     /**
      * Инициализация формы редактирования - Типы таблиц
      */
-    public TypesOfTablesEditPage goToTypesOfTablesEditPage(){
+    public TypesOfTablesEditPage goToTypesOfTablesEditPage() {
         return page(TypesOfTablesEditPage.class);
     }
 
     //----------------------------------------------------------------------------------------ТИПЫ ЗАДАЧ
+
     /**
      * Добавление нового спр-ка (Администрирование / Типы задач)
      *
-     * @param tasksTypes
+     * @param tasksTypes передаём строковое зн-ие (Имя объекта)
      */
     @Override
     public void addTasksTypes(TasksTypes tasksTypes) {
@@ -201,15 +207,27 @@ public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, Ty
 
     }
 
+    /**
+     * Удаление объекта - Тип задачи - из системы
+     *
+     * @param tasksTypes передаём строковое зн-ие (Имя объекта)
+     */
     @Override
     public void removeAnTasksTypes(TasksTypes tasksTypes) {
-
+        ensurePageLoaded();
+        $(By.xpath("//*[contains(text(),'" + tasksTypes.getTaskTypeName() + "')][ancestor::table]")).shouldBe(Condition.visible);
+        $(By.xpath("//*[contains(text(),'" + tasksTypes.getTaskTypeName() + "')][ancestor::table]/../span")).click();
+        clickDelTypesObject.click();
+        checkingMessagesConfirmationOfTheObject($(By.xpath("//div[contains(@id,'messagebox')]/ancestor::div[contains(@id,'container')]//div[text()]")),
+                "Вы действительно хотите удалить тип задачи \"" + tasksTypes.getTaskTypeName() + "" + "\"?",
+                confirmationButtonObjectDeletion);
+        $(By.xpath("//*[contains(text(),'" + tasksTypes.getTaskTypeName() + "')][ancestor::table]/..")).shouldNotBe(Condition.visible);
     }
 
     /**
      * Инициализация формы редактирования - Типы задач
      */
-    public TaskTypesEditPage goToTaskTypesEditPage(){
+    public TaskTypesEditPage goToTaskTypesEditPage() {
         return page(TaskTypesEditPage.class);
     }
 

@@ -1,8 +1,7 @@
 package ru.st.selenium.model.Task;
 
 /**
- *  Модель объекта системы - Событие
- *
+ * Событие
  */
 public class Event {
 
