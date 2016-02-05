@@ -297,7 +297,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage waitForMask() {
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         $(By.xpath("//*[contains (@class, 'x-mask')]")).waitUntil(Condition.disappear, 30000);
         return this;
     }

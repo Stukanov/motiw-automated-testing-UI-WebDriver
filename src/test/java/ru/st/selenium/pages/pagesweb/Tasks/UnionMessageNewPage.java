@@ -4,10 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageNewLogic;
@@ -475,7 +472,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски быстрого поиска при вводе шаблона поиска
      */
     public UnionMessageNewPage waitForLivesearchMask() {
-        waitMillisecond(0.7);
+        waitSeconds(0.7);
         $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
         return this;
     }
@@ -484,7 +481,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски задачи
      */
     public UnionMessageNewPage waitForTaskMask() {
-        waitMillisecond(0.5);
+        waitSeconds(0.5);
         $(By.xpath("//*[contains (@class, 'ext-el-mask')]")).shouldNotBe(Condition.visible);
         return this;
     }
@@ -493,7 +490,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски проекта
      */
     public UnionMessageNewPage waitForProjectMask() {
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         $(By.xpath("//*[contains (@class, 'x-mask x-mask-fixed')]")).shouldNotBe(Condition.visible);
         return this;
     }

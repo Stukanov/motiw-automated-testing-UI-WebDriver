@@ -103,7 +103,7 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
         rangeOfValuesF​romTheCheckbox(editTask.getIsImportant(), importantTask); // признак - Важная задача
         rangeOfValuesF​romTheCheckbox(editTask.getIsSecret(), privateTask); // признак - Секретная задача
         saveChangesToTask();
-        waitMillisecond(1.5);
+        waitSeconds(1.5);
         checkTheAttributesAreSaved(editTask); // проверяем отображение изменений (системное действие) в ленте действий
         verifyAttributesOfTask(editTask); // проверяем отображение новых значений в полях задачи
         return this;

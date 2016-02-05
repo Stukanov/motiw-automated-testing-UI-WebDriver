@@ -402,7 +402,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * @return TypesOfTablesEditPage
      */
     public TypesOfTablesEditPage selectField() {
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         selectField.click();
         return this;
     }
@@ -426,7 +426,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * @return TaskTypesEditPage
      */
     public TypesOfTablesEditPage chooseFieldDirectoryAndTable(String directoryFieldName) {
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         selectField.click();
         scrollToAndClick("//*[text()='" + directoryFieldName + "']");
         return this;

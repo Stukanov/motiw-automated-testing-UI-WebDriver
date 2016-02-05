@@ -3,7 +3,6 @@ package ru.st.selenium.pages.pagesweb.Tasks;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.impl.CollectionElement;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriverException;
@@ -124,7 +123,7 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
      * Поиск задачи
      */
     public UnionTasksPage findTask(String taskName) {
-        initializationInternalPage().searchField(taskName);
+        initializationInternalPage().searchFacilityOnTheGrid(taskName);
         return this;
     }
 
@@ -137,31 +136,26 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
     }
 
     /**
-     * Открытие найденой задачи в новом окне
-     */
-    public UnionTasksPage openTask(String taskName) {
-        $(By.xpath("//a[text()='" + taskName + "']")).sendKeys(NewWindowOpen);
-        return this;
-    }
-
-    /**
      * Открытие формы задачи в гриде - Задачи/Задачи
      */
     @Override
     public void openAnExistingTask(Task task) {
+        waitForMask();
         ensurePageLoaded();
         goToTopFrem();
-        try {
-            findTask(task.getTaskName());
-        } catch (WebDriverException e) {
-            findTask(task.getTaskName());
-        }
+        findTask(task.getTaskName());
         goToFrame();
         waitForMask();
-        $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
-                .first().shouldBe(Condition.visible);
-
-        openTask(task.getTaskName());
+        try {
+            $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
+                    .first().shouldBe(Condition.visible);
+        } catch (Exception e) {
+            findTask(task.getTaskName());
+            waitForMask();
+            $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
+                    .first().shouldBe(Condition.visible);
+        }
+        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
     }
 
     /**
@@ -222,7 +216,7 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
         folderInTheGroup.first().shouldBe(Condition.present);
         if (folders != null) {
             for (Folder folder : folders) {
-                waitMillisecond(1);
+                waitSeconds(1);
                 waitForMask();
                 folderInTheGroup.first().contextClick();
                 waitForMask();

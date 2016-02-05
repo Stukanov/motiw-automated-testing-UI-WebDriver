@@ -56,7 +56,7 @@ public class OptionsPagePDA extends Page {
             } catch (WebDriverException e) {
                 attachFiles.click();
                 save.click();
-                waitMillisecond(0.8);
+                waitSeconds(0.8);
                 getWebDriver().navigate().refresh();
                 $(By.xpath("//input[@id='secret2']/..//span[contains(@class,'ui-icon-checkbox-on')]")).shouldBe(Condition.visible);
             }

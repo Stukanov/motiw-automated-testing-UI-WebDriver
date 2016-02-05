@@ -698,7 +698,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
      * @return FormDocRegisterCardsEditPage
      */
     public FormDocRegisterCardsEditPage clickGeneralTab() {
-        waitMillisecond(0.7);
+        waitSeconds(0.7);
         $(By.xpath("(//div[contains(@id,'tabbar')]/following-sibling::*)[1]//a[1]//span")).shouldHave(present);
         waitForTaskMaskDRC();
         generalTab.click();

@@ -746,7 +746,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     @Override
     public void deleteUser(Employee user) {
         goToTopFrem();
-        initializationInternalPage().searchField(user.getLastName());
+        initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage().waitForMask();
         clickUserByName(user); // выбираем пользователя в гриде
         buttonDelUser(); // Нажимаем удалить пользователя
@@ -782,7 +782,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     @Override
     public void createAndCheckAliasForDep(Employee user, Department department) {
         goToTopFrem();
-        initializationInternalPage().searchField(user.getLastName());
+        initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage();
         waitForMask();
         clickUserByName(user)
@@ -800,7 +800,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     public void checkIsAlias(Employee user, Department department) {
         goToTopFrem();
-        initializationInternalPage().searchField(user.getLastName());
+        initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage();
         waitForMask();
         assertHasAlias(user, department);

@@ -149,7 +149,7 @@ public abstract class Page {
         SelenideElement element = $(By.xpath(locator));
         ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView();"
                 , element);
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         element.click();
     }
 
@@ -195,7 +195,7 @@ public abstract class Page {
      *
      * @param seconds timeout in seconds for wait
      */
-    public static void waitMillisecond(double seconds) {
+    public static void waitSeconds(double seconds) {
         try {
             Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException e) {
@@ -226,7 +226,7 @@ public abstract class Page {
      */
     public boolean isElementPresent(By locator) {
         try {
-            waitMillisecond(0.5);
+            waitSeconds(0.5);
             getWebDriver().findElement(locator);
             return true;
         } catch (WebDriverException e) {
@@ -241,7 +241,7 @@ public abstract class Page {
      */
     public boolean isElementVisible(By locator) throws InterruptedException {
         boolean value = false;
-        waitMillisecond(0.5);
+        waitSeconds(0.5);
         if (getWebDriver().findElements(locator).size() > 0) {
             value = true;
         }

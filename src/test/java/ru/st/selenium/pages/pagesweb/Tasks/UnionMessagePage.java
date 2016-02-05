@@ -135,7 +135,7 @@ public class UnionMessagePage extends Page implements UnionMessageLogic {
                     .verifyResppersons(valueTask.getExecutiveManagers())
                     .verifyTaskType(valueTask.getTasktype())
                     .verifyIWG(valueTask.getIWG())
-                   // TODO вынести проверки -  .verifyCheckpoints(valueTask.getCheckpoints()) и .verifyIWG(valueTask.getIWG()) в отдельные для соот. методов
+                   // TODO вынести проверки -  .verifyCheckpoints(valueTask.getCheckpoints()) и .verifyIWG(valueTask.getIWG()) в отдельные - для соот.  отдельных методов
                     .verifyCheckpoints(valueTask.getCheckpoints())
                     .verifyReport(valueTask.getIsWithReport())
                     .verifySecret(valueTask.getIsSecret())

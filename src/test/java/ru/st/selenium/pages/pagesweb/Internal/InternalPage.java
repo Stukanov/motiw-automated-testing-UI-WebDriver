@@ -217,12 +217,12 @@ public class InternalPage extends Page implements BaseInternalLogic {
 
 
     /**
-     * Поиск
+     * Поиск объекта в гриде
      *
-     * @param serachstring
+     * @param serachstring передаваемый шаблон поиска
      * @return CreateDepartmentPage
      */
-    public InternalPage searchField(String serachstring) {
+    public InternalPage searchFacilityOnTheGrid(String serachstring) {
         search.clear();
         search.setValue(serachstring);
         search.pressEnter();

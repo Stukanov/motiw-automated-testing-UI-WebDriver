@@ -726,7 +726,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @return TaskTypesEditPag
      */
     public TaskTypesEditPage selField() {
-        waitMillisecond(0.3);
+        waitSeconds(0.3);
         selectField.click();
         return this;
     }
@@ -750,7 +750,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @return TaskTypesEditPage
      */
     public TaskTypesEditPage chooseFieldDirectoryAndTable(String directoryFieldName) {
-        waitMillisecond(0.5);
+        waitSeconds(0.5);
         selectField.click();
         $(By.xpath("//*[text()='" + directoryFieldName + "']")).click();
         return this;
