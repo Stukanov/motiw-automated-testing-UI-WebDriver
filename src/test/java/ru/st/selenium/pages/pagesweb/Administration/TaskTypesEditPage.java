@@ -20,8 +20,10 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypesField;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.model.ShiftDirection.*;
+import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 
 /**
  * Форма редактирования - Типы Задач
@@ -726,7 +728,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @return TaskTypesEditPag
      */
     public TaskTypesEditPage selField() {
-        waitSeconds(0.3);
+       sleep(300);
         selectField.click();
         return this;
     }
@@ -750,7 +752,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @return TaskTypesEditPage
      */
     public TaskTypesEditPage chooseFieldDirectoryAndTable(String directoryFieldName) {
-        waitSeconds(0.5);
+        sleep(500);
         selectField.click();
         $(By.xpath("//*[text()='" + directoryFieldName + "']")).click();
         return this;

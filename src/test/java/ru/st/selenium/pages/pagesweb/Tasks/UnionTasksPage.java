@@ -5,7 +5,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
@@ -14,10 +13,9 @@ import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.Page;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
  * Страница - Задачи/Задачи
@@ -216,7 +214,7 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
         folderInTheGroup.first().shouldBe(Condition.present);
         if (folders != null) {
             for (Folder folder : folders) {
-                waitSeconds(1);
+                sleep(1000);
                 waitForMask();
                 folderInTheGroup.first().contextClick();
                 waitForMask();

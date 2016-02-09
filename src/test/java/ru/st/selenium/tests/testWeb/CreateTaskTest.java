@@ -1,6 +1,8 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -22,7 +24,9 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
+import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -30,6 +34,12 @@ import static org.testng.AssertJUnit.assertTrue;
 @Features("Создать задачу (Web)")
 @Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskTestCase {
+
+    @BeforeClass
+    public static LoginPage beforeTest() {
+        open(Page.WEB_PAGE_URL, LoginPage.class);
+        return page(LoginPage.class);
+    }
 
     /**
      * Проверка создания обычной задачи
@@ -51,7 +61,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                  Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -99,27 +109,25 @@ public class CreateTaskTest extends ModuleTaskTestCase {
 
     /**
      * Проверяем создание задачи типа ИРГ
-     * @param department подразделение, в к-е будет добавлятсья пользователь
      *
-     * @param author Авторы задачи
-     * @param resppers Ответственные руководители задачи
-     * @param controller Контролеры задачи
-     * @param worker Исполнители задачи
-     *
-     * @param IWGWorker Исполнители задачи ИРГ
-     * @param IWGResppers ОР задачи ИРГ
+     * @param department    подразделение, в к-е будет добавлятсья пользователь
+     * @param author        Авторы задачи
+     * @param resppers      Ответственные руководители задачи
+     * @param controller    Контролеры задачи
+     * @param worker        Исполнители задачи
+     * @param IWGWorker     Исполнители задачи ИРГ
+     * @param IWGResppers   ОР задачи ИРГ
      * @param IWGСontroller Контролеры задачи
-     *
-     * @param task Задача со всеми её параметрами
+     * @param task          Задача со всеми её параметрами
      */
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи типа ИРГ")
     @Description("Проверяем создание задачи ИРГ с набором атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTask")
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                               Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -173,9 +181,9 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     @Description("Проверяем создание задачи c набором Контрольных точек")
     @Test(priority = 3, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+                                                   Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -200,6 +208,11 @@ public class CreateTaskTest extends ModuleTaskTestCase {
         internalPage.logout();
         // Проверка - пользователь разлогинен
         assertTrue(loginPage.isNotLoggedIn());
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        close();
     }
 
 }

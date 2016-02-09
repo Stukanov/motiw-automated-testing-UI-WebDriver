@@ -1,6 +1,8 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.pages.Page;
@@ -16,7 +18,9 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
+import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -25,13 +29,18 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class SystemInformationTest extends ModuleTaskTestCase {
 
+    @BeforeClass
+    public static LoginPage beforeTest() {
+        open(Page.WEB_PAGE_URL, LoginPage.class);
+        return page(LoginPage.class);
+    }
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверка отсутствия незапущенных служб")
     @Description("Проверка на отсутствия незапущенных служб (красные элементы на странице)")
     @Test(priority = 1)
     public void verifyNotRedSystemInfo() throws Exception {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -49,13 +58,12 @@ public class SystemInformationTest extends ModuleTaskTestCase {
 
     }
 
-
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверяем наличие ошибок в индексах Поисковой системы")
     @Description("Проверяем отсутствие ошибок в Поисковой системе над конкретным объектом")
     @Test(priority = 2)
     public void verifyNotIndexingErrors() throws Exception {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -70,6 +78,11 @@ public class SystemInformationTest extends ModuleTaskTestCase {
         internalPage.logout();
         // Проверка - пользователь разлогинен
         assertTrue(loginPage.isNotLoggedIn());
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        close();
     }
 
 }

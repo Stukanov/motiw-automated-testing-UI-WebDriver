@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.pages.Page;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /*
@@ -56,7 +57,7 @@ public class OptionsPagePDA extends Page {
             } catch (WebDriverException e) {
                 attachFiles.click();
                 save.click();
-                waitSeconds(0.8);
+                sleep(800);
                 getWebDriver().navigate().refresh();
                 $(By.xpath("//input[@id='secret2']/..//span[contains(@class,'ui-icon-checkbox-on')]")).shouldBe(Condition.visible);
             }

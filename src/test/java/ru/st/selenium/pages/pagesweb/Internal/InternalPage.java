@@ -20,7 +20,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
+import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
  * Внутренняя страница системы (ОМ - Основное меню)

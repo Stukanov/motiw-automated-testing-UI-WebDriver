@@ -524,7 +524,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
      * @return DirectoriesEditFormPage
      */
     public DirectoriesEditFormPage selectField() {
-        waitSeconds(0.3);
+        sleep(300);
         $(selectField).click();
         return this;
     }
@@ -622,7 +622,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
                             TypeListFieldsEnclosedDirectory fieldsEnclosedDirectory = (TypeListFieldsEnclosedDirectory) fieldDirectory.getFieldType();
                             selFieldDirectory(); // Выбор поля Спр-к
                             scrollToAndClick("//*[text()='" + fieldsEnclosedDirectory.getDirectoryName() + "']");
-                            waitSeconds(0.5);
+                            sleep(500);
                             // 15. ПОДРАЗДЕЛЕНИЕ
                         } else if (fieldDirectory.getFieldType() instanceof TypeListFieldsDepartment) {
                             selectTheTypeOfField(typeFieldDepartment);

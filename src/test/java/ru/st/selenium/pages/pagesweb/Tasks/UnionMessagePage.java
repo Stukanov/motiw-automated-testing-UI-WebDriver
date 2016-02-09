@@ -11,6 +11,7 @@ import ru.st.selenium.pages.Page;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 /**
  * Форма (редактирования) задачи

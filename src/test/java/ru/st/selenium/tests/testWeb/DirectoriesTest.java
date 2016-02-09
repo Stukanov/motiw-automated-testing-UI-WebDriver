@@ -1,6 +1,8 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Directories.Directories;
@@ -18,7 +20,9 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
+import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -28,6 +32,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания Справочник в Web-интерфейсе")
 public class DirectoriesTest extends ModuleAdministrationObjectTestCase {
 
+    @BeforeClass
+    public static LoginPage beforeTest() {
+        open(Page.WEB_PAGE_URL, LoginPage.class);
+        return page(LoginPage.class);
+    }
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Справочника с полным набором полей")
@@ -35,7 +44,7 @@ public class DirectoriesTest extends ModuleAdministrationObjectTestCase {
     @Test(priority = 1, dataProvider = "objectDataDirectories")
     public void createDirectories(Directories directories) throws Exception {
         // Авторизация
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -71,6 +80,11 @@ public class DirectoriesTest extends ModuleAdministrationObjectTestCase {
         internalPage.logout();
         // Проверка - пользователь разлогинен
         assertTrue(loginPage.isNotLoggedIn());
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        close();
     }
 
 }

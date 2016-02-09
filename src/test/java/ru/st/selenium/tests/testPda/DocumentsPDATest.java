@@ -1,6 +1,8 @@
 package ru.st.selenium.tests.testPda;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import ru.st.selenium.model.Administration.Directories.Directories;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -33,7 +35,9 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
+import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
@@ -42,6 +46,12 @@ import static org.testng.Assert.assertTrue;
 @Features("Документы (PDA)")
 @Title("Проверка раздела Документы в PDA-интерфейсе")
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
+
+    @BeforeClass
+    public static LoginPagePDA beforeTest() {
+        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+        return page(LoginPagePDA.class);
+    }
 
     @Severity(SeverityLevel.BLOCKER)
     @Title("Проверяем  отображение документа в гриде документа")
@@ -113,11 +123,10 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn());
 
-
         /**
          * Проверяем отображение документов в гриде документов (отчет Контролирования)
          */
-        LoginPagePDA loginPagePDA = open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+        LoginPagePDA loginPagePDA = beforeTest();
 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
@@ -135,6 +144,11 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         assertTrue(loginPagePDA.isNotLoggedInPDA());
 
 
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        close();
     }
 
 }

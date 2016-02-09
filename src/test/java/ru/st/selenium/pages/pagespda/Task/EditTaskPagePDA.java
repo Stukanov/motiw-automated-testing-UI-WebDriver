@@ -9,9 +9,7 @@ import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 
 /*
  * Форма задачи (Атрибуты задачи)
@@ -103,7 +101,7 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
         rangeOfValuesF​romTheCheckbox(editTask.getIsImportant(), importantTask); // признак - Важная задача
         rangeOfValuesF​romTheCheckbox(editTask.getIsSecret(), privateTask); // признак - Секретная задача
         saveChangesToTask();
-        waitSeconds(1.5);
+        sleep(1500);
         checkTheAttributesAreSaved(editTask); // проверяем отображение изменений (системное действие) в ленте действий
         verifyAttributesOfTask(editTask); // проверяем отображение новых значений в полях задачи
         return this;

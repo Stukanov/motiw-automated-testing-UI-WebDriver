@@ -15,6 +15,7 @@ import ru.st.selenium.model.ShiftDirection;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Калсс, в к-м описываются все элементы указанные на странице редактирования Регистрационной карточки документа (РКД)
@@ -698,7 +699,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
      * @return FormDocRegisterCardsEditPage
      */
     public FormDocRegisterCardsEditPage clickGeneralTab() {
-        waitSeconds(0.7);
+        sleep(700);
         $(By.xpath("(//div[contains(@id,'tabbar')]/following-sibling::*)[1]//a[1]//span")).shouldHave(present);
         waitForTaskMaskDRC();
         generalTab.click();

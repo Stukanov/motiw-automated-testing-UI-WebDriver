@@ -13,6 +13,8 @@ import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTablesField;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.sleep;
+import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 
 /**
  * Форма редактирования - Типы таблиц
@@ -402,7 +404,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * @return TypesOfTablesEditPage
      */
     public TypesOfTablesEditPage selectField() {
-        waitSeconds(0.3);
+        sleep(300);
         selectField.click();
         return this;
     }
@@ -426,7 +428,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * @return TaskTypesEditPage
      */
     public TypesOfTablesEditPage chooseFieldDirectoryAndTable(String directoryFieldName) {
-        waitSeconds(0.3);
+        sleep(300);
         selectField.click();
         scrollToAndClick("//*[text()='" + directoryFieldName + "']");
         return this;

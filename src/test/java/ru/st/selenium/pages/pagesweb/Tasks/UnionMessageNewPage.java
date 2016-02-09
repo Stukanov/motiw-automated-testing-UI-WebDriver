@@ -18,7 +18,10 @@ import ru.st.selenium.pages.Page;
 
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
+import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
 /**
@@ -472,7 +475,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски быстрого поиска при вводе шаблона поиска
      */
     public UnionMessageNewPage waitForLivesearchMask() {
-        waitSeconds(0.7);
+        sleep(700);
         $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
         return this;
     }
@@ -481,7 +484,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски задачи
      */
     public UnionMessageNewPage waitForTaskMask() {
-        waitSeconds(0.5);
+        sleep(500);
         $(By.xpath("//*[contains (@class, 'ext-el-mask')]")).shouldNotBe(Condition.visible);
         return this;
     }
@@ -490,7 +493,7 @@ public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
      * Ожидание маски проекта
      */
     public UnionMessageNewPage waitForProjectMask() {
-        waitSeconds(0.3);
+        sleep(300);
         $(By.xpath("//*[contains (@class, 'x-mask x-mask-fixed')]")).shouldNotBe(Condition.visible);
         return this;
     }

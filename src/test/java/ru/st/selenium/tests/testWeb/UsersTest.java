@@ -2,6 +2,8 @@ package ru.st.selenium.tests.testWeb;
 
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -22,7 +24,9 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 
+import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -31,6 +35,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Пользователи и Подразделения")
 public class UsersTest extends ModuleAdministrationObjectTestCase {
 
+    @BeforeClass
+    public static LoginPage beforeTest() {
+        open(Page.WEB_PAGE_URL, LoginPage.class);
+        return page(LoginPage.class);
+    }
 
     /*
       * Инициализация переменных - Подразделение
@@ -90,7 +99,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
             "и изменения вложенности иерархии Подразделений")
     @Test(priority = 1)
     public void verifyCreatingAndRemovalDepartments() throws Exception {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -140,7 +149,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
             " пользователями")
     @Test(priority = 2)
     public void verifyCreatingUsers() throws Exception {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -216,8 +225,7 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
     @Description("Проверяем Удаление ранее созданных пользователей и подразделений из Системы")
     @Test(dependsOnMethods = "verifyCreatingUsers")
     public void verifyRemovalUsers() throws Exception {
-
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = beforeTest();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -243,6 +251,11 @@ public class UsersTest extends ModuleAdministrationObjectTestCase {
         assertTrue(loginPage.isNotLoggedIn());
 
 
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        close();
     }
 
 }

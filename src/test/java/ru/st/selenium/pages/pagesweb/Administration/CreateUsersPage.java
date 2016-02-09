@@ -19,6 +19,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertTrue;
 import static ru.st.selenium.model.Administration.Users.Module.*;
 import static ru.st.selenium.model.Administration.Users.Status.*;
+import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
  * Страница - Администрирование/Пользователи ч.2 (Пользователи)

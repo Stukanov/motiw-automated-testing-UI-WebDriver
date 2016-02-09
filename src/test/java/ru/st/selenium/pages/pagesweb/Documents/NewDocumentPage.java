@@ -18,7 +18,9 @@ import ru.st.selenium.pages.Page;
 
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
 public class NewDocumentPage extends Page implements DocumentLogic {
@@ -371,7 +373,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
      * Ожидание маски проекта
      */
     public NewDocumentPage waitForProjectMask() {
-        waitSeconds(0.3);
+        sleep(300);
         $(By.xpath("//*[contains (@class, 'x-mask x-mask-fixed')]")).shouldBe(Condition.disappear);
         return this;
     }
@@ -380,7 +382,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
      * Ожидание исчезновения маски из DOM в форме создания документа
      */
     public NewDocumentPage waitForFormNewDocumentMask() {
-        waitSeconds(0.3);
+        sleep(300);
         $(By.xpath("//div[contains(@class,'ext-el-mask-msg x-mask-loading') or @class='ext-el-mask' and not(@style='display: none;')]")).shouldBe(Condition.disappear);
         return this;
     }

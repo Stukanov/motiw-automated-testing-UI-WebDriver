@@ -15,7 +15,9 @@ import ru.st.selenium.pages.Page;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
  * Страница - Администрирование/Пользователи (Подразделения)
@@ -297,7 +299,7 @@ public class CreateDepartmentPage extends Page implements DepartmentsLogic {
      * @return CreateDepartmentPage
      */
     public CreateDepartmentPage waitForMask() {
-        waitSeconds(0.3);
+        sleep(400);
         $(By.xpath("//*[contains (@class, 'x-mask')]")).waitUntil(Condition.disappear, 30000);
         return this;
     }

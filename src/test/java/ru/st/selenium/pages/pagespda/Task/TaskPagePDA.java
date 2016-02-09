@@ -20,8 +20,8 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 public class TaskPagePDA extends TasksReportsPagePDA {
 
-    public static final String FILE = "src/test/java/../resources/files/hello_world.txt";
-    public static final String FILE1 = "src/test/java/../resources/files/Договор аренды.doc";
+    public static final String FILE = "src/test/java/../resources/attachfiles/hello_world.txt";
+    public static final String FILE1 = "src/test/java/../resources/attachfiles/Договор аренды.doc";
     public static final String SUBMIT_BUTTON_ADD_FILE = "input[name='myfile1']";
 
     /*
@@ -145,7 +145,7 @@ public class TaskPagePDA extends TasksReportsPagePDA {
             $(By.xpath("//div[@class='message-file-container'][text()='Файлы:']")).shouldHave(Condition.visible);
             $(By.xpath("//ul[@class='ui-listview']//div/span[text()='" + textAction + "']")).shouldBe(Condition.visible);
             assertTrue(file.exists());
-            assertTrue(file.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/files/hello_world.txt"));
+            assertTrue(file.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/attachfiles/hello_world.txt"));
         }
         for (int a = 0; a < 2; a++) {
             addFile.click();
@@ -156,7 +156,7 @@ public class TaskPagePDA extends TasksReportsPagePDA {
             $(By.xpath("//div[@class='message-file-container'][text()='Файлы:']")).shouldHave(Condition.visible);
             $(By.xpath("//ul[@class='ui-listview']//div/span[text()='" + textAction + "']")).shouldBe(Condition.visible);
             assertTrue(file1.exists());
-            assertTrue(file1.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/files/Договор аренды.doc"));
+            assertTrue(file1.getPath().replace(File.separatorChar, '/').endsWith("src/test/resources/attachfiles/Договор аренды.doc"));
         }
         return this;
     }

@@ -4,14 +4,13 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class Page {
@@ -149,104 +148,11 @@ public abstract class Page {
         SelenideElement element = $(By.xpath(locator));
         ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView();"
                 , element);
-        waitSeconds(0.3);
+        sleep(300);
         element.click();
     }
 
 
-    //-----------------------------------------------------------------------------Переключение между - WINDOWS
-
-    /**
-     * Метод появление новго окна - переключение, т.е. взаимодействие с данным окном
-     * <p>
-     * пример использования,
-     * driver.switchTo().window(new WebDriverWait(driver, 10).until(newWindowForm(By.cssSelector("#searchField"))));
-     *
-     * @param locator element that should contain the new page
-     */
-    public ExpectedCondition<String> newWindowForm(final By locator) {
-        return new ExpectedCondition<String>() {
-            public String apply(WebDriver d) {
-                String initialWindowHandle = d.getWindowHandle(); // Запоминаем в начале, в каком окне мы находились
-                String found = null;
-                Set<String> windowHandles = d.getWindowHandles(); // возвращает множ-во идентификаторов окон И далее проходим в цикле в каждое окно и проверяем
-                // имеется ли необходимый элемент в новом окне, нет - тогда переключаемся в следующее, если совпадает, то true
-                for (String handle : windowHandles) {
-                    try {
-                        d.switchTo().window(handle);
-                        if (d.findElement((locator)).isDisplayed()) {
-                            found = handle;
-                            break;
-                        }
-                    } catch (WebDriverException e) { // игнорируем все исключения
-                    }
-                }
-                d.switchTo().window(initialWindowHandle);
-                return found;
-            }
-        };
-    }
-
-    //-----------------------------------------------Waiting--------------------------------------------
-
-    /**
-     * Подождать в течение определенного количества времени
-     * Пример, использования метода - waitTime(0.5 OR 1);
-     *
-     * @param seconds timeout in seconds for wait
-     */
-    public static void waitSeconds(double seconds) {
-        try {
-            Thread.sleep((long) (seconds * 1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Подождать пока отобразится элемент на странице
-     * <p>
-     * Пример, использования метода - waitForPageUntilElementIsVisible(By.xpath("//*[@id='bAddRec-btnIconEl']"), 5000);
-     *
-     * @param locator    элемент, с к-м взаимодействуем
-     * @param maxSeconds время в сек. для ожидания
-     */
-    public WebElement waitForPageUntilElementIsVisible(By locator,
-                                                       int maxSeconds) {
-        return (new WebDriverWait(getWebDriver(), maxSeconds)).until(ExpectedConditions
-                .visibilityOfElementLocated(locator));
-    }
-
-    //----------------------------------------------------Проверки------------------------------------------------
-
-    /**
-     * Метод проверки наличия элемента на странице
-     *
-     * @param locator передаваемый локатор элемента для представления
-     */
-    public boolean isElementPresent(By locator) {
-        try {
-            waitSeconds(0.5);
-            getWebDriver().findElement(locator);
-            return true;
-        } catch (WebDriverException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Метод проверки Видимости элемента
-     *
-     * @param locator передаваемый локатор элемента для представления
-     */
-    public boolean isElementVisible(By locator) throws InterruptedException {
-        boolean value = false;
-        waitSeconds(0.5);
-        if (getWebDriver().findElements(locator).size() > 0) {
-            value = true;
-        }
-        return value;
-    }
 
     /**
      * Метод обращается к ensurePageLoaded и возвращает булевское значение,

@@ -9,6 +9,7 @@ import ru.st.selenium.pages.Page;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.testng.Assert.assertFalse;
+import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
  * Страница - Поисковая система
