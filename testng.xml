@@ -17,6 +17,15 @@
         </classes>
     </test>
 
+    <test name="Модуль - Администрирование (Web-интерфейс)">
+        <classes>
+            <class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
+            <class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
+            <class name="ru.st.selenium.tests.testWeb.DirectoriesTest"/>
+            <class name="ru.st.selenium.tests.testWeb.TasksTypeTest"/>
+        </classes>
+    </test>
+
     <test name="Модуль - Пользователи (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
@@ -27,15 +36,6 @@
     <test name="Модуль - Задачи (Web-интерфейс)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
-        </classes>
-    </test>
-
-    <test name="Модуль - Администрирование (Web-интерфейс)">
-        <classes>
-            <class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
-            <class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
-            <class name="ru.st.selenium.tests.testWeb.DirectoriesTest"/>
-            <class name="ru.st.selenium.tests.testWeb.TasksTypeTest"/>
         </classes>
     </test>
 

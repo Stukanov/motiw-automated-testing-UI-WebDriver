@@ -16,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class Page {
 
-    public static final String WEB_PAGE_URL = "http://motiw";
+    public static final String WEB_PAGE_URL = "http://motiw/";
     public static final String PDA_PAGE_URL = "http://pda.motiw";
 
     /**
@@ -50,7 +50,7 @@ public abstract class Page {
     //------------------------------------------------------------------------------------Нажатие на элемент
 
     /**
-     * Имитации нажатия правой кнопки мыши. Клик осуществляется в центр элемента
+     * Имитации нажатия правой кнопки мыши. Клик осуществляется в центр элемента и ожидание элемента
      *
      * @param element               передаваемая переменная для взаимодействия
      * @param elementWaitVisibility передаваемая переменная (элемент DOM) для взаимодействия, ожидание

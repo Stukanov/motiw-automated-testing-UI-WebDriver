@@ -17,7 +17,7 @@
         <allure.version>1.4.20</allure.version>
         <hamcrest.version>1.3</hamcrest.version>
         <slf4j-simple.version>1.7.13</slf4j-simple.version>
-        <qatools.allure.version>2.2</qatools.allure.version>
+        <qatools.allure.version>2.5</qatools.allure.version>
         <!-- Plugin Versions -->
         <aspectj.version>1.8.5</aspectj.version>
         <jetty-maven-plugin.version>9.2.10.v20150310</jetty-maven-plugin.version>

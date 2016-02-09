@@ -158,7 +158,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     /**
      * Сохранить поле
      */
-    @FindBy(xpath = "//span[contains(@id,'-btnIconEl')] [ancestor::div[contains(@id,'window-')]]")
+    @FindBy(xpath = "(//span[contains(@id,'-btnIconEl')] [ancestor::div[contains(@id,'toolbar-') and contains(@class,'x-toolbar')]])[9]")
     private SelenideElement saveField;
 
 

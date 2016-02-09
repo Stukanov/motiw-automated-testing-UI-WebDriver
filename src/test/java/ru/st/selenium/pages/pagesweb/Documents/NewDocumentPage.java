@@ -471,6 +471,9 @@ public class NewDocumentPage extends Page implements DocumentLogic {
 
     /**
      * Добавление Сотрудник через livesearch - поиск по Фамилии
+     *
+     * @param nameStr
+     * @param employee
      */
     public NewDocumentPage selLiveSearchEmployee(String nameStr, Employee[] employee) {
         if (employee == null) {
