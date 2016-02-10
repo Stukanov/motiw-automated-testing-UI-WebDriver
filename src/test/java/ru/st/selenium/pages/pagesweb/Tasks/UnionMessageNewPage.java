@@ -19,6 +19,8 @@ import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.switchTo;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
@@ -459,7 +461,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
      * Переход в фрейм
      */
     public UnionMessageNewPage gotoFrame() {
-        getWebDriver().switchTo().frame(Frame);
+        switchTo().frame(Frame);
         return this;
     }
 
@@ -467,7 +469,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
      * Переход в фрейм формы редактирования/создания ИРГ
      */
     public UnionMessageNewPage gotoIWGFrame() {
-        getWebDriver().switchTo().frame(iwgFrame);
+        switchTo().frame(iwgFrame);
         return this;
     }
 
@@ -579,8 +581,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
         }
         fieldTaskType.click();
         editorField.click();
-        getWebDriver().findElement
-                (By.xpath("//*[contains (@class, 'combo-list')][contains (@style, 'visible')]//*[contains (text(), '" + tasktype.getTaskTypeName() + "')]"))
+        $(By.xpath("//*[contains (@class, 'combo-list')][contains (@style, 'visible')]//*[contains (text(), '" + tasktype.getTaskTypeName() + "')]"))
                 .click();
         waitForTaskMask();
         return this;
@@ -595,7 +596,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             return this;
         } else {
             newProject.click();
-            getWebDriver().switchTo().frame(projectFrame);
+            switchTo().frame(projectFrame);
             $(projectField).shouldBe(Condition.present);
             projectField.click();
             editorFieldProject.setValue(project.getNameProject());
@@ -607,8 +608,8 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             editorFieldProject.setValue(project.getEndDate());
             projectSave.click();
             waitForProjectMask();
-            getWebDriver().switchTo().defaultContent();
-            getWebDriver().switchTo().frame(Frame);
+            switchTo().defaultContent();
+            switchTo().frame(Frame);
         }
         return this;
     }
@@ -621,10 +622,10 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             return this;
         } else {
             description.click();
-            getWebDriver().switchTo().frame(descriptionFrame);
+            switchTo().frame(descriptionFrame);
             ckeBody.setValue(descript);
-            getWebDriver().switchTo().defaultContent();
-            getWebDriver().switchTo().frame(Frame);
+            switchTo().defaultContent();
+            switchTo().frame(Frame);
             buttonSaveDescription.click();
         }
         return this;
@@ -678,8 +679,8 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
         if (checkpoints == null) {
             return this;
         } else
-            getWebDriver().switchTo().defaultContent();
-        getWebDriver().switchTo().frame(Frame);
+            goToTopFrem();
+        switchTo().frame(Frame);
         $(planningTab).shouldBe(Condition.visible);
         planningTab.click(); // Выбор вкладки - Планирование
         waitForTaskMask(); // Ожидание маски
@@ -688,10 +689,10 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             checkpointDateField.click();
             editorField.setValue(checkpoint.getDate());
             checkpointDescriptionField.click();
-            getWebDriver().switchTo().frame(descriptionFrame);
+            switchTo().frame(descriptionFrame);
             ckeBody.setValue(checkpoint.getDescription());
-            getWebDriver().switchTo().defaultContent();
-            getWebDriver().switchTo().frame(Frame);
+            switchTo().defaultContent();
+            switchTo().frame(Frame);
             buttonSaveDescription.click();
             checkpointNameField.click();
             editorField.setValue(checkpoint.getName()); // Заполняем Название КТ
@@ -791,7 +792,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                 $(buttonIwgSave).shouldBe(Condition.visible);
                 inputIwgName.setValue(anIwg.getNameIWG()); // Название ИРГ
                 inputIwgTaskType.click();
-                getWebDriver().findElement(By.xpath("//*[text()='" + anIwg.getTasksTypes().getTaskTypeName() + "']")).click();
+                $(By.xpath("//*[text()='" + anIwg.getTasksTypes().getTaskTypeName() + "']")).click();
                 iwgSysActionsInParentTask(anIwg.getIsSystemActionsInParentTask()); // Системные действия в родительской задаче
                 // ОР ИРГ
                 if (anIwg.getRespPersons() == null) {
@@ -802,7 +803,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         buttonIwgAddRespPerson.click(); // добавить ОР ИРГ
                         // Window PopUp
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
-                        getWebDriver().switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
+                        switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
                         $(userSearchField).shouldBe(Condition.visible);
                         userSearchField.clear();
                         userSearchField.setValue(anIwg.getRespPersons()[riwg].getLastName());
@@ -810,9 +811,9 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         waitForTaskMask();
                         userAddButton.click(); // Добавить пользователя
                         userSaveButton.click(); // Сохранить выбранных пользователей
-                        getWebDriver().switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        getWebDriver().switchTo().frame(Frame);
-                        getWebDriver().switchTo().frame(iwgFrame);
+                        switchTo().window(parentWindowHandler);  // Switch back to parent window
+                        switchTo().frame(Frame);
+                        switchTo().frame(iwgFrame);
                     }
                 }
                 // Исполнители ИРГ
@@ -823,7 +824,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                     for (int wiwg = 0; wiwg < (anIwg.getWorkers().length); wiwg++) {
                         buttonIwgAddWorker.click(); // добавить Исполнителей ИРГ
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
-                        getWebDriver().switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
+                        switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
                         $(userSearchField).shouldBe(Condition.visible);
                         userSearchField.clear();
                         userSearchField.setValue(anIwg.getWorkers()[wiwg].getLastName());
@@ -831,9 +832,9 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         waitForTaskMask();
                         userAddButton.click();
                         userSaveButton.click();
-                        getWebDriver().switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        getWebDriver().switchTo().frame(Frame);
-                        getWebDriver().switchTo().frame(iwgFrame);
+                        switchTo().window(parentWindowHandler);  // Switch back to parent window
+                        switchTo().frame(Frame);
+                        switchTo().frame(iwgFrame);
                     }
                 }
                 // Контролеры ИРГ
@@ -844,7 +845,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                     for (int сiwg = 0; сiwg < (anIwg.getControllers().length); сiwg++) {
                         buttonIwgAddController.click(); // добавить Контролеров ИРГ
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
-                        getWebDriver().switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
+                        switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
                         $(userSearchField).shouldBe(Condition.visible);
                         userSearchField.clear();
                         userSearchField.setValue(anIwg.getControllers()[сiwg].getLastName());
@@ -852,9 +853,9 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         waitForTaskMask();
                         userAddButton.click();
                         userSaveButton.click();
-                        getWebDriver().switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        getWebDriver().switchTo().frame(Frame);
-                        getWebDriver().switchTo().frame(iwgFrame);
+                        switchTo().window(parentWindowHandler);  // Switch back to parent window
+                        switchTo().frame(Frame);
+                        switchTo().frame(iwgFrame);
                     }
                 }
 
@@ -890,7 +891,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
      * @param nameIWG передаем название ИРГ
      */
     public UnionMessageNewPage verifyCreateIWG(String nameIWG) {
-        getWebDriver().switchTo().defaultContent(); // уходим в ТОР фрейм
+        goToTopFrem(); // уходим в ТОР фрейм
         gotoFrame(); // переходим в общий фрейм "flow"
         waitForPageUntilElementIsVisible(By.xpath("//div[@id='tab_iwg']//tbody//td[5]//div[text()='" + nameIWG + "']"), 5000);
         return this;

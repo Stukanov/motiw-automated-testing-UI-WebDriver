@@ -320,8 +320,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Заполняем поле - Дата регистрации
      *
-     * @param dateRegistration
-     * @return
+     * @param dateRegistration передаваемое значение Дата регистрации - используется для заполнения
      */
     public NewDocumentPage writeInRegistrationDate(String dateRegistration) {
         if (dateRegistration == null) {
@@ -361,7 +360,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
         return this;
     }
 
-    /**
+    /*
      * Ожидание маски проекта
      */
     public NewDocumentPage waitForProjectMask() {
@@ -370,7 +369,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
         return this;
     }
 
-    /**
+    /*
      * Ожидание исчезновения маски из DOM в форме создания документа
      */
     public NewDocumentPage waitForFormNewDocumentMask() {
@@ -416,9 +415,8 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Общий метод заполнения полей документа
      *
-     * @param nameField
-     * @param valueLine
-     * @return
+     * @param nameField имя поля документа для заполнения
+     * @param valueLine передаваемое значение для заполнения
      */
     public NewDocumentPage enterValueInField(String nameField, String valueLine) {
         if (valueLine == null) {
@@ -466,8 +464,8 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Добавление Сотрудник через livesearch - поиск по Фамилии
      *
-     * @param nameStr
-     * @param employee
+     * @param nameStr заполняемое полей - передаваемое поле для заполнения
+     * @param employee кол-во передаваемых пользователей
      */
     public NewDocumentPage selLiveSearchEmployee(String nameStr, Employee[] employee) {
         if (employee == null) {
@@ -513,8 +511,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Заполняем пользовательские поля документа
      *
-     * @param customField
-     * @return
+     * @param customField зн-ия полей для заполнения
      */
     public NewDocumentPage fillCustomFieldsDocument(DocRegisterCardsField[] customField) {
         if (customField == null) {
@@ -568,7 +565,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Выбираем вкладку - Маршруты
      *
-     * @return
      */
     public NewDocumentPage routeTab() {
         routeTab.click();
@@ -579,7 +575,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Выбор маршрутной схемы документа (Порядок рассмотрения)
      *
-     * @return
      */
     public NewDocumentPage selRouteScheme(String routeScheme) {
         if (routeScheme == null) {
@@ -597,7 +592,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Сохранить и создать новый документ
      *
-     * @return
      */
     public NewDocumentPage clickSaveAndCreateNewDocument() {
         goToTopFrem();
@@ -610,7 +604,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Проверяем отображение надписи - Зарегистрировано, документ находится на рассмотрении - после сохранения документа
      *
-     * @return
      */
     public NewDocumentPage assertVerifyCreateDoc() {
         $(By.xpath("//a[@class='error_message' and @style='text-decoration:none']")).shouldBe(Condition.visible);
@@ -621,7 +614,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Создать документ
      *
-     * @param document
+     * @param document атрибуты  (значения) документа для заполнения в форме Создания документа
      */
     @Override
     public void createDocument(Document document) {

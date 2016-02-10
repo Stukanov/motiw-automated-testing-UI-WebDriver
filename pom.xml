@@ -12,6 +12,7 @@
     <properties>
         <!-- Dependencies Versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <testng.version>6.9.10</testng.version>
         <selenide.version>3.2</selenide.version>
         <allure.version>1.4.20</allure.version>

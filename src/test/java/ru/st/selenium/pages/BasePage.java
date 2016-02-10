@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class BasePage {
@@ -22,7 +20,7 @@ public abstract class BasePage {
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
      */
     public BasePage goToTopFrem() {
-        getWebDriver().switchTo().defaultContent();
+        switchTo().defaultContent();
         return this;
     }
 

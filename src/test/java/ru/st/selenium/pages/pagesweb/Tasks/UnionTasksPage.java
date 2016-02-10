@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
@@ -140,20 +141,23 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     public void openAnExistingTask(Task task) {
         waitForMask();
         ensurePageLoaded();
-        goToTopFrem();
-        findTask(task.getTaskName());
-        sleep(1000);
-        goToFrame();
-        waitForMask();
         try {
+            goToTopFrem();
+            findTask(task.getTaskName());
+            goToFrame();
+            waitForMask();
             $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                     .first().shouldBe(Condition.visible);
         } catch (Exception e) {
+            goToTopFrem();
+            sleep(500);
             findTask(task.getTaskName());
+            sleep(500);
             waitForMask();
             $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                     .first().shouldBe(Condition.visible);
         }
+
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
     }
 
