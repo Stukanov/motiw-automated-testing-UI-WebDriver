@@ -2,7 +2,7 @@ package ru.st.selenium.pages.pagespda;
 
 
 import org.openqa.selenium.By;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.visible;
@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Condition.visible;
 /*
  * Страница - Сегодня
  */
-public class TodayPagePDA extends Page {
+public class TodayPagePDA extends BasePage {
 
 
     /**

@@ -14,16 +14,17 @@ import ru.st.selenium.model.Document.Document;
 import ru.st.selenium.model.Task.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.switchTo;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
-public class NewDocumentPage extends Page implements DocumentLogic {
+public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * iФрейм
@@ -271,21 +272,12 @@ public class NewDocumentPage extends Page implements DocumentLogic {
 
     //---------------------------------------------------------------------------------------------------------------Методы---------------------------------------------
 
-    /**
-     * Уходим из фрейм опять в ТОР
-     *
-     * @return CreateDepartmentPage
-     */
-    public NewDocumentPage gotoTopFrame() {
-        getWebDriver().switchTo().defaultContent();
-        return this;
-    }
 
     /**
      * Уходим во фрейм формы Создать документ
      */
     public NewDocumentPage gotoFrameFormNewDocument() {
-        getWebDriver().switchTo().frame(frameFlow);
+        switchTo().frame(frameFlow);
         return this;
     }
 
@@ -293,7 +285,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
      * Уходим во фрейм Маршруты
      */
     public NewDocumentPage gotoFrameFormRoute() {
-        getWebDriver().switchTo().frame(frameRoute);
+        switchTo().frame(frameRoute);
         return this;
     }
 
@@ -351,7 +343,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
             return this;
         } else {
             newProject.click();
-            getWebDriver().switchTo().frame(projectFrame);
+            switchTo().frame(projectFrame);
             $(projectField).shouldBe(Condition.present);
             projectField.click();
             editorFieldProject.setValue(project.getNameProject());
@@ -363,8 +355,8 @@ public class NewDocumentPage extends Page implements DocumentLogic {
             editorFieldProject.setValue(project.getEndDate());
             projectSave.click();
             waitForProjectMask();
-            getWebDriver().switchTo().defaultContent();
-            getWebDriver().switchTo().frame(frameFlow);
+            switchTo().defaultContent();
+            switchTo().frame(frameFlow);
         }
         return this;
     }
@@ -395,10 +387,10 @@ public class NewDocumentPage extends Page implements DocumentLogic {
             return this;
         } else {
             $(By.xpath("//table//tr/td[1]/div[contains(text(),'" + nameField + "')]/../../td[2]/div/../../td[3]//img")).click();
-            getWebDriver().switchTo().frame(descriptionFrame);
+            switchTo().frame(descriptionFrame);
             ckeBody.setValue(text);
-            getWebDriver().switchTo().defaultContent();
-            getWebDriver().switchTo().frame(frameFlow);
+            switchTo().defaultContent();
+            switchTo().frame(frameFlow);
             buttonSaveDescription.click();
         }
         return this;
@@ -411,7 +403,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
         if (valueDictionary == null) {
             return this;
         } else {
-            getWebDriver().findElement(By.xpath("//table//tr/td[1]/div[contains(text(),'" + nameField + "')]/../../td[2]/div")).click();
+            $(By.xpath("//table//tr/td[1]/div[contains(text(),'" + nameField + "')]/../../td[2]/div")).click();
             inputField.click();
             $(By.xpath("//div[contains(@class,'x-combo-list')]//*[contains(text(),'" + valueDictionary
                     .getDictionaryEditorElement() + "')][ancestor::div[contains(@style,'visibility: visible')]]")).shouldBe(Condition.present);
@@ -456,7 +448,7 @@ public class NewDocumentPage extends Page implements DocumentLogic {
             for (Department departments : department) {
                 $(By.xpath("//table//tr/td[1]/div[contains(text(),'" + nameField + "')]/../../td[2]/div/../../td[3]//img")).click();
                 String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
-                getWebDriver().switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#searchField"))));
+                switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#searchField"))));
                 $(searchFieldDepartment).shouldBe(Condition.present);
                 searchFieldDepartment.click();
                 searchFieldDepartment.clear();
@@ -528,48 +520,48 @@ public class NewDocumentPage extends Page implements DocumentLogic {
         if (customField == null) {
             return null;
         } else
-            outer:
-                    for (DocRegisterCardsField customsField : customField) {
-                        // 1. ЧИСЛО
-                        if (customsField.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {
-                            FieldTypeNumberDoc fieldNumber = (FieldTypeNumberDoc) customsField.getFieldTypeDoc();
-                            enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                            // 2. ДАТА
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDateDoc) {
-                            FieldTypeDateDoc fieldDate = (FieldTypeDateDoc) customsField.getFieldTypeDoc();
-                            enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                            // 3. СТРОКА
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeStringDoc && customsField.getUniqueField()) {
-                            FieldTypeStringDoc fieldString = (FieldTypeStringDoc) customsField.getFieldTypeDoc();
-                            enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                            // 4. ТЕКСТ
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeTextDoc) {
-                            FieldTypeTextDoc fieldText = (FieldTypeTextDoc) customsField.getFieldTypeDoc();
-                            selEditText(customsField.getFieldNameDoc(), customsField.getValueField());
-                            // 5. СЛОВАРЬ
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDictionaryDoc) {
-                            FieldTypeDictionaryDoc fieldDictionary = (FieldTypeDictionaryDoc) customsField.getFieldTypeDoc();
-                            selValueDictionary(customsField.getFieldNameDoc(), customsField.getValueDictionaryEditor());
-                            // 6. ПОДРАЗДЕЛЕНИЕ
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDepartmentDoc) {
-                            FieldTypeDepartmentDoc fieldDepartment = (FieldTypeDepartmentDoc) customsField.getFieldTypeDoc();
-                            selEditDepartment(customsField.getFieldNameDoc(), customsField.getValueDepartment());
-                            // 7. СОТРУДНИК
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeEmployeeDoc) {
-                            FieldTypeEmployeeDoc fieldEmployee = (FieldTypeEmployeeDoc) customsField.getFieldTypeDoc();
-                            selLiveSearchEmployee(customsField.getFieldNameDoc(), customsField.getValueEmployee());
-                            // 8. ДОКУМЕНТ
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDocumentDoc) {
-                            FieldTypeDocumentDoc fieldDocument = (FieldTypeDocumentDoc) customsField.getFieldTypeDoc();
-                            // 9. НУМЕРАТОР
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeNumeratorDoc) {
-                            FieldTypeNumeratorDoc fieldNumerator = (FieldTypeNumeratorDoc) customsField.getFieldTypeDoc();
-                            // 10. СПРАВОЧНИК
-                        } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDirectoryDoc) {
-                            FieldTypeDirectoryDoc fieldDirectory = (FieldTypeDirectoryDoc) customsField.getFieldTypeDoc();
+            sleep(300);
+        for (DocRegisterCardsField customsField : customField) {
+            // 1. ЧИСЛО
+            if (customsField.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {
+                FieldTypeNumberDoc fieldNumber = (FieldTypeNumberDoc) customsField.getFieldTypeDoc();
+                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                // 2. ДАТА
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDateDoc) {
+                FieldTypeDateDoc fieldDate = (FieldTypeDateDoc) customsField.getFieldTypeDoc();
+                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                // 3. СТРОКА
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeStringDoc && customsField.getUniqueField()) {
+                FieldTypeStringDoc fieldString = (FieldTypeStringDoc) customsField.getFieldTypeDoc();
+                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                // 4. ТЕКСТ
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeTextDoc) {
+                FieldTypeTextDoc fieldText = (FieldTypeTextDoc) customsField.getFieldTypeDoc();
+                selEditText(customsField.getFieldNameDoc(), customsField.getValueField());
+                // 5. СЛОВАРЬ
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDictionaryDoc) {
+                FieldTypeDictionaryDoc fieldDictionary = (FieldTypeDictionaryDoc) customsField.getFieldTypeDoc();
+                selValueDictionary(customsField.getFieldNameDoc(), customsField.getValueDictionaryEditor());
+                // 6. ПОДРАЗДЕЛЕНИЕ
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDepartmentDoc) {
+                FieldTypeDepartmentDoc fieldDepartment = (FieldTypeDepartmentDoc) customsField.getFieldTypeDoc();
+                selEditDepartment(customsField.getFieldNameDoc(), customsField.getValueDepartment());
+                // 7. СОТРУДНИК
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeEmployeeDoc) {
+                FieldTypeEmployeeDoc fieldEmployee = (FieldTypeEmployeeDoc) customsField.getFieldTypeDoc();
+                selLiveSearchEmployee(customsField.getFieldNameDoc(), customsField.getValueEmployee());
+                // 8. ДОКУМЕНТ
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDocumentDoc) {
+                FieldTypeDocumentDoc fieldDocument = (FieldTypeDocumentDoc) customsField.getFieldTypeDoc();
+                // 9. НУМЕРАТОР
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeNumeratorDoc) {
+                FieldTypeNumeratorDoc fieldNumerator = (FieldTypeNumeratorDoc) customsField.getFieldTypeDoc();
+                // 10. СПРАВОЧНИК
+            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDirectoryDoc) {
+                FieldTypeDirectoryDoc fieldDirectory = (FieldTypeDirectoryDoc) customsField.getFieldTypeDoc();
 
-                        }
-                    }
+            }
+        }
         return this;
     }
 
@@ -603,22 +595,12 @@ public class NewDocumentPage extends Page implements DocumentLogic {
     }
 
     /**
-     * Сохранить документ
-     *
-     * @return
-     */
-    public NewDocumentPage saveDocument() {
-        saveDocument.click();
-        return this;
-    }
-
-    /**
      * Сохранить и создать новый документ
      *
      * @return
      */
     public NewDocumentPage clickSaveAndCreateNewDocument() {
-        gotoTopFrame();
+        goToTopFrem();
         gotoFrameFormNewDocument();
         $(By.xpath("//div[@id='saveAndNewButton']//button")).shouldBe(Condition.present);
         saveAndCreateNewDocument.click();

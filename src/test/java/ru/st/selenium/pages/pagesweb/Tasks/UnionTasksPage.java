@@ -10,7 +10,7 @@ import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
 import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -20,7 +20,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 /**
  * Страница - Задачи/Задачи
  */
-public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic {
+public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderLogic {
 
 
     /*
@@ -142,6 +142,7 @@ public class UnionTasksPage extends Page implements UnionTasksLogic, FolderLogic
         ensurePageLoaded();
         goToTopFrem();
         findTask(task.getTaskName());
+        sleep(1000);
         goToFrame();
         waitForMask();
         try {

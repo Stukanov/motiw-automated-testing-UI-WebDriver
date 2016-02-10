@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 
-public abstract class TestBase {
+public abstract class BaseTest {
 
 
     public static Employee ADMIN = new Employee().setLoginName("admin")

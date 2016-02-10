@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
@@ -16,7 +16,7 @@ import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessagePage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
-import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
+import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -33,11 +33,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Создать задачу (Web)")
 @Title("Проверка создания задач в Web-интерфейсе")
-public class CreateTaskTest extends ModuleTaskTestCase {
+public class CreateTaskTest extends ModuleTaskCaseTest {
 
     @BeforeClass
-    public static LoginPage beforeTest() {
-        open(Page.WEB_PAGE_URL, LoginPage.class);
+    public static LoginPage openUrlStartBrowser() {
+        open(BasePage.WEB_PAGE_URL, LoginPage.class);
         return page(LoginPage.class);
     }
 
@@ -61,7 +61,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                  Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -127,7 +127,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                     Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -183,7 +183,7 @@ public class CreateTaskTest extends ModuleTaskTestCase {
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.AuthorizationLogic;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * Стараница авторизации - Web
  */
-public class LoginPage extends Page implements AuthorizationLogic {
+public class LoginPage extends BasePage implements AuthorizationLogic {
 
     /*
      * Логин

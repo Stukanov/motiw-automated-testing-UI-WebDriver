@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /*
  * Страница - Настройки
  */
-public class OptionsPagePDA extends Page {
+public class OptionsPagePDA extends BasePage {
 
     /*
      * Удалить

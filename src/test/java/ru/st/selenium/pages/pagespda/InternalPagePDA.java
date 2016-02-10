@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.logicinterface.WebLogic.BaseInternalLogic;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 
@@ -30,7 +30,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * Внутреняя страница системы
  */
-public class InternalPagePDA extends Page implements BaseInternalLogic {
+public class InternalPagePDA extends BasePage implements BaseInternalLogic {
 
     /*
      * Ссылки на все пункты меню
@@ -97,7 +97,7 @@ public class InternalPagePDA extends Page implements BaseInternalLogic {
      * Домой (возврат на основную стр-цу)
      *
      */
-    public Page goToHome() {
+    public BasePage goToHome() {
         home.click();
         return this;
     }

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Condition.present;
 import static com.codeborne.selenide.Condition.visible;
@@ -22,7 +22,7 @@ import static org.testng.Assert.assertTrue;
 /*
  * Страница - Поиск
  */
-public class SearchPagePDA extends Page {
+public class SearchPagePDA extends BasePage {
 
     /*
      * Поле - Поиск

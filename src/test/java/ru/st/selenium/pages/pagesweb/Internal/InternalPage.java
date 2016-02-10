@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.BaseInternalLogic;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.*;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
@@ -25,7 +25,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 /**
  * Внутренняя страница системы (ОМ - Основное меню)
  */
-public class InternalPage extends Page implements BaseInternalLogic {
+public class InternalPage extends BasePage implements BaseInternalLogic {
 
     /*
      * Ссылки на все пункты меню

@@ -1,11 +1,10 @@
 package ru.st.selenium.pages.pagesweb.Administration;
 
 import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -14,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Настройки системы
  */
-public class SystemOptionsPage extends Page {
+public class SystemOptionsPage extends BasePage {
 
 
     /**

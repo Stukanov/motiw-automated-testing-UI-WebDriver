@@ -4,7 +4,7 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import ru.st.selenium.logicinterface.WebLogic.SearchSystemLogic;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -14,7 +14,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 /**
  * Страница - Поисковая система
  */
-public class SearchAdminPage extends Page implements SearchSystemLogic {
+public class SearchAdminPage extends BasePage implements SearchSystemLogic {
 
 	/**
 	 * Проверка отсутствия ошибок индексации

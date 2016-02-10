@@ -6,11 +6,11 @@ import org.testng.annotations.BeforeClass;
 import ru.st.selenium.pages.pagespda.HelpHtmlPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
-import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
+import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -27,11 +27,11 @@ import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Помощь (PDA)")
-public class HelpPDATest extends ModuleTaskTestCase {
+public class HelpPDATest extends ModuleTaskCaseTest {
 
     @BeforeClass
-    public static LoginPagePDA beforeTest() {
-        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+    public static LoginPagePDA openUrlStartBrowser() {
+        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         return page(LoginPagePDA.class);
     }
 
@@ -40,7 +40,7 @@ public class HelpPDATest extends ModuleTaskTestCase {
     @Description("Проверяем наличие элементов и расшифровку Кнопок (элементов) на странице помощи")
     @Test(priority = 1)
     public void verifyElementsHelp() throws Exception {
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",

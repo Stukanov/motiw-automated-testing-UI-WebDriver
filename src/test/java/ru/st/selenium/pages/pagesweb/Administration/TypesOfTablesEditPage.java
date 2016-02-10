@@ -282,32 +282,13 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
     //--------------------------------------------------------------------------------------Выбор Типов полей из выпадающего списка-------------------------------------
 
     /**
-     * СТРОКА
+     * Выбор типа поля объекта
      *
+     * @param typeOfField передаваемое значение типа поля
      * @return TypesOfTablesEditPage
      */
-    public TypesOfTablesEditPage selectTypeFieldString() {
-        typeFieldString.click();
-        return this;
-    }
-
-    /**
-     * ТЕКСТ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldText() {
-        typeFieldText.click();
-        return this;
-    }
-
-    /**
-     * ЦЕЛОЕ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldInteger() {
-        typeFieldInteger.click();
+    public TypesOfTablesEditPage selectTheTypeOfField(SelenideElement typeOfField) {
+        typeOfField.click();
         return this;
     }
 
@@ -321,36 +302,6 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
             linkObject.click();
             selectingSecondAdjustmentPosition();
         }
-        return this;
-    }
-
-    /**
-     * ВЕЩЕСТВЕННОЕ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldDouble() {
-        typeFieldDouble.click();
-        return this;
-    }
-
-    /**
-     * ДАТА
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldDate() {
-        typeFieldData.click();
-        return this;
-    }
-
-    /**
-     * ФАЙЛ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldFile() {
-        typeFieldFile.click();
         return this;
     }
 
@@ -375,16 +326,6 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
         } else if (filesForEdit == OpenFilesForEdit.YES) {
             selectingThirdAdjustmentPosition();
         }
-        return this;
-    }
-
-    /**
-     * ССЫЛКА НА СПРАВОЧНИК
-     *
-     * @return DirectoryEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldDirectory() {
-        typeFieldReferenceToTheDictionary.click();
         return this;
     }
 
@@ -431,77 +372,6 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
         sleep(300);
         selectField.click();
         scrollToAndClick("//*[text()='" + directoryFieldName + "']");
-        return this;
-    }
-
-
-    /**
-     * МНОЖЕСТВЕННАЯ ССЫЛКА
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldMultipleDictionary() {
-        typeFieldMultipleReferenceToTheDictionary.click();
-        return this;
-    }
-
-    /**
-     * ЛОГИЧЕСКОЕ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldBoolean() {
-        typeFieldBoolean.click();
-        return this;
-    }
-
-    /**
-     * ТЕЛЕФОН
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldPhone() {
-        typeFieldPhone.click();
-        return this;
-    }
-
-    /**
-     * EMAIL
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldEmail() {
-        typeFieldEmail.click();
-        return this;
-    }
-
-    /**
-     * ИЗОБРАЖЕНИЕ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldImage() {
-        typeFieldImage.click();
-        return this;
-    }
-
-    /**
-     * ЦВЕТ
-     *
-     * @return TypesOfTablesEditPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldColor() {
-        typeFieldColor.click();
-        return this;
-    }
-
-    /**
-     * ПОДРАЗДЕЛЕНИЕ
-     *
-     * @return DirectoriesEditFormPage
-     */
-    public TypesOfTablesEditPage selectTypeFieldDepartment() {
-        typeFieldDepartment.click();
         return this;
     }
 
@@ -626,7 +496,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      * Метод добавления всех типов полей - Типы таблиц
      *
      * @param fieldsTypesOfTables массив полей объекта - Типы таблиц, с предопределенными настройками к полям
-     * @return DirectoriesEditFormPage
+     * @return TypesOfTablesEditPage
      */
     public TypesOfTablesEditPage addAllFieldsTypesOfTables(TypesOfTablesField[] fieldsTypesOfTables) {
         if (fieldsTypesOfTables == null) {
@@ -640,7 +510,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
                         selTypeField(); // Выбор поля - Тип поля
                         // 1. СТРОКА
                         if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsString) {
-                            selectTypeFieldString();
+                            selectTheTypeOfField(typeFieldString);
                             TypeListFieldsString fieldString = (TypeListFieldsString) fieldTypesOfTables.getFieldType();
                             if (fieldString.getIsListChoice()) {
                                 selFromList(fieldString.getIsListChoice()); // Выбор из списка
@@ -651,33 +521,33 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
                             }
                             // 2. ТЕКСТ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsText) {
-                            selectTypeFieldText();
+                            selectTheTypeOfField(typeFieldText);
                             TypeListFieldsText fieldText = (TypeListFieldsText) fieldTypesOfTables.getFieldType();
                             // 3. ЦЕЛОЕ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsInt) {
-                            selectTypeFieldInteger();
+                            selectTheTypeOfField(typeFieldInteger);
                             TypeListFieldsInt fieldInt = (TypeListFieldsInt) fieldTypesOfTables.getFieldType();
                             if (fieldInt.getObjectLink()) {
                                 selLinkObject(fieldInt.getObjectLink()); // Ссылка на объект
                             }
                             // 4. ВЕЩЕСТВЕННОЕ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsDouble) {
-                            selectTypeFieldDouble();
+                            selectTheTypeOfField(typeFieldDouble);
                             TypeListFieldsDouble fieldsDouble = (TypeListFieldsDouble) fieldTypesOfTables.getFieldType();
                             // 5. ДАТА
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsDate) {
-                            selectTypeFieldDate();
+                            selectTheTypeOfField(typeFieldData);
                             TypeListFieldsDate fieldsDate = (TypeListFieldsDate) fieldTypesOfTables.getFieldType();
                             // 6. ФАЙЛ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsFile) {
-                            selectTypeFieldFile();
+                            selectTheTypeOfField(typeFieldFile);
                             TypeListFieldsFile fieldsFile = (TypeListFieldsFile) fieldTypesOfTables.getFieldType();
                             if (fieldsFile.getOpenFilesForEdit() == OpenFilesForEdit.YES || fieldsFile.getOpenFilesForEdit() == OpenFilesForEdit.NO) {
                                 selOpenFilesForEdit(fieldsFile.getOpenFilesForEdit());
                             }
                             // 7. СПРАВОЧНИК
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsDirectory) {
-                            selectTypeFieldDirectory();
+                            selectTheTypeOfField(typeFieldReferenceToTheDictionary);
                             TypeListFieldsDirectory fieldsDir = (TypeListFieldsDirectory) fieldTypesOfTables.getFieldType();
                             selFieldDirectory(); // Выбор поля: Спр-к
                             scrollToAndClick("//*[text()='" + fieldsDir.getDirectoryName() + "']"); // выбор - Спр-ка из списка справочников
@@ -685,43 +555,41 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
                             scrollToAndClick("//li[text()='" + fieldsDir.getNameDirectoryField() + "']"); // выбор поля спр-ка
                             // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsMultiDirectory) {
-                            selectTypeFieldMultipleDictionary();
+                            selectTheTypeOfField(typeFieldMultipleReferenceToTheDictionary);
                             TypeListFieldsMultiDirectory fieldsMultiDir = (TypeListFieldsMultiDirectory) fieldTypesOfTables.getFieldType();
                             chooseDirectory(fieldsMultiDir.getDirectories().getDirectoryName()); // Выбор спр-ка
                             chooseFieldDirectoryAndTable(fieldsMultiDir.getFieldDirectory().getFieldName()); // Выбор поля спр-ка
                             // 8. ЛОГИЧЕСКОЕ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsBoolean) {
-                            selectTypeFieldBoolean();
+                            selectTheTypeOfField(typeFieldBoolean);
                             TypeListFieldsBoolean fieldsDate = (TypeListFieldsBoolean) fieldTypesOfTables.getFieldType();
                             // 9. ТЕЛЕФОН
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsPhone) {
-                            selectTypeFieldPhone();
+                            selectTheTypeOfField(typeFieldPhone);
                             TypeListFieldsPhone fieldsPhone = (TypeListFieldsPhone) fieldTypesOfTables.getFieldType();
                             // 10. EMAIL
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsEmail) {
-                            selectTypeFieldEmail();
+                            selectTheTypeOfField(typeFieldEmail);
                             TypeListFieldsEmail fieldsEmail = (TypeListFieldsEmail) fieldTypesOfTables.getFieldType();
                             // 11. ИЗОБРАЖЕНИЕ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsImage) {
-                            selectTypeFieldImage();
+                            selectTheTypeOfField(typeFieldImage);
                             TypeListFieldsImage fieldsImage = (TypeListFieldsImage) fieldTypesOfTables.getFieldType();
                             // 12. ЦВЕТ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsColor) {
-                            selectTypeFieldColor();
+                            selectTheTypeOfField(typeFieldColor);
                             TypeListFieldsColor fieldsColor = (TypeListFieldsColor) fieldTypesOfTables.getFieldType();
                             // 13. ПОДРАЗДЕЛЕНИЕ
                         } else if (fieldTypesOfTables.getFieldType() instanceof TypeListFieldsDepartment) {
-                            selectTypeFieldDepartment();
+                            selectTheTypeOfField(typeFieldDepartment);
                             TypeListFieldsDepartment fieldsDepartment = (TypeListFieldsDepartment) fieldTypesOfTables.getFieldType();
                         }
-
 
                         selObligatoryField(fieldTypesOfTables.getObligatory()); // Обязательное поле
                         clickSaveField(); // Сохранить поле
                         verifyFieldInGrid(fieldTypesOfTables.getFieldName()); // Проверяем отображение добавленного поля в гриде
 
                     }
-
 
         return this;
     }
@@ -741,7 +609,7 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
     /**
      * Добавление полей Типа таблицы
      *
-     * @param typesOfTables
+     * @param typesOfTables атрибуты объекта - Типы таблиц
      */
     @Override
     public void addSettingsAndFieldTypesOfTables(TypesOfTables typesOfTables) {

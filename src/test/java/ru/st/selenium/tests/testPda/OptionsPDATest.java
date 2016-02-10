@@ -4,11 +4,11 @@ import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
-import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
+import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -29,11 +29,11 @@ import static org.testng.Assert.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Настройки (PDA)")
 @Title("Проверка работу настроек в PDA-интерфейсе")
-public class OptionsPDATest extends ModuleTaskTestCase {
+public class OptionsPDATest extends ModuleTaskCaseTest {
 
     @BeforeClass
-    public static LoginPagePDA beforeTest() {
-        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+    public static LoginPagePDA openUrlStartBrowser() {
+        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         return page(LoginPagePDA.class);
     }
 
@@ -42,7 +42,7 @@ public class OptionsPDATest extends ModuleTaskTestCase {
     @Description("Проверяем аттачминг файлов в форме созданной задачи (Лента действий)")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",

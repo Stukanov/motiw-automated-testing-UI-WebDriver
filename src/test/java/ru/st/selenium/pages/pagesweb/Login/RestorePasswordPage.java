@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 
 import static com.codeborne.selenide.Selenide.$;
@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Стараница сброса пароля пользователя
  */
-public class RestorePasswordPage extends Page {
+public class RestorePasswordPage extends BasePage {
 
 
     /**

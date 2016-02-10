@@ -1,12 +1,11 @@
 package ru.st.selenium.tests.testPda;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
@@ -14,7 +13,7 @@ import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
-import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
+import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -34,11 +33,11 @@ import static org.testng.Assert.assertTrue;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Сегодня (PDA)")
-public class TodayPDATest extends ModuleTaskTestCase {
+public class TodayPDATest extends ModuleTaskCaseTest {
 
     @BeforeClass
-    public static LoginPagePDA beforeTest() {
-        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+    public static LoginPagePDA openUrlStartBrowser() {
+        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         return page(LoginPagePDA.class);
     }
 
@@ -57,7 +56,7 @@ public class TodayPDATest extends ModuleTaskTestCase {
 
     @Test(priority = 1)
     public void createFolderForTasks() {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
 
         loginPage.loginAs(ADMIN);
 
@@ -79,7 +78,7 @@ public class TodayPDATest extends ModuleTaskTestCase {
     @Description("Проверяем отображение сохраненной информации в разедел - Сегодня")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyInfoToday(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее

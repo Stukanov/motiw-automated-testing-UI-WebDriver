@@ -13,7 +13,7 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.model.Document.Document;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.DirectoriesEditFormPage;
 import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
@@ -21,7 +21,7 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.FormDocRegisterCardsE
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
+import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -39,11 +39,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("РКД (Регистрационная карточка документа) (Web)")
 @Title("Проверка создания Регистрационная карточка документа в Web-интерфейсе")
-public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectTestCase {
+public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationObjectCaseTest {
 
     @BeforeClass
-    public static LoginPage beforeTest() {
-        open(Page.WEB_PAGE_URL, LoginPage.class);
+    public static LoginPage openUrlStartBrowser() {
+        open(BasePage.WEB_PAGE_URL, LoginPage.class);
         return page(LoginPage.class);
     }
 
@@ -53,7 +53,7 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void verifyCreateRegCardDocumentAllFields(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                                      DocRegisterCards registerCards, Document document) throws Exception {
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

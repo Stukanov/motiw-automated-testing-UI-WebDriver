@@ -474,10 +474,10 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     //-----------------------------------------------------------------------------------------Выбор Типов полей из выпадающего списка-------------------------------------
 
     /**
-     * Выбор типа поля объекта
+     * Выбор типа поля
      *
      * @param typeOfField передаваемое значение типа поля
-     * @return FormDocRegisterCardsEditPage
+     * @return DirectoriesEditFormPage
      */
     public DirectoriesEditFormPage selectTheTypeOfField(SelenideElement typeOfField) {
         typeOfField.click();

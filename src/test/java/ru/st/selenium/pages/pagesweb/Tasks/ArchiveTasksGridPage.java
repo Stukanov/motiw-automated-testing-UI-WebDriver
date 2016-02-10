@@ -1,11 +1,11 @@
 package ru.st.selenium.pages.pagesweb.Tasks;
 
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 /**
  * Страница - Архив задач
  */
-public class ArchiveTasksGridPage extends Page {
+public class ArchiveTasksGridPage extends BasePage {
 
 
 }

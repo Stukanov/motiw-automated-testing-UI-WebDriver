@@ -12,7 +12,7 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.model.Document.Document;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Administration.DirectoriesEditFormPage;
@@ -23,7 +23,7 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsP
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
+import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -42,11 +42,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Создать документ (Web)")
 @Title("Проверка создания документа в Web-интерфейсе")
-public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCase {
+public class CreateDocumentTest extends ModuleDocflowAdministrationObjectCaseTest {
 
     @BeforeClass
-    public static LoginPage beforeTest() {
-        open(Page.WEB_PAGE_URL, LoginPage.class);
+    public static LoginPage openUrlStartBrowser() {
+        open(BasePage.WEB_PAGE_URL, LoginPage.class);
         return page(LoginPage.class);
     }
 
@@ -56,7 +56,7 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCas
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void CreateDocument(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                DocRegisterCards registerCards, Document document) throws Exception {
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -88,8 +88,8 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCas
         // Добавляем элементы словаря
         dictionaryEditorPage.addDictionaryEditor(dictionaryEditor);
 
-      //---------------------------------------------------------------------------------Справочник
-       // Переход в раздел Администрирование/Справочники
+        //---------------------------------------------------------------------------------Справочник
+        // Переход в раздел Администрирование/Справочники
         TaskTypeListObjectPage directoriesPage = internalPage.goToDirectories();
         // Добавляем объект - Справочник
         directoriesPage.addDirectories(directories);
@@ -124,7 +124,7 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectTestCas
     }
 
     @AfterClass
-    public static void afterTest() {
+    public static void afterTest() throws Exception {
         close();
     }
 

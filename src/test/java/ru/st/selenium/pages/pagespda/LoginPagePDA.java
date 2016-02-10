@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagespda;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.page;
@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.page;
 /*
  * Страница авторизации - PDA
  */
-public class LoginPagePDA extends Page {
+public class LoginPagePDA extends BasePage {
 
     /*
     Логин

@@ -1,14 +1,12 @@
 package ru.st.selenium.pages.pagespda;
 
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.impl.CollectionElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -16,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$$;
 /*
  * Страница - Документы
  */
-public class DocumentsPagePDA extends Page {
+public class DocumentsPagePDA extends BasePage {
 
     /*
      * На рассмотрении

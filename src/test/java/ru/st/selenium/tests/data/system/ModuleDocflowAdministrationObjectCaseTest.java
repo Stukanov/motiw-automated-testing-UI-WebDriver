@@ -22,7 +22,7 @@ import ru.st.selenium.model.ShiftDirection;
 /**
  * Данные раздела - Администрирование ДО
  */
-public abstract class ModuleDocflowAdministrationObjectTestCase extends ModuleAdministrationObjectTestCase {
+public abstract class ModuleDocflowAdministrationObjectCaseTest extends ModuleAdministrationObjectCaseTest {
 
     //---Администрирование/Администрирование ДО----------------------------------------------------------
     //-----Редактор словарей----------------------------------------------------------

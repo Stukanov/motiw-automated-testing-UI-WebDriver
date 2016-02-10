@@ -6,10 +6,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.TestBase;
+import ru.st.selenium.tests.data.BaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -26,11 +26,11 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Авторизация (Web)")
 @Title("Авторизация в систему Web-интерфейс")
-public class UsersAuthorizationTest extends TestBase {
+public class UsersAuthorizationTest extends BaseTest {
 
     @BeforeClass
-    public static LoginPage beforeTest() {
-        open(Page.WEB_PAGE_URL, LoginPage.class);
+    public static LoginPage openUrlStartBrowser() {
+        open(BasePage.WEB_PAGE_URL, LoginPage.class);
         return page(LoginPage.class);
     }
 
@@ -41,7 +41,7 @@ public class UsersAuthorizationTest extends TestBase {
             "не проходит")
     @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb")
     public static void notSuccessfulAuthorization(Employee user) throws Exception {
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(user);
         assertTrue("Log in to the system fails", loginPage.isNotLoggedIn());
     }
@@ -51,7 +51,7 @@ public class UsersAuthorizationTest extends TestBase {
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
     @Test(priority = 2)
     public void loginSuccess() throws Exception {
-        LoginPage loginPage = beforeTest();
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -59,7 +59,7 @@ public class UsersAuthorizationTest extends TestBase {
         assertTrue(loginPage.isLoggedIn());
         assertTrue(loginPage.isLoggedInAs(ADMIN)); // Проверяем, что залогинен именно тот пользователь, к-й входил в систему
         // Выход из системы
-        loginPage.initializedInsidePage().logout();
+        internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
     }
 

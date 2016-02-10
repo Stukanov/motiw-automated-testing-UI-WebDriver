@@ -10,7 +10,7 @@ import ru.st.selenium.logicinterface.WebLogic.TypesOfTablesLogic;
 import ru.st.selenium.model.Administration.Directories.Directories;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTables;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.page;
 /**
  * Основной грид разделов - Типы Таблиц/Типы задач/Справочники, раздела Администрирование
  */
-public class TaskTypeListObjectPage extends Page implements DirectoriesLogic, TypesOfTablesLogic, TasksTypesLogic {
+public class TaskTypeListObjectPage extends BasePage implements DirectoriesLogic, TypesOfTablesLogic, TasksTypesLogic {
 
     /*
      * ОК - Подтверждение добавления объекта

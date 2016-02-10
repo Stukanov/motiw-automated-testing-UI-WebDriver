@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagespda.Task;
 import org.openqa.selenium.By;
 import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.visible;
@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.page;
 /*
  * Страница грид - Задачи/Задачи
  */
-public class TasksReportsPagePDA extends Page {
+public class TasksReportsPagePDA extends BasePage {
 
 
     /**

@@ -10,14 +10,14 @@ import ru.st.selenium.logicinterface.WebLogic.DictionaryEditorLogic;
 import ru.st.selenium.model.AccessRights;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditorField;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Страница - Администрирование ДО/Редактор словарей
  */
-public class DictionaryEditorPage extends Page implements DictionaryEditorLogic {
+public class DictionaryEditorPage extends BasePage implements DictionaryEditorLogic {
 
 
     /**

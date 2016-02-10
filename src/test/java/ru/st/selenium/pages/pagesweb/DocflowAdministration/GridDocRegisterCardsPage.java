@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.DocRegisterCardsLogic;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 
 import static com.codeborne.selenide.Condition.*;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * грид Регистрационных карточек - Администрирование ДО/Регистрационные карточки документов (.../user/tab/user/DocRegisterCards)
  */
-public class GridDocRegisterCardsPage extends Page implements DocRegisterCardsLogic {
+public class GridDocRegisterCardsPage extends BasePage implements DocRegisterCardsLogic {
 
     /*
      * Добавить Регистрационную карточку документа

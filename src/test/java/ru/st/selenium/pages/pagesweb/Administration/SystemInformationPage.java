@@ -3,7 +3,7 @@ package ru.st.selenium.pages.pagesweb.Administration;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import ru.st.selenium.logicinterface.WebLogic.SystemInformationLogic;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.assertFalse;
@@ -12,7 +12,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 /**
  * Информация о системе
  */
-public class SystemInformationPage extends Page implements SystemInformationLogic {
+public class SystemInformationPage extends BasePage implements SystemInformationLogic {
 
 
 	/**

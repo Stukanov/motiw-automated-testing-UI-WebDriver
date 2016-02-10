@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Collection;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$$;
 /*
  * Страница - Помощь
  */
-public class HelpHtmlPagePDA extends Page {
+public class HelpHtmlPagePDA extends BasePage {
 
     /*
      * Все элементы поиска

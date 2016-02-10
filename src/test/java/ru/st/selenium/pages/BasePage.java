@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public abstract class Page {
+public abstract class BasePage {
 
     public static final String WEB_PAGE_URL = "http://motiw/";
     public static final String PDA_PAGE_URL = "http://pda.motiw";
@@ -21,7 +21,7 @@ public abstract class Page {
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
      */
-    public Page goToTopFrem() {
+    public BasePage goToTopFrem() {
         getWebDriver().switchTo().defaultContent();
         return this;
     }
@@ -172,7 +172,7 @@ public abstract class Page {
      * Метод - проверяет, где мы находимся здесь и сейчас, возвращает данную
      * страницу И ждет загрузки страницы
      */
-    public Page ensurePageLoaded() {
+    public BasePage ensurePageLoaded() {
         return this;
     }
 

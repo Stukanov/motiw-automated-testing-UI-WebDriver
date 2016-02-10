@@ -7,7 +7,7 @@ import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageLogic;
 import ru.st.selenium.model.Task.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -16,7 +16,7 @@ import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 /**
  * Форма (редактирования) задачи
  */
-public class UnionMessagePage extends Page implements UnionMessageLogic {
+public class UnionMessagePage extends BasePage implements UnionMessageLogic {
 
 
     public UnionMessagePage verifyEnd(String end) {

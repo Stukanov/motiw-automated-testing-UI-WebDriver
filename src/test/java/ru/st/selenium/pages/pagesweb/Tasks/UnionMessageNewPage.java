@@ -14,7 +14,7 @@ import ru.st.selenium.model.Task.Project;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 
 import static com.codeborne.selenide.Selenide.$;
@@ -27,7 +27,7 @@ import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 /**
  * Страница - Задачи/Создать задачу
  */
-public class UnionMessageNewPage extends Page implements UnionMessageNewLogic {
+public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogic {
 
     /**
      * Кнопка выбора проекта

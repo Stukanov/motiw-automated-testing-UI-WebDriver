@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.logicinterface.WebLogic.DepartmentsLogic;
 import ru.st.selenium.model.Administration.Users.Department;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -22,7 +22,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 /**
  * Страница - Администрирование/Пользователи (Подразделения)
  */
-public class CreateDepartmentPage extends Page implements DepartmentsLogic {
+public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
 
     /**
      * Строка поиска

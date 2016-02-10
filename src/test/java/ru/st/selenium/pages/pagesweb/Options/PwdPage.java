@@ -4,14 +4,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Стараница - Мои реквизиты
  */
-public class PwdPage extends Page {
+public class PwdPage extends BasePage {
 
     /*
     Фамилия

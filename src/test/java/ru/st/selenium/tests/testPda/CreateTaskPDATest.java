@@ -1,14 +1,11 @@
 package ru.st.selenium.tests.testPda;
 
-import com.codeborne.selenide.Selenide;
-
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
@@ -18,7 +15,7 @@ import ru.st.selenium.pages.pagesweb.Administration.SystemOptionsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
-import ru.st.selenium.tests.data.system.ModuleTaskTestCase;
+import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -37,11 +34,11 @@ import static org.testng.Assert.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Создать задачу (PDA)")
 @Title("Проверка создания Задач в PDA-интерфейсе")
-public class CreateTaskPDATest extends ModuleTaskTestCase {
+public class CreateTaskPDATest extends ModuleTaskCaseTest {
 
     @BeforeClass
-    public static LoginPagePDA beforeTest() {
-        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+    public static LoginPagePDA openUrlStartBrowser() {
+        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         return page(LoginPagePDA.class);
     }
 
@@ -54,7 +51,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
 
     @Test(priority = 1)
     public void createFolderForTasks() {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
 
         loginPage.loginAs(ADMIN);
 
@@ -78,7 +75,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTaskPDA")
     public void verifyCreateTaskPDA(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
@@ -116,7 +113,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
     @Test(priority = 3, dataProvider = "objectDataTaskPDA")
     public void checkEditingTaskPDA(Task task) throws Exception {
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -133,7 +130,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
         assertTrue(loginPage.isNotLoggedIn());
 
 
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
 
@@ -181,7 +178,7 @@ public class CreateTaskPDATest extends ModuleTaskTestCase {
     @Description("Проверяем завершение задачи (отправка в Архив)")
     @Test(priority = 4, dataProvider = "objectDataTaskPDA")
     public void verifyCompletionOfTheTaskPDA(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",

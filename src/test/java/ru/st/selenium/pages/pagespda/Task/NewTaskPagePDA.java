@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.PDALogic.UnionMessageNewPDALogic;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.page;
 /*
  Страница - Создать задачу
  */
-public class NewTaskPagePDA extends Page implements UnionMessageNewPDALogic {
+public class NewTaskPagePDA extends BasePage implements UnionMessageNewPDALogic {
 
     /*
      Название задачи

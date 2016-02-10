@@ -10,7 +10,7 @@ import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.*;
 import ru.st.selenium.model.Document.Document;
-import ru.st.selenium.pages.Page;
+import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.DocumentsPagePDA;
 import ru.st.selenium.pages.pagespda.InternalPagePDA;
 import ru.st.selenium.pages.pagespda.LoginPagePDA;
@@ -24,7 +24,7 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsP
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectTestCase;
+import ru.st.selenium.tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -45,11 +45,11 @@ import static org.testng.Assert.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Документы (PDA)")
 @Title("Проверка раздела Документы в PDA-интерфейсе")
-public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase {
+public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest {
 
     @BeforeClass
-    public static LoginPagePDA beforeTest() {
-        open(Page.PDA_PAGE_URL, LoginPagePDA.class);
+    public static LoginPagePDA openUrlStartBrowser() {
+        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         return page(LoginPagePDA.class);
     }
 
@@ -60,7 +60,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
     public void checkWorkDocumentsPDA(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                       DocRegisterCards registerCards, Document document) throws Exception {
 
-        LoginPage loginPage = open(Page.WEB_PAGE_URL, LoginPage.class);
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
 
         loginPage.loginAs(ADMIN);
 
@@ -126,7 +126,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectTestCase 
         /**
          * Проверяем отображение документов в гриде документов (отчет Контролирования)
          */
-        LoginPagePDA loginPagePDA = beforeTest();
+        LoginPagePDA loginPagePDA = openUrlStartBrowser();
 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);

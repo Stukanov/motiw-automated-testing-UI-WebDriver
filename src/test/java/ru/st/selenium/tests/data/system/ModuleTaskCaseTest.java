@@ -7,13 +7,13 @@ import ru.st.selenium.model.Task.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.tests.data.TestBase;
+import ru.st.selenium.tests.data.BaseTest;
 
 
 /**
  * Общие данные для работы - инициализация
  */
-public abstract class ModuleTaskTestCase extends TestBase {
+public abstract class ModuleTaskCaseTest extends BaseTest {
 
 
     //----------------------------------------------------------------------Задачи
