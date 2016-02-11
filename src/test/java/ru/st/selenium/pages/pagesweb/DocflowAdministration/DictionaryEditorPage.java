@@ -20,38 +20,38 @@ import static com.codeborne.selenide.Selenide.$;
 public class DictionaryEditorPage extends BasePage implements DictionaryEditorLogic {
 
 
-    /**
+    /*
      * Основной фрейм
      */
     @FindBy(id = "flow")
     private SelenideElement Frem;
 
-    /**
+    /*
      * Список объектов - Словарь
      */
     @FindBy(xpath = "//table[contains(@id,'treeview')]")
     private ElementsCollection tableGridTreeView;
 
-    /**
+    /*
      * Добавить словарь
      */
     @FindBy(xpath = "(//a//preceding-sibling::span)[1]")
     private SelenideElement addDictionaryEditor;
 
-    /**
+    /*
      * Редактировать словарь
      */
 
     @FindBy(xpath = "(//a//preceding-sibling::span)[2]")
     private SelenideElement editDictionaryEditor;
 
-    /**
+    /*
      * Удалить словарь
      */
     @FindBy(xpath = "(//a//preceding-sibling::span)[3]")
     private SelenideElement delDictionaryEditor;
 
-    /**
+    /*
      * Название словаря
      */
     @FindBy(id = "dict_name-inputEl")
@@ -61,7 +61,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     //----------------------------------------------------------------------------ПРАВА--------------------------------------------------------------------------------
 
 
-    /**
+    /*
      * Отображение - Общедоступная
      *
      * @FindBy
@@ -69,7 +69,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     @FindBy(xpath = "(//tr[count(td)=3]//td)[1]//span[@data-ref]")
     private SelenideElement clickAccessAvailableToAll;
 
-    /**
+    /*
      * Отображение - Только для чтения
      *
      * @FindBy
@@ -77,7 +77,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     @FindBy(xpath = "(//tr[count(td)=3]//td)[2]//span[@data-ref]")
     private SelenideElement clickReadOnly;
 
-    /**
+    /*
      * Отображение - Личный словарь
      *
      * @FindBy
@@ -85,84 +85,79 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     @FindBy(xpath = "(//tr[count(td)=3]//td)[3]//span[@data-ref]")
     private SelenideElement clickPersonal;
 
-    /**
+    /*
      * Доабвить значение словаря
      */
-
     @FindBy(xpath = "//span[@id='bAddWord-btnEl']")
     private SelenideElement addDictionaryEditorItem;
 
-    /**
+    /*
      * Редактировать значения словаря
      */
-
     @FindBy(xpath = "//span[@id='bEditWord-btnWrap']")
     private SelenideElement editDictionItem;
 
-    /**
+    /*
      * Удалить значение словаря
      */
-
     @FindBy(xpath = "//span[@id='bDeleteWord']")
     private SelenideElement delDictionItem;
 
-    /**
+    /*
      * Переместить вверх значение словаря
      */
-
     @FindBy(xpath = "//span[@id='bUpWord']")
     private SelenideElement upDictionItem;
 
-    /**
+    /*
      * Переместить вниз значение словаря
      */
-
     @FindBy(xpath = "//span[@id='bDownWord']")
     private SelenideElement downDictionItem;
 
-    /**
+    /*
      * Название элемента словаря
      */
     @FindBy(xpath = "//input[@id='name_word-inputEl']")
     private SelenideElement nameDictionaryEditorItem;
 
-    /**
+    /*
      * Описание элемента словаря
      */
     @FindBy(xpath = "//textarea[@id='value_word-inputEl']")
     private SelenideElement descriptionDictionaryEditorItem;
 
-    /**
+    /*
      * Сохранить элемента словаря
      */
     @FindBy(xpath = "(//span[contains(@id,'button')])[8]")
     private SelenideElement saveDictionaryEditorItem;
 
-    /**
+    /*
      * Отменить сохранения элемента словаря
      */
     @FindBy(xpath = "(//span[contains(@id,'button')])[7]")
     private SelenideElement cancelDictionaryEditorItem;
 
-    /**
+    /*
      * Сохранить изменения по объекту Словарь
      */
     @FindBy(xpath = "(//span[contains(@id,'bSave-')]/span[last()])[2]")
     private SelenideElement saveChanges;
 
-    /**
+    /*
      * Сохранить как
      */
     @FindBy(xpath = "//span[@id='bSaveAs-btnIconEl']")
     private SelenideElement saveAsChanges;
 
-    /**
+    /*
      * Вернуться без сохранения
      */
     @FindBy(xpath = "//div[count(a)=3 and contains(@id,'toolbar')]/a[3]//preceding-sibling::span")
     private SelenideElement backWithoutSaving;
 
-    /**
+    /*
      * Клик Добавить объект - Редактор словарей
      */
     public DictionaryEditorPage addDictionaryEditor() {
@@ -171,7 +166,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
         return this;
     }
 
-    /**
+    /*
      * Вводим название - Словаря
      */
     public DictionaryEditorPage setNameDictionaryEditor(String nameDictionText) {
@@ -181,7 +176,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     }
 
     /**
-     * Метод выбора уровня доступа к РКД (Регистрационная карточка документа)
+     * Метод выбора уровня доступа к Словарь
      */
     public DictionaryEditorPage setRadioButtAccess(AccessRights accessRights) {
         if (accessRights == AccessRights.AVAILABLETOALL) {
@@ -211,7 +206,6 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
         if (dictionItem == null) {
             return this;
         } else
-            outer:
                     for (DictionaryEditorField aDictionItem : dictionItem) {
                         addDictionaryEditorItem(); // Доавть элемент словаря
                         nameDictionaryEditorItem.clear();
@@ -272,7 +266,7 @@ public class DictionaryEditorPage extends BasePage implements DictionaryEditorLo
     /**
      * Добавить Словарь
      *
-     * @param directoriesEditor
+     * @param directoriesEditor атрибуты объекта Словарь
      */
     @Override
     public void addDictionaryEditor(DictionaryEditor directoriesEditor) {

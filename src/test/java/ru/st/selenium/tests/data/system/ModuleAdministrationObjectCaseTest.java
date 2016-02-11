@@ -168,6 +168,7 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
 
     //---Администрирование----------------------------------------------------------
     //-----Типы задач----------------------------------------------------------
+
     /**
      * Параметризация - Инициализируем модель - Типы задач (со всеми надстройками)
      */
@@ -343,6 +344,12 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                         .setFieldTable(fieldStringTypesTable)
                         .setNumeratorTemplate("{STRING}-обычный текст-" + "{" + randomIdentifier(5) + "}")); // Шаблон отображения
 
+        // 14. ПОДРАЗДЕЛЕНИЕ
+        TasksTypesField fieldDepartment = new TasksTypesField()
+                .setFieldName("Подразделение " + randomString(5))
+                .setFieldID("DEPARTMENT" + randomIdentifier(5))
+                .setFieldType(new TypeListFieldsDepartment());
+
 
         // Инициализация объекта - Типы задач с настройками
         TasksTypes tasksTypes = new TasksTypes("wD_Тип задачи " + randomString(20))
@@ -364,7 +371,8 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                 // Поля типа
                 .setTasksTypesFields(new TasksTypesField[]
                         {fieldStringIsListChoice, fieldStringIsNotListChoice, fieldText, fieldInt,
-                                fieldFloat, fieldDate, fieldDirectory, fieldMultiDirectory, fieldBoolean, libraryLink, fieldReferenceToTheTask, fieldNumerator, fieldObjectLink, fieldTable});
+                                fieldFloat, fieldDate, fieldDirectory, fieldMultiDirectory, fieldBoolean, libraryLink, fieldReferenceToTheTask,
+                                fieldNumerator, fieldObjectLink, fieldTable, fieldDepartment});
 
         return new Object[][]{
 
@@ -547,8 +555,9 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
         TypesOfTables typesOfTables = new TypesOfTables("wD_Типы таблиц " + randomString(10))
 
                 // Вкладка - Настройки
-                .setTypesOfTablesFields(new TypesOfTablesField[]{fieldStringIsListChoice, fieldStringIsNotListChoice, fieldText, fieldIntLinkObject, fieldInt, fieldFloat, fieldDate, fieldFileEdit,
-                        fieldFile, fieldDirectory, fieldMultiDirectory, fieldBoolean, fieldPhone, fieldEmail, fieldImage, fieldColor, fieldDepartment});
+                .setTypesOfTablesFields(new TypesOfTablesField[]{fieldStringIsListChoice, fieldStringIsNotListChoice, fieldText, fieldIntLinkObject,
+                        fieldInt, fieldFloat, fieldDate, fieldFileEdit, fieldFile, fieldDirectory, fieldMultiDirectory, fieldBoolean, fieldPhone,
+                        fieldEmail, fieldImage, fieldColor, fieldDepartment});
 
         return new Object[][]{
                 {

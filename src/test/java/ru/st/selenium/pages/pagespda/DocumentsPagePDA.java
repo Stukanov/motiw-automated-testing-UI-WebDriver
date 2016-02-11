@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
+import ru.st.selenium.model.Document.Document;
 import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -48,13 +49,15 @@ public class DocumentsPagePDA extends BasePage {
 
     /**
      * Проверяем отображение созданного документа в гриде
-     * @param docRegisterCards
      *
-     * TODO добавить проверку на Название документа и Дату регистрации
+     * @param docRegisterCards тип документа (РКД)
+     * @param document         атрибуты зн-ия поля документа
      */
-    public DocumentsPagePDA checkTheDisplayOfTheDocumentGrid(DocRegisterCards docRegisterCards) {
+    public DocumentsPagePDA checkTheDisplayOfTheDocumentGrid(DocRegisterCards docRegisterCards, Document document) {
         controlled.click();
         $(By.xpath("//*[@id='mainblock']//tbody//td[3]//text[text()='" + docRegisterCards.getDocRegisterCardsName() + "']"))
+                .shouldBe(Condition.visible);
+        $(By.xpath("//*[@id='mainblock']/table/tbody//td[4][text()='" + document.getDateRegistration() + "']"))
                 .shouldBe(Condition.visible);
         return this;
     }

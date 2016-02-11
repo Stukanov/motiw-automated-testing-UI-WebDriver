@@ -31,74 +31,67 @@ import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTypesEditFormLogic {
 
 
-    /**
+    /*
      * Вкладка - Настройки
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[1]")
     private SelenideElement settingsTab;
 
-    /**
+    /*
      * Вкладка - Поля
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[2]")
     private SelenideElement fieldsTab;
 
-    /**
+    /*
      * Вкладка - Обработчики
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[3]")
     private SelenideElement handlersTab;
 
-    /**
+    /*
      * Вкладка - Настройки почтовых уведомлений И Настройки закладок (только для объектов - Справочники И Типы таблиц)
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[4]")
     private SelenideElement handlersAndMailNotifySettingsTab;
 
-    /**
+    /*
      * Вкладка - Оценки и доклады
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[5]")
     private SelenideElement estimationsAndReportsTab;
 
-    /**
+    /*
      * Вкладка - Доступ
      *
-     * @FindBy
      */
     @FindBy(xpath = "//a/ancestor::div[contains(@id,'tabbar')]/a[6]")
     private SelenideElement accessTab;
 
-
-    /**
+    /*
      *  ЭЛЕМЕНТЫ - Форма грида редактирования полей
      */
-    /**
+    /*
      * Кнопка - Добавить Поле
      */
     @FindBy(xpath = "//a/span[contains(@id, 'button-10')]")
     private SelenideElement clickOkAndAddFieldTypesObgect;
 
-    /**
+    /*
      * Нажать кнопку Сохранить объект
      */
     @FindBy(xpath = "//span[@id='button-1010-btnIconEl']")
     private SelenideElement saveObject;
 
-    /**
+    /*
      *  ЭЛЕМЕНТЫ - Форма добавления полей
      */
-    /**
+    /*
      * Ввод Названия поля
      */
     @FindBy(css = "#dialog_form_name-inputEl")
@@ -110,55 +103,55 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     @FindBy(css = "#dialog_form_identifier-inputEl")
     private SelenideElement nameIdentifier;
 
-    /**
+    /*
      * Выбор Типа поля
      */
     @FindBy(css = "#dialog_form_type-inputEl")
     private SelenideElement typeField;
 
-    /**
+    /*
      * Обязательное поле
      */
     @FindBy(css = "#dialog_form_isnecessary-inputEl")
     private SelenideElement obligatoryField;
 
-    /**
+    /*
      * Скрывать при поиске
      */
     @FindBy(css = "#dialog_form_ishideinsearch-inputEl")
     private SelenideElement isHideInSearch;
 
-    /**
+    /*
      * Поле - "Шаблон нумератора:"
      */
     @FindBy(css = "#dialog_form_numerator_template-inputEl")
     private SelenideElement selNumeratorTemp;
 
-    /**
+    /*
      * Режим вычисления
      */
     @FindBy(css = "#dialog_form_numerator_compute_mode-inputEl")
     private SelenideElement calculatMode;
 
-    /**
+    /*
      * "Выбор из списка" для поля типа "Строка"
      */
     @FindBy(css = "#dialog_form_isselect-inputEl")
     private SelenideElement selectionFromList;
 
-    /**
+    /*
      * Поле - "Список значений" для поля типа "Строка"
      */
     @FindBy(css = "#dialog_form_listval-inputEl")
     private SelenideElement fieldListVal;
 
-    /**
+    /*
      * Клик alert "Ok"
      */
     @FindBy(xpath = "//*[@id='button-1005-btnIconEl']")
     private SelenideElement clickAlertOk;
 
-    /**
+    /*
      * Сохранить
      */
     @FindBy(xpath = "//span[contains(@id,'-btnIconEl')] [ancestor::div[contains(@id,'window-')]]")
@@ -166,113 +159,119 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
 
     //---------------------------------------------------------------------------------------------------- Выбор типов полей из выпадающего списка:
 
-    /**
+    /*
      * Строка
      */
     @FindBy(xpath = "//li[text()='Строка']")
     private SelenideElement typeFieldString;
 
-    /**
+    /*
      * Текст
      */
     @FindBy(xpath = "//li[text()='Текст']")
     private SelenideElement typeFieldText;
 
-    /**
+    /*
      * Целое
      */
     @FindBy(xpath = "//li[text()='Целое']")
     private SelenideElement typeFieldInteger;
 
-    /**
+    /*
      * Вещественное
      */
     @FindBy(xpath = "//li[text()='Вещественное']")
     private SelenideElement typeFieldDouble;
 
-    /**
+    /*
      * Дата
      */
     @FindBy(xpath = "//li[text()='Дата']")
     private SelenideElement typeFieldData;
 
-    /**
+    /*
      * Cсылка на справочник
      */
     @FindBy(xpath = "//li[text()='Cсылка на справочник']")
     private SelenideElement typeFieldReferenceToTheDictionary;
 
-    /**
+    /*
      * Клик "Справочник:"
      */
     @FindBy(css = "#dialog_form_dictionary-inputEl")
     private SelenideElement clickFieldDictionary;
 
-    /**
+    /*
      * Клик "Поле:"
      */
     @FindBy(css = "#dialog_form_field-inputEl")
     private SelenideElement selectField;
 
-    /**
+    /*
      * Шаблон отображения (Справочник/Таблица)
      */
     @FindBy(id = "dialog_form_dictionary_template-inputEl")
     private SelenideElement dicTemplate;
 
-    /**
+    /*
      * Вычислить новые значения для сохраненных полей? - при вводе Шаблона отображения
      */
     @FindBy(xpath = "//div[contains(@id,'messagebox')]//div[count(a)=4]/a[2]//span[1]")
     private SelenideElement calculatNewValues;
 
-    /**
+    /*
      * Множественная ссылка на справочник
      */
     @FindBy(xpath = "//li[text()='Множественная ссылка на справочник']")
     private SelenideElement typeFieldMultipleReferenceToTheDictionary;
 
-    /**
+    /*
      * Логический
      */
     @FindBy(xpath = "//li[text()='Логический']")
     private SelenideElement typeFieldBoolean;
 
-    /**
+    /*
      * Ссылка на библиотеку
      */
     @FindBy(xpath = "//li[text()='Ссылка на библиотеку']")
     private SelenideElement typeFieldLibrarylink;
 
-    /**
+    /*
      * Cсылка на задачу
      */
     @FindBy(xpath = "//li[text()='Cсылка на задачу']")
     private SelenideElement typeFieldReferenceTask;
 
-    /**
+    /*
      * Нумератор
      */
     @FindBy(xpath = "//li[text()='Нумератор']")
     private SelenideElement typeFieldNumerator;
 
-    /**
+    /*
      * Ссылка на объект
      */
     @FindBy(xpath = "//li[text()='Ссылка на объект']")
     private SelenideElement typeFieldLinkObject;
 
-    /**
+    /*
      * Таблица
      */
     @FindBy(xpath = "//li[text()='Таблица']")
     private SelenideElement typeFieldTable;
 
-    /**
+    /*
      * Клик поле "Таблица:"
      */
     @FindBy(css = "#dialog_form_table-inputEl")
     private SelenideElement fieldTable;
+
+    /*
+     * Подразделение
+     */
+    @FindBy(xpath = "//li[text()='Подразделение']")
+    private SelenideElement typeFieldDepartment;
 
 
     //--------------------------------------------------------------------Вкладка - НАСТРОЙКИ---------------------------------------------------------------------------------
@@ -414,7 +413,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     /**
      * Использовать ECP
      *
-     * @param useSignature
+     * @param useSignature передаем параметр использования ЭЦП
      * @return TaskTypesEditPage
      */
     public TaskTypesEditPage selUseECP(boolean useSignature) {
@@ -653,62 +652,13 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     //------------------------------------------------------------------------------------------Выбор Типов полей из выпадающего списка:-------------------------------------
 
     /**
-     * СТРОКА
+     * Выбор типа поля объекта
      *
-     * @return TaskTypesEditPage
+     * @param typeOfField передаваемое значение типа поля
+     * @return TypesOfTablesEditPage
      */
-    public TaskTypesEditPage selectTypeFieldString() {
-        typeFieldString.click();
-        return this;
-    }
-
-    /**
-     * ТЕКСТ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldText() {
-        typeFieldText.click();
-        return this;
-    }
-
-    /**
-     * ЦЕЛОЕ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldInteger() {
-        typeFieldInteger.click();
-        return this;
-    }
-
-    /**
-     * ВЕЩЕСТВЕННОЕ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldDouble() {
-        typeFieldDouble.click();
-        return this;
-    }
-
-    /**
-     * ДАТА
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldDate() {
-        typeFieldData.click();
-        return this;
-    }
-
-    /**
-     * ССЫЛКА НА СПРАВОЧНИК
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldDirectory() {
-        typeFieldReferenceToTheDictionary.click();
+    public TaskTypesEditPage selectTheTypeOfField(SelenideElement typeOfField) {
+        typeOfField.click();
         return this;
     }
 
@@ -728,7 +678,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      * @return TaskTypesEditPag
      */
     public TaskTypesEditPage selField() {
-       sleep(300);
+        sleep(300);
         selectField.click();
         return this;
     }
@@ -784,55 +734,6 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
         }
     }
 
-    /**
-     * МНОЖЕСТВЕННАЯ ССЫЛКА
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldMultipleDictionary() {
-        typeFieldMultipleReferenceToTheDictionary.click();
-        return this;
-    }
-
-    /**
-     * ЛОГИЧЕСКОЕ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldBoolean() {
-        typeFieldBoolean.click();
-        return this;
-    }
-
-    /**
-     * ССЫЛКА НА БИБЛИОТЕКУ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldLibrarylink() {
-        typeFieldLibrarylink.click();
-        return this;
-    }
-
-    /**
-     * ССЫЛКА НА ЗАДАЧУ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldReferenceTask() {
-        typeFieldReferenceTask.click();
-        return this;
-    }
-
-    /**
-     * НУМЕРАТОР
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldNumerator() {
-        typeFieldNumerator.click();
-        return this;
-    }
 
     /**
      * Ввод Шаблона нумератора
@@ -856,36 +757,6 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
             calculatMode.click();
             selectingSecondAdjustmentPosition();
         }
-        return this;
-    }
-
-    /**
-     * ССЫЛКА НА ОБЪЕКТ
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldLinkObject() {
-        typeFieldLinkObject.click();
-        return this;
-    }
-
-    /**
-     * ТАБЛИЦА
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selectTypeFieldTable() {
-        typeFieldTable.click();
-        return this;
-    }
-
-    /**
-     * Клик в поле "Таблица:"
-     *
-     * @return TaskTypesEditPage
-     */
-    public TaskTypesEditPage selFieldTable() {
-        fieldTable.click();
         return this;
     }
 
@@ -932,7 +803,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
 
                         // 1. СТРОКА
                         if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsString) {
-                            selectTypeFieldString();
+                            selectTheTypeOfField(typeFieldString);
                             TypeListFieldsString fieldString = (TypeListFieldsString) fieldTaskTypes.getFieldType();
                             if (fieldString.getIsListChoice()) {
                                 selFromList(fieldString.getIsListChoice()); // Выбор из списка
@@ -942,30 +813,30 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
                             }
                             // 2. ТЕКСТ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsText) {
-                            selectTypeFieldText();
+                            selectTheTypeOfField(typeFieldText);
                             TypeListFieldsText fieldText = (TypeListFieldsText) fieldTaskTypes.getFieldType();
                             // 3. ЦЕЛОЕ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsInt) {
-                            selectTypeFieldInteger();
+                            selectTheTypeOfField(typeFieldInteger);
                             TypeListFieldsInt fieldInt = (TypeListFieldsInt) fieldTaskTypes.getFieldType();
                             // 4. ВЕЩЕСТВЕННОЕ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDouble) {
-                            selectTypeFieldDouble();
+                            selectTheTypeOfField(typeFieldDouble);
                             TypeListFieldsDouble fieldsDouble = (TypeListFieldsDouble) fieldTaskTypes.getFieldType();
                             // 5. ДАТА
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDate) {
-                            selectTypeFieldDate();
+                            selectTheTypeOfField(typeFieldData);
                             TypeListFieldsDate fieldsDate = (TypeListFieldsDate) fieldTaskTypes.getFieldType();
                             // 7. СПРАВОЧНИК
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDirectory) {
-                            selectTypeFieldDirectory();
+                            selectTheTypeOfField(typeFieldReferenceToTheDictionary);
                             TypeListFieldsDirectory fieldsDir = (TypeListFieldsDirectory) fieldTaskTypes.getFieldType();
                             chooseDirectory(fieldsDir.getDirectories().getDirectoryName()); // Выбор спр-ка
                             chooseFieldDirectoryAndTable(fieldsDir.getFieldDirectory().getFieldName()); // Выбор поля спр-ка
                             selDirectoryTemplate(fieldsDir.getDisplayNameTemplate()); // Шаблон отображения
                             // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsMultiDirectory) {
-                            selectTypeFieldMultipleDictionary();
+                            selectTheTypeOfField(typeFieldMultipleReferenceToTheDictionary);
                             TypeListFieldsMultiDirectory fieldsMultiDir = (TypeListFieldsMultiDirectory) fieldTaskTypes.getFieldType();
                             selDirectory(); // Выбор поля Спр-к
                             $(By.xpath("//*[text()='" + fieldsMultiDir.getDirectoryName() + "']")).click(); // Выбор справочника
@@ -974,36 +845,38 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
                             selDirectoryTemplate(fieldsMultiDir.getDisplayNameTemplate()); // Шаблон отображения
                             // 8. ЛОГИЧЕСКОЕ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsBoolean) {
-                            selectTypeFieldBoolean();
+                            selectTheTypeOfField(typeFieldBoolean);
                             TypeListFieldsBoolean fieldsDate = (TypeListFieldsBoolean) fieldTaskTypes.getFieldType();
                             // 9. ССЫЛКА НА БИБЛИОТЕКУ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsLibraryLink) {
-                            selectTypeFieldLibrarylink();
+                            selectTheTypeOfField(typeFieldLibrarylink);
                             TypeListFieldsLibraryLink fieldsLibraryLink = (TypeListFieldsLibraryLink) fieldTaskTypes.getFieldType();
                             // 10. ССЫЛКА НА ЗАДАЧУ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsReferenceTask) {
-                            selectTypeFieldReferenceTask();
+                            selectTheTypeOfField(typeFieldReferenceTask);
                             TypeListFieldsReferenceTask fieldsReferenceTask = (TypeListFieldsReferenceTask) fieldTaskTypes.getFieldType();
                             // 11. НУМЕРАТОР
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsNumerator) {
-                            selectTypeFieldNumerator();
+                            selectTheTypeOfField(typeFieldNumerator);
                             TypeListFieldsNumerator fieldsNumerator = (TypeListFieldsNumerator) fieldTaskTypes.getFieldType();
                             selNumeratorTemplate(fieldsNumerator.getNumeratorTemplate()); // Шаблон нумератора
                             selCalculationMode(fieldsNumerator.getComputeMode()); // Режим вычисления
                             // 12. ССЫЛКА НА ОБЪЕКТ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsObjectLink) {
-                            selectTypeFieldLinkObject();
+                            selectTheTypeOfField(typeFieldLinkObject);
                             TypeListFieldsObjectLink fieldsObjectLink = (TypeListFieldsObjectLink) fieldTaskTypes.getFieldType();
                             // 13. ТАБЛИЦА
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsTable) {
-                            selectTypeFieldTable();
+                            selectTheTypeOfField(typeFieldTable);
                             TypeListFieldsTable fieldsTable = (TypeListFieldsTable) fieldTaskTypes.getFieldType();
                             chooseTable(fieldsTable.getTypesOfTables().getTableTypeName()); // Выбор объекта - Таблица, из списка
                             chooseFieldDirectoryAndTable(fieldsTable.getFieldTable().getFieldName()); // Выбор поля объекта - Таблица, из списка
                             selDirectoryTemplate(fieldsTable.getNumeratorTemplate()); // Шаблон отображения
+                            // 13. ПОДРАЗДЕЛЕНИЕ
+                        } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDepartment) {
+                            selectTheTypeOfField(typeFieldDepartment);
+                            TypeListFieldsDepartment fieldsDepartment = (TypeListFieldsDepartment) fieldTaskTypes.getFieldType();
                         }
-
-                        // TODO - добавить поле типа Подразделение
 
                         selObligatoryField(fieldTaskTypes.getObligatory()); // Обязательность поля
                         selIsHideInSearch(fieldTaskTypes.getIsHideInSearch()); // Скрывать при поиске
@@ -1015,18 +888,6 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
         return this;
     }
 
-
-    /**
-     * Ожидание появления элементов на соответствующей странице
-     */
-    public TaskTypesEditPage waitingElementsTabFieldTypesOfTask() {
-        $(By.xpath("//a/span[contains(@id, 'button-10')]")).shouldBe(Condition.present);
-        $(By.id("bEditField-btnIconEl")).shouldBe(Condition.visible);
-        $(By.id("bDeleteField-btnIconEl")).shouldBe(Condition.visible);
-        return this;
-    }
-
-
     /**
      * Добавление полей Типа задач
      *
@@ -1034,7 +895,7 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      */
     @Override
     public void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes) {
-        $$(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a")).shouldBe(CollectionCondition.size(6)); // проверка отображения вкладок в форме редактирования Спр-ка
+        $$(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a")).shouldBe(CollectionCondition.size(6)); // проверка отображения вкладок в форме редактирования Типа таблицы
 
         clickFieldsTab() // Вкладка - Поля
                 .addAllFieldsTaskTypes(tasksTypes.getTasksTypesFields()) // Добавление полей

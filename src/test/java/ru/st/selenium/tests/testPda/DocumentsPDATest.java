@@ -138,7 +138,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest 
         // Проверяем отображение отчетов "контролирования"
         documentsPagePDA.checkMapGridsDocuments();
         // Проверяем отображение созданного документа в гриде
-        documentsPagePDA.checkTheDisplayOfTheDocumentGrid(registerCards);
+        documentsPagePDA.checkTheDisplayOfTheDocumentGrid(registerCards, document);
 
         internalPagePDA.logout(); // Выход из системы
         assertTrue(loginPagePDA.isNotLoggedInPDA());

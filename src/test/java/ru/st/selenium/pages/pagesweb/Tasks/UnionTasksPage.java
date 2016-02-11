@@ -5,7 +5,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
@@ -15,7 +14,7 @@ import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
@@ -95,7 +94,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * Переход в фрейм
      */
     public UnionTasksPage goToFrame() {
-        getWebDriver().switchTo().frame(frame);
+        switchTo().frame(frame);
         return this;
     }
 
@@ -103,7 +102,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * Переход в фрейм - форма редактирования Папки
      */
     public UnionTasksPage goToFrameFormFolder() {
-        getWebDriver().switchTo().frame(frameFilterWindow);
+        switchTo().frame(frameFilterWindow);
         return this;
     }
 
@@ -138,33 +137,22 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * Открытие формы задачи в гриде - Задачи/Задачи
      */
     @Override
-    public void openAnExistingTask(Task task) {
+    public void openAnExistingTask(Task task, Folder folder) {
         waitForMask();
         ensurePageLoaded();
-        try {
-            goToTopFrem();
-            findTask(task.getTaskName());
-            goToFrame();
-            waitForMask();
-            $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
-                    .first().shouldBe(Condition.visible);
-        } catch (Exception e) {
-            goToTopFrem();
-            sleep(500);
-            findTask(task.getTaskName());
-            sleep(500);
-            waitForMask();
-            $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
-                    .first().shouldBe(Condition.visible);
-        }
-
+        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
+        goToTopFrem();
+        findTask(task.getTaskName());
+        goToFrame();
+        waitForMask();
+        $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
+                .first().shouldBe(Condition.visible);
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
     }
 
+
     /**
      * Инициализируем форму задачи
-     *
-     * @return
      */
     public UnionMessagePage initializationUnionMessagePage() {
         return page(UnionMessagePage.class);
@@ -172,8 +160,6 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
 
     /**
      * Инициализируем внутренюю стр. (InternalPage)
-     *
-     * @return
      */
     public InternalPage initializationInternalPage() {
         return page(InternalPage.class);
@@ -226,7 +212,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 addFolder.click();
                 goToFrameFormFolder();
                 selFolderName(folder.getNameFolder());
-                if (folder.isUseFilter() == true) {
+                if (folder.isUseFilter()) {
                     setTheConditionOfFiltration("Начало", "Относительное значение - Сегодня");
                 }
                 saveСhangesInTheCustomFolder.click();
@@ -236,52 +222,55 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
 
                 //TODO PARENT (создание иерархических папок)!!!!
             }
-        } else {
-            return;
         }
 
+
     }
+
 
     /**
      * Формируем условие фильтра - Начало (относительное значение == Сегодня)
      *
-     * @param field передаваемое навание поля для формирования условия фильтрации
-     * @return UnionTasksPage
+     * @param field                передаваемое навание поля для формирования условия фильтрации
+     * @param relativeImportanceOf
      */
     public UnionTasksPage setTheConditionOfFiltration(String field, String relativeImportanceOf) {
-
-        String boxFiltering = field;
-
         checkUseFilter.click();
         $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(Condition.visible);
         $(By.xpath("//tr[2]/td/div/span")).click();
         // Выбираем поле для фильтрации
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();
-        $(By.xpath("//div[@id='sffieldcombochooser']//input")).setValue(boxFiltering);
+        $(By.xpath("//div[@id='sffieldcombochooser']//input")).setValue(field);
         $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();   // Выбор поля - Значение
-        if (boxFiltering.equals("Начало") & (relativeImportanceOf.equals("Относительное значение - Сегодня"))) {
+        if (field.equals("Начало") & (relativeImportanceOf.equals("Относительное значение - Сегодня"))) {
             $(By.xpath("//input[contains(@id,'checkbox') and (@type='button') and (@role='checkbox')]")).click();
         } else {
             $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();
-            $(By.xpath("//input[contains(@id,'textfield') and (@role='textbox')]")).setValue(boxFiltering); // поле ввода - Значение
+            $(By.xpath("//input[contains(@id,'textfield') and (@role='textbox')]")).setValue(field); // поле ввода - Значение
         }
         return this;
     }
 
     /**
      * Проверяем отображение созданной папки в гриде папок
-     *
-     * @param folderName передаваемое имя созданной папки
-     * @return UnionTasksPage
      */
-    public UnionTasksPage checkDisplayCreateAFolderInTheGrid(String folderName) {
-        String nameFolderGrid = $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + folderName + "')]"))
-                .getText();
-        nameFolderGrid = nameFolderGrid.substring(0, 17);
-        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + nameFolderGrid + "')]")).shouldBe(Condition.visible);
+    public UnionTasksPage checkDisplayCreateAFolderInTheGrid(String folder) {
+        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder) + "')]")).shouldBe(Condition.visible);
         return this;
     }
 
+    /**
+     * Метод удаляет (0/0/0) в названии папки
+     * -при необходимости можно дабивать split();
+     *
+     * @param folder передаваемое значение названия папки (имя целиком со счетчиками)
+     */
+    private String parseNameFolder(String folder) {
+        String nameFolderParse = $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + folder + "')]"))
+                .getText();
+        nameFolderParse = nameFolderParse.substring(0, 17);
+        return nameFolderParse;
+    }
 
     /**
      * Редактирование папки

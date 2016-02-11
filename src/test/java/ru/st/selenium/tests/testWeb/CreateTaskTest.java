@@ -1,12 +1,14 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
+import ru.st.selenium.model.Task.Folder;
 import ru.st.selenium.model.Task.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
@@ -41,23 +43,45 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         return page(LoginPage.class);
     }
 
+    // Папка
+    Folder[] folder = getRandomArrayFolders();
+
+    @Test(priority = 1)
+    public void createFolderForTasks() {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
+
+        loginPage.loginAs(ADMIN);
+
+        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+
+        //---------------------------------------------------------------- Задачи/Задачи
+        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        // Добавляем Папки(/у)
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)});
+
+        internalPage.logout();
+        Assert.assertTrue(loginPage.isNotLoggedIn());
+    }
+
     /**
      * Проверка создания обычной задачи
      *
-     * @param department
-     * @param author
-     * @param resppers
-     * @param controller
-     * @param worker
-     * @param IWGWorker
-     * @param IWGResppers
-     * @param IWGСontroller
-     * @param task
+     * @param department    атрибуты пользователя
+     * @param author        атрибуты пользователя Автор
+     * @param resppers      атрибуты пользователя Ответственный руководитель
+     * @param controller    атрибуты пользователя Контролер
+     * @param worker        атрибуты пользователя Исполнитель
+     * @param IWGWorker     атрибуты пользователя Исполнитель задачи ИРГ
+     * @param IWGResppers   атрибуты пользователя ОР задачи ИРГ
+     * @param IWGСontroller атрибуты пользователя
+     * @param task          атрибуты - значения задачи
      */
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи")
     @Description("Проверяем создание задачи с набором атрибутов")
-    @Test(priority = 1, dataProvider = "objectDataTask")
+    @Test(priority = 2, dataProvider = "objectDataTask")
     public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                  Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -95,7 +119,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openAnExistingTask(task);
+        unionTasksPage.openAnExistingTask(task, folder[0]);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
@@ -123,7 +147,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @Title("Создание задачи типа ИРГ")
     @Description("Проверяем создание задачи ИРГ с набором атрибутов")
-    @Test(priority = 2, dataProvider = "objectDataTask")
+    @Test(priority = 3, dataProvider = "objectDataTask")
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                     Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -165,7 +189,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openAnExistingTask(task);
+        unionTasksPage.openAnExistingTask(task, folder[0]);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
@@ -179,7 +203,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание задачи с КТ (контрольные точки)")
     @Description("Проверяем создание задачи c набором Контрольных точек")
-    @Test(priority = 3, dataProvider = "objectDataTask")
+    @Test(priority = 4, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
 
@@ -199,7 +223,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openAnExistingTask(task);
+        unionTasksPage.openAnExistingTask(task, folder[0]);
 
         UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
         unionMessagePage.verifyCreateTask(task);
