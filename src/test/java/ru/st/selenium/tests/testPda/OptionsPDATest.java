@@ -77,11 +77,6 @@ public class OptionsPDATest extends ModuleTaskCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
-
 
 }
 

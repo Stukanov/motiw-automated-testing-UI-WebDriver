@@ -215,10 +215,5 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
-
 
 }

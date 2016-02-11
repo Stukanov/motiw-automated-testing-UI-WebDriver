@@ -56,8 +56,5 @@ public class HelpPDATest extends ModuleTaskCaseTest {
         assertTrue(loginPagePDA.isNotLoggedInPDA());
 
     }
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
+
 }

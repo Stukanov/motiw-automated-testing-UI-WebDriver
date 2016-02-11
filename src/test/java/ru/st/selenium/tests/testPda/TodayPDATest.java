@@ -118,10 +118,6 @@ public class TodayPDATest extends ModuleTaskCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 
 }

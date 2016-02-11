@@ -73,10 +73,5 @@ public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
         assertTrue(loginPagePDA.isNotLoggedInPDA());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
-
 
 }

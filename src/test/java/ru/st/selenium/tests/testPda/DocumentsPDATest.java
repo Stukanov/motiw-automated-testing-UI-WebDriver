@@ -146,9 +146,6 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest 
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
+
 
 }
