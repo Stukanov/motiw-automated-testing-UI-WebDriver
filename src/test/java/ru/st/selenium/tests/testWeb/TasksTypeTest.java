@@ -125,8 +125,4 @@ public class TasksTypeTest extends ModuleAdministrationObjectCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 }

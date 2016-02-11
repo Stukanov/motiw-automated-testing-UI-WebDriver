@@ -253,10 +253,6 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 }
 

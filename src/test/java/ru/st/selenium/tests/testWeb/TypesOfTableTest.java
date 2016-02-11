@@ -96,9 +96,6 @@ public class TypesOfTableTest extends ModuleAdministrationObjectCaseTest {
 
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
+
 
 }

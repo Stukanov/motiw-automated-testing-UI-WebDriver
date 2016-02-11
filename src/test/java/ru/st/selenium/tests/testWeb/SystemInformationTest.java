@@ -80,9 +80,6 @@ public class SystemInformationTest extends ModuleTaskCaseTest {
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
+
 
 }

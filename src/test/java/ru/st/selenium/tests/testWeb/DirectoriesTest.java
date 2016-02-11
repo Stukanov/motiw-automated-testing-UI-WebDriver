@@ -82,9 +82,5 @@ public class DirectoriesTest extends ModuleAdministrationObjectCaseTest {
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 }

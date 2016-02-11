@@ -64,9 +64,5 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectCaseT
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 }

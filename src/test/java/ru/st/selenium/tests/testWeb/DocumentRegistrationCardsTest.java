@@ -96,10 +96,6 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 
 }

@@ -123,10 +123,6 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectCaseTes
 
     }
 
-    @AfterClass
-    public static void afterTest() throws Exception {
-        close();
-    }
 
 
 }

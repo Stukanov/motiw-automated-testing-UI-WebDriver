@@ -210,10 +210,6 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
 
 }
 

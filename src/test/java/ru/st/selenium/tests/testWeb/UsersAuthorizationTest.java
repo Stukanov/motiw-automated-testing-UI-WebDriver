@@ -63,9 +63,6 @@ public class UsersAuthorizationTest extends BaseTest {
         assertTrue(loginPage.isNotLoggedIn());
     }
 
-    @AfterClass
-    public static void afterTest() {
-        close();
-    }
+
 
 }
