@@ -9,7 +9,6 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.tests.data.BaseTest;
 
-
 /**
  * Общие данные для работы - инициализация
  */
@@ -22,14 +21,13 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
      * Метод создания полностью случайного объекта - "Задача" for PDA
      */
     public Task getRandomObjectTask() {
-        Task task = new Task()
+        return new Task()
                 .setTaskName(randomString(15) + " " + randomString(30))
                 .setDescription(randomString(100) + "\n " + randomString(100) + "\n " + randomString(100))
                 .setDateEnd(tomorrowDate())
                 .setIsImportant(randomBoolean())
                 .setIsSecret(randomBoolean())
                 .setIsWithReport(randomBoolean());
-        return task;
     }
 
     /**
@@ -59,19 +57,18 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
      * Метод создания полностью случайного объекта - "Проект"
      */
     public Project getRandomProject() {
-        Project project = new Project()
+        return new Project()
                 .setDescription(randomString(80))
                 .setNameProject(randomString(80))
                 .setСlient(randomString(80))
                 .setEndDate(randomDateTime());
-        return project;
     }
 
     /**
      * Метод создания полностью случайного объекта - "Задача" for Web
      */
     public Task getRandomTask() {
-        Task task = new Task()
+        return new Task()
                 .setTaskName(randomString(80))
                 .setTasktype(new TasksTypes("Обычный"))
                 .setDescription(randomString(500))
@@ -81,14 +78,13 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                 .setIsSecret(randomBoolean())
                 .setIsWithReport(randomBoolean())
                 .setProject(getRandomProject());
-        return task;
     }
 
     /**
      * Метод создания полностью случайного объекта - "КТ"
      */
     public Checkpoint getRandomCheckpoint() {
-        Checkpoint checkpoint = new Checkpoint()
+        return new Checkpoint()
                 .setDate(randomDateTime())
                 .setDescription(randomString(100))
                 .setIsReady(randomBoolean())
@@ -96,18 +92,16 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                 .setName(randomString(80))
                 .setOffset(randomInt(10))
                 .setPeriod(randomEnum(Period.class));
-        return checkpoint;
     }
 
     /**
      * Метод создания полностью случайного объекта - "ИРГ"
      */
     public IWG getRandomIWG() {
-        IWG iwg = new IWG()
+        return new IWG()
                 .setIsSystemActionsInParentTask(randomBoolean())
                 .setNameIWG(randomString(80))
                 .setTasksTypes(new TasksTypes("Обычный"));
-        return iwg;
     }
 
     /**
@@ -177,21 +171,13 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
 
                 {
                         department,
-
                         author,
-
                         executiveManagers,
-
                         controller,
-
                         worker,
-
                         IWGWorker,
-
                         IWGResppers,
-
                         IWGСontroller,
-
                         task,
 
                 }
@@ -205,14 +191,12 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
      * @return folder c атрибутами полей объекта - Папка
      */
     public Folder getRandomFolder() {
-
-        Folder folder = new Folder()
+        return new Folder()
                 .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
                 .setUseFilter(randomBoolean())
                 .setSharedFolder(randomBoolean()) // Общая папка
                 .setAddSharedFolderForAll(randomBoolean()) // Добавить всем
-                .setAddSharedFolderForNewUsers(randomBoolean()); // Добавлять для новых пользователей
-        return folder;
+                .setAddSharedFolderForNewUsers(randomBoolean());
     }
 
     /**
@@ -221,8 +205,7 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
      * @return folders с атрибутами полей объекта - Папка
      */
     public Folder[] getRandomArrayFolders() {
-
-        Folder[] folders = new Folder[]{
+        return new Folder[]{
                 new Folder()
                         .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
                         .setUseFilter(randomBoolean())
@@ -231,7 +214,6 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                         .setAddSharedFolderForNewUsers(randomBoolean()),
 
                 getRandomFolder()};
-        return folders;
     }
 
 }

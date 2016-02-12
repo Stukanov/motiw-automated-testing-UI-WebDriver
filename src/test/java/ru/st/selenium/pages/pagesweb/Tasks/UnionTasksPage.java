@@ -165,6 +165,11 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         return page(InternalPage.class);
     }
 
+    /**
+     * Вводим имя папки
+     *
+     * @param nameFolder зн-ие для формирования имени папки
+     */
     public UnionTasksPage selFolderName(String nameFolder) {
         folderName.clear();
         folderName.setValue(nameFolder);
@@ -172,9 +177,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
-     * Развернем все ветви дерева подразделений
-     *
-     * @return CreateDepartmentPage
+     * Развернем все ветви папок (группировка - Папка)
      */
     public UnionTasksPage unwrapAllNodesFolder() {
         try {
@@ -188,19 +191,31 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
+     * Выбираем группировку на ПУГЗ (панель управления группировкой задач
+     * )
+     *
+     * @param panelGrouping элемент панели ПУГЗ
+     * @param grouping      выбираемая группировка
+     */
+    @Override
+    public void selectTheGroupInTheGrid(SelenideElement panelGrouping, SelenideElement grouping) {
+        ensurePageLoaded();
+        waitForMask();
+        panelGrouping.click();
+        $$(By.xpath("//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')]"))
+                .shouldHaveSize(19); // проверяем, что ПУГЗ имеет 19 значений группировок
+        grouping.click(); // выбрать группировка - Папка
+        waitForMask();
+    }
+
+    /**
      * Добавление объекта - Папка
      *
      * @param folders кол-во передаваемых папок с атрибутами (настройки СП (смарт-папки); ОП (общие папки)..)
      */
     @Override
     public void addFolders(Folder[] folders) {
-        ensurePageLoaded();
-        waitForMask();
-        panelGroupingTasks.click();
-        $$(By.xpath("//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')]"))
-                .shouldHaveSize(19); // проверяем, что ПУГЗ имеет 19 значений группировок
-        groupingFolder.click(); // выбрать группировка - Папка
-        waitForMask();
+        selectTheGroupInTheGrid(panelGroupingTasks, groupingFolder);
         unwrapAllNodesFolder();
         folderInTheGroup.first().shouldBe(Condition.present);
         if (folders != null) {
@@ -223,16 +238,13 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 //TODO PARENT (создание иерархических папок)!!!!
             }
         }
-
-
     }
-
 
     /**
      * Формируем условие фильтра - Начало (относительное значение == Сегодня)
      *
      * @param field                передаваемое навание поля для формирования условия фильтрации
-     * @param relativeImportanceOf
+     * @param relativeImportanceOf относительное зн-ие для условия папки
      */
     public UnionTasksPage setTheConditionOfFiltration(String field, String relativeImportanceOf) {
         checkUseFilter.click();

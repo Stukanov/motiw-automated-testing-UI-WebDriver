@@ -13,19 +13,22 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Dependencies Versions -->
+        <!-- Dependencies Versions-->
         <testng.version>6.9.10</testng.version>
         <selenide.version>3.2</selenide.version>
         <allure.version>1.4.20</allure.version>
         <hamcrest.version>1.3</hamcrest.version>
         <slf4j-simple.version>1.7.13</slf4j-simple.version>
         <qatools.allure.version>2.5</qatools.allure.version>
-        <!-- Plugin Versions -->
+        <!-- Plugin Versions-->
         <aspectj.version>1.8.5</aspectj.version>
         <jetty-maven-plugin.version>9.2.10.v20150310</jetty-maven-plugin.version>
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <compiler.version>1.7</compiler.version>
+        <!-- Random date - notably String manipulation methods, basic numerical methods, object reflection, concurrency,
+        creation and serialization and System properties.-->
+        <commons-lang3.version>3.4</commons-lang3.version>
         <!-- Browser-->
         <path.chrome.win32>src\test\resources\drivers\chromedriver_win32\chromedriver.exe</path.chrome.win32>
         <path.ie>\src\test\resources\drivers\IEDriverServer_Win32_2.49.0\IEDriverServer.exe</path.ie>
@@ -33,6 +36,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>

@@ -48,10 +48,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
 
     @Test(priority = 1)
     public void createFolderForTasks() {
-        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
-
+        LoginPage loginPage = openUrlStartBrowser();
         loginPage.loginAs(ADMIN);
-
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице

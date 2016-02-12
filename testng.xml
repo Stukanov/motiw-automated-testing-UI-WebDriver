@@ -5,7 +5,7 @@
         <listener class-name="com.codeborne.selenide.testng.TextReport"/>
     </listeners>
 
-    <test name="Модуль - PDA-интерфейс">
+    <test name="module: PDA">
         <classes>
             <class name="ru.st.selenium.tests.testPda.UsersAuthorizationPDATest"/>
             <class name="ru.st.selenium.tests.testPda.CreateTaskPDATest"/>
@@ -17,14 +17,14 @@
         </classes>
     </test>
 
-    <test name="Модуль - Пользователи (Web-интерфейс)">
+    <test name="module: Users (Web)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.UsersAuthorizationTest"/>
             <class name="ru.st.selenium.tests.testWeb.UsersTest"/>
         </classes>
     </test>
 
-    <test name="Модуль - Администрирование (Web-интерфейс)">
+    <test name="module: Administration (Web)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.SystemInformationTest"/>
             <class name="ru.st.selenium.tests.testWeb.TypesOfTableTest"/>
@@ -33,13 +33,13 @@
         </classes>
     </test>
 
-    <test name="Модуль - Задачи (Web-интерфейс)">
+    <test name="module: Tasks (Web)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.CreateTaskTest"/>
         </classes>
     </test>
 
-    <test name="Модуль - Документы (Web-интерфейс)">
+    <test name="module: Documents (Web)">
         <classes>
             <class name="ru.st.selenium.tests.testWeb.DictionaryEditorTest"/>
             <class name="ru.st.selenium.tests.testWeb.DocumentRegistrationCardsTest"/>

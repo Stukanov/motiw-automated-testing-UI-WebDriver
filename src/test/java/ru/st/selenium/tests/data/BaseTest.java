@@ -70,7 +70,8 @@ public abstract class BaseTest {
     }
 
     /**
-     * Метод генерирующий случайные Спецсимволы - например, .SendKeys(randomSpecialCharacters(10));
+     * Метод генерирующий случайные Спецсимволы
+     * например, .SendKeys(randomSpecialCharacters(10));
      */
     public static String randomSpecialCharacters(int length) {
         final String data = "!\"'#$%()*,-./`:;<=>?@[\\]^_{|}~«»";
@@ -84,8 +85,13 @@ public abstract class BaseTest {
         return sb.toString();
     }
 
+
     /**
      * Метод генерирующий случайное строковое значение (Заглавные латинские буквы)
+     * Максимальное значение для полей: Строка, например,
+     * SendKeys(randomString(10));
+     *
+     * @param length кол-во вводимых символов
      */
     public static String randomIdentifier(int length) {
         final String data = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -98,12 +104,13 @@ public abstract class BaseTest {
 
         return sb.toString();
 
-        // Максимальное значение для полей: Строка, например,
-        // .SendKeys(randomString(10));
+
     }
 
     /**
      * Метод генерирующий случайный email
+     * <p>
+     * пример - .SendKeys(randomEmail());
      */
     public static String randomEmail() {
 
@@ -132,23 +139,24 @@ public abstract class BaseTest {
         email += "." + sb;
 
         return email;
-
-        // пример - .SendKeys(randomEmail());
-
     }
 
     /**
      * Метод генерирующий случайное Целое число
+     * пример, Целое - .SendKeys(String.valueOf(randomNumber(150)));
+     *
+     * @param maxValue максимальное передаваемое зн-ие (Целое)
+     * @return строка ввиде числа
      */
     public static String randomInt(int maxValue) {
         int i = random.nextInt(maxValue);
         return Integer.toString(i);
-
-        // пример, Целое - .SendKeys(String.valueOf(randomNumber(150)));
     }
 
     /**
      * Метод создания строки содержащей случайую Дату и Время
+     * <p>
+     * пример, Дата - .SendKeys(String.valueOf(randomDateTime));
      */
     public static String randomDateTime() {
         NumberFormat formatter = NumberFormat.getNumberInstance();
@@ -164,12 +172,9 @@ public abstract class BaseTest {
         String minute = formatter.format(randIntBetween(0, 59));
         String second = formatter.format(randIntBetween(0, 59));
 
-        String date = (day + "." + month + "." + year + " " + hour + ":"
+        return (day + "." + month + "." + year + " " + hour + ":"
                 + minute + ":" + second);
 
-        return date;
-
-        // пример, Дата - .SendKeys(String.valueOf(randomDateTime));
     }
 
     /**
@@ -186,8 +191,7 @@ public abstract class BaseTest {
         String b = minimum.format(randIntBetween(1, 999));
         String c = maximum.format(randIntBetween(1, 999));
         String d = maximum.format(randIntBetween(1, 999));
-        String phone = "8(" + a + ")" + b + "-" + c + "-" + d;
-        return phone;
+        return "8(" + a + ")" + b + "-" + c + "-" + d;
 
     }
 
@@ -205,9 +209,7 @@ public abstract class BaseTest {
         String day = formatter.format(dayi);
         String month = formatter.format(monthi);
 
-        String date = (day + "." + month + "." + year);
-
-        return date;
+        return (day + "." + month + "." + year);
 
         // пример, Дата - .SendKeys(String.valueOf(randomDate));
     }
@@ -217,9 +219,8 @@ public abstract class BaseTest {
      * выбора случайного цвета в записи справочника или таблицы
      */
     public static String randomColour() {
-        String colour = "#" + randomInt(9) + randomInt(9) + randomInt(9)
+        return "#" + randomInt(9) + randomInt(9) + randomInt(9)
                 + randomInt(9) + randomInt(9) + randomInt(9);
-        return colour;
     }
 
     /**
@@ -303,14 +304,13 @@ public abstract class BaseTest {
      * Метод создания полностью случайного объекта - "Подразделение"
      */
     public Department getRandomDepartment() {
-        Department department = new Department()
+        return new Department()
                 .setDepName(randomString(20))
                 .setConditionalNumber((randomString(20)))
                 .setCounter((randomInt(2147483647)))
                 .setResetDate(randomDateTime())
                 .setNumeratorTemplate("{counter}-{department}-" + " "
                         + randomString(20));
-        return department;
     }
 
     /**
@@ -319,7 +319,7 @@ public abstract class BaseTest {
     public Employee getRandomEmployer() {
         String pass = randomString(10);
         String newpass = randomString(10);
-        Employee user = new Employee()
+        return new Employee()
                 .setLastName(randomString(10)).setName(randomString(10)).setPatronymic(randomString(10)) // ФИО
                 .setIsMan(randomBoolean())
                 .setBirthDate(randomDate())
@@ -330,7 +330,6 @@ public abstract class BaseTest {
                 .setAdditionalNumber(randomInt(100))
                 .setUserForcedSorting(randomInt(100)).setStatus(randomEnum(Status.class))
                 .setNeedsPasswordChange(randomBoolean()).setModule(randomEnum(Module.class));
-        return user;
     }
 
 }

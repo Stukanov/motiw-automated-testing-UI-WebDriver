@@ -31,7 +31,8 @@ public abstract class ModuleDocflowAdministrationObjectCaseTest extends ModuleAd
      * Метод создания полностью случайного объекта - "Редактор словарей"
      */
     public DictionaryEditor getRandomDictionaryEditor() {
-        DictionaryEditor dictionEditor = new DictionaryEditor("wD_Словарь " + randomString(15), /* Название словаря*/ randomEnum(AccessRights.class) /* Уровень доступа*/,
+
+        return new DictionaryEditor("wD_Словарь " + randomString(15), /* Название словаря*/ randomEnum(AccessRights.class) /* Уровень доступа*/,
                 (new DictionaryEditorField[]{
 
                         new DictionaryEditorField()
@@ -47,8 +48,6 @@ public abstract class ModuleDocflowAdministrationObjectCaseTest extends ModuleAd
                                 .setDescriptionDictionItem(randomString(30) + "\n" + randomString(15)), // Описание элемента словаря
 
                 }));
-
-        return dictionEditor;
     }
 
     //---Администрирование/Администрирование ДО----------------------------------------------------------
