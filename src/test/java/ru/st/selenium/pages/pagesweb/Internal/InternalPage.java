@@ -18,6 +18,7 @@ import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertFalse;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
@@ -226,6 +227,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
         search.clear();
         search.setValue(serachstring);
         search.pressEnter();
+        sleep(1000);
         return this;
     }
 
@@ -238,8 +240,8 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     /**
      * Метод 2-х уровневой навигации
      *
-     * @param firstclick
-     * @param secondclick
+     * @param firstclick  передаваемый первый клик на элемент меню
+     * @param secondclick вторая навигация на элемент меню
      */
     private void menuClicker(SelenideElement firstclick, SelenideElement secondclick) {
         goToTopFrem();
@@ -251,9 +253,9 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     /**
      * Метод 3-х уровневой навигации
      *
-     * @param firstclick
-     * @param secondclick
-     * @param thirdclick
+     * @param firstclick  передаваемый первый клик на элемент меню
+     * @param secondclick вторая навигация на элемент меню
+     * @param thirdclick  третий клик на эдемент меню
      */
     private void subMenuClicker(SelenideElement firstclick, SelenideElement secondclick, SelenideElement thirdclick) {
         goToTopFrem();

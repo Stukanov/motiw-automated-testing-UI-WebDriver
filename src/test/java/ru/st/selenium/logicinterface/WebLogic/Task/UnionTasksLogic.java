@@ -10,7 +10,9 @@ import ru.st.selenium.model.Task.Task;
 public interface UnionTasksLogic {
 
 
-    void openAnExistingTask(Task task, Folder folder);
+    void openExistingTaskInTheFolderThroughTheSearch(Task task, Folder folder);
+
+    void openAnExistingTaskInFolder (Task task, Folder folder);
 
     void selectTheGroupInTheGrid(SelenideElement panelGrouping, SelenideElement grouping);
 

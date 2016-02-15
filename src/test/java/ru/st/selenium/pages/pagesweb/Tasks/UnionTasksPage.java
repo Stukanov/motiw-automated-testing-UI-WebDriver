@@ -134,16 +134,37 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
-     * Открытие формы задачи в гриде - Задачи/Задачи
+     * Открытие формы задачи в гриде по гриппировке Папка через поиск по гриду
+     * Задачи/Задачи
+     *
+     * @param task   Название задачи
+     * @param folder папка для поиска задачи в гриде
      */
     @Override
-    public void openAnExistingTask(Task task, Folder folder) {
+    public void openExistingTaskInTheFolderThroughTheSearch(Task task, Folder folder) {
         waitForMask();
         ensurePageLoaded();
         $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
         goToTopFrem();
         findTask(task.getTaskName());
         goToFrame();
+        waitForMask();
+        $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
+                .first().shouldBe(Condition.visible);
+        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
+    }
+
+    /**
+     * Открытие формы задачи в гриде по гриппировке Папка
+     *
+     * @param task   Название задачи
+     * @param folder папка для поиска задачи в гриде
+     */
+    @Override
+    public void openAnExistingTaskInFolder(Task task, Folder folder) {
+        waitForMask();
+        ensurePageLoaded();
+        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(Condition.visible);
