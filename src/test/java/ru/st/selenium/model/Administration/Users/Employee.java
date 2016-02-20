@@ -6,6 +6,7 @@ package ru.st.selenium.model.Administration.Users;
 public class Employee {
 
     private Department department;
+    private String fullName;
     private String lastname;
     private String name;
     private String patronymic;
@@ -33,8 +34,6 @@ public class Employee {
 
     /**
      * Подразделение пользователя
-     *
-     * @return
      */
     public Department getDepartment() {
         return department;
@@ -46,9 +45,19 @@ public class Employee {
     }
 
     /**
+     * Полное имя пользователя (ФИО)
+     */
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Employee setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
+    }
+
+    /**
      * Фамилия
-     *
-     * @return
      */
     public String getLastName() {
         return lastname;
@@ -61,8 +70,6 @@ public class Employee {
 
     /**
      * Имя
-     *
-     * @return
      */
     public String getName() {
         return name;
@@ -75,8 +82,6 @@ public class Employee {
 
     /**
      * Отчество
-     *
-     * @return
      */
     public String getPatronymic() {
         return patronymic;
@@ -89,8 +94,6 @@ public class Employee {
 
     /**
      * Мужик ли?
-     *
-     * @return
      */
     public boolean getIsMan() {
         return isMan;
@@ -103,8 +106,6 @@ public class Employee {
 
     /**
      * Дата рождения
-     *
-     * @return
      */
     public String getBirthDate() {
         return birthDate;
@@ -117,8 +118,6 @@ public class Employee {
 
     /**
      * Должность
-     *
-     * @return
      */
     public String getJobTitle() {
         return jobtitle;
@@ -131,8 +130,6 @@ public class Employee {
 
     /**
      * Имя пользователя (login)
-     *
-     * @return
      */
     public String getLoginName() {
         return loginname;
@@ -145,8 +142,6 @@ public class Employee {
 
     /**
      * Пароль
-     *
-     * @return
      */
     public String getPassword() {
         return password;
@@ -159,8 +154,6 @@ public class Employee {
 
     /**
      * Подтверждение пароля
-     *
-     * @return
      */
     public String getСonfirmationPassword() {
         return confirmationpassword;
@@ -173,8 +166,6 @@ public class Employee {
 
     /**
      * Новый Пароль
-     *
-     * @return
      */
     public String getNewPassword() {
         return newpassword;
@@ -187,8 +178,6 @@ public class Employee {
 
     /**
      * Новое подтверждение пароля
-     *
-     * @return
      */
     public String getNewСonfirmationPassword() {
         return newconfirmationpassword;
@@ -201,8 +190,6 @@ public class Employee {
 
     /**
      * Статус
-     *
-     * @return
      */
     public Status getStatus() {
         return status;
@@ -215,8 +202,6 @@ public class Employee {
 
     /**
      * Модуль
-     *
-     * @return
      */
     public Module getModule() {
         return module;
@@ -229,8 +214,6 @@ public class Employee {
 
     /**
      * Дополнительный номер
-     *
-     * @return
      */
     public String getAdditionalNumber() {
         return additionalnumber;
@@ -243,8 +226,6 @@ public class Employee {
 
     /**
      * Порядок пользователя при принудительной сортировке
-     *
-     * @return
      */
     public String getUserForcedSorting() {
         return userforcedsorting;
@@ -257,8 +238,6 @@ public class Employee {
 
     /**
      * Нужна ли смена пароля?
-     *
-     * @return
      */
     public boolean getNeedsPasswordChange() {
         return needsPasswordChange;
@@ -271,8 +250,6 @@ public class Employee {
 
     /**
      * Страна
-     *
-     * @return
      */
     public String getCountry() {
         return country;
@@ -285,8 +262,6 @@ public class Employee {
 
     /**
      * Почтовый код
-     *
-     * @return
      */
     public String getPostalCode() {
         return postalсode;
@@ -299,8 +274,6 @@ public class Employee {
 
     /**
      * Область
-     *
-     * @return
      */
     public String getRegion() {
         return region;
@@ -313,8 +286,6 @@ public class Employee {
 
     /**
      * Адрес
-     *
-     * @return
      */
     public String getAddress() {
         return address;
@@ -327,8 +298,6 @@ public class Employee {
 
     /**
      * Рабочий телефон
-     *
-     * @return
      */
     public String getJobIphone() {
         return jobiphone;
@@ -341,8 +310,6 @@ public class Employee {
 
     /**
      * Домашний телефон
-     *
-     * @return
      */
     public String getHomeIphone() {
         return homeiphone;
@@ -355,8 +322,6 @@ public class Employee {
 
     /**
      * Email
-     *
-     * @return
      */
     public String getEmail() {
         return email;
@@ -369,8 +334,6 @@ public class Employee {
 
     /**
      * Компания
-     *
-     * @return
      */
     public String getCompany() {
         return company;

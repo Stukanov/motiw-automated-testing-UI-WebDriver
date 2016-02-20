@@ -10,7 +10,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * Waiting
  */
-public class WaitUtil {
+public abstract class WaitUtil {
 
     /**
      * Подождать пока отобразится элемент на странице

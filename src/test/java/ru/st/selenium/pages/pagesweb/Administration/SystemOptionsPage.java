@@ -9,6 +9,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static ru.st.selenium.utils.ElementUtil.selectingSecondAdjustmentPosition;
 
 /**
  * Настройки системы

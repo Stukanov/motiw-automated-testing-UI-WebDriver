@@ -16,6 +16,8 @@ public interface AuthorizationLogic {
 
     boolean isLoggedInAs(Employee user);
 
+    boolean checkTheSystemFolderMappingUserLibrary(Employee user);
+
     boolean hasMenuUserComplete();
 
 

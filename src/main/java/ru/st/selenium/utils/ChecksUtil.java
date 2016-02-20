@@ -9,7 +9,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /**
  * Checks elements
  */
-public class ChecksUtil {
+public abstract class ChecksUtil {
 
     /**
      * Метод проверки наличия элемента на странице

@@ -85,7 +85,6 @@ public abstract class BaseTest {
         return sb.toString();
     }
 
-
     /**
      * Метод генерирующий случайное строковое значение (Заглавные латинские буквы)
      * Максимальное значение для полей: Строка, например,
@@ -103,8 +102,6 @@ public abstract class BaseTest {
             sb.append(data.charAt(random.nextInt(data.length())));
 
         return sb.toString();
-
-
     }
 
     /**

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Стараница - Мои реквизиты

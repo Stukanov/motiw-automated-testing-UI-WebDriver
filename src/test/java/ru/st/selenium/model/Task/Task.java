@@ -1,6 +1,6 @@
 package ru.st.selenium.model.Task;
 
-import ru.st.selenium.model.Record;
+import ru.st.selenium.model.ObjectRecord;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
@@ -30,7 +30,7 @@ public class Task {
     private IWG[] iwg;
     private Event[] events;
     private Employee[] contacts;
-    private Record[] tableRecords;
+    private ObjectRecord[] tableObjectRecords;
     private Action[] actions;
 
 
@@ -283,12 +283,12 @@ public class Task {
     /**
      * Записи таблицы - массив объектов - Запись таблицы
      */
-    public Record[] getTableRecords() {
-        return tableRecords;
+    public ObjectRecord[] getTableObjectRecords() {
+        return tableObjectRecords;
     }
 
-    public Task setTableRecords(Record[] tableRecords) {
-        this.tableRecords = tableRecords;
+    public Task setTableObjectRecords(ObjectRecord[] tableObjectRecords) {
+        this.tableObjectRecords = tableObjectRecords;
         return this;
     }
 

@@ -1,7 +1,6 @@
 package ru.st.selenium.pages.pagesweb.Administration;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
+
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -19,10 +18,10 @@ import ru.st.selenium.model.Administration.TasksTypes.ObligatoryFieldTypeTask;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypesField;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.model.ShiftDirection.*;
+import static ru.st.selenium.utils.ElementUtil.*;
 import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 
 /**
@@ -382,7 +381,6 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     /**
      * МЕТОДЫ--------------------------------------------------------------------------------------------------------------------------------------------
      */
-
     //-----------------------------------------------------------------------------Вкладка - НАСТРОЙКИ---------------------------------------------------
 
     /**
@@ -891,12 +889,13 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     /**
      * Добавление полей Типа задач
      *
-     * @param tasksTypes
+     * @param tasksTypes передаваемые атрибуты (настройки) объекта Типы задач
      */
     @Override
     public void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes) {
-        $$(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a")).shouldBe(CollectionCondition.size(6)); // проверка отображения вкладок в форме редактирования Типа таблицы
-
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 6,
+                By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a//span[text()]"), new String[]{"Настройки", "Поля", "Обработчики", "Настройки почтовых уведомлений",
+                        "Оценки и доклады", "Доступ"});
         clickFieldsTab() // Вкладка - Поля
                 .addAllFieldsTaskTypes(tasksTypes.getTasksTypesFields()) // Добавление полей
 

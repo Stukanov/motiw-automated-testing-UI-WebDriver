@@ -188,6 +188,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
          */
         loginPage.loginAs(user1);
         assertTrue(loginPage.isLoggedInAs(user1));
+        assertTrue(loginPage.checkTheSystemFolderMappingUserLibrary(user1)); // проверяем отображение системной папки Библиотека пользователя
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен
 

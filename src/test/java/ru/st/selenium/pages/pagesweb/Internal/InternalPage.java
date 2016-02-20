@@ -78,7 +78,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Библиотека
      */
     @FindBy(id = "lib")
-    private SelenideElement LibMenu;
+    private SelenideElement libMenu;
 
     /*
      * Инструменты
@@ -169,12 +169,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     private SelenideElement Logout;
 
     /*
-     * Фрейм
-     */
-    @FindBy(id = "flow")
-    private SelenideElement fremFlow;
-
-    /*
      * Строка поиска
      */
     @FindBy(css = "#searchQueryEdit")
@@ -209,14 +203,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     private SelenideElement searchSystem;
 
 
-    /*
-     * Уходим во фрейм объекта
-     */
-    public void goToFremFlow() {
-        getWebDriver().switchTo().frame(fremFlow);
-    }
-
-
     /**
      * Поиск объекта в гриде
      *
@@ -238,16 +224,27 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     Actions action = new Actions(getWebDriver());
 
     /**
+     * Метод 1-х уровневой навигации
+     *
+     * @param firstclick передаваемый первый клик на элемент меню
+     */
+    private void oneTierNavigation(SelenideElement firstclick) {
+        goToTopFrem();
+        firstclick.click();
+        getFrameFlow();
+    }
+
+    /**
      * Метод 2-х уровневой навигации
      *
      * @param firstclick  передаваемый первый клик на элемент меню
      * @param secondclick вторая навигация на элемент меню
      */
-    private void menuClicker(SelenideElement firstclick, SelenideElement secondclick) {
+    private void twoTierNnavigation(SelenideElement firstclick, SelenideElement secondclick) {
         goToTopFrem();
         firstclick.click();
         secondclick.click();
-        goToFremFlow();
+        getFrameFlow();
     }
 
     /**
@@ -257,21 +254,21 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @param secondclick вторая навигация на элемент меню
      * @param thirdclick  третий клик на эдемент меню
      */
-    private void subMenuClicker(SelenideElement firstclick, SelenideElement secondclick, SelenideElement thirdclick) {
+    private void threeTierNavigation(SelenideElement firstclick, SelenideElement secondclick, SelenideElement thirdclick) {
         goToTopFrem();
         firstclick.click();
         action.moveToElement(secondclick).perform();
         $(thirdclick).shouldBe(Condition.visible);
         action.moveToElement(thirdclick).perform();
         thirdclick.click();
-        goToFremFlow();
+        getFrameFlow();
     }
 
     /**
      * Переход в Задачи/Создать задачу
      */
     public UnionMessageNewPage goToUnionMessageNew() {
-        menuClicker(menuTask, createTask);
+        twoTierNnavigation(menuTask, createTask);
         return page(UnionMessageNewPage.class);
     }
 
@@ -279,15 +276,24 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в Задачи/Задачи
      */
     public UnionTasksPage goToUnionTasks() {
-        menuClicker(menuTask, tasks);
+        twoTierNnavigation(menuTask, tasks);
         return page(UnionTasksPage.class);
+    }
+
+    /**
+     * Переходим в раздел - Библиотека
+     * @return LibraryPage
+     */
+    public LibraryPage goToLibrary() {
+        oneTierNavigation(libMenu);
+        return page(LibraryPage.class);
     }
 
     /**
      * Переход в меню - Администрирование ДО/Регистрационные карточки документов
      */
     public GridDocRegisterCardsPage goToGridDocRegisterCards() {
-        subMenuClicker(instrMenu, docAdministrationMenu, registerCardsMenu);
+        threeTierNavigation(instrMenu, docAdministrationMenu, registerCardsMenu);
         return page(GridDocRegisterCardsPage.class);
 
     }
@@ -296,7 +302,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Администрирование ДО/Редактор словарей
      */
     public DictionaryEditorPage goToDictionaryEditor() {
-        subMenuClicker(instrMenu, docAdministrationMenu, dictionaryEditorMenu);
+        threeTierNavigation(instrMenu, docAdministrationMenu, dictionaryEditorMenu);
         return page(DictionaryEditorPage.class);
     }
 
@@ -304,7 +310,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Администрирование/Справочники
      */
     public TaskTypeListObjectPage goToDirectories() {
-        subMenuClicker(instrMenu, menuAdministration, menuDirectories);
+        threeTierNavigation(instrMenu, menuAdministration, menuDirectories);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -313,7 +319,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Администрирование/Типы таблиц
      */
     public TaskTypeListObjectPage goToTypesOfTables() {
-        subMenuClicker(instrMenu, menuAdministration, menuTables);
+        threeTierNavigation(instrMenu, menuAdministration, menuTables);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -322,7 +328,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Администрирование/Типы таблиц
      */
     public TaskTypeListObjectPage goToTaskTypes() {
-        subMenuClicker(instrMenu, menuAdministration, menuTypeTask);
+        threeTierNavigation(instrMenu, menuAdministration, menuTypeTask);
         return page(TaskTypeListObjectPage.class);
 
     }
@@ -331,7 +337,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Документы/Создать документ
      */
     public NewDocumentPage goToNewDocument() {
-        menuClicker(menuDocument, createDoc);
+        twoTierNnavigation(menuDocument, createDoc);
         return page(NewDocumentPage.class);
     }
 
@@ -339,7 +345,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Администрирование/Подразделения
      */
     public CreateDepartmentPage goToDepartments() {
-        subMenuClicker(instrMenu, menuAdministration, menuUsers);
+        threeTierNavigation(instrMenu, menuAdministration, menuUsers);
         return page(CreateDepartmentPage.class);
     }
 
@@ -354,7 +360,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Администрирование - Информация о системе
      */
     public SystemInformationPage goToSystemInfo() {
-        subMenuClicker(instrMenu, menuAdministration, tester);
+        threeTierNavigation(instrMenu, menuAdministration, tester);
         return page(SystemInformationPage.class);
     }
 
@@ -362,7 +368,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переходим - Поисковая система
      */
     public SearchAdminPage goToSearchSystemPage() {
-        subMenuClicker(instrMenu, menuAdministration, searchSystem);
+        threeTierNavigation(instrMenu, menuAdministration, searchSystem);
         return page(SearchAdminPage.class);
     }
 
@@ -370,7 +376,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переходим - Настройки системы
      */
     public SystemOptionsPage goToSystemOptionsPage() {
-        subMenuClicker(instrMenu, menuAdministration, menuSystemOptions);
+        threeTierNavigation(instrMenu, menuAdministration, menuSystemOptions);
         return page(SystemOptionsPage.class);
     }
 
@@ -393,7 +399,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      */
     @Override
     public boolean hasMenuUserComplete() {
-        $(By.xpath("//div[@id='menu']//div[@id='panel_2']")).waitUntil(Condition.present, 15000);
         menuElements.shouldHaveSize(8);
         return !menuElements.isEmpty();
     }
@@ -429,19 +434,9 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в меню - Настройки/Мои реквизиты
      */
     public PwdPage goToPwd() {
-        subMenuClicker(instrMenu, menuSettings, menuMyOptions);
+        threeTierNavigation(instrMenu, menuSettings, menuMyOptions);
         return page(PwdPage.class);
     }
 
-
-    /**
-     * Ожидания появления объектов ОМ - Сообщение; -Календарь; -Библиотека
-     */
-    public InternalPage ensurePageLoaded() {
-        $(By.id("mes")).shouldBe(Condition.present);
-        $(By.id("col")).shouldBe(Condition.present);
-        $(By.id("lib")).shouldBe(Condition.visible);
-        return this;
-    }
 
 }

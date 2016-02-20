@@ -6,6 +6,7 @@ import ru.st.selenium.logicinterface.WebLogic.AuthorizationLogic;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
+import ru.st.selenium.pages.pagesweb.Internal.LibraryPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -109,13 +110,42 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
 
     /**
      * Проверяем, что мы не только залогинены, но залогинены под конкретным пользователем
+     *
+     * @param user атрибуты пользователя (в данном случае Логин пользователя)
+     * @return возвращаяет истенность, если Логин пользователя (при авторизации) совпадает с логином указанный
+     * в реквизитах пользователя
      */
     @Override
     public boolean isLoggedInAs(Employee user) {
         return isLoggedIn()
                 && getLoggedUser().getLoginName().equals(user.getLoginName());
     }
-    
+
+    /**
+     * Проверяем отображение системной папки пользователя
+     *
+     * @param user атрибуты пользователя (в данном случае Логин пользователя) ФИО
+     * @return возвращаяет истенность, если ФИО пользователя (при создании) совпадает с названием системной папки Библиотеки
+     */
+    @Override
+    public boolean checkTheSystemFolderMappingUserLibrary(Employee user) {
+        return isLoggedIn()
+                && getNameOfTheSystemFolderUserLibrary().getFullName()
+                .equals(user.getLastName() + " " + user.getName() + " " + user.getPatronymic());
+    }
+
+    /*
+     TODO Обязательно Добавить проверку отображения АК
+     TODO  проверка отображения системных библиотек при создании Подразделения
+      */
+
+    private Employee getNameOfTheSystemFolderUserLibrary() {
+
+        LibraryPage userNameOfSystemLibraryFolder = initializedInsidePage().goToLibrary()
+                .ensurePageLoaded();
+        return new Employee().setFullName(userNameOfSystemLibraryFolder.getParentFullNameSystemBoxLibrary());
+
+    }
 
     @Override
     public boolean hasMenuUserComplete() {
@@ -124,14 +154,11 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
 
     private Employee getLoggedUser() {
 
-        PwdPage userProfile = initializedInsidePage().ensurePageLoaded().goToPwd()
+        PwdPage userProfile = initializedInsidePage().goToPwd()
                 .ensurePageLoaded();
-        return new Employee().setLastName(userProfile.getLastName())
-                .setLoginName(userProfile.getLoginName());
+        return new Employee().setLoginName(userProfile.getLoginName());
 
     }
-
-
 
 
 }

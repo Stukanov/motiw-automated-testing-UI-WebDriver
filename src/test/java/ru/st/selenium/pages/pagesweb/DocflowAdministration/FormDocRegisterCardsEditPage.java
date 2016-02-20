@@ -16,6 +16,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.Selenide.sleep;
+import static ru.st.selenium.utils.ElementUtil.selectingFourthlyAdjustmentPosition;
+import static ru.st.selenium.utils.ElementUtil.selectingSecondAdjustmentPosition;
+import static ru.st.selenium.utils.ElementUtil.selectingThirdAdjustmentPosition;
 
 /**
  * Калсс, в к-м описываются все элементы указанные на странице редактирования Регистрационной карточки документа (РКД)

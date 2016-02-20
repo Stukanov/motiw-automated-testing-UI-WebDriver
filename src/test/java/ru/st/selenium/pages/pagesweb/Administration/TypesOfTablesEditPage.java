@@ -14,6 +14,9 @@ import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTablesField;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.sleep;
+import static ru.st.selenium.utils.ElementUtil.scrollToAndClick;
+import static ru.st.selenium.utils.ElementUtil.selectingSecondAdjustmentPosition;
+import static ru.st.selenium.utils.ElementUtil.selectingThirdAdjustmentPosition;
 import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 
 /**

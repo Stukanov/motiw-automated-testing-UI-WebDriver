@@ -16,6 +16,7 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import static com.codeborne.selenide.Selenide.*;
 
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
+import static ru.st.selenium.utils.WindowsUtil.NewWindowOpen;
 
 /**
  * Страница - Задачи/Задачи
@@ -151,7 +152,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(Condition.visible);
-        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
+        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
     }
 
     /**
@@ -168,7 +169,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(Condition.visible);
-        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen); // Открытие найденой задачи в новом окне
+        $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
     }
 
 

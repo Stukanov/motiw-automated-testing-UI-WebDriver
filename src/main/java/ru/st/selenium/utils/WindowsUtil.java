@@ -1,20 +1,51 @@
 package ru.st.selenium.utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.Set;
 
+import static com.codeborne.selenide.Selenide.executeJavaScript;
+
 /**
  * Windows
  */
-public class WindowsUtil {
+public abstract class WindowsUtil {
+
+    /**
+     * Сочетание клавиш Shift и Enter -
+     * если послать это сочетание веб элементу открывающему новую страницу -
+     * страница откроется в новом окне
+     */
+    public static String NewWindowOpen() {
+        return Keys.chord(Keys.SHIFT, Keys.ENTER);
+    }
+
+
+    /**
+     * Открыть url в новом окне
+     *
+     * @param url - url страницы
+     *            Пример - WebElement link = driver.findElement(By.tagName("a"));
+     *            openInNewWindow(link.getAttribute("href"));
+     */
+    public static void openInNewWindow(String url) {
+        executeJavaScript("window.open(arguments[0])", url);
+    }
+
+    /**
+     * The code below will open the link in new Tab
+     * <p/>
+     * пример - driver.findElement(By.linkText("urlLink")).sendKeys(selectLinkOpenInNewTab);
+     */
+    public static String selectLinkOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.RETURN);
 
     /**
      * Метод появление новго окна - переключение, т.е. взаимодействие с данным окном
-     * <p>
+     * <p/>
      * пример использования,
      * driver.switchTo().window(new WebDriverWait(driver, 10).until(newWindowForm(By.cssSelector("#searchField"))));
      *
