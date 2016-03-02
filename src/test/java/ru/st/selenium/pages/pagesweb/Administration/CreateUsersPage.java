@@ -177,7 +177,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Сменить пароль при следующем входе
      */
-    @FindBy(id = "needpasswordchange_-1")
+    @FindBy(xpath = "//input[contains(@id,'needpasswordchange') and @type='checkbox']")
     private SelenideElement clickNeedPasswordChange;
 
     /**
@@ -439,40 +439,16 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     }
 
     /**
-     * Статус - Делопроизводитель
-     */
-    public CreateUsersPage setStatusClerk() {
-        clickStatus.click();
-        String selectStatus = Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN,
-                Keys.ARROW_DOWN, Keys.ENTER);
-        visibleEditor.sendKeys(selectStatus);
-        return this;
-    }
-
-    /**
-     * Дополнительный номер
+     * Заполнение строковых полей в форме реквизитов пользователя
      *
-     * @param text
-     * @return CreateUserPage
+     * @param clickField локатор элемента поля - выбор поля
+     * @param field      действия производимые над выбранным полем (очистить, заполнить зн-ие)
+     * @param valueField
      */
-    public CreateUsersPage setAdditionalNumber(String text) {
-        clickAdditionalNumber.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Порядок пользователя при принудительной сортировке
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setUserForcedSorting(String text) {
-        clickUserForcedSorting.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
+    public void rangeOfFieldsAndFillingInDetails(SelenideElement clickField, SelenideElement field, String valueField) {
+        clickField.click();
+        field.clear();
+        field.sendKeys(valueField);
     }
 
     /**
@@ -484,107 +460,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
         if (needsPassChange) {
             clickNeedPasswordChange.click();
         }
-        return this;
-    }
-
-    /**
-     * Страна
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setCountry(String text) {
-        clickСountry.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Почтовый код
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setPostalCode(String text) {
-        clickPostalCode.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Область
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setRegion(String text) {
-        clickRegion.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Адрес - улица, дом, кв.
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setAddress(String text) {
-        clickAddress.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Рабочий телефон
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setWorkIphone(String text) {
-        clickJobIphone.click();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Домашний телефон
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setHomeIphone(String text) {
-        clickHomeIphone.click();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * email
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setEmail(String text) {
-        clickEmail.click();
-        visibleEditor.clear();
-        visibleEditor.sendKeys(text);
-        return this;
-    }
-
-    /**
-     * Компания
-     *
-     * @param text
-     * @return CreateUserPage
-     */
-    public CreateUsersPage setCompany(String text) {
-        clickCompany.click();
-        visibleEditor.sendKeys(text);
         return this;
     }
 
@@ -826,10 +701,10 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
                 .setPasswordUser(user.getPassword())
                 .setСonfirmationPassword(user.getСonfirmationPassword())
                 .setStatus(user.getStatus())
-                .selModule(user.getModule())
-                .setAdditionalNumber(user.getAdditionalNumber())
-                .setUserForcedSorting(user.getUserForcedSorting())
-                .clickNeedPasswordChange(user.getNeedsPasswordChange())
+                .selModule(user.getModule());
+        rangeOfFieldsAndFillingInDetails(clickAdditionalNumber, visibleEditor, user.getAdditionalNumber()); // Доп. номер
+        rangeOfFieldsAndFillingInDetails(clickUserForcedSorting, visibleEditor, user.getUserForcedSorting()); // Порядок пользователя при принудительной сортировке
+        clickNeedPasswordChange(user.getNeedsPasswordChange())
                 .clickButtonSave()
 
                 .goToTopFrem();
@@ -856,10 +731,10 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
                 .setPasswordUser(editUser.getPassword())
                 .setСonfirmationPassword(editUser.getСonfirmationPassword())
                 .setStatus(editUser.getStatus())
-                .selModule(editUser.getModule())
-                .setAdditionalNumber(editUser.getAdditionalNumber())
-                .setUserForcedSorting(editUser.getUserForcedSorting())
-                .clickNeedPasswordChange(editUser.getNeedsPasswordChange())
+                .selModule(editUser.getModule());
+        rangeOfFieldsAndFillingInDetails(clickAdditionalNumber, visibleEditor, user.getAdditionalNumber()); // Доп. номер
+        rangeOfFieldsAndFillingInDetails(clickUserForcedSorting, visibleEditor, user.getUserForcedSorting()); // Порядок пользователя при принудительной сортировке
+        clickNeedPasswordChange(editUser.getNeedsPasswordChange())
                 .clickButtonSave()
 
                 .goToTopFrem();
