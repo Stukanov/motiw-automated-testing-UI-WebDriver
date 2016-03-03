@@ -1,6 +1,7 @@
 package ru.st.selenium.pages.pagespda;
 
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -14,6 +15,7 @@ import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 
 import static com.codeborne.selenide.CollectionCondition.*;
+import static com.codeborne.selenide.Condition.empty;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.page;
@@ -95,7 +97,6 @@ public class InternalPagePDA extends BasePage implements BaseInternalLogic {
 
     /**
      * Домой (возврат на основную стр-цу)
-     *
      */
     public BasePage goToHome() {
         home.click();
@@ -132,7 +133,7 @@ public class InternalPagePDA extends BasePage implements BaseInternalLogic {
      */
     public TasksReportsPagePDA goToTaskReports() {
         menuTaskReports.click();
-        $(By.xpath("//div[@id='mainblock']/table[3]//tr")).shouldBe(present);
+        $(By.xpath("//div[@id='mainblock']//a//span[text()]")).shouldBe(visible);
         return page(TasksReportsPagePDA.class);
     }
 
