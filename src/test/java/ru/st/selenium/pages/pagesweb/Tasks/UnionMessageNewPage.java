@@ -679,7 +679,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
         if (checkpoints == null) {
             return this;
         } else
-            goToTopFrem();
+            getFrameTop();
         switchTo().frame(Frame);
         $(planningTab).shouldBe(Condition.visible);
         planningTab.click(); // Выбор вкладки - Планирование
@@ -863,7 +863,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                 saveIWG(); // Сохранить текущую ИРГ
                 verifyCreateIWG(anIwg.getNameIWG()); // Проверяем отображение ИРГ в гриде
             }
-            goToTopFrem(); // уходим в ТОП фрейм
+            getFrameTop(); // уходим в ТОП фрейм
             gotoFrame(); // возвращаемся в основной фрейм для дальнейшей работы в задаче
         }
         return this;
@@ -891,7 +891,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
      * @param nameIWG передаем название ИРГ
      */
     public UnionMessageNewPage verifyCreateIWG(String nameIWG) {
-        goToTopFrem(); // уходим в ТОР фрейм
+        getFrameTop(); // уходим в ТОР фрейм
         gotoFrame(); // переходим в общий фрейм "flow"
         waitForPageUntilElementIsVisible(By.xpath("//div[@id='tab_iwg']//tbody//td[5]//div[text()='" + nameIWG + "']"), 5000);
         return this;

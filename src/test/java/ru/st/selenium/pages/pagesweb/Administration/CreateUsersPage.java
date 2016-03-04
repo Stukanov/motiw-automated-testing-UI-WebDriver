@@ -343,8 +343,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
 
     /**
      * Пол
-     *
-     * @return CreateUsersPage
      */
     public CreateUsersPage clickSex(boolean isMan) {
         if (isMan) {
@@ -357,8 +355,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
 
     /**
      * Дата рождения
-     *
-     * @return CreateUsersPage
      */
     public CreateUsersPage setDateOfBirth(String date) {
         birthDateField.click();
@@ -370,8 +366,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Должность
      *
-     * @param text
-     * @return CreateUsersPage
+     * @param text передаваемые атрибуты Должности пользователя
      */
     public CreateUsersPage setJobTitle(String text) {
         jobTitle.click();
@@ -381,28 +376,27 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     }
 
     /**
-     * Имя пользователя (login)
+     * Имя пользователя
      *
-     * @param text
-     * @return CreateUserPage
+     * @param userName передаваемое имя пользователя
      */
-    public CreateUsersPage setNameUserLogin(String text) {
+    public CreateUsersPage setNameUserLogin(String userName) {
         clickNameUserLogin.click();
         visibleEditor.clear();
-        visibleEditor.sendKeys(text);
+        visibleEditor.sendKeys(userName);
         return this;
     }
 
     /**
      * Пароль
      *
-     * @param text передаваемый - пароль - пользователя
+     * @param passwordUser передаваемый - пароль - пользователя
      * @return CreateUserPage
      */
-    public CreateUsersPage setPasswordUser(String text) {
+    public CreateUsersPage setPasswordUser(String passwordUser) {
         clickFieldPassword.click();
         visibleEditor.clear();
-        visibleEditor.sendKeys(text);
+        visibleEditor.sendKeys(passwordUser);
         String confPass = Keys.chord(Keys.ENTER);
         visibleEditor.sendKeys(confPass);
         return this;
@@ -411,13 +405,13 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Подтверждение пароля
      *
-     * @param text передаваемое - подтверждение пароля - пользователя
+     * @param confirmationPassword передаваемое значение - подтверждение пароля - пользователя
      * @return CreateUserPage
      */
-    public CreateUsersPage setСonfirmationPassword(String text) {
+    public CreateUsersPage setСonfirmationPassword(String confirmationPassword) {
         clickСonfirmationPassword.click();
         visibleEditor.clear();
-        visibleEditor.sendKeys(text);
+        visibleEditor.sendKeys(confirmationPassword);
         return this;
     }
 
@@ -558,7 +552,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     public CreateUsersPage clickButtonSaveAlias() {
         buttonSaveAlias.click();
         return this;
-
     }
 
     /**
@@ -573,8 +566,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Метод устновки прав на модуль
      *
-     * @param module
-     * @return
+     * @param module параметр установки прав на определенные модули системы
      */
     public CreateUsersPage selModule(Module module) {
         if (module == DOCFLOW) {
@@ -621,7 +613,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     @Override
     public void deleteUser(Employee user) {
-        goToTopFrem();
+        getFrameTop();
         initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage().waitForMask();
         clickUserByName(user); // выбираем пользователя в гриде
@@ -644,8 +636,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
 
     /**
      * Инициализация класса - Внутреняя страница
-     *
-     * @return
      */
     public InternalPage initializationInternalPage() {
         return page(InternalPage.class);
@@ -657,7 +647,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     @Override
     public void createAndCheckAliasForDep(Employee user, Department department) {
-        goToTopFrem();
+        getFrameTop();
         initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage();
         waitForMask();
@@ -675,7 +665,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      * данного пользователя
      */
     public void checkIsAlias(Employee user, Department department) {
-        goToTopFrem();
+        getFrameTop();
         initializationInternalPage().searchFacilityOnTheGrid(user.getLastName());
         goToFremDepartmentPage();
         waitForMask();
@@ -707,7 +697,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
         clickNeedPasswordChange(user.getNeedsPasswordChange())
                 .clickButtonSave()
 
-                .goToTopFrem();
+                .getFrameTop();
         goToFremUsersPage()
                 .ensurePageLoaded().verifyCreateUser(user);
     }
@@ -737,7 +727,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
         clickNeedPasswordChange(editUser.getNeedsPasswordChange())
                 .clickButtonSave()
 
-                .goToTopFrem();
+                .getFrameTop();
         goToFremUsersPage()
                 .ensurePageLoaded().verifyCreateUser(editUser);
     }

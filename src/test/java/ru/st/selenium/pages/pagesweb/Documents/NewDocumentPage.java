@@ -91,24 +91,18 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Создвть новый проект
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//div[count(img)=2]//img[2]")
     private SelenideElement newProject;
 
     /**
      * Выбрать существующий проект
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//div[count(img)=2]//img[1]")
     private SelenideElement selectExistentProject;
 
     /**
      * Поле проект
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//tr[1]/td[2]/div")
     private SelenideElement projectField;
@@ -116,47 +110,36 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Описание проекта
      *
-     * @FindBy
      */
     @FindBy(xpath = "//tr[2]/td[2]/div")
     private SelenideElement projectDescription;
 
     /**
      * Заказчик проекта
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//tr[4]/td[2]/div")
     private SelenideElement projectClient;
 
     /**
      * Окончание проекта
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//tr[6]/td[2]/div")
     private SelenideElement projectEnd;
 
     /**
      * Сохранить проект
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//*[contains (@class, 'footer')]//a[3]/../a[1]//span[2]")
     private SelenideElement projectSave;
 
     /**
      * Поле ввода для  поля проекта
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
     private SelenideElement editorFieldProject;
 
     /**
      * Поле текста для  проекта
-     *
-     * @FindBy
      */
     @FindBy(xpath = "//textarea")
     private SelenideElement editorTextProject;
@@ -188,7 +171,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Область редактирования поля типа Текст
      *
-     * @FindBy
      */
     @FindBy(css = "body")
     private SelenideElement ckeBody;
@@ -196,7 +178,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Кнопка сохранения в форме расширенного текстового редактора (CKE)
      *
-     * @FindBy
      */
     @FindBy(xpath = "//*[contains (@class,'window-noborder')][contains (@style,'visible')]//td[contains (@class,'cell')][1]")
     private SelenideElement buttonSaveDescription;
@@ -291,8 +272,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Выбираем вкладку - Карточки документа
-     *
-     * @return
      */
     public NewDocumentPage selDocumentCartTab() {
         documentCartTab.click();
@@ -302,8 +281,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * выбор поля - Тип документа
      *
-     * @param typeNameDoc
-     * @return NewDocumentPage
+     * @param typeNameDoc передаваемое название Типа документа - выбор в форме Создания документа
      */
     public NewDocumentPage selFieldDocumentType(DocRegisterCards typeNameDoc) {
         if (typeNameDoc == null) {
@@ -594,7 +572,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
      *
      */
     public NewDocumentPage clickSaveAndCreateNewDocument() {
-        goToTopFrem();
+        getFrameTop();
         gotoFrameFormNewDocument();
         $(By.xpath("//div[@id='saveAndNewButton']//button")).shouldBe(Condition.present);
         saveAndCreateNewDocument.click();

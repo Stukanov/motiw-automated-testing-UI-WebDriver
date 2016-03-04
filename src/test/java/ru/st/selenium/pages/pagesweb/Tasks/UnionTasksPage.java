@@ -146,7 +146,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         waitForMask();
         ensurePageLoaded();
         $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
-        goToTopFrem();
+        getFrameTop();
         findTask(task.getTaskName());
         goToFrame();
         waitForMask();
@@ -253,7 +253,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                     setTheConditionOfFiltration("Начало", "Относительное значение - Сегодня");
                 }
                 saveСhangesInTheCustomFolder.click();
-                goToTopFrem();
+                getFrameTop();
                 goToFrame();
                 checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем создание папки в гриде
 

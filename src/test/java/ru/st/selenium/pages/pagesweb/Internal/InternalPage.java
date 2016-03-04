@@ -229,7 +229,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @param firstclick передаваемый первый клик на элемент меню
      */
     private void oneTierNavigation(SelenideElement firstclick) {
-        goToTopFrem();
+        getFrameTop();
         firstclick.click();
         getFrameFlow();
     }
@@ -241,7 +241,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @param secondclick вторая навигация на элемент меню
      */
     private void twoTierNnavigation(SelenideElement firstclick, SelenideElement secondclick) {
-        goToTopFrem();
+        getFrameTop();
         firstclick.click();
         secondclick.click();
         getFrameFlow();
@@ -255,7 +255,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @param thirdclick  третий клик на эдемент меню
      */
     private void threeTierNavigation(SelenideElement firstclick, SelenideElement secondclick, SelenideElement thirdclick) {
-        goToTopFrem();
+        getFrameTop();
         firstclick.click();
         action.moveToElement(secondclick).perform();
         $(thirdclick).shouldBe(Condition.visible);
@@ -385,7 +385,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      */
     @Override
     public void logout() {
-        goToTopFrem();
+        getFrameTop();
         $(Logout).shouldBe(Condition.visible).click();
         $(By.cssSelector("#login")).shouldBe(Condition.visible);
         $(By.cssSelector("#pass")).shouldBe(Condition.visible);
@@ -409,7 +409,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @return InternalPage
      */
     public InternalPage checkUserWorkflow() {
-        goToTopFrem();
+        getFrameTop();
         $(By.xpath("//*[@id='doc-search']/a")).shouldNotBe(Condition.visible);
         menuDocument.shouldNotBe(Condition.visible);
         return this;
@@ -422,7 +422,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @return InternalPage
      */
     public InternalPage checkUserDocflow() {
-        goToTopFrem();
+        getFrameTop();
         menuTask.click();
         assertFalse(isElementPresent(By.xpath("//*[@id='L_INFORMER_CREATETASK-menupoint']")));
         return this;

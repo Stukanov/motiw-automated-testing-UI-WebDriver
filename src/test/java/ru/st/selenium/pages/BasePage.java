@@ -16,12 +16,16 @@ public abstract class BasePage {
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)
      */
-    public BasePage goToTopFrem() {
-        switchTo().defaultContent();
-        return this;
+    public WebDriver getFrameTop() {
+        return switchTo().defaultContent();
     }
 
-    public WebDriver getFrameFlow(){
+    /**
+     * Основной фрейм
+     *
+     * @return возвращаем основной фрейм
+     */
+    public WebDriver getFrameFlow() {
         return switchTo().frame($(By.id("flow")));
     }
 
