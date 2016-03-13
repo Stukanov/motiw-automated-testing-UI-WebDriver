@@ -257,17 +257,11 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     private SelenideElement ckeWysiwygFrame;
 
     /**
-     * Основной фрейм
-     */
-    @FindBy(id = "flow")
-    private SelenideElement Frem;
-
-    /**
      * Фрейм редактирования атрибутов пользователя
      *
      * @return CreateUsersPage
      */
-    public CreateUsersPage gotoFremEditUser() {
+    public CreateUsersPage goToFrameEditUser() {
         getWebDriver().switchTo().frame(fremEditUser);
         return this;
     }
@@ -279,16 +273,6 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     public CreateUsersPage CkeWysiwygFrame() {
         getWebDriver().switchTo().frame(ckeWysiwygFrame);
-        return this;
-    }
-
-    /**
-     * Уходим во фрейм - Администрирование/Пользователи
-     *
-     * @return CreateUsersPage
-     */
-    public CreateUsersPage goToFremUsersPage() {
-        getWebDriver().switchTo().frame(Frem);
         return this;
     }
 
@@ -660,9 +644,12 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     }
 
     /**
-     * Проверка наличия псевдонима в подразделении. Методу передается
+     * Проверяем наличие псевдонима в Подразделении. Методу передается
      * пользователь оригинал, и подразделение для которого нужно проверить наличие псевдонима
      * данного пользователя
+     *
+     * @param user       атрибуты пользователя
+     * @param department атрибуты подразделения
      */
     public void checkIsAlias(Employee user, Department department) {
         getFrameTop();
@@ -675,12 +662,14 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Метод Добавления пользователей. В качестве параметра передается объект
      * создаваемого пользователя и подразделение, в которое он будет помещен
+     *
+     * @param user атрибуты пользователя
      */
     @Override
     public void createUser(Employee user) {
         selectTheParentUnit(user.getDepartment());
         buttonAddUser() // Добавить пользователя
-                .gotoFremEditUser() // Переходим в iframe формы добавления пользователя
+                .goToFrameEditUser() // Переходим в iframe формы добавления пользователя
                 .setLastNameField(user.getLastName()) // ФИО
                 .setNameField(user.getName()) // Имя
                 .setPatronymicField(user.getPatronymic()) // Отчество
@@ -698,19 +687,21 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
                 .clickButtonSave()
 
                 .getFrameTop();
-        goToFremUsersPage()
-                .ensurePageLoaded().verifyCreateUser(user);
+        getFrameFlow();
+        ensurePageLoaded().verifyCreateUser(user);
     }
 
     /**
      * Метод Редактирования пользователей. В качестве параметра передается объект
      * созданного пользователя и его подразделение, в котором он был создан
+     * @param user атрибуты пользователя
+     * @param editUser атрибуты нового пользователя
      */
     @Override
     public void editUser(Employee editUser, Employee user) {
         selectTheParentUnit(user.getDepartment());
         clickEditUserFormByName(user)// выбираем пользователя в гриде для редактирования
-                .gotoFremEditUser() // Переходим в iframe формы добавления пользователя
+                .goToFrameEditUser() // Переходим в iframe формы добавления пользователя
                 .setLastNameField(editUser.getLastName())
                 .setNameField(editUser.getName())
                 .setPatronymicField(editUser.getPatronymic())
@@ -728,7 +719,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
                 .clickButtonSave()
 
                 .getFrameTop();
-        goToFremUsersPage()
-                .ensurePageLoaded().verifyCreateUser(editUser);
+        getFrameFlow();
+        ensurePageLoaded().verifyCreateUser(editUser);
     }
 }

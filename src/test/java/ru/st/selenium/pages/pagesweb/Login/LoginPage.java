@@ -115,7 +115,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
      * @return возвращаяет истенность, если Логин пользователя (при авторизации) совпадает с логином указанный
      * в реквизитах пользователя
      */
-    @Step("Проверяем, что используемый логин пользователя при входе в Систему" +
+    @Step("Проверяем, что используемый логин пользователя при входе в Систему " +
             "соответствует логину заданному в реквизитах пользователя - Мои реквизиты")
     @Override
     public boolean isLoggedInAs(Employee user) {
@@ -129,7 +129,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
      * @param user атрибуты пользователя (в данном случае Логин пользователя) ФИО
      * @return возвращаяет истенность, если ФИО пользователя (при создании) совпадает с названием системной папки Библиотеки
      */
-    @Step("Проверяем отображение системной папки Библиотеки пользователя")
+    @Step("Проверяем отображение созданной системной папки Библиотеки пользователя")
     @Override
     public boolean checkTheSystemFolderMappingUserLibrary(Employee user) {
         return isLoggedIn()

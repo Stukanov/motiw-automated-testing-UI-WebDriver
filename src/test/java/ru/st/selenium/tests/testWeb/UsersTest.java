@@ -220,7 +220,6 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
     }
 
 
-    //
     @Severity(SeverityLevel.CRITICAL)
     @Title("Удаление пользователей")
     @Description("Проверяем Удаление ранее созданных пользователей и подразделений из Системы")
