@@ -250,7 +250,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 goToFrameFormFolder();
                 selFolderName(folder.getNameFolder());
                 if (folder.isUseFilter()) {
-                    setTheConditionOfFiltration("Начало", "Относительное значение - Сегодня");
+                    setTheConditionOfFiltration("Начало", "Сегодня");
                 }
                 saveСhangesInTheCustomFolder.click();
                 getFrameTop();
@@ -276,7 +276,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).setValue(field);
         $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();   // Выбор поля - Значение
-        if (field.equals("Начало") & (relativeImportanceOf.equals("Относительное значение - Сегодня"))) {
+        if (field.equals("Начало") & (relativeImportanceOf.equals("Сегодня"))) {
             $(By.xpath("//input[contains(@id,'checkbox') and (@type='button') and (@role='checkbox')]")).click();
         } else {
             $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();
