@@ -1,5 +1,6 @@
 package ru.st.selenium.tests.testWeb;
 
+import com.codeborne.selenide.testng.SoftAsserts;
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -30,7 +31,7 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Listeners({ScreenShotOnFailListener.class, TextReport.class, SoftAsserts.class})
 @Features("Создать задачу (Web)")
 @Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskCaseTest {

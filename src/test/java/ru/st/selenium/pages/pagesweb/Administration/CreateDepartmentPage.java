@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.st.selenium.logicinterface.WebLogic.DepartmentsLogic;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.pages.BasePage;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -403,6 +404,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      *
      * @param department передаваемые атрибуты подразделения
      */
+    @Step("Создаем пользовательское подразделение")
     @Override
     public void createDepartment(Department department) {
         if (department.getParentDepartment() != null) {
@@ -427,7 +429,6 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
 
     }
 
-
     /**
      * Подтверждение удаления подразделения
      *
@@ -446,6 +447,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      * @param editedDepartment передаваемые атрибуты полей редактируемого подразделения
      * @param department передаваемые атрибуты начального подразделения
      */
+    @Step("Редактируем пользовательское Подразделение")
     @Override
     public void editDepartments(Department editedDepartment, Department department) {
         selectTheParentUnit(editedDepartment)
@@ -462,6 +464,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      * Удаление подразделений, удаляет подраздделения, даже, когда у удаляемого
      * подразделения есть вложенные
      */
+    @Step("Удаляем пользовательское Подразделение")
     @Override
     public void deleteDepartment(Department department) {
         ensurePageLoaded()
@@ -480,6 +483,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
     /**
      * ДнД подразделения с сохранением дополнительных полномочий
      */
+    @Step("ДнД Подразделения пользователя")
     @Override
     public void dndSavePermissions(Department source, Department target) {
         DnDDepartment(source, target).checkingMessagesConfirmationOfTheObject(getExpectedMessageTextToDialog,

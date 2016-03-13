@@ -9,6 +9,8 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
+import static ru.st.selenium.utils.AllureReportsUtils.makeScreenshot;
+
 /**
  * Created by Sidelnikov Mikhail on 14.07.15.
  * This listener adds screenshot taking on test failure
@@ -33,6 +35,7 @@ public class ScreenShotOnFailListener implements ITestListener {
          * При этом Selenide создаст два файла: my_file_name.png и my_file_name.html
          */
         ScreenShotUtil.takeScreenShot();
+        makeScreenshot();
     }
 
     @Override
@@ -55,8 +58,5 @@ public class ScreenShotOnFailListener implements ITestListener {
 
     }
 
-    @Attachment(value = "Page screenshot", type = "image/png")
-    private byte[] makeScreenshot() {
-        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-    }
+
 }
