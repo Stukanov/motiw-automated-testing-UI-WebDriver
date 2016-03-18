@@ -272,6 +272,12 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
     @FindBy(xpath = "//li[text()='Подразделение']")
     private SelenideElement typeFieldDepartment;
 
+    /*
+     * Сотрудник
+     */
+    @FindBy(xpath = "//li[text()='Сотрудник']")
+    private SelenideElement typeFieldEmployee;
+
 
     //--------------------------------------------------------------------Вкладка - НАСТРОЙКИ---------------------------------------------------------------------------------
 
@@ -825,14 +831,14 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDate) {
                             selectTheTypeOfField(typeFieldData);
                             TypeListFieldsDate fieldsDate = (TypeListFieldsDate) fieldTaskTypes.getFieldType();
-                            // 7. СПРАВОЧНИК
+                            // 6. СПРАВОЧНИК
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDirectory) {
                             selectTheTypeOfField(typeFieldReferenceToTheDictionary);
                             TypeListFieldsDirectory fieldsDir = (TypeListFieldsDirectory) fieldTaskTypes.getFieldType();
                             chooseDirectory(fieldsDir.getDirectories().getDirectoryName()); // Выбор спр-ка
                             chooseFieldDirectoryAndTable(fieldsDir.getFieldDirectory().getFieldName()); // Выбор поля спр-ка
                             selDirectoryTemplate(fieldsDir.getDisplayNameTemplate()); // Шаблон отображения
-                            // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
+                            // 7. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsMultiDirectory) {
                             selectTheTypeOfField(typeFieldMultipleReferenceToTheDictionary);
                             TypeListFieldsMultiDirectory fieldsMultiDir = (TypeListFieldsMultiDirectory) fieldTaskTypes.getFieldType();
@@ -870,10 +876,14 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
                             chooseTable(fieldsTable.getTypesOfTables().getTableTypeName()); // Выбор объекта - Таблица, из списка
                             chooseFieldDirectoryAndTable(fieldsTable.getFieldTable().getFieldName()); // Выбор поля объекта - Таблица, из списка
                             selDirectoryTemplate(fieldsTable.getNumeratorTemplate()); // Шаблон отображения
-                            // 13. ПОДРАЗДЕЛЕНИЕ
+                            // 14. ПОДРАЗДЕЛЕНИЕ
                         } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsDepartment) {
                             selectTheTypeOfField(typeFieldDepartment);
                             TypeListFieldsDepartment fieldsDepartment = (TypeListFieldsDepartment) fieldTaskTypes.getFieldType();
+                            // 15. СТРУДНИК
+                        } else if (fieldTaskTypes.getFieldType() instanceof TypeListFieldsEmployee) {
+                            selectTheTypeOfField(typeFieldEmployee);
+                            TypeListFieldsEmployee fieldsEmployee = (TypeListFieldsEmployee) fieldTaskTypes.getFieldType();
                         }
 
                         selObligatoryField(fieldTaskTypes.getObligatory()); // Обязательность поля
@@ -893,9 +903,9 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      */
     @Override
     public void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes) {
-        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 6,
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 7,
                 By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a//span[text()]"), new String[]{"Настройки", "Поля", "Обработчики", "Настройки почтовых уведомлений",
-                        "Оценки и доклады", "Доступ"});
+                        "Оценки и доклады", "Доступ", "Форматы"});
         clickFieldsTab() // Вкладка - Поля
                 .addAllFieldsTaskTypes(tasksTypes.getTasksTypesFields()) // Добавление полей
 
@@ -912,7 +922,6 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
                 .selOpenFilesForEdit(tasksTypes.getOpenFilesForEdit()) // Открывать файлы для редактирования
                 .selIsAttachFilesToActionLine(tasksTypes.getIsAttachFilesToActionLine()) // Добавлять файлы в ленту действий
                 .selIsAttachFilesToDescription(tasksTypes.getIsAttachFilesToDecription()) // Добавлять файлы в описание
-
 
                 .clickSaveObject() // Сохранить объект
 

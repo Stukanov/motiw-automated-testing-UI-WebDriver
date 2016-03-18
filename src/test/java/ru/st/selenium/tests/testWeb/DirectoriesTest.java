@@ -56,22 +56,7 @@ public class DirectoriesTest extends ModuleAdministrationObjectCaseTest {
         // Добавляем настройки И поля спр-ка
         directoriesEditPage.addSettingsAndFieldDirectories(directories);
 
-        // Выход из системы
-        internalPage.logout();
-        // Проверка - пользователь разлогинен
-        assertTrue(loginPage.isNotLoggedIn());
-
-        /*
-         * Проверяем удаление объекта - Справочник
-         */
-        loginPage.loginAs(ADMIN);
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
-                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
-        assertTrue(loginPage.isLoggedIn());
-
         //-------------------------------------------------------Удаляем / Справочники
-        internalPage.goToDirectories();
-        // Удаляем объект - Справочник
         directoriesPage.removeAnDirectories(directories);
 
         internalPage.logout();

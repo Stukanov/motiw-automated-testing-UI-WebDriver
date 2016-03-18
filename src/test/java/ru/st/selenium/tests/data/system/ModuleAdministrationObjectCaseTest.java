@@ -350,6 +350,12 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                 .setFieldID("DEPARTMENT" + randomIdentifier(5))
                 .setFieldType(new TypeListFieldsDepartment());
 
+        // 15. СОТРУДНИК
+        TasksTypesField fieldEmployee = new TasksTypesField()
+                .setFieldName("Сотрудник " + randomString(5))
+                .setFieldID("EMPLOYEE" + randomIdentifier(5))
+                .setFieldType(new TypeListFieldsEmployee());
+
 
         // Инициализация объекта - Типы задач с настройками
         TasksTypes tasksTypes = new TasksTypes("wD_Тип задачи " + randomString(20))
@@ -372,7 +378,7 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                 .setTasksTypesFields(new TasksTypesField[]
                         {fieldStringIsListChoice, fieldStringIsNotListChoice, fieldText, fieldInt,
                                 fieldFloat, fieldDate, fieldDirectory, fieldMultiDirectory, fieldBoolean, libraryLink, fieldReferenceToTheTask,
-                                fieldNumerator, fieldObjectLink, fieldTable, fieldDepartment});
+                                fieldNumerator, fieldObjectLink, fieldTable, fieldDepartment, fieldEmployee});
 
         return new Object[][]{
 

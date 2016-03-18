@@ -16,9 +16,7 @@ import ru.st.selenium.pages.pagesweb.Options.PwdPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertFalse;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
@@ -218,12 +216,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     }
 
     /**
-     * Пользователяская API для эмуляции сложных пользовательских действий
-     * (клавиатуры и мыши)
-     */
-    Actions action = new Actions(getWebDriver());
-
-    /**
      * Метод 1-х уровневой навигации
      *
      * @param firstclick передаваемый первый клик на элемент меню
@@ -257,9 +249,9 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     private void threeTierNavigation(SelenideElement firstclick, SelenideElement secondclick, SelenideElement thirdclick) {
         getFrameTop();
         firstclick.click();
-        action.moveToElement(secondclick).perform();
+        actions().moveToElement(secondclick).perform();
         $(thirdclick).shouldBe(Condition.visible);
-        action.moveToElement(thirdclick).perform();
+        actions().moveToElement(thirdclick).perform();
         thirdclick.click();
         getFrameFlow();
     }
@@ -389,7 +381,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
         $(Logout).shouldBe(Condition.visible).click();
         $(By.cssSelector("#login")).shouldBe(Condition.visible);
         $(By.cssSelector("#pass")).shouldBe(Condition.visible);
-
     }
 
     /**
@@ -413,7 +404,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
         $(By.xpath("//*[@id='doc-search']/a")).shouldNotBe(Condition.visible);
         menuDocument.shouldNotBe(Condition.visible);
         return this;
-
     }
 
     /**
@@ -428,7 +418,6 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
         return this;
 
     }
-
 
     /**
      * Переход в меню - Настройки/Мои реквизиты
