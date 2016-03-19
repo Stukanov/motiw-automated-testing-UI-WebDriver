@@ -1,6 +1,6 @@
 package ru.st.selenium.logicinterface.WebLogic.Task;
 
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionMessagePage;
 
 /**

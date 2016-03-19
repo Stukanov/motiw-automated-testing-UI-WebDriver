@@ -11,7 +11,7 @@ import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocR
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCardsField;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.*;
 import ru.st.selenium.model.Document.Document;
-import ru.st.selenium.model.Task.Project;
+import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.BasePage;

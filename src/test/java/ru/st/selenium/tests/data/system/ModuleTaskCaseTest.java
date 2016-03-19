@@ -3,7 +3,7 @@ package ru.st.selenium.tests.data.system;
 import org.testng.annotations.DataProvider;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Period;
-import ru.st.selenium.model.Task.*;
+import ru.st.selenium.model.Tasks.*;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 
 import ru.st.selenium.model.Administration.Users.Employee;
@@ -194,6 +194,7 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
         return new Folder()
                 .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
                 .setUseFilter(randomBoolean())
+                .setChooseRelativeValue(randomBoolean())
                 .setSharedFolder(randomBoolean()) // Общая папка
                 .setAddSharedFolderForAll(randomBoolean()) // Добавить всем
                 .setAddSharedFolderForNewUsers(randomBoolean());
@@ -209,6 +210,7 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                 new Folder()
                         .setNameFolder("wD_Box " + randomString(10)) // Зн-ие НЕ изменять - используется в проверке - checkDisplayCreateAFolderInTheGrid()
                         .setUseFilter(randomBoolean())
+                        .setChooseRelativeValue(randomBoolean())
                         .setSharedFolder(randomBoolean())
                         .setAddSharedFolderForAll(randomBoolean())
                         .setAddSharedFolderForNewUsers(randomBoolean()),

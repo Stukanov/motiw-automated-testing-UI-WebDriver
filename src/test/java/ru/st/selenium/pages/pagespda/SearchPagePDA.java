@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.BasePage;
 

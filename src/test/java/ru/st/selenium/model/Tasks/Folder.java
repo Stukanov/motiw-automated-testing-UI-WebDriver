@@ -1,4 +1,4 @@
-package ru.st.selenium.model.Task;
+package ru.st.selenium.model.Tasks;
 
 /**
  * Папка
@@ -11,16 +11,17 @@ public class Folder {
     private boolean addSharedFolderForAll;
     private boolean addSharedFolderForNewUsers;
     private Folder parentFolder;
+    private boolean chooseRelativeValue;
 
 
     /*
      * Наименование родительского папки
      */
-    public Folder getParentDepartment() {
+    public Folder getParentFolder() {
         return parentFolder;
     }
 
-    public Folder setParentDepartment(Folder parent) {
+    public Folder setParentFolder(Folder parentFolder) {
         this.parentFolder = parentFolder;
         return this;
     }
@@ -48,6 +49,20 @@ public class Folder {
         this.useFilter = useFilter;
         return this;
     }
+
+    /*
+    Относительное значение
+    */
+    public boolean isChooseRelativeValue() {
+        return chooseRelativeValue;
+    }
+
+    public Folder setChooseRelativeValue(boolean chooseRelativeValue) {
+        this.chooseRelativeValue = chooseRelativeValue;
+        return this;
+    }
+
+
 
     /*
     Общая папка

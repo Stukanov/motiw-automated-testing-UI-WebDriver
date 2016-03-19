@@ -43,7 +43,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Проверяем отображение п.м. системы
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         internalPagePDA.logout(); // Выход из системы
     }

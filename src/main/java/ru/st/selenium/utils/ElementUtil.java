@@ -1,5 +1,6 @@
 package ru.st.selenium.utils;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.actions;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -18,35 +20,28 @@ public abstract class ElementUtil {
     //------------------------------------------------------------------------------------Эмитация клавиш
 
     /**
-     * Пользователяская API для эмуляции сложных пользовательских действий
-     * (эмуляция клавиатуры и мыши)
-     */
-
-    private static Actions actions = new Actions(getWebDriver());
-
-    /**
      * Метод клавиатурного выбора настроек, смещение на ОДНУ позицию вниз,
      * например, Скрывать...; Изменяемое при редактировании и etc., полей значение полей, выбирает значение == Да
      */
     public static void selectingSecondAdjustmentPosition() {
-        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
-        actions.build().perform();
+        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
+        actions().build().perform();
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ДВЕ позиции вниз,
      */
     public static void selectingThirdAdjustmentPosition() {
-        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        actions.build().perform();
+        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        actions().build().perform();
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ТРИ позиции вниз,
      */
     public static void selectingFourthlyAdjustmentPosition() {
-        actions = actions.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        actions.build().perform();
+        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        actions().build().perform();
     }
 
     //------------------------------------------------------------------------------------Взаимодействие с элементом на стр.
@@ -59,11 +54,9 @@ public abstract class ElementUtil {
      * @param elementWaitVisibility передаваемая переменная (элемент DOM) для взаимодействия, ожидание
      *                              появления данного элемента
      */
-    public void contextClickAction(SelenideElement element, WebElement elementWaitVisibility) {
-        actions.contextClick(element).perform();
-        (new WebDriverWait(getWebDriver(), 10))
-                .until(ExpectedConditions
-                        .visibilityOfElementLocated((By) elementWaitVisibility));
+    public static void contextClickAction(SelenideElement element, SelenideElement elementWaitVisibility) {
+        actions().contextClick(element).perform();
+        elementWaitVisibility.shouldBe(Condition.visible, Condition.present);
     }
 
     /**
@@ -71,7 +64,7 @@ public abstract class ElementUtil {
      *
      * @param element переменная для взаимодействия
      */
-    public void clickOnInvisibleElement(SelenideElement element) {
+    public static void clickOnInvisibleElement(SelenideElement element) {
 
         String script = "var object = arguments[0];"
                 + "var theEvent = document.createEvent(\"MouseEvent\");"

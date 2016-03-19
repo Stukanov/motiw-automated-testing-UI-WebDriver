@@ -8,12 +8,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageNewLogic;
-import ru.st.selenium.model.Task.Checkpoint;
-import ru.st.selenium.model.Task.IWG;
-import ru.st.selenium.model.Task.Project;
+import ru.st.selenium.model.Tasks.Checkpoint;
+import ru.st.selenium.model.Tasks.IWG;
+import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 
 

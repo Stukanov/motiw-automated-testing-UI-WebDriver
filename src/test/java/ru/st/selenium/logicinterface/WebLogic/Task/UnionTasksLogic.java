@@ -1,8 +1,8 @@
 package ru.st.selenium.logicinterface.WebLogic.Task;
 
 import com.codeborne.selenide.SelenideElement;
-import ru.st.selenium.model.Task.Folder;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Folder;
+import ru.st.selenium.model.Tasks.Task;
 
 /**
  * грид - Задачи/Задачи

@@ -8,8 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
-import ru.st.selenium.model.Task.Folder;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Folder;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 
@@ -23,12 +23,6 @@ import static ru.st.selenium.utils.WindowsUtil.NewWindowOpen;
  */
 public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderLogic {
 
-
-    /*
-     * Основной фрейм
-     */
-    @FindBy(id = "flow")
-    private SelenideElement frame;
 
     /*
      * Фрейм - форма редактирования Папки
@@ -49,7 +43,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     private SelenideElement groupingFolder;
 
     /*
-     * Иерархия папок (папки в гриде)
+     * Коллекция иерархий папок (Папки в гриде)
      */
     @FindBy(xpath = "//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span")
     private ElementsCollection folderInTheGroup;
@@ -89,15 +83,6 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     @FindBy(xpath = "//input[contains(@id,'nameedit') and @type='text']")
     private SelenideElement folderName;
-
-
-    /**
-     * Переход в фрейм
-     */
-    public UnionTasksPage goToFrame() {
-        switchTo().frame(frame);
-        return this;
-    }
 
     /**
      * Переход в фрейм - форма редактирования Папки
@@ -148,7 +133,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
         getFrameTop();
         findTask(task.getTaskName());
-        goToFrame();
+        getFrameFlow();
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(Condition.visible);
@@ -228,6 +213,22 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 .shouldHaveSize(19); // проверяем, что ПУГЗ имеет 19 значений группировок
         grouping.click(); // выбрать группировка - Папка
         waitForMask();
+        $(By.xpath("//div[contains(@id,'extdd')]//img[2]")).isImage();
+
+    }
+
+    /**
+     * Выбираем папку в иерархии папок по Имени
+     *
+     * @param folder атрибуты папки
+     * @return
+     */
+    public void selectTheParentFolder(Folder folder) {
+        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
+                + parseNameFolder(folder.getNameFolder()) + "')]")).shouldBe(Condition.visible).click();
+        waitForMask();
+        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
+                + parseNameFolder(folder.getNameFolder()) + "')]")).shouldBe(Condition.visible).contextClick();
     }
 
     /**
@@ -242,25 +243,39 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         folderInTheGroup.first().shouldBe(Condition.present);
         if (folders != null) {
             for (Folder folder : folders) {
-                sleep(1000);
-                waitForMask();
-                folderInTheGroup.first().contextClick();
-                waitForMask();
-                addFolder.click();
-                goToFrameFormFolder();
-                selFolderName(folder.getNameFolder());
-                if (folder.isUseFilter()) {
-                    setTheConditionOfFiltration("Начало", "Сегодня");
+                if (folder.getParentFolder() != null) {
+                    selectTheParentFolder(folder.getParentFolder()); // Выбираем родительскую папку папку
+                    waitForMask();
+                    addFolder.click();
+                    goToFrameFormFolder();
+                    selFolderName(folder.getNameFolder());
+                    if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
+                        setTheConditionOfFiltration("Начало", "Сегодня");
+                    }
+                } else {
+                    sleep(1000);
+                    waitForMask();
+                    folderInTheGroup.first().contextClick();
+                    waitForMask();
+                    addFolder.click();
+                    goToFrameFormFolder();
+                    selFolderName(folder.getNameFolder());
+                    if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
+                        setTheConditionOfFiltration("Начало", "Сегодня");
+                    }
                 }
                 saveСhangesInTheCustomFolder.click();
                 getFrameTop();
-                goToFrame();
-                checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем создание папки в гриде
+                getFrameFlow();
+                if (folder.isUseFilter()) {
+                    checkDisplayCreateASmartFolderInTheGrid(folder.getNameFolder()); // Проверяем создание смарт-папки
+                } else checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем создание Обычной папки в гриде
 
-                //TODO PARENT (создание иерархических папок)!!!!
+
             }
         }
     }
+
 
     /**
      * Формируем условие фильтра - Начало (относительное значение == Сегодня)
@@ -286,11 +301,25 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
-     * Проверяем отображение созданной папки в гриде папок
+     * Проверяем отображение созданной папки в гриде Папок
+     *
+     * @param folder передаем название папки
      */
     public UnionTasksPage checkDisplayCreateAFolderInTheGrid(String folder) {
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder) + "')]")).shouldBe(Condition.visible);
         return this;
+    }
+
+    /**
+     * Проверяем отображение созданной смарт-папки в гриде Папок и пиктограммы смарт-папка (шестеренка)
+     *
+     * @param folder передаем название папки
+     */
+    public void checkDisplayCreateASmartFolderInTheGrid(String folder) {
+        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
+                + parseNameFolder(folder) + "')]")).shouldBe(Condition.visible);
+        $(By.xpath("//img[contains(@src,'smart')]/..//a//b[contains(text(),'" +
+                parseNameFolder(folder) + "')]//../../../../div//img[2]")).isImage();
     }
 
     /**

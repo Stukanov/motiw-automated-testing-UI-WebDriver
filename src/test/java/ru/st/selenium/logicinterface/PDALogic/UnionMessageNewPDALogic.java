@@ -1,6 +1,6 @@
 package ru.st.selenium.logicinterface.PDALogic;
 
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Task;
 
 /**
  * Создать задачу

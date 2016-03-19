@@ -3,7 +3,7 @@ package ru.st.selenium.model.Document;
 import ru.st.selenium.model.DocflowAdministration.DictionaryEditor.DictionaryEditorField;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.st.selenium.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCardsField;
-import ru.st.selenium.model.Task.Project;
+import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 

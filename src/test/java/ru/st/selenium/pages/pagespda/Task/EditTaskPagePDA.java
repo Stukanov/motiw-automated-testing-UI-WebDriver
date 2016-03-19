@@ -5,7 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.model.Administration.Users.Employee;
 
 import static com.codeborne.selenide.Condition.*;

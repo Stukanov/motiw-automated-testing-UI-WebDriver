@@ -1,8 +1,8 @@
 package ru.st.selenium.pages.pagespda.Task;
 
 import org.openqa.selenium.By;
-import ru.st.selenium.model.Task.Folder;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Folder;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;

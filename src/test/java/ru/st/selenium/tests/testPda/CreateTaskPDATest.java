@@ -1,10 +1,9 @@
 package ru.st.selenium.tests.testPda;
 
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import ru.st.selenium.model.Task.Folder;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Folder;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagespda.*;
 import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
@@ -25,7 +24,6 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
-import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -61,9 +59,9 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
 
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        // Добавляем Папки
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true),
-                folder[1].setUseFilter(false)});
+        // добавить Папку - для фильтрации созданных задач
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)
+                .setChooseRelativeValue(true)});
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
@@ -79,7 +77,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
@@ -135,7 +133,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
@@ -181,7 +179,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Task; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();

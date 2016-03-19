@@ -6,8 +6,8 @@ package ru.st.selenium.model.Administration.Users;
 public class Department {
 
     private Department parent;
-    private String depname;
-    private String conditionalnumber;
+    private String depName;
+    private String conditionalNumber;
     private String counter;
     private String resetdate;
     private String numeratortemplate;
@@ -28,11 +28,11 @@ public class Department {
      * Название подразделения
      */
     public String getDepName() {
-        return depname;
+        return depName;
     }
 
-    public Department setDepName(String depname) {
-        this.depname = depname;
+    public Department setDepName(String depName) {
+        this.depName = depName;
         return this;
     }
 
@@ -40,11 +40,11 @@ public class Department {
      * Условный номер
      */
     public String getConditionalNumber() {
-        return conditionalnumber;
+        return conditionalNumber;
     }
 
-    public Department setConditionalNumber(String conditionalnumber) {
-        this.conditionalnumber = conditionalnumber;
+    public Department setConditionalNumber(String conditionalNumber) {
+        this.conditionalNumber = conditionalNumber;
         return this;
     }
 

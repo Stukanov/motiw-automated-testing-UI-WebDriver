@@ -1,4 +1,4 @@
-package ru.st.selenium.model.Task;
+package ru.st.selenium.model.Tasks;
 
 import ru.st.selenium.model.ObjectRecord;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;

@@ -1,4 +1,4 @@
-package ru.st.selenium.model.Task;
+package ru.st.selenium.model.Tasks;
 
 /**
  * Модель объекта системы - "Проект"

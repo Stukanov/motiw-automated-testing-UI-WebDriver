@@ -8,8 +8,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.model.Task.Folder;
-import ru.st.selenium.model.Task.Task;
+import ru.st.selenium.model.Tasks.Folder;
+import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
@@ -56,7 +56,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         // Добавляем Папки(/у)
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)});
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)
+                .setChooseRelativeValue(true)});
 
         internalPage.logout();
         Assert.assertTrue(loginPage.isNotLoggedIn());
