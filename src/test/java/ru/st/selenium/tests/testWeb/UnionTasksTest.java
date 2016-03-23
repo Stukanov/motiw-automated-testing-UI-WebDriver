@@ -25,6 +25,7 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
+import static ru.st.selenium.model.Administration.Users.Module.COMPLETE;
 
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 @Features("Задачи / Задачи (Web)")
@@ -51,7 +52,8 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
      */
     Employee user = getRandomEmployer()
             .setNeedsPasswordChange(true) // сбросить признак - "Сменить пароль при следующем входе" (true - изменяем значение; false - оставляем без изменений)
-            .setDepartment(department); // определяем пользователя в подразделение
+            .setDepartment(department) // определяем пользователя в подразделение
+    .setModule(COMPLETE);
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверяем работу объекта - Папка")
@@ -86,6 +88,8 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
 
         internalPage.logout();
         Assert.assertTrue(loginPage.isNotLoggedIn());
+
+        // TODO - Редактирование Папки + Удаление чистка после теста!!!
     }
 
     @Severity(SeverityLevel.NORMAL)
@@ -128,7 +132,25 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен
 
-        // TODO - Удалеине пользователя И Подразделения
+        // Авторищируемся вновь под ADMIN - Удаляем Подразделение и Пользователя
+        loginPage.loginAs(ADMIN);
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
+        assertTrue(loginPage.isLoggedIn());
+
+        // Создаем подразделения для пользователей
+        internalPage.goToDepartments();
+
+        createDepartmentPage.beforeAdd();
+
+        // Инициализируем страницу - Администрирование/Пользователи
+        createUsersPage.deleteUser(user); // Пользователь и Подразделение
+        createDepartmentPage.deleteDepartment(department);
+
+        // Выход из Системы
+        internalPage.logout();
+        assertTrue(loginPage.isNotLoggedIn());
+
     }
 
 }
