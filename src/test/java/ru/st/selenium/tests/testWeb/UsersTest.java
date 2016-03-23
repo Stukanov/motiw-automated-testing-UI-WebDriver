@@ -1,8 +1,6 @@
 package ru.st.selenium.tests.testWeb;
 
-
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -23,8 +21,6 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
-
-import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -112,7 +108,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         createDepartmentPage.beforeAdd();
         createDepartmentPage.createDepartment(department1);
         createDepartmentPage.createDepartment(department2);
-        /**
+        /*
          * Создаем подразделение А
          * определяем для подразделения А, родительское подразделение Б, ИНАЧЕ создается, как НЕ дочернее
          * т.е. если есть в памяти - .setParentDepartment (Название родительского под-ия), подразделение создается как Дочернее
@@ -128,7 +124,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         createDepartmentPage.createDepartment(department2_2
                 .setParentDepartment(department2_1));
 
-        /**
+        /*
          проверяем - удаление ранеее созданных Подразделений
          */
         createDepartmentPage.deleteDepartment(department1);
@@ -174,7 +170,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         createUsersPage.createUser(workflow); // Создание пользователя с правом на модуль "WORKFLOW"
         createUsersPage.createUser(docflow); // Создание пользователя с правом на модуль "DOCFLOW"
 
-        /**
+        /*
          * Проверка создания псевдонима пользователя
          */
         createUsersPage.createAndCheckAliasForDep(user1, departmentUser1);
@@ -182,7 +178,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен
 
-        /**
+        /*
          * Верификация авторизации - под вновь созданными пользователями
          * user1 - пользователь 1; editUser - пользователь user2 (отредактированный пользователь)
          */
