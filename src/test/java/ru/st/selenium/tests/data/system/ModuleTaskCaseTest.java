@@ -215,7 +215,13 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                         .setAddSharedFolderForAll(randomBoolean())
                         .setAddSharedFolderForNewUsers(randomBoolean()),
 
-                getRandomFolder()};
+                getRandomFolder(),
+                getRandomFolder(),
+                getRandomFolder(),
+                getRandomFolder(),
+
+
+        };
     }
 
 }

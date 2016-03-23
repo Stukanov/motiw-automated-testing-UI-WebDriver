@@ -13,6 +13,7 @@ import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
@@ -67,6 +68,24 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     private SelenideElement checkUseFilter;
 
     /*
+     * Общая папка
+     */
+    @FindBy(css = "#tfolder_is_shared-inputEl")
+    private SelenideElement checkFolderSharedFilter;
+
+    /*
+     * Добавить всем
+     */
+    @FindBy(css = "#tfolder_addforall-inputEl")
+    private SelenideElement checkFolderAddForAll;
+
+    /*
+     * Добавлять для новых пользователей
+     */
+    @FindBy(css = "#tfolder_fornewuser-inputEl")
+    private SelenideElement checkAddSharedFolderForNewUsers;
+
+    /*
      * ОК (Подтверждение изменений в форме редактирования папки)
      */
     @FindBy(xpath = "(//*[contains(@id,'btnIconEl') and contains(@id,'button')])[2]")
@@ -96,9 +115,9 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * Проверка загрузки страницы
      */
     public UnionTasksPage ensurePageLoaded() {
-        $(By.xpath("//div[@id='tree_folders_wrapper']")).shouldBe(Condition.present); // Панель ПУГЗ
+        $(By.xpath("//div[@id='tree_folders_wrapper']")).shouldBe(present); // Панель ПУГЗ
         $(By.xpath("//td[@class='x-toolbar-left'][ancestor::div[contains(@id,'grid-repuniontasks')]]"))
-                .shouldBe(Condition.present); // Панель Навигации по гриду
+                .shouldBe(present); // Панель Навигации по гриду
 
         return this;
     }
@@ -115,7 +134,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * Ожидание маски грида - Задачи/Задачи
      */
     public UnionTasksPage waitForMask() {
-        $(By.xpath("//div[contains(@id,'ext-gen') and @class='ext-el-mask']")).shouldNotBe(Condition.present);
+        $(By.xpath("//div[contains(@id,'ext-gen') and @class='ext-el-mask']")).shouldNotBe(present, visible);
         return this;
     }
 
@@ -130,13 +149,13 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     public void openExistingTaskInTheFolderThroughTheSearch(Task task, Folder folder) {
         waitForMask();
         ensurePageLoaded();
-        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
+        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder())[0] + "')]")).click();
         getFrameTop();
         findTask(task.getTaskName());
         getFrameFlow();
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
-                .first().shouldBe(Condition.visible);
+                .first().shouldBe(visible);
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
     }
 
@@ -150,10 +169,10 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     public void openAnExistingTaskInFolder(Task task, Folder folder) {
         waitForMask();
         ensurePageLoaded();
-        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder()) + "')]")).click();
+        $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder())[0] + "')]")).click();
         waitForMask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
-                .first().shouldBe(Condition.visible);
+                .first().shouldBe(visible);
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
     }
 
@@ -225,10 +244,11 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     public void selectTheParentFolder(Folder folder) {
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
-                + parseNameFolder(folder.getNameFolder()) + "')]")).shouldBe(Condition.visible).click();
+                + parseNameFolder(folder.getNameFolder())[0] + "')]")).shouldBe(visible, present).click();
         waitForMask();
+        sleep(1000);
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
-                + parseNameFolder(folder.getNameFolder()) + "')]")).shouldBe(Condition.visible).contextClick();
+                + parseNameFolder(folder.getNameFolder())[0] + "')]")).shouldBe(visible, present).contextClick();
     }
 
     /**
@@ -240,12 +260,11 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     public void addFolders(Folder[] folders) {
         selectTheGroupInTheGrid(panelGroupingTasks, groupingFolder);
         unwrapAllNodesFolder();
-        folderInTheGroup.first().shouldBe(Condition.present);
+        folderInTheGroup.first().shouldBe(present);
         if (folders != null) {
             for (Folder folder : folders) {
                 if (folder.getParentFolder() != null) {
                     selectTheParentFolder(folder.getParentFolder()); // Выбираем родительскую папку папку
-                    waitForMask();
                     addFolder.click();
                     goToFrameFormFolder();
                     selFolderName(folder.getNameFolder());
@@ -253,8 +272,8 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                         setTheConditionOfFiltration("Начало", "Сегодня");
                     }
                 } else {
-                    sleep(1000);
                     waitForMask();
+                    sleep(1000);
                     folderInTheGroup.first().contextClick();
                     waitForMask();
                     addFolder.click();
@@ -264,12 +283,18 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                         setTheConditionOfFiltration("Начало", "Сегодня");
                     }
                 }
+                if (folder.isSharedFolder()) checkFolderSharedFilter.click();
+                if (folder.isAddSharedFolderForAll()) checkFolderAddForAll.click();
+                if (folder.isAddSharedFolderForNewUsers()) checkAddSharedFolderForNewUsers.click();
+
+
                 saveСhangesInTheCustomFolder.click();
                 getFrameTop();
                 getFrameFlow();
                 if (folder.isUseFilter()) {
-                    checkDisplayCreateASmartFolderInTheGrid(folder.getNameFolder()); // Проверяем создание смарт-папки
-                } else checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем создание Обычной папки в гриде
+                    checkDisplayCreateASmartFolderInTheGrid(folder.getNameFolder()); // Проверяем созданную Смарт-папку
+                } else
+                    checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем созданиую Обычную папку в гриде
 
 
             }
@@ -285,7 +310,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     public UnionTasksPage setTheConditionOfFiltration(String field, String relativeImportanceOf) {
         checkUseFilter.click();
-        $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(Condition.visible);
+        $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(visible);
         $(By.xpath("//tr[2]/td/div/span")).click();
         // Выбираем поле для фильтрации
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();
@@ -306,7 +331,8 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * @param folder передаем название папки
      */
     public UnionTasksPage checkDisplayCreateAFolderInTheGrid(String folder) {
-        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder) + "')]")).shouldBe(Condition.visible);
+        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder)[0] + "')]"))
+                .waitUntil(visible, 10000);
         return this;
     }
 
@@ -317,9 +343,9 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     public void checkDisplayCreateASmartFolderInTheGrid(String folder) {
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
-                + parseNameFolder(folder) + "')]")).shouldBe(Condition.visible);
+                + parseNameFolder(folder)[0] + "')]")).waitUntil(visible, 10000);
         $(By.xpath("//img[contains(@src,'smart')]/..//a//b[contains(text(),'" +
-                parseNameFolder(folder) + "')]//../../../../div//img[2]")).isImage();
+                parseNameFolder(folder)[0] + "')]//../../../../div//img[2]")).isImage();
     }
 
     /**
@@ -328,11 +354,15 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      *
      * @param folder передаваемое значение названия папки (имя целиком со счетчиками)
      */
-    private String parseNameFolder(String folder) {
-        String nameFolderParse = $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + folder + "')]"))
+    private String[] parseNameFolder(String folder) {
+        if (folder == null)
+            return null;
+        String[] splitNameFolderGrid;
+        String nameFolderParse = $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
+                + folder + "')]"))
                 .getText();
-        nameFolderParse = nameFolderParse.substring(0, 17);
-        return nameFolderParse;
+        splitNameFolderGrid = nameFolderParse.split("[(/0)]");
+        return splitNameFolderGrid;
     }
 
     /**

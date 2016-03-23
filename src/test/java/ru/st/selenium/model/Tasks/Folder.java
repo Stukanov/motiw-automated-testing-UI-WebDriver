@@ -62,8 +62,6 @@ public class Folder {
         return this;
     }
 
-
-
     /*
     Общая папка
      */

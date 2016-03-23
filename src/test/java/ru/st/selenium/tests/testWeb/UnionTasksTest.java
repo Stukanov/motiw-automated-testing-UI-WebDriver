@@ -39,9 +39,18 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         // Добавляем Папки(/у)
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)
-                .setChooseRelativeValue(true),
-        folder[1].setParentFolder(folder[0]).setUseFilter(false)});
+        unionTasksPage.addFolders(new Folder[]{
+                folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setChooseRelativeValue(true)
+                        .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),
+                folder[1].setNameFolder("Обычная папка " + randomString(4)).setUseFilter(false).setParentFolder(folder[0]).setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),
+                // Общая папка
+                folder[2].setNameFolder("Общая папка " + randomString(4)).setUseFilter(false).setSharedFolder(true).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),
+                // Добавить всем
+                folder[3].setNameFolder("Общая папка + Добавить всем " + randomString(4)).setUseFilter(false).setParentFolder(folder[1]).setSharedFolder(false).setAddSharedFolderForAll(true).setAddSharedFolderForNewUsers(false),
+                // Добавить для новых пользователей
+                folder[4].setNameFolder("Общая папка + Добавлять для нов. польз. " + randomString(4)).setUseFilter(false).setSharedFolder(true).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(true),
+
+        });
 
         internalPage.logout();
         Assert.assertTrue(loginPage.isNotLoggedIn());
