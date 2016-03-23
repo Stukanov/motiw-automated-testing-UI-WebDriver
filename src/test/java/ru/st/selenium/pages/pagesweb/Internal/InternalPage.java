@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.BaseInternalLogic;
 import ru.st.selenium.pages.BasePage;
@@ -17,7 +16,6 @@ import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertFalse;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
@@ -232,7 +230,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * @param firstclick  передаваемый первый клик на элемент меню
      * @param secondclick вторая навигация на элемент меню
      */
-    private void twoTierNnavigation(SelenideElement firstclick, SelenideElement secondclick) {
+    private void twoTierNavigation(SelenideElement firstclick, SelenideElement secondclick) {
         getFrameTop();
         firstclick.click();
         secondclick.click();
@@ -260,7 +258,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в Задачи/Создать задачу
      */
     public UnionMessageNewPage goToUnionMessageNew() {
-        twoTierNnavigation(menuTask, createTask);
+        twoTierNavigation(menuTask, createTask);
         return page(UnionMessageNewPage.class);
     }
 
@@ -268,7 +266,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Переход в Задачи/Задачи
      */
     public UnionTasksPage goToUnionTasks() {
-        twoTierNnavigation(menuTask, tasks);
+        twoTierNavigation(menuTask, tasks);
         return page(UnionTasksPage.class);
     }
 
@@ -329,7 +327,7 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      * Документы/Создать документ
      */
     public NewDocumentPage goToNewDocument() {
-        twoTierNnavigation(menuDocument, createDoc);
+        twoTierNavigation(menuDocument, createDoc);
         return page(NewDocumentPage.class);
     }
 

@@ -118,7 +118,6 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         $(By.xpath("//div[@id='tree_folders_wrapper']")).shouldBe(present); // Панель ПУГЗ
         $(By.xpath("//td[@class='x-toolbar-left'][ancestor::div[contains(@id,'grid-repuniontasks')]]"))
                 .shouldBe(present); // Панель Навигации по гриду
-
         return this;
     }
 
@@ -203,6 +202,17 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
+     * Метод помогающий подготовить интерфейс к взаимодействию с объектом - Папка
+     * (Проверка загрузки страницы, раскрытие всех элементов дерева подразделений)
+     */
+    public void beforeAddFolder() {
+        ensurePageLoaded();
+        selectTheGroupInTheGrid(panelGroupingTasks, groupingFolder);
+        unwrapAllNodesFolder();
+        folderInTheGroup.first().shouldBe(present);
+    }
+
+    /**
      * Развернем все ветви папок (группировка - Папка)
      */
     public UnionTasksPage unwrapAllNodesFolder() {
@@ -225,7 +235,6 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     @Override
     public void selectTheGroupInTheGrid(SelenideElement panelGrouping, SelenideElement grouping) {
-        ensurePageLoaded();
         waitForMask();
         panelGrouping.click();
         $$(By.xpath("//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')]"))
@@ -258,49 +267,33 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      */
     @Override
     public void addFolders(Folder[] folders) {
-        selectTheGroupInTheGrid(panelGroupingTasks, groupingFolder);
-        unwrapAllNodesFolder();
-        folderInTheGroup.first().shouldBe(present);
         if (folders != null) {
             for (Folder folder : folders) {
                 if (folder.getParentFolder() != null) {
-                    selectTheParentFolder(folder.getParentFolder()); // Выбираем родительскую папку папку
-                    addFolder.click();
-                    goToFrameFormFolder();
-                    selFolderName(folder.getNameFolder());
-                    if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
-                        setTheConditionOfFiltration("Начало", "Сегодня");
-                    }
+                    selectTheParentFolder(folder.getParentFolder()); // Выбираем родительскую папку папку и выводим КМ для взаимодействия с папкой
                 } else {
                     waitForMask();
                     sleep(1000);
                     folderInTheGroup.first().contextClick();
-                    waitForMask();
-                    addFolder.click();
-                    goToFrameFormFolder();
-                    selFolderName(folder.getNameFolder());
-                    if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
-                        setTheConditionOfFiltration("Начало", "Сегодня");
-                    }
+                }
+                addFolder.click(); // Добавить папку
+                goToFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
+                selFolderName(folder.getNameFolder());
+                if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
+                    setTheConditionOfFiltration("Начало", "Сегодня");
                 }
                 if (folder.isSharedFolder()) checkFolderSharedFilter.click();
                 if (folder.isAddSharedFolderForAll()) checkFolderAddForAll.click();
                 if (folder.isAddSharedFolderForNewUsers()) checkAddSharedFolderForNewUsers.click();
 
-
                 saveСhangesInTheCustomFolder.click();
                 getFrameTop();
                 getFrameFlow();
-                if (folder.isUseFilter()) {
-                    checkDisplayCreateASmartFolderInTheGrid(folder.getNameFolder()); // Проверяем созданную Смарт-папку
-                } else
-                    checkDisplayCreateAFolderInTheGrid(folder.getNameFolder()); // Проверяем созданиую Обычную папку в гриде
-
+                checkDisplayCreateAFolderInTheGrid(folder.getNameFolder(), folder.isUseFilter()); // Проверяем созданные Папки
 
             }
         }
     }
-
 
     /**
      * Формируем условие фильтра - Начало (относительное значение == Сегодня)
@@ -326,26 +319,26 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     }
 
     /**
-     * Проверяем отображение созданной папки в гриде Папок
+     * Проверяем отображение созданных папок на Панели управления группировкой задач (ПУГЗ)
      *
-     * @param folder передаем название папки
+     * @param folder     передаем название папки
+     * @param useAFilter передаем параметр установленного зн-ия - Использовать фильтр
      */
-    public UnionTasksPage checkDisplayCreateAFolderInTheGrid(String folder) {
-        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder)[0] + "')]"))
-                .waitUntil(visible, 10000);
-        return this;
+    public void checkDisplayCreateAFolderInTheGrid(String folder, boolean useAFilter) {
+        if (useAFilter) {
+            $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
+                    + parseNameFolder(folder)[0] + "')]")).waitUntil(visible, 10000);
+            $(By.xpath("//img[contains(@src,'smart')]/..//a//b[contains(text(),'" +
+                    parseNameFolder(folder)[0] + "')]//../../../../div//img[2]")).isImage();
+        } else
+            $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder)[0] + "')]"))
+                    .waitUntil(visible, 10000);
+
     }
 
-    /**
-     * Проверяем отображение созданной смарт-папки в гриде Папок и пиктограммы смарт-папка (шестеренка)
-     *
-     * @param folder передаем название папки
-     */
-    public void checkDisplayCreateASmartFolderInTheGrid(String folder) {
-        $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
-                + parseNameFolder(folder)[0] + "')]")).waitUntil(visible, 10000);
-        $(By.xpath("//img[contains(@src,'smart')]/..//a//b[contains(text(),'" +
-                parseNameFolder(folder)[0] + "')]//../../../../div//img[2]")).isImage();
+    public void checkTheMapASharedFolderFromTheNewlyCreatedUser(Folder folder) {
+        beforeAddFolder();
+        checkDisplayCreateAFolderInTheGrid(folder.getNameFolder(), folder.isUseFilter()); // Проверяем созданные Папки
     }
 
     /**

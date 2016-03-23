@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.actions;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -19,29 +18,31 @@ public abstract class ElementUtil {
 
     //------------------------------------------------------------------------------------Эмитация клавиш
 
+    private static Actions action = new Actions(getWebDriver());
     /**
      * Метод клавиатурного выбора настроек, смещение на ОДНУ позицию вниз,
      * например, Скрывать...; Изменяемое при редактировании и etc., полей значение полей, выбирает значение == Да
      */
     public static void selectingSecondAdjustmentPosition() {
-        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
-        actions().build().perform();
+        action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ENTER));
+        action.build().perform();
+
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ДВЕ позиции вниз,
      */
     public static void selectingThirdAdjustmentPosition() {
-        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        actions().build().perform();
+        action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        action.build().perform();
     }
 
     /**
      * Метод клавиатурного выбора настроек, смещение на ТРИ позиции вниз,
      */
     public static void selectingFourthlyAdjustmentPosition() {
-        actions().sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
-        actions().build().perform();
+        action.sendKeys(Keys.chord(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER));
+        action.build().perform();
     }
 
     //------------------------------------------------------------------------------------Взаимодействие с элементом на стр.
@@ -55,7 +56,7 @@ public abstract class ElementUtil {
      *                              появления данного элемента
      */
     public static void contextClickAction(SelenideElement element, SelenideElement elementWaitVisibility) {
-        actions().contextClick(element).perform();
+        action.contextClick(element).perform();
         elementWaitVisibility.shouldBe(Condition.visible, Condition.present);
     }
 

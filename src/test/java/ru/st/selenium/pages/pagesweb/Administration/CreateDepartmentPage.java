@@ -405,6 +405,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      * @param department передаваемые атрибуты подразделения
      */
     @Step("Создаем пользовательское подразделение")
+    // TODO - переписать выражения в методе - много лишних повторений
     @Override
     public void createDepartment(Department department) {
         if (department.getParentDepartment() != null) {

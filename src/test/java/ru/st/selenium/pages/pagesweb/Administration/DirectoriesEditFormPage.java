@@ -155,7 +155,7 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
     /**
      * Поле - "Список значений" для поля типа "Строка"
      */
-    @FindBy(css = "#dialog_form_listval-inputEl")
+    @FindBy(xpath = "//textarea[@id='dialog_form_listval-inputEl']")
     private SelenideElement fieldListVal;
 
     /**
