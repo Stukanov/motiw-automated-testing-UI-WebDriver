@@ -495,7 +495,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
         if (customField == null) {
             return null;
         } else
-            sleep(300);
         for (DocRegisterCardsField customsField : customField) {
             // 1. ЧИСЛО
             if (customsField.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {

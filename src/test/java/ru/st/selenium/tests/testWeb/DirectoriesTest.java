@@ -29,18 +29,14 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания Справочник в Web-интерфейсе")
 public class DirectoriesTest extends ModuleAdministrationObjectCaseTest {
 
-    private LoginPage loginPage;
 
-    @BeforeClass
-    public void setUp() {
-        loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
-    }
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Справочника с полным набором полей")
     @Description("Проверяем создание объекта Справочник со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataDirectories")
     public void createDirectories(Directories directories) throws Exception {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         // Авторизация
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее

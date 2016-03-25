@@ -44,19 +44,13 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания документа в Web-интерфейсе")
 public class CreateDocumentTest extends ModuleDocflowAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверяем создание документа")
     @Description("Проверяем создание документа с набором заполняемых полей")
     @Test(priority = 1, dataProvider = "objectDataDRC")
     public void CreateDocument(Department[] departments, Employee[] employees, Directories directories, TasksTypes tasksTypes, DictionaryEditor dictionaryEditor,
                                DocRegisterCards registerCards, Document document) throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

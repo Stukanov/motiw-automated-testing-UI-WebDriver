@@ -36,20 +36,13 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания Типа задачи в Web-интерфейсе")
 public class TasksTypeTest extends ModuleAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Типа задач с полным набором полей")
     @Description("Проверяем создание объекта Типа задачи со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataTasksTypes")
     public void verifyCreateTaskTypes(Directories directories, TypesOfTables typesOfTables,
                                       TasksTypes tasksTypes) throws Exception {
-
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

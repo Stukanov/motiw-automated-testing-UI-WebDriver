@@ -33,12 +33,6 @@ import static org.testng.Assert.assertTrue;
 @Features("Сегодня (PDA)")
 public class TodayPDATest extends ModuleTaskCaseTest {
 
-    @BeforeClass
-    public static LoginPagePDA openUrlStartBrowser() {
-        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
-        return page(LoginPagePDA.class);
-    }
-
     /*
       Инициализируем модель - Задача #2 (атрибуты и лента для редактирования)
      */
@@ -77,7 +71,7 @@ public class TodayPDATest extends ModuleTaskCaseTest {
     @Description("Проверяем отображение сохраненной информации в разедел - Сегодня")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyInfoToday(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = openUrlStartBrowser();
+        LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
@@ -116,7 +110,6 @@ public class TodayPDATest extends ModuleTaskCaseTest {
         assertTrue(loginPagePDA.isNotLoggedInPDA());
 
     }
-
 
 
 }

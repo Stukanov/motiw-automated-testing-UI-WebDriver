@@ -31,12 +31,6 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Пользователи и Подразделения")
 public class UsersTest extends ModuleAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
     /*
       * Инициализация переменных - Подразделение
       */
@@ -95,7 +89,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
             "и изменения вложенности иерархии Подразделений")
     @Test(priority = 1)
     public void verifyCreatingAndRemovalDepartments() throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -145,7 +139,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
             " пользователями")
     @Test(priority = 2)
     public void verifyCreatingUsers() throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -221,7 +215,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
     @Description("Проверяем Удаление ранее созданных пользователей и подразделений из Системы")
     @Test(dependsOnMethods = "verifyCreatingUsers")
     public void verifyRemovalUsers() throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

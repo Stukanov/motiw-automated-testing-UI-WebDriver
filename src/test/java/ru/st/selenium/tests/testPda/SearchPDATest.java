@@ -26,10 +26,11 @@ import static org.testng.Assert.assertTrue;
 @Title("Проверка поиск объектов системы (SOLR)")
 public class SearchPDATest extends ModuleTaskCaseTest {
 
+    private LoginPagePDA loginPagePDA;
+
     @BeforeClass
-    public static LoginPagePDA openUrlStartBrowser() {
-        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
-        return page(LoginPagePDA.class);
+    public void setUp() {
+        loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
     }
 
     @Severity(SeverityLevel.CRITICAL)
@@ -37,7 +38,6 @@ public class SearchPDATest extends ModuleTaskCaseTest {
     @Description("Проверяем расширенный поиск, проинициализированных объектов системы - Контакты")
     @Test(priority = 1)
     public void verifySearchContact() throws Exception {
-        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",

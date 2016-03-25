@@ -32,13 +32,6 @@ import static ru.st.selenium.model.Administration.Users.Module.COMPLETE;
 @Title("Создание папок, работа с Задачами")
 public class UnionTasksTest extends ModuleTaskCaseTest {
 
-    private LoginPage loginPage;
-
-    @BeforeClass
-    public void setUp() {
-        loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
-    }
-
     // Масси объекта - Папка
     Folder[] folder = getRandomArrayFolders();
 
@@ -60,6 +53,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
     @Description("Проверяем создание, редактирование и удаление объекта - Папка. Верификация под созданными")
     @Test(priority = 1)
     public void verifyCreateFolder() {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -97,7 +91,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
     @Description("Проверяем верификацию созданных ОП (Общая папка) - работа опций папки - Добавить всем; Добавлять для новых пользователей ")
     @Test(dependsOnMethods = { "verifyCreateFolder" })
     public void verifyDisplaySharedFolderTheUser() {
-
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

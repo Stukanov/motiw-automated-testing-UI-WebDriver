@@ -32,18 +32,13 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания Типа таблиц в Web-интерфейсе")
 public class TypesOfTableTest extends ModuleAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Создание Типа таблицы с полным набором полей")
     @Description("Проверяем создание объекта Типа таблицы со всеми типами полей")
     @Test(priority = 1, dataProvider = "objectDataTypesOfTable")
     public void createTypesOfTable(Directories directories, TypesOfTables typesOfTables) throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

@@ -36,18 +36,12 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания задач в Web-интерфейсе")
 public class CreateTaskTest extends ModuleTaskCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
     // Папка
     Folder[] folder = getRandomArrayFolders();
 
     @Test(priority = 1)
     public void createFolderForTasks() {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -83,8 +77,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Test(priority = 2, dataProvider = "objectDataTask")
     public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                  Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
-
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -149,8 +142,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Test(priority = 3, dataProvider = "objectDataTask")
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                     Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
-
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -205,8 +197,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Test(priority = 4, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
                                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
-
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

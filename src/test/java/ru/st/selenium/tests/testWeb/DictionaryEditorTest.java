@@ -30,12 +30,6 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Проверка создания Редактор словарей в Web-интерфейсе")
 public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
     // Инициализируем объект - Редактор словарей
     DictionaryEditor dictionaryEditor = getRandomDictionaryEditor();
 
@@ -44,7 +38,7 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectCaseT
     @Description("Создание объекта Редактор словарей с набором элементов")
     @Test(priority = 1)
     public void createDictionaryEditor() throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

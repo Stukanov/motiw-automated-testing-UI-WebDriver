@@ -47,11 +47,6 @@ import static org.testng.Assert.assertTrue;
 @Title("Проверка раздела Документы в PDA-интерфейсе")
 public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest {
 
-    @BeforeClass
-    public static LoginPagePDA openUrlStartBrowser() {
-        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
-        return page(LoginPagePDA.class);
-    }
 
     @Severity(SeverityLevel.BLOCKER)
     @Title("Проверяем  отображение документа в гриде документа")
@@ -126,8 +121,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest 
         /**
          * Проверяем отображение документов в гриде документов (отчет Контролирования)
          */
-        LoginPagePDA loginPagePDA = openUrlStartBrowser();
-
+        LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее

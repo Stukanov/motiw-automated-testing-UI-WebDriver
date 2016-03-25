@@ -10,8 +10,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public abstract class BasePage {
 
-    public static final String WEB_PAGE_URL = "http://motiw";
-    public static final String PDA_PAGE_URL = "http://pda.motiw";
+    public static final String WEB_PAGE_URL = "http://johniii";
+    public static final String PDA_PAGE_URL = "http://pda.johniii";
 
     /**
      * Уходим в ТОП фрейм для дальнейшего взаимодействия с Внутренней страницей (InternalPage)

@@ -282,6 +282,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 goToFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
                 selFolderName(folder.getNameFolder());
                 if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
+                    checkUseFilter.click();
                     setTheConditionOfFiltration(folder.getFilterField(), folder.isChooseRelativeValue());
                 }
                 if (folder.isSharedFolder()) checkFolderSharedFilter.click();
@@ -304,7 +305,6 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * @param relativeImportanceOf относительное зн-ие для условия папки
      */
     public UnionTasksPage setTheConditionOfFiltration(String field, boolean relativeImportanceOf) {
-        checkUseFilter.click();
         $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(visible);
         $(By.xpath("//tr[2]/td/div/span")).click();
         // Выбираем поле для фильтрации

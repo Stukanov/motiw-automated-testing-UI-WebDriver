@@ -28,20 +28,13 @@ import static org.testng.AssertJUnit.assertTrue;
 @Title("Авторизация в систему Web-интерфейс")
 public class UsersAuthorizationTest extends BaseTest {
 
-    @BeforeClass
-    public static LoginPage openUrlStartBrowser() {
-        open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        return page(LoginPage.class);
-    }
-
-
     @Severity(SeverityLevel.BLOCKER)
     @Title("Невалидная авторизация")
     @Description("Пользователь авторизируется в систему под невалидными учетными данными. Авторизация в систему" +
             "не проходит")
     @Test(priority = 1, dataProvider = "verifyFailAuthorizationWeb")
-    public static void notSuccessfulAuthorization(Employee user) throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+    public void notSuccessfulAuthorization(Employee user) throws Exception {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(user);
         assertTrue("Log in to the system fails", loginPage.isNotLoggedIn());
     }
@@ -51,7 +44,7 @@ public class UsersAuthorizationTest extends BaseTest {
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
     @Test(priority = 2)
     public void loginSuccess() throws Exception {
-        LoginPage loginPage = openUrlStartBrowser();
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

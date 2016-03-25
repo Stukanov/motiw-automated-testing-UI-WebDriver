@@ -29,10 +29,11 @@ import static org.testng.Assert.assertTrue;
 @Title("Проверка работу настроек в PDA-интерфейсе")
 public class OptionsPDATest extends ModuleTaskCaseTest {
 
+    private LoginPagePDA loginPagePDA;
+
     @BeforeClass
-    public static LoginPagePDA openUrlStartBrowser() {
-        open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
-        return page(LoginPagePDA.class);
+    public void setUp() {
+        loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
     }
 
     @Severity(SeverityLevel.CRITICAL)
@@ -40,7 +41,6 @@ public class OptionsPDATest extends ModuleTaskCaseTest {
     @Description("Проверяем аттачминг файлов в форме созданной задачи (Лента действий)")
     @Test(dataProvider = "objectDataTaskPDA", priority = 1)
     public void verifyAttachmentFileInTheTask(Task task) throws Exception {
-        LoginPagePDA loginPagePDA = openUrlStartBrowser();
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
