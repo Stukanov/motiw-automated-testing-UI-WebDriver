@@ -65,7 +65,8 @@ public class TodayPDATest extends ModuleTaskCaseTest {
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         // Добавляем Папки
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)});
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setChooseRelativeValue(true)
+                .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());

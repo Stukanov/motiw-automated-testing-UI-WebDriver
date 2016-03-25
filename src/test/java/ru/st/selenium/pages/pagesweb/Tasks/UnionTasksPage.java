@@ -282,7 +282,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                 goToFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
                 selFolderName(folder.getNameFolder());
                 if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
-                    setTheConditionOfFiltration("Начало", "Сегодня");
+                    setTheConditionOfFiltration(folder.getFilterField(), folder.isChooseRelativeValue());
                 }
                 if (folder.isSharedFolder()) checkFolderSharedFilter.click();
                 if (folder.isAddSharedFolderForAll()) checkFolderAddForAll.click();
@@ -303,7 +303,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * @param field                передаваемое навание поля для формирования условия фильтрации
      * @param relativeImportanceOf относительное зн-ие для условия папки
      */
-    public UnionTasksPage setTheConditionOfFiltration(String field, String relativeImportanceOf) {
+    public UnionTasksPage setTheConditionOfFiltration(String field, boolean relativeImportanceOf) {
         checkUseFilter.click();
         $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(visible);
         $(By.xpath("//tr[2]/td/div/span")).click();
@@ -311,11 +311,8 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).setValue(field);
         $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();   // Выбор поля - Значение
-        if (field.equals("Начало") & (relativeImportanceOf.equals("Сегодня"))) {
+        if (relativeImportanceOf) {
             $(By.xpath("//input[contains(@id,'checkbox') and (@type='button') and (@role='checkbox')]")).click();
-        } else {
-            $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();
-            $(By.xpath("//input[contains(@id,'textfield') and (@role='textbox')]")).setValue(field); // поле ввода - Значение
         }
         return this;
     }

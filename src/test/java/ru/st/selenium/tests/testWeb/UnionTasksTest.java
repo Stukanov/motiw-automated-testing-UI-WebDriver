@@ -70,7 +70,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         unionTasksPage.beforeAddFolder();
         // Добавляем Папки(/у)
         unionTasksPage.addFolders(new Folder[]{
-                folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setChooseRelativeValue(true)
+                folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                         .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),
                 folder[1].setNameFolder("Обычная папка " + randomString(4)).setUseFilter(false).setParentFolder(folder[0]).setSharedFolder(false)
                         .setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),

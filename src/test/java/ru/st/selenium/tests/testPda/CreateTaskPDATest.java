@@ -60,8 +60,8 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         // добавить Папку - для фильтрации созданных задач
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true)
-                .setChooseRelativeValue(true)});
+        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setChooseRelativeValue(true)
+                .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());

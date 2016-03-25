@@ -12,7 +12,32 @@ public class Folder {
     private boolean addSharedFolderForNewUsers;
     private Folder parentFolder;
     private boolean chooseRelativeValue;
+    private String filterField;
+    private String filterValue;
 
+    /*
+    Поле фильтра
+     */
+    public String getFilterField() {
+        return filterField;
+    }
+
+    public Folder setFilterField(String filterField) {
+        this.filterField = filterField;
+        return this;
+    }
+
+    /*
+    Значение фильтра
+     */
+    public String getFilterValue() {
+        return filterValue;
+    }
+
+    public Folder setFilterValue(String filterValue) {
+        this.filterValue = filterValue;
+        return this;
+    }
 
     /*
      * Наименование родительского папки
