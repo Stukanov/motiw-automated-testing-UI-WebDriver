@@ -428,7 +428,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
                 $(searchFieldDepartment).shouldBe(Condition.present);
                 searchFieldDepartment.click();
                 searchFieldDepartment.clear();
-                searchFieldDepartment.setValue(departments.getDepName());
+                searchFieldDepartment.setValue(departments.getDepartmentName());
                 searchFieldDepartment.pressEnter();
                 selectedCheckBox.click();
                 buttonSave.click();

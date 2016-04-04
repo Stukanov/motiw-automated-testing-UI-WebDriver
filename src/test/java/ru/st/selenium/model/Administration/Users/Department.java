@@ -27,11 +27,11 @@ public class Department {
     /*
      * Название подразделения
      */
-    public String getDepName() {
+    public String getDepartmentName() {
         return depName;
     }
 
-    public Department setDepName(String depName) {
+    public Department setDepartmentName(String depName) {
         this.depName = depName;
         return this;
     }

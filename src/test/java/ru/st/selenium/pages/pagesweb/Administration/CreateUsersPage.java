@@ -516,7 +516,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
         getWebDriver().switchTo().frame(addAliasFrame);
         $(fieldSearchDepForAlias).shouldBe(Condition.visible);
         fieldSearchDepForAlias.click();
-        fieldSearchDepForAlias.sendKeys(department.getDepName());
+        fieldSearchDepForAlias.sendKeys(department.getDepartmentName());
         buttonSearchDepForAlias.click();
         return this;
     }
@@ -543,7 +543,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     public CreateUsersPage assertHasAlias(Employee user, Department department) {
         assertTrue(isElementPresent(By.xpath("/*//*[contains (text(), '" + user.getLastName() + " " + user.getName() + " "
-                + user.getPatronymic() + " (для задач по " + department.getDepName() + ")')]")));
+                + user.getPatronymic() + " (для задач по " + department.getDepartmentName() + ")')]")));
         return this;
     }
 

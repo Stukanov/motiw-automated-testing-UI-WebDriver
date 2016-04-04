@@ -302,7 +302,7 @@ public abstract class BaseTest {
      */
     public Department getRandomDepartment() {
         return new Department()
-                .setDepName(randomString(20))
+                .setDepartmentName(randomString(20))
                 .setConditionalNumber((randomString(20)))
                 .setCounter((randomInt(2147483647)))
                 .setResetDate(randomDateTime())
