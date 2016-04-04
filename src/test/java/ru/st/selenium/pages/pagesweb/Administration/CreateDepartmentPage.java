@@ -14,9 +14,7 @@ import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
@@ -285,9 +283,19 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      *
      * @return CreateDepartmentPage
      */
-    public CreateDepartmentPage verifyCreateDep(String DepName) {
-        $(By.xpath("//*[contains(text(),'" + DepName
-                + "')] [ancestor::*[contains(@id,'treeview')]]")).waitUntil(Condition.visible, 10000);
+    public CreateDepartmentPage verifyCreateDepartment(String DepName) {
+        $(By.xpath("//*[text()='" + DepName + "'] [ancestor::*[contains(@id,'treeview')]]")).waitUntil(Condition.visible, 10000);
+        return this;
+
+    }
+
+    /**
+     * Проверка удаления подразделения. Подразделение не должно отображаться в гриде после удаления
+     *
+     * @return CreateDepartmentPage
+     */
+    public CreateDepartmentPage verifyRemoveDepartment(String DepName) {
+        $(By.xpath("//*[text()='" + DepName + "'] [ancestor::*[contains(@id,'treeview')]]")).waitUntil(Condition.disappears, 10000);
         return this;
 
     }
@@ -312,10 +320,10 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      */
     public CreateDepartmentPage DnDDepartment(Department source, Department target) {
         SelenideElement sourceElement = $(By
-                .xpath("//span[contains(text(),'" + source.getDepName()
+                .xpath("//span[contains(text(),'" + source.getDepartmentName()
                         + "')] [ancestor::tbody[contains(@id,'treeview')]]"));
         SelenideElement targetElement = $(By
-                .xpath("//span[contains(text(),'" + target.getDepName()
+                .xpath("//span[contains(text(),'" + target.getDepartmentName()
                         + "')] [ancestor::tbody[contains(@id,'treeview')]]"));
         sourceElement.click();
         Actions builder = new Actions(getWebDriver());
@@ -337,7 +345,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
         $(By.xpath("//*[contains (@id, 'messagebox')][contains (@class, 'closable')]/div[contains (@id, 'toolbar')]//a[1]//span[2]"))
                 .click();
         SelenideElement child = $(By.xpath("//span[contains(text(),'"
-                + department.getDepName()
+                + department.getDepartmentName()
                 + "')] [ancestor::tbody[contains(@id,'treeview')]]/parent::div/parent::td/parent::tr/following-sibling::tr/td/div/span"));
         child.click();
         Actions builder = new Actions(getWebDriver());
@@ -356,7 +364,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      */
     public CreateDepartmentPage selectTheParentUnit(Department department) {
         waitForMask();
-        $(By.xpath("//span[contains(text(),'" + department.getDepName()
+        $(By.xpath("//span[contains(text(),'" + department.getDepartmentName()
                 + "')] [ancestor::tbody[contains(@id,'treeview')]]"))
                 .click();
         return this;
@@ -405,28 +413,19 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      * @param department передаваемые атрибуты подразделения
      */
     @Step("Создаем пользовательское подразделение")
-    // TODO - переписать выражения в методе - много лишних повторений
     @Override
     public void createDepartment(Department department) {
         if (department.getParentDepartment() != null) {
             selectTheParentUnit(department.getParentDepartment()); // Выбираем подразделение
-            buttonAddDep() // Добавить объект - Подразделение
-                    .setNameDep(department.getDepName()) // Название подразделения
-                    .setConditionalNumber(department.getConditionalNumber()) // Условный номер
-                    .setCounter(department.getCounter()) // Счетчик
-                    .setResetDate(department.getResetDate()) // Дата обнуления счетчика
-                    .setNumeratorTemplate(department.getNumeratorTemplate()) // Шаблон нумератора
-                    .clickSaveDep() // Сохранить подразделение
-                    .verifyCreateDep(department.getDepName()); // Проверяем отображение элемента в гриде
-        } else
-            buttonAddDep() // Добавить подразделение - Подразделение
-                    .setNameDep(department.getDepName()) // Название подразделения
-                    .setConditionalNumber(department.getConditionalNumber()) // Условный номер
-                    .setCounter(department.getCounter()) // Счетчик
-                    .setResetDate(department.getResetDate()) // Дата обнуления счетчика
-                    .setNumeratorTemplate(department.getNumeratorTemplate()) // Шаблон нумератора
-                    .clickSaveDep() // Сохранить подразделение
-                    .verifyCreateDep(department.getDepName()); // Проверяем отображение элемента в гриде
+        }
+        buttonAddDep(); // Добавить подразделение - Подразделение
+        setNameDep(department.getDepartmentName()) // Название подразделения
+                .setConditionalNumber(department.getConditionalNumber()) // Условный номер
+                .setCounter(department.getCounter()) // Счетчик
+                .setResetDate(department.getResetDate()) // Дата обнуления счетчика
+                .setNumeratorTemplate(department.getNumeratorTemplate()) // Шаблон нумератора
+                .clickSaveDep() // Сохранить подразделение
+                .verifyCreateDepartment(department.getDepartmentName()); // Проверяем отображение элемента в гриде
 
     }
 
@@ -437,7 +436,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      */
     public CreateDepartmentPage confirmDeletionDepartment(Department department) {
         checkingMessagesConfirmationOfTheObject(getExpectedMessageTextToDialog,
-                "Вы уверены, что хотите удалить подразделение " + department.getDepName() + "" + "?", oKRemoveDelete);
+                "Вы уверены, что хотите удалить подразделение " + department.getDepartmentName() + "" + "?", oKRemoveDelete);
         waitForMask();
         return this;
     }
@@ -446,19 +445,19 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
      * Метод редактирования имеющегося подразделения
      *
      * @param editedDepartment передаваемые атрибуты полей редактируемого подразделения
-     * @param department передаваемые атрибуты начального подразделения
+     * @param department       передаваемые атрибуты начального подразделения
      */
     @Step("Редактируем пользовательское Подразделение")
     @Override
     public void editDepartments(Department editedDepartment, Department department) {
         selectTheParentUnit(editedDepartment)
-                .clickbuttonEditDep().setNameDep(department.getDepName())
+                .clickbuttonEditDep().setNameDep(department.getDepartmentName())
                 .setConditionalNumber(department.getConditionalNumber())
                 .setCounter(department.getCounter())
                 .setResetDate(department.getResetDate())
                 .setNumeratorTemplate(department.getNumeratorTemplate())
                 .clickSaveDep()
-                .verifyCreateDep(department.getDepName());
+                .verifyCreateDepartment(department.getDepartmentName());
     }
 
     /**
@@ -478,6 +477,7 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
                     .clickButtonRemoveDep(); // Удалить подразделение
             confirmDeletionDepartment(department);
         }
+        verifyRemoveDepartment(department.getDepartmentName());
     }
 
 
