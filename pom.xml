@@ -15,7 +15,7 @@
 
         <!-- Dependencies Versions-->
         <testng.version>6.9.10</testng.version>
-        <selenide.version>3.4</selenide.version>
+        <selenide.version>3.5</selenide.version>
         <allure.version>1.4.22</allure.version>
         <hamcrest.version>1.3</hamcrest.version>
         <slf4j-simple.version>1.7.13</slf4j-simple.version>
