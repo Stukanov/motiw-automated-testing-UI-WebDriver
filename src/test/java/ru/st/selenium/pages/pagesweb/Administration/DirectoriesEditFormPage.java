@@ -662,7 +662,8 @@ public class DirectoriesEditFormPage extends TaskTypeListObjectPage implements D
      */
     @Override
     public void addSettingsAndFieldDirectories(Directories directories) {
-        $$(By.xpath("//div[count(a)=4]/a//text()//..")).shouldBe(CollectionCondition.size(4)); // проверка отображения вкладок в форме редактирования Спр-ка
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//div[count(a)=4]/a//text()//.."), 4,
+                By.xpath("//div[count(a)=4]/a//text()//.."), new String[]{"Настройки", "Поля", "Обработчики", "Настройки закладок"});
         clickFieldsTab(); // Выбираем вкладку Поля
         waitingElementsTabField() // Ожидаем появления элементов на вкладке "Поля"
                 .addAllFieldsDirectory(directories.getDirectoriesFields()) // Добавление типов полей
