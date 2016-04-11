@@ -1,6 +1,5 @@
 package ru.st.selenium.tests.testWeb;
 
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Directories.Directories;

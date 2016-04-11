@@ -593,10 +593,8 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
                         verifyFieldInGrid(fieldTypesOfTables.getFieldName()); // Проверяем отображение добавленного поля в гриде
 
                     }
-
         return this;
     }
-
 
     /**
      * Ожидание появления элементов на вкладке - Поля
@@ -608,7 +606,6 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
         return this;
     }
 
-
     /**
      * Добавление полей Типа таблицы
      *
@@ -616,7 +613,9 @@ public class TypesOfTablesEditPage extends TaskTypeListObjectPage implements Typ
      */
     @Override
     public void addSettingsAndFieldTypesOfTables(TypesOfTables typesOfTables) {
-        $$(By.xpath("//div[count(a)=4]/a//text()//..")).shouldBe(CollectionCondition.size(4)); // проверка отображения вкладок в форме редактирования Спр-ка
+        // проверка отображения вкладок в форме редактирования Типы таблиц
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//div[count(a)=4]/a//text()//.."), 4,
+                By.xpath("//div[count(a)=4]/a//text()//.."), new String[]{"Настройки", "Поля", "Обработчики", "Настройки закладок"});
         clickFieldsTab() // Выбираем вкладку Поля
                 .waitingElementsTabFieldTypesOfTab() // Ожидаем появление элементов на вкладке Поля
                 .addAllFieldsTypesOfTables(typesOfTables.getTypesOfTablesFields()) // Добавление всех типов полей объекта

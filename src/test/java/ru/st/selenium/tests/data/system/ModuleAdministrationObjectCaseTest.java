@@ -326,7 +326,8 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                 .setFieldName("Нумератор " + randomString(5))
                 .setFieldID("NUMERATOR" + randomIdentifier(5))
                 .setFieldType(new TypeListFieldsNumerator()
-                        .setNumeratorTemplate("{counter}-{STRING}-{DD}.{YYYY} " + randomString(15)) // Шаблон нумератора
+                        .setNumeratorTemplate("{counter}-{" + fieldStringIsNotListChoice.getFieldID() + "}-{DD}.{YYYY} "
+                                + randomString(15)) // Шаблон нумератора
                         .setComputeMode(ComputeModeNumerator.WHEN_CREATING_TASK)); // Режим вычисления - При создании задачи
 
         // 12. ССЫЛКА НА ОБЪЕКТ

@@ -62,21 +62,11 @@ public class TypesOfTableTest extends ModuleAdministrationObjectCaseTest {
         // Добавляем настройки и поля Типы таблицы
         typesOfTablesEditPage.addSettingsAndFieldTypesOfTables(typesOfTables);
 
-        // Разлогиниться
-        internalPage.logout();
-        // Проверка - пользователь разлогинен
-        assertTrue(loginPage.isNotLoggedIn());
-
         /*
          * Проверяем удаление объекта - Типы таблиц
          */
-        loginPage.loginAs(ADMIN);
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
-                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
-        assertTrue(loginPage.isLoggedIn());
 
         //------------------------------------------------- Удаляем - Типы таблиц
-        internalPage.goToTypesOfTables();
         typesOfTablesPage.removeTypesOfTables(typesOfTables);
 
         //------------------------------------------------- Удаляем - Справочники

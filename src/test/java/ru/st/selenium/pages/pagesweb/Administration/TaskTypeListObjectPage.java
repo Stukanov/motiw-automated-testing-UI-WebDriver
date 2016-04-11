@@ -91,8 +91,8 @@ public class TaskTypeListObjectPage extends BasePage implements DirectoriesLogic
      */
     public TaskTypeListObjectPage verifyCreateObject(String ObjectName) {
         // TODO проблема скроллинга - не ищет в DOM когда очень много объектов!
-        $(By.xpath("//*[contains(text(),'" + ObjectName + "')][ancestor::table]")).scrollTo();
-        $(By.xpath("//*[contains(text(),'" + ObjectName + "')][ancestor::table]")).shouldBe(Condition.visible);
+        $(By.xpath("//*[text()='" + ObjectName + "'][ancestor::table]")).scrollTo();
+        $(By.xpath("//*[text()='" + ObjectName + "'][ancestor::table]")).shouldBe(Condition.visible);
         return this;
     }
 

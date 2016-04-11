@@ -45,7 +45,7 @@ public class LibraryPage extends BasePage {
 
 
     /**
-     * Ожидания появления объектов ОМ - Сообщение; -Календарь; -Библиотека
+     * Проверяем загрузку - Библиотека
      */
     public LibraryPage ensurePageLoaded() {
         checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 3,

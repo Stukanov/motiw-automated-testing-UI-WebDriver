@@ -64,31 +64,31 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     /*
      * Использовать фильтр
      */
-    @FindBy(css = "#tfolder_is_smart-inputEl")
+    @FindBy(css = "#tfolder_is_smart-displayEl")
     private SelenideElement checkUseFilter;
 
     /*
      * Общая папка
      */
-    @FindBy(css = "#tfolder_is_shared-inputEl")
+    @FindBy(css = "#tfolder_is_shared-displayEl")
     private SelenideElement checkFolderSharedFilter;
 
     /*
      * Добавить всем
      */
-    @FindBy(css = "#tfolder_addforall-inputEl")
+    @FindBy(css = "#tfolder_addforall-displayEl")
     private SelenideElement checkFolderAddForAll;
 
     /*
      * Добавлять для новых пользователей
      */
-    @FindBy(css = "#tfolder_fornewuser-inputEl")
+    @FindBy(css = "#tfolder_fornewuser-displayEl")
     private SelenideElement checkAddSharedFolderForNewUsers;
 
     /*
      * ОК (Подтверждение изменений в форме редактирования папки)
      */
-    @FindBy(xpath = "(//*[contains(@id,'btnIconEl') and contains(@id,'button')])[2]")
+    @FindBy(xpath = "(//*[contains(@id,'btnIconEl') and contains(@id,'button')])[2]/..")
     private SelenideElement saveСhangesInTheCustomFolder;
 
     /*
@@ -305,12 +305,11 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * @param relativeImportanceOf относительное зн-ие для условия папки
      */
     public UnionTasksPage setTheConditionOfFiltration(String field, boolean relativeImportanceOf) {
-        $(By.xpath("//*[contains(@id,'ext-gen')][text()]")).shouldBe(visible);
-        $(By.xpath("//tr[2]/td/div/span")).click();
+        $(By.xpath("//table[contains(@id,'treeview')][2]//td[1]//span")).click();
         // Выбираем поле для фильтрации
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).setValue(field);
-        $(By.xpath("//tr[contains(@id,'treeview')][2]/td[3]/div")).click();   // Выбор поля - Значение
+        $(By.xpath("//table[contains(@id,'treeview')][2]//td[3]//div")).click();   // Выбор поля - Значение
         if (relativeImportanceOf) {
             $(By.xpath("//input[contains(@id,'checkbox') and (@type='button') and (@role='checkbox')]")).click();
         }
@@ -328,7 +327,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
             $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
                     + parseNameFolder(folder)[0] + "')]")).waitUntil(visible, 10000);
             $(By.xpath("//img[contains(@src,'smart')]/..//a//b[contains(text(),'" +
-                    parseNameFolder(folder)[0] + "')]//../../../../div//img[2]")).isImage();
+                    parseNameFolder(folder)[0] + "')]//../../../../div//img[2]")).waitUntil(visible, 10000).isImage();
         } else
             $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'" + parseNameFolder(folder)[0] + "')]"))
                     .waitUntil(visible, 10000);

@@ -253,7 +253,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     //------------------------------------------------------------------------------------------------------------Форма проекта
 
     /**
-     * Поле ввода для  поля проекта
+     * Поле ввода для поля проекта
      */
     @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
     private SelenideElement editorFieldProject;
@@ -265,27 +265,27 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     private SelenideElement editorTextProject;
 
     /**
-     * Поле проект
+     * Проект - Название проекта (Проект)
      */
-    @FindBy(xpath = "//tr[1]/td[2]/div")
+    @FindBy(xpath = "(//table)[1]//td[2]/div")
     private SelenideElement projectField;
 
     /**
-     * Описание проекта
+     * Проект - Описание
      */
-    @FindBy(xpath = "//tr[2]/td[2]/div")
+    @FindBy(xpath = "(//table)[2]//td[2]/div")
     private SelenideElement projectDescription;
 
     /**
-     * Заказчик проекта
+     * Проект - Заказчик
      */
-    @FindBy(xpath = "//tr[4]/td[2]/div")
+    @FindBy(xpath = "(//table)[4]//td[2]/div")
     private SelenideElement projectClient;
 
     /**
-     * Окончание проекта
+     * Проект - Окончание проекта
      */
-    @FindBy(xpath = "//tr[6]/td[2]/div")
+    @FindBy(xpath = "(//table)[6]//td[2]/div")
     private SelenideElement projectEnd;
 
     /**
@@ -597,7 +597,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
         } else {
             newProject.click();
             switchTo().frame(projectFrame);
-            $(projectField).shouldBe(Condition.present);
             projectField.click();
             editorFieldProject.setValue(project.getNameProject());
             projectDescription.click();
