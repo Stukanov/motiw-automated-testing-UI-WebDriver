@@ -47,7 +47,9 @@ public class SystemOptionsPage extends BasePage {
      */
     @Step("Проверяем отображение элементов (вкладок) на странице - Настройки системы")
     public SystemOptionsPage ensurePageLoaded() {
-        $$(By.xpath("//a//span[text()][ancestor::a[contains(@id,'tab')]]")).shouldBe(CollectionCondition.size(7));
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a//span[text()][ancestor::a[contains(@id,'tab')]]"), 6,
+                By.xpath("//a//span[text()][ancestor::a[contains(@id,'tab')]][text()]"), new String[]{"Лицензии", "Интерфейс", "Настройки email", "Задачи",
+                        "Документы", "Дополнительно"});
         return this;
     }
 
