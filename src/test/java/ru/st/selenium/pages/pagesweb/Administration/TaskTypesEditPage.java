@@ -903,9 +903,9 @@ public class TaskTypesEditPage extends TaskTypeListObjectPage implements TasksTy
      */
     @Override
     public void addSettingsAndFieldTasksTypes(TasksTypes tasksTypes) {
-        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 6,
+        checkDisplayedTabsInTheShapeOfAnObject(By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a"), 7,
                 By.xpath("//a/ancestor::div[contains(@id,'tabbar')]//a//span[text()]"), new String[]{"Настройки", "Поля", "Обработчики", "Настройки почтовых уведомлений",
-                        "Оценки и доклады", "Доступ"});
+                        "Оценки и доклады", "Доступ", "Форматы"});
         clickFieldsTab() // Вкладка - Поля
                 .addAllFieldsTaskTypes(tasksTypes.getTasksTypesFields()) // Добавление полей
 
