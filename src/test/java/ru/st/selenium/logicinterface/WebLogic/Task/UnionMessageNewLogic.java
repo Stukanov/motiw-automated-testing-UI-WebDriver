@@ -1,5 +1,6 @@
 package ru.st.selenium.logicinterface.WebLogic.Task;
 
+import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Tasks.Task;
 
 /**

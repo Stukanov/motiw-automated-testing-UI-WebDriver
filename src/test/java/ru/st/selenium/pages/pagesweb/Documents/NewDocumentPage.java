@@ -14,7 +14,7 @@ import ru.st.selenium.model.Document.Document;
 import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.BasePage;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectElements;
 
 
 import static com.codeborne.selenide.Selenide.$;
@@ -24,13 +24,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
-public class NewDocumentPage extends BasePage implements DocumentLogic {
-
-    /**
-     * iФрейм
-     */
-    @FindBy(id = "flow")
-    private SelenideElement frameFlow;
+public class NewDocumentPage extends ProjectElements implements DocumentLogic {
 
     /**
      * Фрейм CKE (расширенный текстовый редактор)
@@ -101,49 +95,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     @FindBy(xpath = "//div[count(img)=2]//img[1]")
     private SelenideElement selectExistentProject;
 
-    /**
-     * Поле проект
-     */
-    @FindBy(xpath = "//tr[1]/td[2]/div")
-    private SelenideElement projectField;
-
-    /**
-     * Описание проекта
-     *
-     */
-    @FindBy(xpath = "//tr[2]/td[2]/div")
-    private SelenideElement projectDescription;
-
-    /**
-     * Заказчик проекта
-     */
-    @FindBy(xpath = "//tr[4]/td[2]/div")
-    private SelenideElement projectClient;
-
-    /**
-     * Окончание проекта
-     */
-    @FindBy(xpath = "//tr[6]/td[2]/div")
-    private SelenideElement projectEnd;
-
-    /**
-     * Сохранить проект
-     */
-    @FindBy(xpath = "//*[contains (@class, 'footer')]//a[3]/../a[1]//span[2]")
-    private SelenideElement projectSave;
-
-    /**
-     * Поле ввода для  поля проекта
-     */
-    @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
-    private SelenideElement editorFieldProject;
-
-    /**
-     * Поле текста для  проекта
-     */
-    @FindBy(xpath = "//textarea")
-    private SelenideElement editorTextProject;
-
 
     //--------------------------------------------------------------------------------------------Поля ввода в форме документа---------------------------------
 
@@ -170,14 +121,12 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Область редактирования поля типа Текст
-     *
      */
     @FindBy(css = "body")
     private SelenideElement ckeBody;
 
     /**
      * Кнопка сохранения в форме расширенного текстового редактора (CKE)
-     *
      */
     @FindBy(xpath = "//*[contains (@class,'window-noborder')][contains (@style,'visible')]//td[contains (@class,'cell')][1]")
     private SelenideElement buttonSaveDescription;
@@ -253,15 +202,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     //---------------------------------------------------------------------------------------------------------------Методы---------------------------------------------
 
-
-    /**
-     * Уходим во фрейм формы Создать документ
-     */
-    public NewDocumentPage gotoFrameFormNewDocument() {
-        switchTo().frame(frameFlow);
-        return this;
-    }
-
     /**
      * Уходим во фрейм Маршруты
      */
@@ -321,19 +261,22 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
         } else {
             newProject.click();
             switchTo().frame(projectFrame);
-            $(projectField).shouldBe(Condition.present);
-            projectField.click();
-            editorFieldProject.setValue(project.getNameProject());
-            projectDescription.click();
-            editorTextProject.setValue(project.getDescription());
-            projectClient.click();
-            editorFieldProject.setValue(project.getСlient());
-            projectEnd.click();
-            editorFieldProject.setValue(project.getEndDate());
-            projectSave.click();
+            // выбор поля Проект
+            getProjectField().click();
+            // заполняем поле Проект (Название проекта)
+            getEditorFieldProject().setValue(project.getNameProject());
+            // выбор поля Описание
+            getProjectDescription().click();
+            // заполняем поле Описание проекта
+            getEditorDescriptionProject().setValue(project.getDescription());
+            getProjectClient().click();
+            getEditorFieldProject().setValue(project.getСlient());
+            getProjectEnd().click();
+            getEditorFieldProject().setValue(project.getEndDate());
+            getProjectSave().click();
             waitForProjectMask();
             switchTo().defaultContent();
-            switchTo().frame(frameFlow);
+            getFrameFlow();
         }
         return this;
     }
@@ -366,8 +309,8 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
             $(By.xpath("//table//tr/td[1]/div[contains(text(),'" + nameField + "')]/../../td[2]/div/../../td[3]//img")).click();
             switchTo().frame(descriptionFrame);
             ckeBody.setValue(text);
-            switchTo().defaultContent();
-            switchTo().frame(frameFlow);
+            getFrameTop();
+            getFrameFlow();
             buttonSaveDescription.click();
         }
         return this;
@@ -433,7 +376,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
                 selectedCheckBox.click();
                 buttonSave.click();
                 getWebDriver().switchTo().window(parentWindowHandler);  // Switch back to parent window
-                gotoFrameFormNewDocument();
+                getFrameFlow();
             }
         }
         return this;
@@ -442,7 +385,7 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
     /**
      * Добавление Сотрудник через livesearch - поиск по Фамилии
      *
-     * @param nameStr заполняемое полей - передаваемое поле для заполнения
+     * @param nameStr  заполняемое полей - передаваемое поле для заполнения
      * @param employee кол-во передаваемых пользователей
      */
     public NewDocumentPage selLiveSearchEmployee(String nameStr, Employee[] employee) {
@@ -495,53 +438,52 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
         if (customField == null) {
             return null;
         } else
-        for (DocRegisterCardsField customsField : customField) {
-            // 1. ЧИСЛО
-            if (customsField.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {
-                FieldTypeNumberDoc fieldNumber = (FieldTypeNumberDoc) customsField.getFieldTypeDoc();
-                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                // 2. ДАТА
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDateDoc) {
-                FieldTypeDateDoc fieldDate = (FieldTypeDateDoc) customsField.getFieldTypeDoc();
-                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                // 3. СТРОКА
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeStringDoc && customsField.getUniqueField()) {
-                FieldTypeStringDoc fieldString = (FieldTypeStringDoc) customsField.getFieldTypeDoc();
-                enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
-                // 4. ТЕКСТ
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeTextDoc) {
-                FieldTypeTextDoc fieldText = (FieldTypeTextDoc) customsField.getFieldTypeDoc();
-                selEditText(customsField.getFieldNameDoc(), customsField.getValueField());
-                // 5. СЛОВАРЬ
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDictionaryDoc) {
-                FieldTypeDictionaryDoc fieldDictionary = (FieldTypeDictionaryDoc) customsField.getFieldTypeDoc();
-                selValueDictionary(customsField.getFieldNameDoc(), customsField.getValueDictionaryEditor());
-                // 6. ПОДРАЗДЕЛЕНИЕ
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDepartmentDoc) {
-                FieldTypeDepartmentDoc fieldDepartment = (FieldTypeDepartmentDoc) customsField.getFieldTypeDoc();
-                selEditDepartment(customsField.getFieldNameDoc(), customsField.getValueDepartment());
-                // 7. СОТРУДНИК
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeEmployeeDoc) {
-                FieldTypeEmployeeDoc fieldEmployee = (FieldTypeEmployeeDoc) customsField.getFieldTypeDoc();
-                selLiveSearchEmployee(customsField.getFieldNameDoc(), customsField.getValueEmployee());
-                // 8. ДОКУМЕНТ
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDocumentDoc) {
-                FieldTypeDocumentDoc fieldDocument = (FieldTypeDocumentDoc) customsField.getFieldTypeDoc();
-                // 9. НУМЕРАТОР
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeNumeratorDoc) {
-                FieldTypeNumeratorDoc fieldNumerator = (FieldTypeNumeratorDoc) customsField.getFieldTypeDoc();
-                // 10. СПРАВОЧНИК
-            } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDirectoryDoc) {
-                FieldTypeDirectoryDoc fieldDirectory = (FieldTypeDirectoryDoc) customsField.getFieldTypeDoc();
+            for (DocRegisterCardsField customsField : customField) {
+                // 1. ЧИСЛО
+                if (customsField.getFieldTypeDoc() instanceof FieldTypeNumberDoc) {
+                    FieldTypeNumberDoc fieldNumber = (FieldTypeNumberDoc) customsField.getFieldTypeDoc();
+                    enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                    // 2. ДАТА
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDateDoc) {
+                    FieldTypeDateDoc fieldDate = (FieldTypeDateDoc) customsField.getFieldTypeDoc();
+                    enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                    // 3. СТРОКА
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeStringDoc && customsField.getUniqueField()) {
+                    FieldTypeStringDoc fieldString = (FieldTypeStringDoc) customsField.getFieldTypeDoc();
+                    enterValueInField(customsField.getFieldNameDoc(), customsField.getValueField());
+                    // 4. ТЕКСТ
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeTextDoc) {
+                    FieldTypeTextDoc fieldText = (FieldTypeTextDoc) customsField.getFieldTypeDoc();
+                    selEditText(customsField.getFieldNameDoc(), customsField.getValueField());
+                    // 5. СЛОВАРЬ
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDictionaryDoc) {
+                    FieldTypeDictionaryDoc fieldDictionary = (FieldTypeDictionaryDoc) customsField.getFieldTypeDoc();
+                    selValueDictionary(customsField.getFieldNameDoc(), customsField.getValueDictionaryEditor());
+                    // 6. ПОДРАЗДЕЛЕНИЕ
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDepartmentDoc) {
+                    FieldTypeDepartmentDoc fieldDepartment = (FieldTypeDepartmentDoc) customsField.getFieldTypeDoc();
+                    selEditDepartment(customsField.getFieldNameDoc(), customsField.getValueDepartment());
+                    // 7. СОТРУДНИК
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeEmployeeDoc) {
+                    FieldTypeEmployeeDoc fieldEmployee = (FieldTypeEmployeeDoc) customsField.getFieldTypeDoc();
+                    selLiveSearchEmployee(customsField.getFieldNameDoc(), customsField.getValueEmployee());
+                    // 8. ДОКУМЕНТ
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDocumentDoc) {
+                    FieldTypeDocumentDoc fieldDocument = (FieldTypeDocumentDoc) customsField.getFieldTypeDoc();
+                    // 9. НУМЕРАТОР
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeNumeratorDoc) {
+                    FieldTypeNumeratorDoc fieldNumerator = (FieldTypeNumeratorDoc) customsField.getFieldTypeDoc();
+                    // 10. СПРАВОЧНИК
+                } else if (customsField.getFieldTypeDoc() instanceof FieldTypeDirectoryDoc) {
+                    FieldTypeDirectoryDoc fieldDirectory = (FieldTypeDirectoryDoc) customsField.getFieldTypeDoc();
 
+                }
             }
-        }
         return this;
     }
 
     /**
      * Выбираем вкладку - Маршруты
-     *
      */
     public NewDocumentPage routeTab() {
         routeTab.click();
@@ -551,7 +493,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Выбор маршрутной схемы документа (Порядок рассмотрения)
-     *
      */
     public NewDocumentPage selRouteScheme(String routeScheme) {
         if (routeScheme == null) {
@@ -568,11 +509,10 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Сохранить и создать новый документ
-     *
      */
     public NewDocumentPage clickSaveAndCreateNewDocument() {
         getFrameTop();
-        gotoFrameFormNewDocument();
+        getFrameFlow();
         $(By.xpath("//div[@id='saveAndNewButton']//button")).shouldBe(Condition.present);
         saveAndCreateNewDocument.click();
         return this;
@@ -580,7 +520,6 @@ public class NewDocumentPage extends BasePage implements DocumentLogic {
 
     /**
      * Проверяем отображение надписи - Зарегистрировано, документ находится на рассмотрении - после сохранения документа
-     *
      */
     public NewDocumentPage assertVerifyCreateDoc() {
         $(By.xpath("//a[@class='error_message' and @style='text-decoration:none']")).shouldBe(Condition.visible);

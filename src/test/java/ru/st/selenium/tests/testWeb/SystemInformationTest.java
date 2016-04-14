@@ -29,18 +29,12 @@ import static org.testng.AssertJUnit.assertTrue;
 @Listeners({ScreenShotOnFailListener.class, TextReport.class})
 public class SystemInformationTest extends ModuleTaskCaseTest {
 
-    private LoginPage loginPage;
-
-    @BeforeClass
-    public void setUp() {
-        loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
-    }
-
     @Severity(SeverityLevel.CRITICAL)
     @Title("Проверка отсутствия незапущенных служб")
     @Description("Проверка на отсутствия незапущенных служб (красные элементы на странице)")
     @Test(priority = 1)
     public void verifyNotRedSystemInfo() throws Exception {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
@@ -63,6 +57,7 @@ public class SystemInformationTest extends ModuleTaskCaseTest {
     @Description("Проверяем отсутствие ошибок в Поисковой системе над конкретным объектом")
     @Test(priority = 2)
     public void verifyNotIndexingErrors() throws Exception {
+        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
         assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",

@@ -29,18 +29,14 @@ import static org.testng.Assert.assertTrue;
 @Description("Проверка авторизации корневого пользователя системы с массивом данных")
 public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
 
-    private LoginPagePDA loginPagePDA;
 
-    @BeforeClass
-    public void setUp() {
-        loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
-    }
 
     @Severity(SeverityLevel.BLOCKER)
     @Title("Валидная авторизация")
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
     @Test(priority = 3)
     public void verifyLoginSuccess() throws Exception {
+        LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Проверяем отображение п.м. системы
         assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
@@ -55,6 +51,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
             "не проходит")
     @Test(priority = 1, dataProvider = "verifyFailAuthorization")
     public void verifyFailAuthorization(String login, String pass) throws Exception {
+        LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
         assertTrue(loginPagePDA.isNotLoggedInPDA());
         $(By.cssSelector("#error")).shouldBe(Condition.exactText("Доступ запрещен"));
@@ -67,6 +64,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
             "не проходит")
     @Test(priority = 2, dataProvider = "secondVerifyFailAuthorization")
     public void secondVerifyFailAuthorization(String login, String pass) throws Exception {
+        LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAs(login, pass);
         assertTrue(loginPagePDA.isNotLoggedInPDA());
     }

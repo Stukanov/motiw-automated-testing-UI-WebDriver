@@ -37,6 +37,9 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     // Папка
     Folder[] folder = getRandomArrayFolders();
 
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Создание смарт-папки с ")
+    @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1)
     public void createFolderForTasks() {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
@@ -74,7 +77,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 2, dataProvider = "objectDataTask")
     public void verifyCreateTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                                 Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+                                 Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
@@ -139,7 +142,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Description("Проверяем создание задачи ИРГ с набором атрибутов")
     @Test(priority = 3, dataProvider = "objectDataTask")
     public void verifyCreateIWGTask(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+                                    Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
@@ -194,7 +197,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Description("Проверяем создание задачи c набором Контрольных точек")
     @Test(priority = 4, dataProvider = "objectDataTask")
     public void checkTheCreationOfATaskCheckpoints(Department department, Employee[] author, Employee[] resppers, Employee[] controller, Employee[] worker,
-                                                   Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) throws Exception {
+                                                   Employee[] IWGWorker, Employee[] IWGResppers, Employee[] IWGСontroller, Task task) {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее

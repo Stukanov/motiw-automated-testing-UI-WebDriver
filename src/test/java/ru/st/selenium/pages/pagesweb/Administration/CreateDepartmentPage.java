@@ -45,19 +45,19 @@ public class CreateDepartmentPage extends BasePage implements DepartmentsLogic {
     /**
      * Добавить подразделение
      */
-    @FindBy(xpath = "//div[contains(@id,'panel-')]//a[1]")
+    @FindBy(xpath = "(//div[contains(@id,'panel-')]//a[1])[1]")
     private SelenideElement buttonAddDep;
 
     /**
      * Кнопка - Редактировать подразделение
      */
-    @FindBy(xpath = "//div[contains(@id,'panel-')]//a[3]")
+    @FindBy(xpath = "(//div[contains(@id,'panel-')]//a[2])[1]")
     private SelenideElement buttonEditDep;
 
     /**
      * Кнопка - Удаление подразделения
      */
-    @FindBy(xpath = "//div[contains(@id,'panel-')]//a[2]")
+    @FindBy(xpath = "(//div[contains(@id,'panel-')]//a[3])[1]")
     private SelenideElement buttonRemoveDep;
 
     /**

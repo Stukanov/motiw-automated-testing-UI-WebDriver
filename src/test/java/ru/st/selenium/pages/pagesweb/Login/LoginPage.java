@@ -1,6 +1,9 @@
 package ru.st.selenium.pages.pagesweb.Login;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.AuthorizationLogic;
 import ru.st.selenium.model.Administration.Users.Employee;
@@ -11,6 +14,7 @@ import ru.st.selenium.pages.pagesweb.Options.PwdPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -116,7 +120,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
      * в реквизитах пользователя
      */
     @Step("Проверяем, что используемый логин пользователя при входе в Систему " +
-            "соответствует логину заданному в реквизитах пользователя - Мои реквизиты")
+            "соответствует логину заданному в реквизитах пользователя в Мои реквизиты")
     @Override
     public boolean isLoggedInAs(Employee user) {
         return isLoggedIn()
@@ -135,6 +139,17 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
         return isLoggedIn()
                 && getNameOfTheSystemFolderUserLibrary().getFullName()
                 .equals(user.getLastName() + " " + user.getName() + " " + user.getPatronymic());
+    }
+
+    /**
+     * Проверяем отображение WN (What's new) на странице приветствия
+     *
+     * @return возвращаем коллекцию заголовков на стр. приветствия
+     */
+    public ElementsCollection getVerifyWNInfo() {
+        getFrameFlow();
+        $(By.xpath("//h2[text()]")).shouldBe(Condition.exactText("Интеграция с VoIP-системами"));
+        return $$(By.xpath("//h2[text()]")).shouldHaveSize(17);
     }
 
     /*
@@ -156,7 +171,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
     }
 
     private Employee getLoggedUser() {
-
+        getVerifyWNInfo();
         PwdPage userProfile = initializedInsidePage().goToPwd()
                 .ensurePageLoaded();
         return new Employee().setLoginName(userProfile.getLoginName());

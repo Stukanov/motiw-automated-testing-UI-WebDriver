@@ -16,7 +16,6 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
 
 
     //----------------------------------------------------------------------Задачи
-
     /**
      * Метод создания полностью случайного объекта - "Задача" for PDA
      */
@@ -25,8 +24,11 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                 .setTaskName(randomString(15) + " " + randomString(30))
                 .setDescription(randomString(100) + "\n " + randomString(100) + "\n " + randomString(100))
                 .setDateEnd(tomorrowDate())
+                // Важная задача
                 .setIsImportant(randomBoolean())
+                // Секретная задача
                 .setIsSecret(randomBoolean())
+                // C докладом
                 .setIsWithReport(randomBoolean());
     }
 
@@ -73,9 +75,13 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                 .setTasktype(new TasksTypes("Обычный"))
                 .setDescription(randomString(500))
                 .setDateEnd(tomorrowDate())
+                // Только для озакомления
                 .setIsForReview(randomBoolean())
+                // Важная задача
                 .setIsImportant(randomBoolean())
+                // Секретная задача
                 .setIsSecret(randomBoolean())
+                //
                 .setIsWithReport(randomBoolean())
                 .setProject(getRandomProject());
     }
@@ -166,7 +172,7 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                         iwg[2]
                                 .setRespPersons(new Employee[]{IWGResppers[0]})
                                 .setWorkers(new Employee[]{IWGWorker[0]})});
-
+        //------------------------------------------------------------------------------------------------- Проект
         return new Object[][]{
 
                 {
@@ -178,7 +184,7 @@ public abstract class ModuleTaskCaseTest extends BaseTest {
                         IWGWorker,
                         IWGResppers,
                         IWGСontroller,
-                        task,
+                        task
 
                 }
         };

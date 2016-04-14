@@ -12,8 +12,8 @@ import java.util.Calendar;
 import java.util.Random;
 
 
-public abstract class BaseTest {
 
+public abstract class BaseTest {
 
     public static Employee ADMIN = new Employee().setLoginName("admin")
             .setPassword("admin");

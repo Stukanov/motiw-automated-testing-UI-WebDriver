@@ -14,8 +14,7 @@ import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Tasks.Task;
-import ru.st.selenium.pages.BasePage;
-
+import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectElements;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -29,7 +28,7 @@ import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 /**
  * Страница - Задачи/Создать задачу
  */
-public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogic {
+public class UnionMessageNewPage extends ProjectElements implements UnionMessageNewLogic {
 
     /**
      * Кнопка выбора проекта
@@ -250,50 +249,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     @FindBy(xpath = "//*[@id='btn_save']//button")
     private SelenideElement userSaveButton;
 
-    //------------------------------------------------------------------------------------------------------------Форма проекта
-
-    /**
-     * Поле ввода для поля проекта
-     */
-    @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
-    private SelenideElement editorFieldProject;
-
-    /**
-     * Поле текста для проекта
-     */
-    @FindBy(xpath = "//textarea")
-    private SelenideElement editorTextProject;
-
-    /**
-     * Проект - Название проекта (Проект)
-     */
-    @FindBy(xpath = "(//table)[1]//td[2]/div")
-    private SelenideElement projectField;
-
-    /**
-     * Проект - Описание
-     */
-    @FindBy(xpath = "(//table)[2]//td[2]/div")
-    private SelenideElement projectDescription;
-
-    /**
-     * Проект - Заказчик
-     */
-    @FindBy(xpath = "(//table)[4]//td[2]/div")
-    private SelenideElement projectClient;
-
-    /**
-     * Проект - Окончание проекта
-     */
-    @FindBy(xpath = "(//table)[6]//td[2]/div")
-    private SelenideElement projectEnd;
-
-    /**
-     * Сохранить проект
-     */
-    @FindBy(xpath = "//*[contains (@class, 'footer')]//a[3]/../a[1]//span[2]")
-    private SelenideElement projectSave;
-
     //------------------------------------------------------------------------------------------------------------Форма задачи
     /**
      * Обычная задача
@@ -432,12 +387,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     private SelenideElement projectFrame;
 
     /**
-     * Основной фрейм
-     */
-    @FindBy(id = "flow")
-    private SelenideElement Frame;
-
-    /**
      * Фрейм ввода текста описания
      */
     @FindBy(xpath = "//*[@class='cke_wysiwyg_frame cke_reset']")
@@ -456,14 +405,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     private SelenideElement iwgFrame;
 
     //------------------------------------------------------------------------------------------------------------------Методы
-
-    /**
-     * Переход в фрейм
-     */
-    public UnionMessageNewPage gotoFrame() {
-        switchTo().frame(Frame);
-        return this;
-    }
 
     /**
      * Переход в фрейм формы редактирования/создания ИРГ
@@ -597,18 +538,22 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
         } else {
             newProject.click();
             switchTo().frame(projectFrame);
-            projectField.click();
-            editorFieldProject.setValue(project.getNameProject());
-            projectDescription.click();
-            editorTextProject.setValue(project.getDescription());
-            projectClient.click();
-            editorFieldProject.setValue(project.getСlient());
-            projectEnd.click();
-            editorFieldProject.setValue(project.getEndDate());
-            projectSave.click();
+            // выбор поля Проект
+            getProjectField().click();
+            // заполняем поле Проект (Название проекта)
+           getEditorFieldProject().setValue(project.getNameProject());
+            // выбор поля Описание
+            getProjectDescription().click();
+            // заполняем поле Описание проекта
+            getEditorDescriptionProject().setValue(project.getDescription());
+            getProjectClient().click();
+            getEditorFieldProject().setValue(project.getСlient());
+            getProjectEnd().click();
+            getEditorFieldProject().setValue(project.getEndDate());
+            getProjectSave().click();
             waitForProjectMask();
-            switchTo().defaultContent();
-            switchTo().frame(Frame);
+            getFrameTop();
+            getFrameFlow();
         }
         return this;
     }
@@ -623,8 +568,8 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             description.click();
             switchTo().frame(descriptionFrame);
             ckeBody.setValue(descript);
-            switchTo().defaultContent();
-            switchTo().frame(Frame);
+            getFrameTop();
+            getFrameFlow();
             buttonSaveDescription.click();
         }
         return this;
@@ -679,7 +624,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             return this;
         } else
             getFrameTop();
-        switchTo().frame(Frame);
+        getFrameFlow();
         $(planningTab).shouldBe(Condition.visible);
         planningTab.click(); // Выбор вкладки - Планирование
         waitForTaskMask(); // Ожидание маски
@@ -690,8 +635,8 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
             checkpointDescriptionField.click();
             switchTo().frame(descriptionFrame);
             ckeBody.setValue(checkpoint.getDescription());
-            switchTo().defaultContent();
-            switchTo().frame(Frame);
+            getFrameTop();
+            getFrameFlow();
             buttonSaveDescription.click();
             checkpointNameField.click();
             editorField.setValue(checkpoint.getName()); // Заполняем Название КТ
@@ -811,7 +756,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         userAddButton.click(); // Добавить пользователя
                         userSaveButton.click(); // Сохранить выбранных пользователей
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        switchTo().frame(Frame);
+                        getFrameFlow();
                         switchTo().frame(iwgFrame);
                     }
                 }
@@ -832,7 +777,7 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         userAddButton.click();
                         userSaveButton.click();
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        switchTo().frame(Frame);
+                        getFrameFlow();
                         switchTo().frame(iwgFrame);
                     }
                 }
@@ -853,17 +798,16 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                         userAddButton.click();
                         userSaveButton.click();
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
-                        switchTo().frame(Frame);
+                        getFrameFlow();
                         switchTo().frame(iwgFrame);
                     }
                 }
-
-
                 saveIWG(); // Сохранить текущую ИРГ
                 verifyCreateIWG(anIwg.getNameIWG()); // Проверяем отображение ИРГ в гриде
             }
             getFrameTop(); // уходим в ТОП фрейм
-            gotoFrame(); // возвращаемся в основной фрейм для дальнейшей работы в задаче
+            getFrameFlow(); // возвращаемся в основной фрейм для дальнейшей работы в задаче
+
         }
         return this;
     }
@@ -890,8 +834,8 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
      * @param nameIWG передаем название ИРГ
      */
     public UnionMessageNewPage verifyCreateIWG(String nameIWG) {
-        getFrameTop(); // уходим в ТОР фрейм
-        gotoFrame(); // переходим в общий фрейм "flow"
+        getFrameTop();
+        getFrameFlow();
         waitForPageUntilElementIsVisible(By.xpath("//div[@id='tab_iwg']//tbody//td[5]//div[text()='" + nameIWG + "']"), 5000);
         return this;
     }
@@ -913,9 +857,9 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     @Override
     public void creatingTask(Task task) {
         ensurePageLoaded();
-        setEnd(task.getDateEnd())
-                .createProject(task.getProject())
-                .setTaskName(task.getTaskName())
+        setEnd(task.getDateEnd());
+        createProject(task.getProject());
+        setTaskName(task.getTaskName())
                 .setTaskDescription(task.getDescription())
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant());
@@ -945,7 +889,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
     public void creatingTaskWithTheTaskOfIWG(Task task) {
         ensurePageLoaded();
         setEnd(task.getDateEnd())
-                .createProject(task.getProject())
                 .setTaskName(task.getTaskName())
                 .setTaskDescription(task.getDescription())
                 .setDataBegin(task.getDateBegin())
@@ -960,7 +903,6 @@ public class UnionMessageNewPage extends BasePage implements UnionMessageNewLogi
                 .clickSaveTask()
                 .assertWindowTaskCreated();
     }
-
 
     /**
      * Создание обычной задачи с КТ
