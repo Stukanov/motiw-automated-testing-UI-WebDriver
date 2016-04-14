@@ -2,13 +2,14 @@ package ru.st.selenium.pages.pagesweb.Tasks.TaskElements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
+import ru.st.selenium.pages.BasePage;
 
 /**
  * Элементы - форма создания нового Проекта
  */
-public class ProjectElements {
+public class ProjectElements extends BasePage {
 
-    //------------------------------------------------------------------------------------------------------------Форма проекта
+    // TODO на подумать - как наследовать данный класс в пайдесах, чтоб не ловить НуллПоинтерЕксепшен
 
     /*
      * поля ввода - в форме Проекта
@@ -26,7 +27,7 @@ public class ProjectElements {
      * Проект - Название проекта (Проект)
      */
     @FindBy(xpath = "(//table)[1]//td[2]/div")
-    private SelenideElement nameProjectField;
+    private SelenideElement projectField;
 
     /*
      * Проект - Описание
@@ -65,8 +66,8 @@ public class ProjectElements {
      * Выбор поля - Проект
      * @return
      */
-    public SelenideElement getNameProjectField(){
-        return nameProjectField;
+    public SelenideElement getProjectField(){
+        return projectField;
     }
 
     public SelenideElement getProjectDescription(){
