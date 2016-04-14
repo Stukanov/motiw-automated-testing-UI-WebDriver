@@ -11,81 +11,89 @@ public class ProjectElements extends BasePage {
 
     // TODO на подумать - как наследовать данный класс в пайдесах, чтоб не ловить НуллПоинтерЕксепшен
 
-    /*
-     * поля ввода - в форме Проекта
-     */
     @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
     private SelenideElement editorFieldProject;
 
-    /*
-     * поле ввода - Описание проекта
-     */
     @FindBy(xpath = "//textarea")
     private SelenideElement editorDescriptionProject;
 
-    /*
-     * Проект - Название проекта (Проект)
-     */
     @FindBy(xpath = "(//table)[1]//td[2]/div")
     private SelenideElement projectField;
 
-    /*
-     * Проект - Описание
-     */
     @FindBy(xpath = "(//table)[2]//td[2]/div")
     private SelenideElement projectDescription;
 
-    /*
-     * Проект - Заказчик
-     */
     @FindBy(xpath = "(//table)[4]//td[2]/div")
     private SelenideElement projectClient;
 
-    /*
-     * Проект - Окончание проекта
-     */
     @FindBy(xpath = "(//table)[6]//td[2]/div")
     private SelenideElement projectEnd;
 
-    /*
-     * Сохранить проект
-     */
     @FindBy(xpath = "//*[contains (@class, 'footer')]//a[3]/../a[1]//span[2]")
     private SelenideElement projectSave;
 
-
-    public SelenideElement getEditorFieldProject(){
+    /**
+     * поля ввода - в форме Проекта
+     *
+     * @return элемент поля ввода Название проекта
+     */
+    public SelenideElement getEditorFieldProject() {
         return editorFieldProject;
     }
 
-    public SelenideElement getEditorDescriptionProject(){
+    /**
+     * поле ввода - Описание проекта
+     *
+     * @return элемент поля ввода Описание
+     */
+    public SelenideElement getEditorDescriptionProject() {
         return editorDescriptionProject;
     }
 
     /**
      * Выбор поля - Проект
-     * @return
+     *
+     * @return элемент поля - Проект
      */
-    public SelenideElement getProjectField(){
+    public SelenideElement getProjectField() {
         return projectField;
     }
 
-    public SelenideElement getProjectDescription(){
+    /**
+     * Выбор поля - Описание
+     *
+     * @return элемент поля - Описание
+     */
+    public SelenideElement getProjectDescription() {
         return projectDescription;
     }
 
-    public SelenideElement getProjectClient(){
+    /**
+     * Выбор поля - Заказчик
+     *
+     * @return элемент поля - Заказчик
+     */
+    public SelenideElement getProjectClient() {
         return projectClient;
     }
 
-    public SelenideElement getProjectEnd(){
+    /**
+     * Выбор поля - Дата окончания
+     *
+     * @return элемент поля - Дата окончания
+     */
+    public SelenideElement getProjectEnd() {
         return projectEnd;
     }
 
-    public SelenideElement getProjectSave(){
+    /**
+     * Сохранить проект
+     *
+     * @return элемент поля - Сохранить проект
+     */
+    public SelenideElement getProjectSave() {
         return projectSave;
     }
-
 
 
 }
