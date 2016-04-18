@@ -240,7 +240,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
         panelGrouping.click();
         $$(By.xpath("//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')]"))
                 .shouldHaveSize(19); // проверяем, что ПУГЗ имеет 19 значений группировок
-        // TODO - добавить проверку для пользователя WORKFLOW - у него 17 пунктов
+        // TODO 0004 - добавить проверку для пользователя WORKFLOW - у него 17 пунктов
         grouping.click(); // выбрать группировка - Папка
         waitForMask();
         $(By.xpath("//div[contains(@id,'extdd')]//img[2]")).isImage();

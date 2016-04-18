@@ -153,8 +153,8 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
     }
 
     /*
-     TODO Обязательно Добавить проверку отображения АК
-     TODO  проверка отображения системных библиотек при создании Подразделения
+     TODO 0006 Обязательно Добавить проверку отображения АК
+     TODO 0007  проверка отображения системных библиотек при создании Подразделения
       */
 
     private Employee getNameOfTheSystemFolderUserLibrary() {

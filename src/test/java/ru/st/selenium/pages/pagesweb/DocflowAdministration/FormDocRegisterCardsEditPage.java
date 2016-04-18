@@ -1615,7 +1615,7 @@ public class FormDocRegisterCardsEditPage extends GridDocRegisterCardsPage imple
         // Направление смещения даты при попадании на нерабочее время
         selDirectionOfDisplacementOfTheDate(registerCards.getDocRegisterCardsShiftDirection());
 
-        // TODO корректировка даты
+        // TODO 0009 корректировка даты
 
         // Настройки по умолчанию при отправке документа на доработку:
         settingsForTheDefaultWhenYouSendTheDocumentBackForRevision(registerCards.getAtFirstRevisionScheme(),
