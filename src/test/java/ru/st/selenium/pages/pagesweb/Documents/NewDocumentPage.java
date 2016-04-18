@@ -405,7 +405,7 @@ public class NewDocumentPage extends ProjectElements implements DocumentLogic {
     }
 
     /**
-     * TODO Выбор значения из формы выбора пользователей - поле типа "Сотрудник"
+     * TODO 0008 Выбор значения из формы выбора пользователей - поле типа "Сотрудник"
      *
      */
    /* public NewDocumentPage selEditEmployee(Employee[] employee) {

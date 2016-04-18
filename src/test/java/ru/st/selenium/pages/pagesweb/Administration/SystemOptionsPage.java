@@ -30,6 +30,12 @@ public class SystemOptionsPage extends BasePage {
     private SelenideElement allowToDeleteFromTasks;
 
     /**
+     * Опция - Создание секретных задач
+     */
+    @FindBy(xpath = "//*[@id='allowSecretTasks-inputEl']")
+    private SelenideElement creatingASecretTask;
+
+    /**
      * Сохранить
      */
     @FindBy(xpath = "//a[contains(@id,'button')][ancestor::span[contains(@id,'panel')]]//span[2]")
@@ -68,6 +74,30 @@ public class SystemOptionsPage extends BasePage {
         String value = allowToDeleteFromTasks.val();
         if (value != null && initialValue.equals(value)) {
             allowToDeleteFromTasks.click();
+            selectingSecondAdjustmentPosition();
+            save.click();
+            checkingMessagesConfirmationOfTheObject($(By.xpath("//div[count(div)=3]/div[2]//div[contains(@id,'messagebox') and (@data-errorqtip)]")),
+                    "Изменения сохранены", clicAlertOk);
+        }
+
+        return this;
+    }
+
+    /**
+     * Выбор опции - Создание секретных задач == Да
+     *
+     * @return SystemOptionsPage
+     */
+    @Step("Выбор опции - Создание секретных задач == Да")
+    public SystemOptionsPage selectCreatingASecretTask() {
+
+        String initialValue = "Нет";
+
+        ensurePageLoaded();
+        tabTasks.click();
+        String value =  creatingASecretTask.val();
+        if (value != null && initialValue.equals(value)) {
+            creatingASecretTask.click();
             selectingSecondAdjustmentPosition();
             save.click();
             checkingMessagesConfirmationOfTheObject($(By.xpath("//div[count(div)=3]/div[2]//div[contains(@id,'messagebox') and (@data-errorqtip)]")),

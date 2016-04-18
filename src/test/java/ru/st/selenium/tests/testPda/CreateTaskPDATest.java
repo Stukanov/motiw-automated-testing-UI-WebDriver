@@ -42,7 +42,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
 
 
     @Test(priority = 1)
-    public void createFolderForTasks() {
+    public void aPreconditionForFurtherVerification() {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
 
         loginPage.loginAs(ADMIN);
@@ -57,6 +57,13 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         // добавить Папку - для фильтрации созданных задач
         unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                 .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});
+
+        //---------------------------------------------------------------- Настройки системы
+        SystemOptionsPage systemOptionsPage = internalPage.goToSystemOptionsPage();
+        // Выбор опции - Секретная задача == Да
+        systemOptionsPage.selectCreatingASecretTask();
+        // Выбор опции - Удаление себя из задач == Да
+        systemOptionsPage.selectAllowToDeleteOneSelfFromTasks();
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
@@ -106,22 +113,6 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
     @Description("Проверяем редактирование задачи с набором новых атрибутов")
     @Test(priority = 3, dataProvider = "objectDataTaskPDA")
     public void checkEditingTaskPDA(Task task) throws Exception {
-        LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
-        loginPage.loginAs(ADMIN);
-        InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
-                internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
-        assertTrue(loginPage.isLoggedIn());
-
-        SystemOptionsPage systemOptionsPage = internalPage.goToSystemOptionsPage();
-        // Выбор опции - Удаление себя из задач == Да
-        systemOptionsPage.selectAllowToDeleteOneSelfFromTasks();
-
-        // Выход
-        internalPage.logout();
-        // Проверка - пользователь разлогинен
-        assertTrue(loginPage.isNotLoggedIn());
-
         // Авторизация
         LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);

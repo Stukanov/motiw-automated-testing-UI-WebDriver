@@ -93,7 +93,7 @@ public abstract class ModuleAdministrationObjectCaseTest extends ModuleTaskCaseT
                         .setDirectoryName("Адресная книга")
                         .setNameDirectoryField("Фамилия"));
 
-        // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К TODO - добвать проинициализированный пользовательский спр-к
+        // 8. МНОЖЕСТВЕННАЯ ССЫЛКА НА СПР-К TODO 0002- добвать проинициализированный пользовательский спр-к
         DirectoriesField fieldMultiDirectory = new DirectoriesField()
                 .setFieldName("Множественная ссылка на справочник " + randomString(5))
                 .setFieldID("DIRMULTI" + randomIdentifier(5))

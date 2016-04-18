@@ -83,7 +83,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         internalPage.logout();
         Assert.assertTrue(loginPage.isNotLoggedIn());
 
-        // TODO - Редактирование Папки + Удаление чистка после теста!!!
+        // TODO 0001 - Редактирование Папки + Удаление чистка после теста!!!
     }
 
     @Severity(SeverityLevel.NORMAL)

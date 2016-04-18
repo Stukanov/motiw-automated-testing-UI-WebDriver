@@ -428,7 +428,7 @@ public abstract class ModuleDocflowAdministrationObjectCaseTest extends ModuleAd
                 .setCopyingFieldsWhenCreatingATask(fieldStringIsListChoiceTasksTypes.getFieldID() + "=" + fieldUniqueString.getFieldIdentifierDoc() + ";" + " " + fieldTextTasksTypes.getFieldID() + "="
                         + fieldText.getFieldIdentifierDoc() + ";" + " " + fieldIntTasksTypes.getFieldID() + "=" + fieldNumber.getFieldIdentifierDoc() + ";" + " " + fieldDateTasksTypes.getFieldID() + "=" + fieldDate.getFieldIdentifierDoc() + ";")
 
-                // TODO доработать инициализацию полей для трансляции пользователей
+                // TODO 0002 доработать инициализацию полей для трансляции пользователей
                 // Поля документа, содержащие...:
                 .setAuthorsObjectives("AVTOR") // авторов задач
                 .setControllersOfTasks("TASKSUPERVISORS") // контролеров задач

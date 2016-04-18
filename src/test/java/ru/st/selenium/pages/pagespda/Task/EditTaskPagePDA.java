@@ -99,7 +99,6 @@ public class EditTaskPagePDA extends NewTaskPagePDA {
                 .setTasksDescription(editTask.getDescription()) // Описание задачи
                 .setDateEnd(editTask.getDateEnd()); // Дата окончания задачи
         rangeOfValuesF​romTheCheckbox(editTask.getIsImportant(), importantTask); // признак - Важная задача
-        // TODO - Добавить проверку - Установка настройки - СЕКРЕТНАЯ задача в настройках системы!!!
         rangeOfValuesF​romTheCheckbox(editTask.getIsSecret(), privateTask); // признак - Секретная задача
         saveChangesToTask();
         sleep(1500);
