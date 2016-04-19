@@ -14,165 +14,25 @@ import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Tasks.Task;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectElements;
+import ru.st.selenium.pages.BasePage;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectFormElements;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.TaskFormElements;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
-import static com.codeborne.selenide.Selenide.switchTo;
-
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
 /**
- * Страница - Задачи/Создать задачу
+ * Шаги - форма - СОЗДАТЬ ЗАДАЧУ
  */
-public class UnionMessageNewPage extends ProjectElements implements UnionMessageNewLogic {
+public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNewLogic {
 
-    /**
-     * Кнопка выбора проекта
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]")
-    private SelenideElement selectProject;
 
-    /**
-     * Кнопка Ок в окне оповещения о созданной задаче
-     */
-    @FindBy(xpath = "//*[contains (@class, 'x-window-plain')]//button")
-    private SelenideElement buttonTaskSavedOK;
+    private ProjectFormElements projectFormElements = page(ProjectFormElements.class);
+    private TaskFormElements taskFormElements = page(TaskFormElements.class);
 
-    /**
-     * Кнопка создания нового проекта
-     */
-    @FindBy(xpath = "//a[contains (@href, 'newproject')]/img")
-    private SelenideElement newProject;
-
-    /**
-     * Кнопка редактирования описания
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'Edit')]")
-    private SelenideElement description;
-
-    /**
-     * Кнопка сохранения описания
-     */
-    @FindBy(xpath = "//*[contains (@class,'window-noborder')][contains (@style,'visible')]//td[contains (@class,'cell')][1]")
-    private SelenideElement buttonSaveDescription;
-
-    /**
-     * Кнопка добавления ИРГ
-     */
-    @FindBy(xpath = "//*[@id='btnAddIWG']//button")
-    private SelenideElement buttonAddIWG;
-
-    /**
-     * Область редактирования описания
-     */
-    @FindBy(css = "body")
-    private SelenideElement ckeBody;
-
-    /**
-     * Кнопка редактирования авторов
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'author')]")
-    private SelenideElement authors;
-
-    /**
-     * Кнопка редактирования контролеров
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'controller')]")
-    private SelenideElement controllers;
-
-    /**
-     * Кнопка редактирования ответственных руководителей
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'respperson')]")
-    private SelenideElement resppersons;
-
-    /**
-     * Кнопка редактирования исполнителей
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'worker')]")
-    private SelenideElement workers;
-
-    /**
-     * Кнопка Сохранить и создать новую задачу
-     */
-    @FindBy(xpath = "(//*[contains (@type, 'button')])[1]")
-    private SelenideElement buttonSaveCreateTask;
-
-    /**
-     * Кнопка Сохранить задачу
-     */
-    @FindBy(xpath = "(//*[contains (@type, 'button')])[2]")
-    private SelenideElement buttonCreateTask;
-
-    /**
-     * Поле Название задачи
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[1]//*[contains (@class, 'col-value')]")
-    private SelenideElement clickTaskName;
-
-    /**
-     * Номер задачи
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[2]//*[contains (@class, 'col-value')]")
-    private SelenideElement taskNumber;
-
-    /**
-     * Поле приоритета
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[4]//*[contains (@class, 'col-value')]")
-    private SelenideElement priority;
-
-    /**
-     * Поле начало
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[5]//*[contains (@class, 'col-value')]")
-    private SelenideElement beginField;
-
-    /**
-     * Поле окончание
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[6]//*[contains (@class, 'col-value')]")
-    private SelenideElement endField;
-
-    /**
-     * Поле тип задачи
-     */
-    @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]/../../../../../../following-sibling::div[13]//*[contains (@class, 'col-value')]")
-    private SelenideElement fieldTaskType;
-
-    /**
-     * Поле авторы
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'author')]/../../../td[2]/div")
-    private SelenideElement authorsField;
-
-    /**
-     * Поле контролеры
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'controller')]/../../../td[2]/div")
-    private SelenideElement сontrollersField;
-
-    /**
-     * Поле ответственные руководители
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'respperson')]/../../../td[2]/div")
-    private SelenideElement executiveManagersField;
-
-    /**
-     * Поле исполнители
-     */
-    @FindBy(xpath = "//*[contains (@onclick, 'worker')]/../../../td[2]/div")
-    private SelenideElement workersField;
-
-    /**
-     * Поле ввода для любого поля задачи
-     */
-    @FindBy(xpath = "//*[contains (@class, 'x-editor')][contains (@style, 'visible')]//input")
-    private SelenideElement editorField;
 
     //-------------------------------------------------------------------------------------------------------------Форма - ИРГ
     /**
@@ -409,7 +269,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Переход в фрейм формы редактирования/создания ИРГ
      */
-    public UnionMessageNewPage gotoIWGFrame() {
+    public UnionMessageNewPageSteps gotoIWGFrame() {
         switchTo().frame(iwgFrame);
         return this;
     }
@@ -417,7 +277,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ожидание маски быстрого поиска при вводе шаблона поиска
      */
-    public UnionMessageNewPage waitForLivesearchMask() {
+    public UnionMessageNewPageSteps waitForLivesearchMask() {
         sleep(700);
         $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
         return this;
@@ -426,7 +286,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ожидание маски задачи
      */
-    public UnionMessageNewPage waitForTaskMask() {
+    public UnionMessageNewPageSteps waitForTaskMask() {
         sleep(500);
         $(By.xpath("//*[contains (@class, 'ext-el-mask')]")).shouldNotBe(Condition.visible);
         return this;
@@ -435,7 +295,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ожидание маски проекта
      */
-    public UnionMessageNewPage waitForProjectMask() {
+    public UnionMessageNewPageSteps waitForProjectMask() {
         sleep(300);
         $(By.xpath("//*[contains (@class, 'x-mask x-mask-fixed')]")).shouldNotBe(Condition.visible);
         return this;
@@ -486,18 +346,18 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Добавление названия задачи
      */
-    public UnionMessageNewPage setTaskName(String taskName) {
-        clickTaskName.click();
-        editorField.setValue(taskName);
+    public UnionMessageNewPageSteps setTaskName(String taskName) {
+        taskFormElements.getClickTaskName().click();
+        taskFormElements.getEditorField().setValue(taskName);
         return this;
     }
 
     /**
      * Клик сохранить задачу - ожидание маски
      */
-    public UnionMessageNewPage clickSaveTask() {
+    public UnionMessageNewPageSteps clickSaveTask() {
         planningDescription.click();
-        buttonCreateTask.click();
+        taskFormElements.getButtonCreateTask().click();
         waitForTaskMask();
         return this;
     }
@@ -505,23 +365,23 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Проверка что появилось окно и ссылка на созданную задачу
      */
-    public UnionMessageNewPage assertWindowTaskCreated() {
+    public UnionMessageNewPageSteps assertWindowTaskCreated() {
         $(By.xpath("//span[@class='ext-mb-text'][contains(text(),'Создана задача №')]")).shouldBe(Condition.visible);
-        buttonTaskSavedOK.click();
+        taskFormElements.getOKButtonInConfirmationFormTaskCreation().click();
         return this;
     }
 
     /**
      * Установка типа задачи
      */
-    public UnionMessageNewPage setTaskType(TasksTypes tasktype) {
+    public UnionMessageNewPageSteps setTaskType(TasksTypes tasktype) {
         if (tasktype == null) {
             return this;
         } else {
-            $(fieldTaskType).shouldBe(Condition.visible);
+            $(taskFormElements.getFieldTaskType()).shouldBe(Condition.visible);
         }
-        fieldTaskType.click();
-        editorField.click();
+        taskFormElements.getFieldTaskType().click();
+        taskFormElements.getEditorField().click();
         $(By.xpath("//*[contains (@class, 'combo-list')][contains (@style, 'visible')]//*[contains (text(), '" + tasktype.getTaskTypeName() + "')]"))
                 .click();
         waitForTaskMask();
@@ -532,25 +392,25 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Создание нового проекта
      */
-    public UnionMessageNewPage createProject(Project project) {
+    public UnionMessageNewPageSteps createProject(Project project) {
         if (project == null) {
             return this;
         } else {
-            newProject.click();
+            taskFormElements.getButtonNewProject().click();
             switchTo().frame(projectFrame);
             // выбор поля Проект
-            getProjectField().click();
+            projectFormElements.getProjectField().click();
             // заполняем поле Проект (Название проекта)
-           getEditorFieldProject().setValue(project.getNameProject());
+            projectFormElements.getEditorFieldProject().setValue(project.getNameProject());
             // выбор поля Описание
-            getProjectDescription().click();
+            projectFormElements.getProjectDescription().click();
             // заполняем поле Описание проекта
-            getEditorDescriptionProject().setValue(project.getDescription());
-            getProjectClient().click();
-            getEditorFieldProject().setValue(project.getСlient());
-            getProjectEnd().click();
-            getEditorFieldProject().setValue(project.getEndDate());
-            getProjectSave().click();
+            projectFormElements.getEditorDescriptionProject().setValue(project.getDescription());
+            projectFormElements.getProjectClient().click();
+            projectFormElements.getEditorFieldProject().setValue(project.getСlient());
+            projectFormElements.getProjectEnd().click();
+            projectFormElements.getEditorFieldProject().setValue(project.getEndDate());
+            projectFormElements.getProjectSave().click();
             waitForProjectMask();
             getFrameTop();
             getFrameFlow();
@@ -561,16 +421,16 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ввод описания
      */
-    public UnionMessageNewPage setTaskDescription(String descript) {
+    public UnionMessageNewPageSteps setTaskDescription(String descript) {
         if (descript == null) {
             return this;
         } else {
-            description.click();
+            taskFormElements.getDescriptionTask().click();
             switchTo().frame(descriptionFrame);
-            ckeBody.setValue(descript);
+            taskFormElements.getCkeBody().setValue(descript);
             getFrameTop();
             getFrameFlow();
-            buttonSaveDescription.click();
+            taskFormElements.getButtonSaveDescription().click();
         }
         return this;
     }
@@ -578,12 +438,12 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ввод даты начала
      */
-    public UnionMessageNewPage setDataBegin(String begin) {
+    public UnionMessageNewPageSteps setDataBegin(String begin) {
         if (begin == null) {
             return this;
         } else {
-            beginField.click();
-            editorField.setValue(begin);
+            taskFormElements.getBeginField().click();
+            taskFormElements.getEditorField().setValue(begin);
         }
         return this;
     }
@@ -591,12 +451,12 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Ввод даты конца
      */
-    public UnionMessageNewPage setEnd(String end) {
+    public UnionMessageNewPageSteps setEnd(String end) {
         if (end == null) {
             return this;
         } else {
-            endField.click();
-            editorField.setValue(end);
+            taskFormElements.getEndField().click();
+            taskFormElements.getEditorField().setValue(end);
 
         }
         return this;
@@ -605,9 +465,9 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Установка признака важности
      */
-    public UnionMessageNewPage setImportance(boolean isImportant) {
-        priority.click();
-        editorField.click();
+    public UnionMessageNewPageSteps setImportance(boolean isImportant) {
+        taskFormElements.getPriority().click();
+        taskFormElements.getEditorField().click();
         if (isImportant) {
             importantTask.click();
         } else {
@@ -619,7 +479,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Установка Контрольных точек
      */
-    public UnionMessageNewPage setCheckpoints(Checkpoint[] checkpoints) {
+    public UnionMessageNewPageSteps setCheckpoints(Checkpoint[] checkpoints) {
         if (checkpoints == null) {
             return this;
         } else
@@ -631,15 +491,15 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
         for (Checkpoint checkpoint : checkpoints) {
             buttonAddCheckpoint.click(); // Добавить КТ
             checkpointDateField.click();
-            editorField.setValue(checkpoint.getDate());
+            taskFormElements.getEditorField().setValue(checkpoint.getDate());
             checkpointDescriptionField.click();
             switchTo().frame(descriptionFrame);
-            ckeBody.setValue(checkpoint.getDescription());
+            taskFormElements.getCkeBody().setValue(checkpoint.getDescription());
             getFrameTop();
             getFrameFlow();
-            buttonSaveDescription.click();
+            taskFormElements.getButtonSaveDescription().click();
             checkpointNameField.click();
-            editorField.setValue(checkpoint.getName()); // Заполняем Название КТ
+            taskFormElements.getEditorField().setValue(checkpoint.getName()); // Заполняем Название КТ
             if (checkpoint.getIsReady()) {
                 checkboxReadyFirst.click();
             }
@@ -680,7 +540,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Установка признака с докладом
      */
-    public UnionMessageNewPage setReport(boolean isWithReport) {
+    public UnionMessageNewPageSteps setReport(boolean isWithReport) {
         additionalTab.click();
         if (!isWithReport) {
             checkboxWithReport.click();
@@ -691,7 +551,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Установка признака секретная
      */
-    public UnionMessageNewPage setSecret(boolean isSecret) {
+    public UnionMessageNewPageSteps setSecret(boolean isSecret) {
         additionalTab.click();
         if (isSecret) {
             checkboxSecretTask.click();
@@ -702,7 +562,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Установка признака только для ознакомления
      */
-    public UnionMessageNewPage setReview(boolean isForReview) {
+    public UnionMessageNewPageSteps setReview(boolean isForReview) {
         additionalTab.click();
         if (isForReview) {
             checkboxOnlyForView.click();
@@ -715,7 +575,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
      *
      * @param sysActionsInParentTask передаваемое булево зн-ия, для установки соответстующей настройки
      */
-    public UnionMessageNewPage iwgSysActionsInParentTask(boolean sysActionsInParentTask) {
+    public UnionMessageNewPageSteps iwgSysActionsInParentTask(boolean sysActionsInParentTask) {
         if (sysActionsInParentTask) {
             inputIwgSysActionsInParentTask.click();
         }
@@ -725,13 +585,13 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Добавление ИРГ из массива
      */
-    public UnionMessageNewPage setIWG(IWG[] iwg) {
+    public UnionMessageNewPageSteps setIWG(IWG[] iwg) {
         if (iwg == null) {
             return this;
         } else {
             // Общий массив ИРГ
             for (IWG anIwg : iwg) {
-                buttonAddIWG.click(); // Добавить ИРГ
+                taskFormElements.getButtonAddIWG().click(); // Добавить ИРГ
                 gotoIWGFrame(); // переходим во Фрейм формы добавления - ИРГ
                 $(buttonIwgSave).shouldBe(Condition.visible);
                 inputIwgName.setValue(anIwg.getNameIWG()); // Название ИРГ
@@ -815,7 +675,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Сохранить ИРГ
      */
-    public UnionMessageNewPage saveIWG() {
+    public UnionMessageNewPageSteps saveIWG() {
         buttonIwgSave.click();
         return this;
     }
@@ -823,7 +683,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Отменить ИРГ
      */
-    public UnionMessageNewPage cancelIWG() {
+    public UnionMessageNewPageSteps cancelIWG() {
         buttonIwgCancel.click();
         return this;
     }
@@ -833,7 +693,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
      *
      * @param nameIWG передаем название ИРГ
      */
-    public UnionMessageNewPage verifyCreateIWG(String nameIWG) {
+    public UnionMessageNewPageSteps verifyCreateIWG(String nameIWG) {
         getFrameTop();
         getFrameFlow();
         waitForPageUntilElementIsVisible(By.xpath("//div[@id='tab_iwg']//tbody//td[5]//div[text()='" + nameIWG + "']"), 5000);
@@ -844,7 +704,7 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
     /**
      * Проверка Загрузки страницы - ожидание кнопки - Добавить новый проект
      */
-    public UnionMessageNewPage ensurePageLoaded() {
+    public UnionMessageNewPageSteps ensurePageLoaded() {
         $(By.xpath("//a[contains (@href, 'newproject')]")).shouldBe(Condition.visible);
         return this;
     }
@@ -864,13 +724,17 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant());
         // выбор пользователя по ФИО - Авторы - через searchlive
-        choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), authorsField, editorField);
+        choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), taskFormElements.getAuthorsField(),
+                taskFormElements.getEditorField());
         // выбор пользователя - Контролер - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), сontrollersField, editorField);
+        choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), taskFormElements.getСontrollersField(),
+                taskFormElements.getEditorField());
         // выбор пользователя - Исполнителей - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), workersField, editorField);
+        choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), taskFormElements.getWorkersField(),
+                taskFormElements.getEditorField());
         // выбор пользователя - Ответственные руководители - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField);
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), taskFormElements.getExecutiveManagersField(),
+                taskFormElements.getEditorField());
         setTaskType(task.getTasktype()) // выбор - Тип задачи
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
@@ -894,7 +758,8 @@ public class UnionMessageNewPage extends ProjectElements implements UnionMessage
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant());
         // выбор пользователя - Ответственные руководители - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), executiveManagersField, editorField);
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), taskFormElements.getExecutiveManagersField(),
+                taskFormElements.getEditorField());
         setTaskType(task.getTasktype())
                 .setIWG(task.getIWG())
                 .setReport(task.getIsWithReport())

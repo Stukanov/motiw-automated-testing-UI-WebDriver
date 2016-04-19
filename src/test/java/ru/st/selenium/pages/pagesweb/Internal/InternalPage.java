@@ -12,7 +12,7 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPageSteps;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -257,9 +257,9 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     /**
      * Переход в Задачи/Создать задачу
      */
-    public UnionMessageNewPage goToUnionMessageNew() {
+    public UnionMessageNewPageSteps goToUnionMessageNew() {
         twoTierNavigation(menuTask, createTask);
-        return page(UnionMessageNewPage.class);
+        return page(UnionMessageNewPageSteps.class);
     }
 
     /**

@@ -14,7 +14,7 @@ public interface AuthorizationLogic {
 
     boolean isNotLoggedIn();
 
-    boolean isLoggedInAs(Employee user);
+    boolean newUserIsLoggedInAs(Employee user);
 
     boolean checkTheSystemFolderMappingUserLibrary(Employee user);
 

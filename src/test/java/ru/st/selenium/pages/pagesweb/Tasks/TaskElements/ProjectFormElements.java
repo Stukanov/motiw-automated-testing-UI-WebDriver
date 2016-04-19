@@ -2,14 +2,11 @@ package ru.st.selenium.pages.pagesweb.Tasks.TaskElements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
-import ru.st.selenium.pages.BasePage;
 
 /**
- * Элементы - форма создания нового Проекта
+ * Элементы формы задачи - форма создания нового Проекта
  */
-public class ProjectElements extends BasePage {
-
-    // TODO 0005 на подумать - как наследовать данный класс в пайдесах, чтоб не ловить НуллПоинтерЕксепшен
+public class ProjectFormElements {
 
     @FindBy(xpath = "//*[contains (@class, 'x-editor')][not(contains (@style, 'none'))]//input")
     private SelenideElement editorFieldProject;

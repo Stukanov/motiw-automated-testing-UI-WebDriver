@@ -1,4 +1,4 @@
-package ru.st.selenium.pages.pagesweb.Tasks;
+package ru.st.selenium.pagesteps.TaskSteps;
 
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
@@ -16,95 +16,95 @@ import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 /**
  * Форма (редактирования) задачи
  */
-public class UnionMessagePage extends BasePage implements UnionMessageLogic {
+public class UnionMessagePageSteps extends BasePage implements UnionMessageLogic {
 
 
-    public UnionMessagePage verifyEnd(String end) {
+    public UnionMessagePageSteps verifyEnd(String end) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyProject(Project project) {
+    public UnionMessagePageSteps verifyProject(Project project) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyTaskDescription(String description) {
+    public UnionMessagePageSteps verifyTaskDescription(String description) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyBegin(String begin) {
+    public UnionMessagePageSteps verifyBegin(String begin) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyImportance(boolean isImportant) {
+    public UnionMessagePageSteps verifyImportance(boolean isImportant) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyAuthors(Employee[] authors) {
+    public UnionMessagePageSteps verifyAuthors(Employee[] authors) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyControllers(Employee[] controllers) {
+    public UnionMessagePageSteps verifyControllers(Employee[] controllers) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyWorkers(Employee[] workers) {
+    public UnionMessagePageSteps verifyWorkers(Employee[] workers) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyResppersons(Employee[] resppersons) {
+    public UnionMessagePageSteps verifyResppersons(Employee[] resppersons) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyTaskType(TasksTypes tasktype) {
+    public UnionMessagePageSteps verifyTaskType(TasksTypes tasktype) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyIWG(IWG[] iwg) {
+    public UnionMessagePageSteps verifyIWG(IWG[] iwg) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyCheckpoints(Checkpoint[] checkpoints) {
+    public UnionMessagePageSteps verifyCheckpoints(Checkpoint[] checkpoints) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyReport(boolean isWithReport) {
+    public UnionMessagePageSteps verifyReport(boolean isWithReport) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifySecret(boolean isSecret) {
+    public UnionMessagePageSteps verifySecret(boolean isSecret) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyReview(boolean isForReview) {
+    public UnionMessagePageSteps verifyReview(boolean isForReview) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage postAction(Action[] actions) {
+    public UnionMessagePageSteps postAction(Action[] actions) {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage verifyAction() {
+    public UnionMessagePageSteps verifyAction() {
         // TODO Auto-generated method stub
         return this;
     }
 
-    public UnionMessagePage closeWindow() {
+    public UnionMessagePageSteps closeWindow() {
         getWebDriver().close();
         return this;
     }
@@ -115,7 +115,7 @@ public class UnionMessagePage extends BasePage implements UnionMessageLogic {
      * @param valueTask
      */
     @Override
-    public UnionMessagePage verifyCreateTask(Task valueTask) {
+    public UnionMessagePageSteps verifyCreateTask(Task valueTask) {
         /*
          Window PopUp. Store your parent window
          */
@@ -153,7 +153,7 @@ public class UnionMessagePage extends BasePage implements UnionMessageLogic {
     /**
      * Проверка загрузки формы задачи
      */
-    public UnionMessagePage ensurePageLoaded() {
+    public UnionMessagePageSteps ensurePageLoaded() {
         $(By.xpath("//body[@id='unionmessage']//li//span[text()='Действия']")).shouldBe(Condition.visible);
         $(By.xpath("//body[@id='unionmessage']//li//span[text()='Описание']")).shouldBe(Condition.visible);
         $(By.xpath("//body[@id='unionmessage']//li//span[text()='Файлы']")).shouldBe(Condition.visible);

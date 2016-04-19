@@ -14,18 +14,18 @@ import ru.st.selenium.model.Document.Document;
 import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectElements;
+import ru.st.selenium.pages.BasePage;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectFormElements;
 
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
-import static com.codeborne.selenide.Selenide.switchTo;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
 
-public class NewDocumentPage extends ProjectElements implements DocumentLogic {
+public class NewDocumentPage extends BasePage implements DocumentLogic {
 
+    private ProjectFormElements projectFormElements = page(ProjectFormElements.class);
     /**
      * Фрейм CKE (расширенный текстовый редактор)
      */
@@ -262,18 +262,18 @@ public class NewDocumentPage extends ProjectElements implements DocumentLogic {
             newProject.click();
             switchTo().frame(projectFrame);
             // выбор поля Проект
-            getProjectField().click();
+            projectFormElements.getProjectField().click();
             // заполняем поле Проект (Название проекта)
-            getEditorFieldProject().setValue(project.getNameProject());
+            projectFormElements.getEditorFieldProject().setValue(project.getNameProject());
             // выбор поля Описание
-            getProjectDescription().click();
+            projectFormElements.getProjectDescription().click();
             // заполняем поле Описание проекта
-            getEditorDescriptionProject().setValue(project.getDescription());
-            getProjectClient().click();
-            getEditorFieldProject().setValue(project.getСlient());
-            getProjectEnd().click();
-            getEditorFieldProject().setValue(project.getEndDate());
-            getProjectSave().click();
+            projectFormElements.getEditorDescriptionProject().setValue(project.getDescription());
+            projectFormElements.getProjectClient().click();
+            projectFormElements.getEditorFieldProject().setValue(project.getСlient());
+            projectFormElements.getProjectEnd().click();
+            projectFormElements.getEditorFieldProject().setValue(project.getEndDate());
+            projectFormElements.getProjectSave().click();
             waitForProjectMask();
             switchTo().defaultContent();
             getFrameFlow();

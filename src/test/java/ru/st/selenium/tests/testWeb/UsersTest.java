@@ -1,7 +1,6 @@
 package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -177,31 +176,31 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
          * user1 - пользователь 1; editUser - пользователь user2 (отредактированный пользователь)
          */
         loginPage.loginAs(user1);
-        assertTrue(loginPage.isLoggedInAs(user1));
+        assertTrue(loginPage.newUserIsLoggedInAs(user1));
         assertTrue(loginPage.checkTheSystemFolderMappingUserLibrary(user1)); // проверяем отображение системной папки Библиотека пользователя
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен
 
         loginPage.loginAs(editUser);
-        assertTrue(loginPage.isLoggedInAs(editUser));
+        assertTrue(loginPage.newUserIsLoggedInAs(editUser));
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
 
         loginPage.loginAs(changepass);
         RestorePasswordPage restorePasswordPage = createUsersPage.initializationRestorePasswordPage();
         restorePasswordPage.passwordChange(changepass);
-        assertTrue(loginPage.isLoggedInAs(changepass));
+        assertTrue(loginPage.newUserIsLoggedInAs(changepass));
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
 
         loginPage.loginAs(docflow);
-        assertTrue(loginPage.isLoggedInAs(docflow));
+        assertTrue(loginPage.newUserIsLoggedInAs(docflow));
         createUsersPage.initializationInternalPage().checkUserDocflow();
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
 
         loginPage.loginAs(workflow);
-        assertTrue(loginPage.isLoggedInAs(workflow));
+        assertTrue(loginPage.newUserIsLoggedInAs(workflow));
         createUsersPage.initializationInternalPage().checkUserWorkflow();
 
         internalPage.logout();
