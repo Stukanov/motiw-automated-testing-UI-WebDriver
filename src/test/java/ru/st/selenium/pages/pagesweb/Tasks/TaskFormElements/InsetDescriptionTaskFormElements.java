@@ -1,12 +1,12 @@
-package ru.st.selenium.pages.pagesweb.Tasks.TaskElements;
+package ru.st.selenium.pages.pagesweb.Tasks.TaskFormElements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Форма - ЗАДАЧА
+ * Элементы формы - ЗАДАЧА - вкладка Описание
  */
-public class TaskFormElements {
+public class InsetDescriptionTaskFormElements {
 
 
     @FindBy(xpath = "//a[contains (@onclick, 'selectproject')]")
@@ -80,6 +80,16 @@ public class TaskFormElements {
 
     @FindBy(xpath = "//*[contains (@class, 'x-editor')][contains (@style, 'visible')]//input")
     private SelenideElement editorField;
+
+    @FindBy(xpath = "//*[contains (@class, 'inner')]/*[contains (@class, 'combo-list')][1]")
+    private SelenideElement simpleTask;
+
+    @FindBy(xpath = "//*[contains (@class, 'inner')]/*[contains (@class, 'combo-list')][2]")
+    private SelenideElement importantTask;
+
+    @FindBy(xpath = "//li[contains (@id, 'tab_description')]//span[contains (@class, 'strip')]")
+    private SelenideElement planningDescription;
+
 
 
     /**
@@ -257,4 +267,26 @@ public class TaskFormElements {
     public SelenideElement getEditorField() {
         return editorField;
     }
+
+    /**
+     * признак - Важная задача
+     */
+    public SelenideElement getImportantTask() {
+        return importantTask;
+    }
+
+    /**
+     * признак - Обычная задача
+     */
+    public SelenideElement getSimpleTask() {
+        return simpleTask;
+    }
+
+    /**
+     * Вкладка - Описание
+     */
+    public SelenideElement getPlanningDescription() {
+        return planningDescription;
+    }
+
 }

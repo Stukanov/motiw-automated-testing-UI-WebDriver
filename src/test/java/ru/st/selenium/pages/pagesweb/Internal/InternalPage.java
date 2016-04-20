@@ -12,7 +12,7 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPageSteps;
+import ru.st.selenium.pagesteps.TaskSteps.UnionMessageNewPageSteps;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 
 import static com.codeborne.selenide.Selenide.*;

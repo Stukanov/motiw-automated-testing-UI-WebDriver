@@ -15,7 +15,7 @@ import ru.st.selenium.model.Tasks.Project;
 import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectFormElements;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskFormElements.ProjectFormElements;
 
 
 import static com.codeborne.selenide.Selenide.*;

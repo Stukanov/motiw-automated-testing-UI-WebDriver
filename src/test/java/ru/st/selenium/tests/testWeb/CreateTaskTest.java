@@ -14,7 +14,7 @@ import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPageSteps;
+import ru.st.selenium.pagesteps.TaskSteps.UnionMessageNewPageSteps;
 import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;

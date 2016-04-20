@@ -1,10 +1,10 @@
-package ru.st.selenium.pages.pagesweb.Tasks.TaskElements;
+package ru.st.selenium.pages.pagesweb.Tasks.TaskFormElements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Элементы формы задачи - форма создания нового Проекта
+ * Элементы - форма создания нового Проекта
  */
 public class ProjectFormElements {
 

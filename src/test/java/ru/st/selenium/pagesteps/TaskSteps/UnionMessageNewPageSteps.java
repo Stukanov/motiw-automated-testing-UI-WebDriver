@@ -1,10 +1,9 @@
-package ru.st.selenium.pages.pagesweb.Tasks;
+package ru.st.selenium.pagesteps.TaskSteps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionMessageNewLogic;
@@ -15,264 +14,26 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.ProjectFormElements;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskElements.TaskFormElements;
+import ru.st.selenium.pages.pagesweb.Tasks.TaskFormElements.*;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.st.selenium.utils.WaitUtil.waitForPageUntilElementIsVisible;
 import static ru.st.selenium.utils.WindowsUtil.newWindowForm;
 
-
 /**
- * Шаги - форма - СОЗДАТЬ ЗАДАЧУ
+ * форма - СОЗДАТЬ ЗАДАЧУ
  */
 public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNewLogic {
 
 
     private ProjectFormElements projectFormElements = page(ProjectFormElements.class);
-    private TaskFormElements taskFormElements = page(TaskFormElements.class);
+    private InsetDescriptionTaskFormElements insetDescriptionTaskFormElements = page(InsetDescriptionTaskFormElements.class);
+    private IWGFormElements iwgFormElements = page(IWGFormElements.class);
+    private UsersSelectTheFormElements usersSelectTheFormElements = page(UsersSelectTheFormElements.class);
+    private InsetPlanningTaskFormElements insetPlanningTaskFormElements = page(InsetPlanningTaskFormElements.class);
+    private InsetDetailsTaskFormElements insetDetailsTaskFormElements = page(InsetDetailsTaskFormElements.class);
 
-
-    //-------------------------------------------------------------------------------------------------------------Форма - ИРГ
-    /**
-     * Поле названия ИРГ
-     */
-    @FindBy(xpath = "//input[contains (@id, 'iwgname')]")
-    private SelenideElement inputIwgName;
-
-    /**
-     * Поле шаблона ИРГ
-     */
-    @FindBy(xpath = "//input[contains (@id, 'tasktemplate')]")
-    private SelenideElement inputIwgTaskTemplate;
-
-    /**
-     * Поле типа задачи ИРГ
-     */
-    @FindBy(xpath = "//input[contains (@id, 'tasktype')]")
-    private SelenideElement inputIwgTaskType;
-
-    /**
-     * Чекбокс сист. действия в родительской задаче
-     */
-    @FindBy(xpath = "//input[contains (@id, 'sysacts')]")
-    private SelenideElement inputIwgSysActionsInParentTask;
-
-    /**
-     * Добавить - ИРГ - ОР задачи
-     */
-    @FindBy(xpath = "(//span[contains(@id,'button')][ancestor::div[contains(@id,'grid')]]/span/span[2])[1]")
-    private SelenideElement buttonIwgAddRespPerson;
-
-    /**
-     * Добавить - ИРГ -  Исполнитель задачи
-     */
-    @FindBy(xpath = "(//span[contains(@id,'button')][ancestor::div[contains(@id,'grid')]]/span/span[2])[2]")
-    private SelenideElement buttonIwgAddWorker;
-
-    /**
-     * Добавить - ИРГ - Контролер задачи
-     */
-    @FindBy(xpath = "(//span[contains(@id,'button')][ancestor::div[contains(@id,'grid')]]/span/span[2])[3]")
-    private SelenideElement buttonIwgAddController;
-
-    /**
-     * Кнопка Сохранить
-     */
-    @FindBy(xpath = "(//span[contains(@id,'button')][ancestor::div[contains(@id,'panel') and contains(@class,'x-plain bottom-panel')]]/span/span[2])[1]")
-    private SelenideElement buttonIwgSave;
-
-    /**
-     * Кнопка Отмена
-     */
-    @FindBy(xpath = "(//span[contains(@id,'button')][ancestor::div[contains(@id,'panel') and contains(@class,'x-plain bottom-panel')]]/span/span[2])[2]")
-    private SelenideElement buttonIwgCancel;
-
-    //----------------------------------------------------------------------------------------------------------Окно выбора пользователей
-
-    /**
-     * Поле поиска пользователя
-     */
-    @FindBy(css = "#SearchEdit")
-    private SelenideElement userSearchField;
-
-    /**
-     * кнопка доб пользователя
-     */
-    @FindBy(xpath = "//img[contains (@onclick, 'check')]")
-    private SelenideElement userAddButton;
-
-    /**
-     * кнопка сохранить
-     */
-    @FindBy(xpath = "//*[@id='btn_save']//button")
-    private SelenideElement userSaveButton;
-
-    //------------------------------------------------------------------------------------------------------------Форма задачи
-    /**
-     * Обычная задача
-     */
-    @FindBy(xpath = "//*[contains (@class, 'inner')]/*[contains (@class, 'combo-list')][1]")
-    private SelenideElement simpleTask;
-
-    /**
-     * Важная задача
-     */
-    @FindBy(xpath = "//*[contains (@class, 'inner')]/*[contains (@class, 'combo-list')][2]")
-    private SelenideElement importantTask;
-
-    /**
-     * Вкладка Планирование
-     */
-    @FindBy(xpath = "//li[contains (@id, 'planning')]//span[contains (@class, 'strip')]")
-    private SelenideElement planningTab;
-
-    /**
-     * Вкладка Планирование
-     */
-    @FindBy(xpath = "//li[contains (@id, 'tab_description')]//span[contains (@class, 'strip')]")
-    private SelenideElement planningDescription;
-
-    /**
-     * Вкладка Дополнительно
-     */
-    @FindBy(xpath = "//li[contains (@id, 'additional')]//span[contains (@class, 'strip')]")
-    private SelenideElement additionalTab;
-
-    /**
-     * Чекбокс с докладом
-     */
-    @FindBy(xpath = "//*[contains (@id, 'iswithreport')]")
-    private SelenideElement checkboxWithReport;
-
-    /**
-     * Чекбокс секретная задача
-     */
-    @FindBy(xpath = "//*[contains (@id, 'issecret')]")
-    private SelenideElement checkboxSecretTask;
-
-    /**
-     * Чекбокс только для ознакомления
-     */
-    @FindBy(xpath = "//*[contains (@id, 'only_for_view')]")
-    private SelenideElement checkboxOnlyForView;
-
-    /**
-     * Кнопка добавить КТ
-     */
-    @FindBy(xpath = "//table[contains (@id, 'AddCP')]//button")
-    private SelenideElement buttonAddCheckpoint;
-
-    /**
-     * Чекбокс "готово" первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//td//div[contains (@class, 'check')]")
-    private SelenideElement checkboxReadyFirst;
-
-    /**
-     * Поле Дата первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//*[contains (@class, 'scroller')]//*[contains (@class, 'row')][1]//td[2]")
-    private SelenideElement checkpointDateField;
-
-    /**
-     * Поле Привязка первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//*[contains (@class, 'scroller')]//*[contains (@class, 'row')][1]//td[3]")
-    private SelenideElement checkpointLinkedField;
-
-    /**
-     * Поле смещение первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//*[contains (@class, 'scroller')]//*[contains (@class, 'row')][1]//td[4]")
-    private SelenideElement checkpointOffsetField;
-
-    /**
-     * Поле период первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//*[contains (@class, 'scroller')]//*[contains (@class, 'row')][1]//td[5]")
-    private SelenideElement checkpointPeriodField;
-
-    /**
-     * Поле название первой КТ грида
-     */
-    @FindBy(xpath = "//*[contains (@id, 'tab_planning')]//*[contains (@class, 'scroller')]//*[contains (@class, 'row')][1]//td[6]")
-    private SelenideElement checkpointNameField;
-
-    /**
-     * Кнопка описание первой КТ грида
-     */
-    @FindBy(xpath = "(//img[contains (@onclick, 'Description')])[1]")
-    private SelenideElement checkpointDescriptionField;
-
-    /**
-     * Первый видимый элеиент комбобокса
-     */
-    @FindBy(xpath = "//div[contains (@class, 'combo')][contains (@style, 'visibility: visible')]/div/div[1]")
-    private SelenideElement firstVisibleCombo;
-
-    /**
-     * Второй видимый элеиент комбобокса
-     */
-    @FindBy(xpath = "//div[contains (@class, 'combo')][contains (@style, 'visibility: visible')]/div/div[2]")
-    private SelenideElement secondVisibleCombo;
-
-    /**
-     * Третий видимый элеиент комбобокса
-     */
-    @FindBy(xpath = "//div[contains (@class, 'combo')][contains (@style, 'visibility: visible')]/div/div[3]")
-    private SelenideElement thirdVisibleCombo;
-
-    /**
-     * Четвертый видимый элеиент комбобокса
-     */
-    @FindBy(xpath = "//div[contains (@class, 'combo')][contains (@style, 'visibility: visible')]/div/div[4]")
-    private SelenideElement fourthVisibleCombo;
-
-    /**
-     * Пятый видимый элеиент комбобокса
-     */
-    @FindBy(xpath = "//div[contains (@class, 'combo')][contains (@style, 'visibility: visible')]/div/div[5]")
-    private SelenideElement fifthVisibleCombo;
-
-    /**
-     * ----------------------------------------------------------------------------------------------------------------ФРЕЙМЫ:
-     */
-
-    /**
-     * Фрейм создания проекта
-     */
-    @FindBy(xpath = "//*[contains (@src, 'project')]")
-    private SelenideElement projectFrame;
-
-    /**
-     * Фрейм ввода текста описания
-     */
-    @FindBy(xpath = "//*[@class='cke_wysiwyg_frame cke_reset']")
-    private SelenideElement descriptionFrame;
-
-    /**
-     * Фрейм выбора пользвателя
-     */
-    @FindBy(id = "SelectUser")
-    private SelenideElement selectUserFrame;
-
-    /**
-     * Фрейм создания ирг
-     */
-    @FindBy(xpath = "//*[contains (@src, 'editiwg')]")
-    private SelenideElement iwgFrame;
-
-    //------------------------------------------------------------------------------------------------------------------Методы
-
-    /**
-     * Переход в фрейм формы редактирования/создания ИРГ
-     */
-    public UnionMessageNewPageSteps gotoIWGFrame() {
-        switchTo().frame(iwgFrame);
-        return this;
-    }
 
     /**
      * Ожидание маски быстрого поиска при вводе шаблона поиска
@@ -345,19 +106,21 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
 
     /**
      * Добавление названия задачи
+     * @param taskName строковый параметр для передачи Названия задачи
+     * @return
      */
     public UnionMessageNewPageSteps setTaskName(String taskName) {
-        taskFormElements.getClickTaskName().click();
-        taskFormElements.getEditorField().setValue(taskName);
+        insetDescriptionTaskFormElements.getClickTaskName().click();
+        insetDescriptionTaskFormElements.getEditorField().setValue(taskName);
         return this;
     }
 
     /**
-     * Клик сохранить задачу - ожидание маски
+     * Клик сохранить задачу - Ожидание маски
      */
     public UnionMessageNewPageSteps clickSaveTask() {
-        planningDescription.click();
-        taskFormElements.getButtonCreateTask().click();
+        insetDescriptionTaskFormElements.getPlanningDescription().click();
+        insetDescriptionTaskFormElements.getButtonCreateTask().click();
         waitForTaskMask();
         return this;
     }
@@ -367,22 +130,23 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      */
     public UnionMessageNewPageSteps assertWindowTaskCreated() {
         $(By.xpath("//span[@class='ext-mb-text'][contains(text(),'Создана задача №')]")).shouldBe(Condition.visible);
-        taskFormElements.getOKButtonInConfirmationFormTaskCreation().click();
+        insetDescriptionTaskFormElements.getOKButtonInConfirmationFormTaskCreation().click();
         return this;
     }
 
     /**
      * Установка типа задачи
+     * @param taskType передаваемое имя типа задачи
      */
-    public UnionMessageNewPageSteps setTaskType(TasksTypes tasktype) {
-        if (tasktype == null) {
+    public UnionMessageNewPageSteps setTaskType(TasksTypes taskType) {
+        if (taskType == null) {
             return this;
         } else {
-            $(taskFormElements.getFieldTaskType()).shouldBe(Condition.visible);
+            $(insetDescriptionTaskFormElements.getFieldTaskType()).shouldBe(Condition.visible);
         }
-        taskFormElements.getFieldTaskType().click();
-        taskFormElements.getEditorField().click();
-        $(By.xpath("//*[contains (@class, 'combo-list')][contains (@style, 'visible')]//*[contains (text(), '" + tasktype.getTaskTypeName() + "')]"))
+        insetDescriptionTaskFormElements.getFieldTaskType().click();
+        insetDescriptionTaskFormElements.getEditorField().click();
+        $(By.xpath("//*[contains (@class, 'combo-list')][contains (@style, 'visible')]//*[contains (text(), '" + taskType.getTaskTypeName() + "')]"))
                 .click();
         waitForTaskMask();
         return this;
@@ -391,13 +155,14 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
 
     /**
      * Создание нового проекта
+     * @param project передаваемые параметры атрибуты проекта
      */
     public UnionMessageNewPageSteps createProject(Project project) {
         if (project == null) {
             return this;
         } else {
-            taskFormElements.getButtonNewProject().click();
-            switchTo().frame(projectFrame);
+            insetDescriptionTaskFormElements.getButtonNewProject().click();
+            getFrameFormProject();
             // выбор поля Проект
             projectFormElements.getProjectField().click();
             // заполняем поле Проект (Название проекта)
@@ -425,12 +190,12 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
         if (descript == null) {
             return this;
         } else {
-            taskFormElements.getDescriptionTask().click();
-            switchTo().frame(descriptionFrame);
-            taskFormElements.getCkeBody().setValue(descript);
+            insetDescriptionTaskFormElements.getDescriptionTask().click();
+            getFrameFormDescription();
+            insetDescriptionTaskFormElements.getCkeBody().setValue(descript);
             getFrameTop();
             getFrameFlow();
-            taskFormElements.getButtonSaveDescription().click();
+            insetDescriptionTaskFormElements.getButtonSaveDescription().click();
         }
         return this;
     }
@@ -442,8 +207,8 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
         if (begin == null) {
             return this;
         } else {
-            taskFormElements.getBeginField().click();
-            taskFormElements.getEditorField().setValue(begin);
+            insetDescriptionTaskFormElements.getBeginField().click();
+            insetDescriptionTaskFormElements.getEditorField().setValue(begin);
         }
         return this;
     }
@@ -455,8 +220,8 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
         if (end == null) {
             return this;
         } else {
-            taskFormElements.getEndField().click();
-            taskFormElements.getEditorField().setValue(end);
+            insetDescriptionTaskFormElements.getEndField().click();
+            insetDescriptionTaskFormElements.getEditorField().setValue(end);
 
         }
         return this;
@@ -466,12 +231,12 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Установка признака важности
      */
     public UnionMessageNewPageSteps setImportance(boolean isImportant) {
-        taskFormElements.getPriority().click();
-        taskFormElements.getEditorField().click();
+        insetDescriptionTaskFormElements.getPriority().click();
+        insetDescriptionTaskFormElements.getEditorField().click();
         if (isImportant) {
-            importantTask.click();
+            insetDescriptionTaskFormElements.getImportantTask().click();
         } else {
-            simpleTask.click();
+            insetDescriptionTaskFormElements.getSimpleTask().click();
         }
         return this;
     }
@@ -485,23 +250,22 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
         } else
             getFrameTop();
         getFrameFlow();
-        $(planningTab).shouldBe(Condition.visible);
-        planningTab.click(); // Выбор вкладки - Планирование
+        insetPlanningTaskFormElements.getPlanningTab().click(); // Выбор вкладки - Планирование
         waitForTaskMask(); // Ожидание маски
         for (Checkpoint checkpoint : checkpoints) {
-            buttonAddCheckpoint.click(); // Добавить КТ
-            checkpointDateField.click();
-            taskFormElements.getEditorField().setValue(checkpoint.getDate());
-            checkpointDescriptionField.click();
-            switchTo().frame(descriptionFrame);
-            taskFormElements.getCkeBody().setValue(checkpoint.getDescription());
+            insetPlanningTaskFormElements.getButtonAddCheckpoint().click(); // Добавить КТ
+            insetPlanningTaskFormElements.getCheckpointDateField().click();
+            insetDescriptionTaskFormElements.getEditorField().setValue(checkpoint.getDate());
+            insetPlanningTaskFormElements.getCheckpointDescriptionField().click();
+            getFrameFormDescription();
+            insetDescriptionTaskFormElements.getCkeBody().setValue(checkpoint.getDescription());
             getFrameTop();
             getFrameFlow();
-            taskFormElements.getButtonSaveDescription().click();
-            checkpointNameField.click();
-            taskFormElements.getEditorField().setValue(checkpoint.getName()); // Заполняем Название КТ
+            insetDescriptionTaskFormElements.getButtonSaveDescription().click();
+            insetPlanningTaskFormElements.getCheckpointNameField().click();
+            insetDescriptionTaskFormElements.getEditorField().setValue(checkpoint.getName()); // Заполняем Название КТ
             if (checkpoint.getIsReady()) {
-                checkboxReadyFirst.click();
+                insetPlanningTaskFormElements.getCheckboxReadyFirst().click();
             }
 
              /*
@@ -541,9 +305,9 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Установка признака с докладом
      */
     public UnionMessageNewPageSteps setReport(boolean isWithReport) {
-        additionalTab.click();
         if (!isWithReport) {
-            checkboxWithReport.click();
+            insetDetailsTaskFormElements.getAdditionalTab().click();
+            insetDetailsTaskFormElements.getCheckboxWithReport().click();
         }
         return this;
     }
@@ -552,9 +316,9 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Установка признака секретная
      */
     public UnionMessageNewPageSteps setSecret(boolean isSecret) {
-        additionalTab.click();
         if (isSecret) {
-            checkboxSecretTask.click();
+            insetDetailsTaskFormElements.getAdditionalTab().click();
+            insetDetailsTaskFormElements.getCheckboxSecretTask().click();
         }
         return this;
     }
@@ -563,9 +327,9 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Установка признака только для ознакомления
      */
     public UnionMessageNewPageSteps setReview(boolean isForReview) {
-        additionalTab.click();
+        insetDetailsTaskFormElements.getAdditionalTab().click();
         if (isForReview) {
-            checkboxOnlyForView.click();
+            insetDetailsTaskFormElements.getCheckboxOnlyForView().click();
         }
         return this;
     }
@@ -577,7 +341,7 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      */
     public UnionMessageNewPageSteps iwgSysActionsInParentTask(boolean sysActionsInParentTask) {
         if (sysActionsInParentTask) {
-            inputIwgSysActionsInParentTask.click();
+            iwgFormElements.getInputIwgSysActionsInParentTask().click();
         }
         return this;
     }
@@ -591,11 +355,11 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
         } else {
             // Общий массив ИРГ
             for (IWG anIwg : iwg) {
-                taskFormElements.getButtonAddIWG().click(); // Добавить ИРГ
-                gotoIWGFrame(); // переходим во Фрейм формы добавления - ИРГ
-                $(buttonIwgSave).shouldBe(Condition.visible);
-                inputIwgName.setValue(anIwg.getNameIWG()); // Название ИРГ
-                inputIwgTaskType.click();
+                insetDescriptionTaskFormElements.getButtonAddIWG().click(); // Добавить ИРГ
+                getFrameIWG(); // переходим во Фрейм формы добавления - ИРГ
+                $(iwgFormElements.getButtonIwgSave()).shouldBe(Condition.visible);
+                iwgFormElements.getInputIwgName().setValue(anIwg.getNameIWG()); // Название ИРГ
+                iwgFormElements.getInputIwgTaskType().click();
                 $(By.xpath("//*[text()='" + anIwg.getTasksTypes().getTaskTypeName() + "']")).click();
                 iwgSysActionsInParentTask(anIwg.getIsSystemActionsInParentTask()); // Системные действия в родительской задаче
                 // ОР ИРГ
@@ -604,20 +368,20 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                     continue;
                 } else {
                     for (int riwg = 0; riwg < (anIwg.getRespPersons().length); riwg++) {
-                        buttonIwgAddRespPerson.click(); // добавить ОР ИРГ
+                        iwgFormElements.getButtonIwgAddRespPerson().click(); // добавить ОР ИРГ
                         // Window PopUp
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
                         switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
-                        $(userSearchField).shouldBe(Condition.visible);
-                        userSearchField.clear();
-                        userSearchField.setValue(anIwg.getRespPersons()[riwg].getLastName());
-                        userSearchField.sendKeys(Keys.RETURN);
+                        $(usersSelectTheFormElements.getUserSearchField()).shouldBe(Condition.visible);
+                        usersSelectTheFormElements.getUserSearchField().clear();
+                        usersSelectTheFormElements.getUserSearchField().setValue(anIwg.getRespPersons()[riwg].getLastName());
+                        usersSelectTheFormElements.getUserSearchField().sendKeys(Keys.RETURN);
                         waitForTaskMask();
-                        userAddButton.click(); // Добавить пользователя
-                        userSaveButton.click(); // Сохранить выбранных пользователей
+                        usersSelectTheFormElements.getUserAddButton().click(); // Добавить пользователя
+                        usersSelectTheFormElements.getUserSaveButton().click(); // Сохранить выбранных пользователей
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
                         getFrameFlow();
-                        switchTo().frame(iwgFrame);
+                        getFrameIWG();
                     }
                 }
                 // Исполнители ИРГ
@@ -626,19 +390,19 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                     continue;
                 } else {
                     for (int wiwg = 0; wiwg < (anIwg.getWorkers().length); wiwg++) {
-                        buttonIwgAddWorker.click(); // добавить Исполнителей ИРГ
+                        iwgFormElements.getButtonIwgAddWorker().click(); // добавить Исполнителей ИРГ
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
                         switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
-                        $(userSearchField).shouldBe(Condition.visible);
-                        userSearchField.clear();
-                        userSearchField.setValue(anIwg.getWorkers()[wiwg].getLastName());
-                        userSearchField.pressEnter();
+                        $(usersSelectTheFormElements.getUserSearchField()).shouldBe(Condition.visible);
+                        usersSelectTheFormElements.getUserSearchField().clear();
+                        usersSelectTheFormElements.getUserSearchField().setValue(anIwg.getWorkers()[wiwg].getLastName());
+                        usersSelectTheFormElements.getUserSearchField().pressEnter();
                         waitForTaskMask();
-                        userAddButton.click();
-                        userSaveButton.click();
+                        usersSelectTheFormElements.getUserAddButton().click(); // Добавить пользователя
+                        usersSelectTheFormElements.getUserSaveButton().click(); // Сохранить выбранных пользователей
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
                         getFrameFlow();
-                        switchTo().frame(iwgFrame);
+                        getFrameIWG();
                     }
                 }
                 // Контролеры ИРГ
@@ -647,19 +411,19 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                     continue;
                 } else {
                     for (int сiwg = 0; сiwg < (anIwg.getControllers().length); сiwg++) {
-                        buttonIwgAddController.click(); // добавить Контролеров ИРГ
+                        iwgFormElements.getButtonIwgAddController().click(); // добавить Контролеров ИРГ
                         String parentWindowHandler = getWebDriver().getWindowHandle(); // Store your parent window
                         switchTo().window(new WebDriverWait(getWebDriver(), 10).until(newWindowForm(By.cssSelector("#SearchEdit"))));
-                        $(userSearchField).shouldBe(Condition.visible);
-                        userSearchField.clear();
-                        userSearchField.setValue(anIwg.getControllers()[сiwg].getLastName());
-                        userSearchField.pressEnter();
+                        $(usersSelectTheFormElements.getUserSearchField()).shouldBe(Condition.visible);
+                        usersSelectTheFormElements.getUserSearchField().clear();
+                        usersSelectTheFormElements.getUserSearchField().setValue(anIwg.getControllers()[сiwg].getLastName());
+                        usersSelectTheFormElements.getUserSearchField().pressEnter();
                         waitForTaskMask();
-                        userAddButton.click();
-                        userSaveButton.click();
+                        usersSelectTheFormElements.getUserAddButton().click(); // Добавить пользователя
+                        usersSelectTheFormElements.getUserSaveButton().click(); // Сохранить выбранных пользователей
                         switchTo().window(parentWindowHandler);  // Switch back to parent window
                         getFrameFlow();
-                        switchTo().frame(iwgFrame);
+                        getFrameIWG();
                     }
                 }
                 saveIWG(); // Сохранить текущую ИРГ
@@ -676,7 +440,7 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Сохранить ИРГ
      */
     public UnionMessageNewPageSteps saveIWG() {
-        buttonIwgSave.click();
+        iwgFormElements.getButtonIwgSave().click();
         return this;
     }
 
@@ -684,7 +448,7 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
      * Отменить ИРГ
      */
     public UnionMessageNewPageSteps cancelIWG() {
-        buttonIwgCancel.click();
+        iwgFormElements.getButtonIwgCancel().click();
         return this;
     }
 
@@ -724,17 +488,17 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant());
         // выбор пользователя по ФИО - Авторы - через searchlive
-        choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), taskFormElements.getAuthorsField(),
-                taskFormElements.getEditorField());
+        choiceUsersThroughTheSearchLiveSurname(task.getAuthors(), insetDescriptionTaskFormElements.getAuthorsField(),
+                insetDescriptionTaskFormElements.getEditorField());
         // выбор пользователя - Контролер - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), taskFormElements.getСontrollersField(),
-                taskFormElements.getEditorField());
+        choiceUsersThroughTheSearchLiveForSpace(task.getControllers(), insetDescriptionTaskFormElements.getСontrollersField(),
+                insetDescriptionTaskFormElements.getEditorField());
         // выбор пользователя - Исполнителей - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), taskFormElements.getWorkersField(),
-                taskFormElements.getEditorField());
+        choiceUsersThroughTheSearchLiveForSpace(task.getWorkers(), insetDescriptionTaskFormElements.getWorkersField(),
+                insetDescriptionTaskFormElements.getEditorField());
         // выбор пользователя - Ответственные руководители - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), taskFormElements.getExecutiveManagersField(),
-                taskFormElements.getEditorField());
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), insetDescriptionTaskFormElements.getExecutiveManagersField(),
+                insetDescriptionTaskFormElements.getEditorField());
         setTaskType(task.getTasktype()) // выбор - Тип задачи
                 .setReport(task.getIsWithReport())
                 .setSecret(task.getIsSecret())
@@ -758,8 +522,8 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                 .setDataBegin(task.getDateBegin())
                 .setImportance(task.getIsImportant());
         // выбор пользователя - Ответственные руководители - через searchlive
-        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), taskFormElements.getExecutiveManagersField(),
-                taskFormElements.getEditorField());
+        choiceUsersThroughTheSearchLiveForSpace(task.getExecutiveManagers(), insetDescriptionTaskFormElements.getExecutiveManagersField(),
+                insetDescriptionTaskFormElements.getEditorField());
         setTaskType(task.getTasktype())
                 .setIWG(task.getIWG())
                 .setReport(task.getIsWithReport())
