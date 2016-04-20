@@ -22,14 +22,8 @@ import static ru.st.selenium.utils.WindowsUtil.NewWindowOpen;
 /**
  * Шаги - отчет - грид задач - ЗАДАЧИ / ЗАДАЧИ
  */
-public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderLogic {
+public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, FolderLogic {
 
-
-    /*
-     * Фрейм - форма редактирования Папки
-     */
-    @FindBy(xpath = "//iframe[contains(@id,'ext-comp') and contains(@src,'/user/smart_folder')]")
-    private SelenideElement frameFilterWindow;
 
     /*
      * Панель списка группировок на ПУГЗ (панель управления группировкой задач)
@@ -103,18 +97,11 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     @FindBy(xpath = "//input[contains(@id,'nameedit') and @type='text']")
     private SelenideElement folderName;
 
-    /**
-     * Переход в фрейм - форма редактирования Папки
-     */
-    public UnionTasksPage goToFrameFormFolder() {
-        switchTo().frame(frameFilterWindow);
-        return this;
-    }
 
     /**
      * Проверка загрузки страницы
      */
-    public UnionTasksPage ensurePageLoaded() {
+    public UnionTasksPageSteps ensurePageLoaded() {
         $(By.xpath("//div[@id='tree_folders_wrapper']")).shouldBe(present); // Панель ПУГЗ
         $(By.xpath("//td[@class='x-toolbar-left'][ancestor::div[contains(@id,'grid-repuniontasks')]]"))
                 .shouldBe(present); // Панель Навигации по гриду
@@ -124,7 +111,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     /**
      * Поиск задачи
      */
-    public UnionTasksPage findTask(String taskName) {
+    public UnionTasksPageSteps findTask(String taskName) {
         initializationInternalPage().searchFacilityOnTheGrid(taskName);
         return this;
     }
@@ -132,7 +119,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     /**
      * Ожидание маски грида - Задачи/Задачи
      */
-    public UnionTasksPage waitForMask() {
+    public UnionTasksPageSteps waitForMask() {
         $(By.xpath("//div[contains(@id,'ext-gen') and @class='ext-el-mask']")).shouldNotBe(present, visible);
         sleep(500);
         return this;
@@ -196,7 +183,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      *
      * @param nameFolder зн-ие для формирования имени папки
      */
-    public UnionTasksPage selFolderName(String nameFolder) {
+    public UnionTasksPageSteps selFolderName(String nameFolder) {
         folderName.clear();
         folderName.setValue(nameFolder);
         return this;
@@ -216,7 +203,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     /**
      * Развернем все ветви папок (группировка - Папка)
      */
-    public UnionTasksPage unwrapAllNodesFolder() {
+    public UnionTasksPageSteps unwrapAllNodesFolder() {
         try {
             while (isElementPresent(By
                     .xpath("//img[contains(@class,'x-tree-ec-icon') and contains(@class,'plus')]")))
@@ -279,7 +266,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
                     folderInTheGroup.first().contextClick();
                 }
                 addFolder.click(); // Добавить папку
-                goToFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
+                getFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
                 selFolderName(folder.getNameFolder());
                 if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
                     checkUseFilter.click();
@@ -304,7 +291,7 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
      * @param field                передаваемое навание поля для формирования условия фильтрации
      * @param relativeImportanceOf относительное зн-ие для условия папки
      */
-    public UnionTasksPage setTheConditionOfFiltration(String field, boolean relativeImportanceOf) {
+    public UnionTasksPageSteps setTheConditionOfFiltration(String field, boolean relativeImportanceOf) {
         $(By.xpath("//table[contains(@id,'treeview')][2]//td[1]//span")).click();
         // Выбираем поле для фильтрации
         $(By.xpath("//div[@id='sffieldcombochooser']//input")).clear();

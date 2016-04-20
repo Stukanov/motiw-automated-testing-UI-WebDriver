@@ -32,6 +32,35 @@ public abstract class BasePage {
     }
 
     /**
+     * Переход во фрейм - форма редактирования Папки
+     */
+    public WebDriver getFrameFormFolder() {
+        return switchTo().frame($(By.xpath("//iframe[contains(@id,'ext-comp') and contains(@src,'/user/smart_folder')]")));
+    }
+
+    /**
+     * Переход во фрейм - Описание задачи
+     */
+    public WebDriver getFrameFormDescription() {
+        return switchTo().frame($(By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']")));
+    }
+
+    /**
+     * Переход во фрейм - форма Добавления / Редактирования задачи ИРГ
+     */
+    public WebDriver getFrameIWG() {
+        return switchTo().frame($(By.xpath("//iframe[contains(@src,'/user/editiwg')]")));
+    }
+
+    /**
+     * Форма - Редактирование / Создание проекта
+     */
+    public WebDriver getFrameFormProject(){
+
+        return switchTo().frame($(By.xpath("//iframe[@src='/user/project']")));
+    }
+
+    /**
      * Проверяем отображения текста в диалоге (alert) и взаиможействуем с объектом, если Сообщение истенно - взаимодействуем
      * -подтверждаем удаление, отменяем удаление, подтверждаем сохранение
      *

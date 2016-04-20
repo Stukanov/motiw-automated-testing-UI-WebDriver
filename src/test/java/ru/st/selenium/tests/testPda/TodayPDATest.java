@@ -1,7 +1,6 @@
 package ru.st.selenium.tests.testPda;
 
 import com.codeborne.selenide.testng.TextReport;
-import org.testng.annotations.BeforeClass;
 import ru.st.selenium.model.Tasks.Folder;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
@@ -11,7 +10,7 @@ import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -57,9 +56,9 @@ public class TodayPDATest extends ModuleTaskCaseTest {
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
         // Добавляем Папки
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
+        unionTasksPageSteps.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                 .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});
 
         internalPage.logout();

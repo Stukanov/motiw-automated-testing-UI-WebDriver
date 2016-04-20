@@ -2,7 +2,6 @@ package ru.st.selenium.tests.testWeb;
 
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.st.selenium.model.Administration.Users.Department;
@@ -13,7 +12,7 @@ import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -60,10 +59,10 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.beforeAddFolder();
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
+        unionTasksPageSteps.beforeAddFolder();
         // Добавляем Папки(/у)
-        unionTasksPage.addFolders(new Folder[]{
+        unionTasksPageSteps.addFolders(new Folder[]{
                 folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                         .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false),
                 folder[1].setNameFolder("Обычная папка " + randomString(4)).setUseFilter(false).setParentFolder(folder[0]).setSharedFolder(false)
@@ -119,9 +118,9 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         loginPage.loginAs(user);
 
         //---------------------------------------------------------------- Задачи/Задачи
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
 
-        unionTasksPage.checkTheMapASharedFolderFromTheNewlyCreatedUser(folder[4]);
+        unionTasksPageSteps.checkTheMapASharedFolderFromTheNewlyCreatedUser(folder[4]);
 
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен

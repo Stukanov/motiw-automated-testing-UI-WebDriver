@@ -16,7 +16,7 @@ import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
 import ru.st.selenium.pagesteps.TaskSteps.UnionMessageNewPageSteps;
 import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -49,10 +49,10 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.beforeAddFolder();
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
+        unionTasksPageSteps.beforeAddFolder();
         // Добавляем Папки(/у)
-        unionTasksPage.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
+        unionTasksPageSteps.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                 .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});
 
         internalPage.logout();
@@ -111,10 +111,10 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Проверяем отображение созданной задачи в гриде.
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openAnExistingTaskInFolder(task, folder[0]);
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
+        unionTasksPageSteps.openAnExistingTaskInFolder(task, folder[0]);
 
-        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPageSteps.initializationUnionMessagePage();
         unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
@@ -180,10 +180,10 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Проверяем отображение созданной задачи в гриде.
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openAnExistingTaskInFolder(task, folder[0]);
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
+        unionTasksPageSteps.openAnExistingTaskInFolder(task, folder[0]);
 
-        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPageSteps.initializationUnionMessagePage();
         unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
@@ -213,10 +213,10 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
          Проверяем отображение созданной задачи в гриде.
          Инициализация и переход на страницу - Задачи/Создать задачу
           */
-        UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
-        unionTasksPage.openExistingTaskInTheFolderThroughTheSearch(task, folder[0]);
+        UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
+        unionTasksPageSteps.openExistingTaskInTheFolderThroughTheSearch(task, folder[0]);
 
-        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPageSteps.initializationUnionMessagePage();
         unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
