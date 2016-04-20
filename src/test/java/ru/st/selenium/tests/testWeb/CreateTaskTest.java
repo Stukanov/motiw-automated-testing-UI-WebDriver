@@ -14,8 +14,8 @@ import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
 import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessageNewPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionMessagePage;
+import ru.st.selenium.pagesteps.TaskSteps.UnionMessageNewPageSteps;
+import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
 import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPage;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
@@ -41,7 +41,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
     @Title("Создание смарт-папки с ")
     @Description("Проверяем создание задачи с набором атрибутов")
     @Test(priority = 1)
-    public void createFolderForTasks() {
+    public void aPreconditionForFurtherVerification() {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
@@ -104,8 +104,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         createUsersPage.createUser(worker[1].setDepartment(department));
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
-        UnionMessageNewPage unionMessageNewPage = internalPage.goToUnionMessageNew();
-        unionMessageNewPage.creatingTask(task);
+        UnionMessageNewPageSteps unionMessageNewPageSteps = internalPage.goToUnionMessageNew();
+        unionMessageNewPageSteps.creatingTask(task);
 
         /*
          Проверяем отображение созданной задачи в гриде.
@@ -114,8 +114,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         unionTasksPage.openAnExistingTaskInFolder(task, folder[0]);
 
-        UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
-        unionMessagePage.verifyCreateTask(task);
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
         internalPage.logout();
@@ -173,8 +173,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         createUsersPage.createUser(IWGСontroller[1].setDepartment(department));
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
-        UnionMessageNewPage unionMessageNewPage = internalPage.goToUnionMessageNew();
-        unionMessageNewPage.creatingTaskWithTheTaskOfIWG(task);
+        UnionMessageNewPageSteps unionMessageNewPageSteps = internalPage.goToUnionMessageNew();
+        unionMessageNewPageSteps.creatingTaskWithTheTaskOfIWG(task);
 
         /*
          Проверяем отображение созданной задачи в гриде.
@@ -183,8 +183,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         unionTasksPage.openAnExistingTaskInFolder(task, folder[0]);
 
-        UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
-        unionMessagePage.verifyCreateTask(task);
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
         internalPage.logout();
@@ -206,8 +206,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         assertTrue(loginPage.isLoggedIn());
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
-        UnionMessageNewPage unionMessageNewPage = internalPage.goToUnionMessageNew();
-        unionMessageNewPage.creationOfATaskCheckpoints(task);
+        UnionMessageNewPageSteps unionMessageNewPageSteps = internalPage.goToUnionMessageNew();
+        unionMessageNewPageSteps.creationOfATaskCheckpoints(task);
 
         /*
          Проверяем отображение созданной задачи в гриде.
@@ -216,8 +216,8 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         UnionTasksPage unionTasksPage = internalPage.goToUnionTasks();
         unionTasksPage.openExistingTaskInTheFolderThroughTheSearch(task, folder[0]);
 
-        UnionMessagePage unionMessagePage = unionTasksPage.initializationUnionMessagePage();
-        unionMessagePage.verifyCreateTask(task);
+        UnionMessagePageSteps unionMessagePageSteps = unionTasksPage.initializationUnionMessagePage();
+        unionMessagePageSteps.verifyCreateTask(task);
 
         // Выход
         internalPage.logout();

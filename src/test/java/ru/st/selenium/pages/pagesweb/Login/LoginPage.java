@@ -122,7 +122,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
     @Step("Проверяем, что используемый логин пользователя при входе в Систему " +
             "соответствует логину заданному в реквизитах пользователя в Мои реквизиты")
     @Override
-    public boolean isLoggedInAs(Employee user) {
+    public boolean newUserIsLoggedInAs(Employee user) {
         return isLoggedIn()
                 && getLoggedUser().getLoginName().equals(user.getLoginName());
     }

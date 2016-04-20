@@ -1,6 +1,5 @@
 package ru.st.selenium.pages.pagesweb.Tasks;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -12,6 +11,7 @@ import ru.st.selenium.model.Tasks.Folder;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
+import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -20,7 +20,7 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 import static ru.st.selenium.utils.WindowsUtil.NewWindowOpen;
 
 /**
- * Страница - Задачи/Задачи
+ * Шаги - отчет - грид задач - ЗАДАЧИ / ЗАДАЧИ
  */
 public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderLogic {
 
@@ -180,8 +180,8 @@ public class UnionTasksPage extends BasePage implements UnionTasksLogic, FolderL
     /**
      * Инициализируем форму задачи
      */
-    public UnionMessagePage initializationUnionMessagePage() {
-        return page(UnionMessagePage.class);
+    public UnionMessagePageSteps initializationUnionMessagePage() {
+        return page(UnionMessagePageSteps.class);
     }
 
     /**
