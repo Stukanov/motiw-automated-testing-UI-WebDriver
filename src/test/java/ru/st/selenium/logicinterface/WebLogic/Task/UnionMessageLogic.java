@@ -1,7 +1,7 @@
 package ru.st.selenium.logicinterface.WebLogic.Task;
 
 import ru.st.selenium.model.Tasks.Task;
-import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
+import ru.st.selenium.pagesteps.Tasks.UnionMessagePageSteps;
 
 /**
  * Форма задачи

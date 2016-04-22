@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public abstract class BasePage {
 
-    public static final String WEB_PAGE_URL = "http://motiw";
+    public static final String WEB_PAGE_URL = "http://motiwrtc";
     public static final String PDA_PAGE_URL = "http://pda.motiw";
 
     //==================================================================================== Фреймы
@@ -56,7 +56,6 @@ public abstract class BasePage {
      * Форма - Редактирование / Создание проекта
      */
     public WebDriver getFrameFormProject(){
-
         return switchTo().frame($(By.xpath("//iframe[@src='/user/project']")));
     }
 

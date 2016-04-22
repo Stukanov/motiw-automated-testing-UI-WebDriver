@@ -12,7 +12,7 @@ import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
 import ru.st.selenium.pages.pagesweb.Administration.SystemOptionsPage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.LoginPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPageSteps;
+import ru.st.selenium.pagesteps.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;

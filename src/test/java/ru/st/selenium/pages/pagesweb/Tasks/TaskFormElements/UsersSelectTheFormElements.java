@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Элементы - Форма выбора пользователей в роли задачи
+ * Элементы - форма - Выбора пользователей в роли задачи
  */
 public class UsersSelectTheFormElements {
 

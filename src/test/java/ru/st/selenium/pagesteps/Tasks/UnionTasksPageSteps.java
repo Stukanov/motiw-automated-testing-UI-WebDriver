@@ -1,17 +1,16 @@
-package ru.st.selenium.pages.pagesweb.Tasks;
+package ru.st.selenium.pagesteps.Tasks;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.Task.FolderLogic;
 import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
 import ru.st.selenium.model.Tasks.Folder;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
-import ru.st.selenium.pagesteps.TaskSteps.UnionMessagePageSteps;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksElements.EditFormFoldersElements;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksElements.UnionTasksElements;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -25,77 +24,8 @@ import static ru.st.selenium.utils.WindowsUtil.NewWindowOpen;
 public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, FolderLogic {
 
 
-    /*
-     * Панель списка группировок на ПУГЗ (панель управления группировкой задач)
-     */
-    @FindBy(xpath = "//tr[@class='x-toolbar-left-row'][ancestor::div[@id='tree_folders_wrapper']]//input")
-    private SelenideElement panelGroupingTasks;
-
-    /*
-     * ------------------------------------------------------------------------------------------------------группировка - Папка
-     */
-    @FindBy(xpath = "(//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')])[14]")
-    private SelenideElement groupingFolder;
-
-    /*
-     * Коллекция иерархий папок (Папки в гриде)
-     */
-    @FindBy(xpath = "//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span")
-    private ElementsCollection folderInTheGroup;
-
-    /*
-     * Добавить - Папка
-     */
-    @FindBy(xpath = "(//div[@id='importfolder' and contains(@style,'visibility: visible')]//span)[1]")
-    private SelenideElement addFolder;
-
-    /*
-     * Редактировать - Папка
-     */
-    @FindBy(xpath = "(//div[@id='importfolder' and contains(@style,'visibility: visible')]//span)[1]")
-    private SelenideElement editFolder;
-
-    /*
-     * Использовать фильтр
-     */
-    @FindBy(css = "#tfolder_is_smart-displayEl")
-    private SelenideElement checkUseFilter;
-
-    /*
-     * Общая папка
-     */
-    @FindBy(css = "#tfolder_is_shared-displayEl")
-    private SelenideElement checkFolderSharedFilter;
-
-    /*
-     * Добавить всем
-     */
-    @FindBy(css = "#tfolder_addforall-displayEl")
-    private SelenideElement checkFolderAddForAll;
-
-    /*
-     * Добавлять для новых пользователей
-     */
-    @FindBy(css = "#tfolder_fornewuser-displayEl")
-    private SelenideElement checkAddSharedFolderForNewUsers;
-
-    /*
-     * ОК (Подтверждение изменений в форме редактирования папки)
-     */
-    @FindBy(xpath = "(//*[contains(@id,'btnIconEl') and contains(@id,'button')])[2]/..")
-    private SelenideElement saveСhangesInTheCustomFolder;
-
-    /*
-     * Элемент отображения дочерних узлов папок
-     */
-    @FindBy(xpath = "//img[contains(@class,'x-tree-ec-icon') and contains(@class,'plus')]")
-    private SelenideElement plusSubsites;
-
-    /*
-     * Название папки
-     */
-    @FindBy(xpath = "//input[contains(@id,'nameedit') and @type='text']")
-    private SelenideElement folderName;
+    UnionTasksElements unionTasksElements = page(UnionTasksElements.class);
+    EditFormFoldersElements editFormFoldersElements = page(EditFormFoldersElements.class);
 
 
     /**
@@ -184,8 +114,8 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
      * @param nameFolder зн-ие для формирования имени папки
      */
     public UnionTasksPageSteps selFolderName(String nameFolder) {
-        folderName.clear();
-        folderName.setValue(nameFolder);
+        editFormFoldersElements.getFolderName().clear();
+        editFormFoldersElements.getFolderName().setValue(nameFolder);
         return this;
     }
 
@@ -195,9 +125,9 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
      */
     public void beforeAddFolder() {
         ensurePageLoaded();
-        selectTheGroupInTheGrid(panelGroupingTasks, groupingFolder);
+        selectTheGroupInTheGrid(unionTasksElements.getPanelGroupingTasks(), unionTasksElements.getGroupingFolder());
         unwrapAllNodesFolder();
-        folderInTheGroup.first().shouldBe(present);
+        unionTasksElements.getFolderInTheGroup().first().shouldBe(present);
     }
 
     /**
@@ -207,7 +137,7 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
         try {
             while (isElementPresent(By
                     .xpath("//img[contains(@class,'x-tree-ec-icon') and contains(@class,'plus')]")))
-                plusSubsites.click();
+                unionTasksElements.getPlusSubsites().click();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -263,20 +193,20 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
                 } else {
                     waitForMask();
                     sleep(1000);
-                    folderInTheGroup.first().contextClick();
+                    unionTasksElements.getFolderInTheGroup().first().contextClick();
                 }
-                addFolder.click(); // Добавить папку
+                unionTasksElements.getAddFolder().click(); // Добавить папку
                 getFrameFormFolder(); // уходим во фрейм окна - Редактирование папки
                 selFolderName(folder.getNameFolder());
                 if (folder.isUseFilter() & folder.isChooseRelativeValue()) {
-                    checkUseFilter.click();
+                    editFormFoldersElements.getCheckUseFilter().click();
                     setTheConditionOfFiltration(folder.getFilterField(), folder.isChooseRelativeValue());
                 }
-                if (folder.isSharedFolder()) checkFolderSharedFilter.click();
-                if (folder.isAddSharedFolderForAll()) checkFolderAddForAll.click();
-                if (folder.isAddSharedFolderForNewUsers()) checkAddSharedFolderForNewUsers.click();
+                if (folder.isSharedFolder()) editFormFoldersElements.getCheckFolderSharedFilter().click();
+                if (folder.isAddSharedFolderForAll()) editFormFoldersElements.getCheckFolderAddForAll().click();
+                if (folder.isAddSharedFolderForNewUsers()) editFormFoldersElements.getCheckAddSharedFolderForNewUsers().click();
 
-                saveСhangesInTheCustomFolder.click();
+                editFormFoldersElements.getSaveСhangesInTheCustomFolder().click();
                 getFrameTop();
                 getFrameFlow();
                 checkDisplayCreateAFolderInTheGrid(folder.getNameFolder(), folder.isUseFilter()); // Проверяем созданные Папки

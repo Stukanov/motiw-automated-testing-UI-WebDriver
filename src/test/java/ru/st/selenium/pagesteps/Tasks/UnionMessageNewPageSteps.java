@@ -1,4 +1,4 @@
-package ru.st.selenium.pagesteps.TaskSteps;
+package ru.st.selenium.pagesteps.Tasks;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -38,7 +38,7 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
     /**
      * Ожидание маски быстрого поиска при вводе шаблона поиска
      */
-    public UnionMessageNewPageSteps waitForLivesearchMask() {
+    public UnionMessageNewPageSteps waitForLiveSearchMask() {
         sleep(700);
         $(By.xpath("//*[contains (@class, 'loading-indicator')]")).shouldNotBe(Condition.visible);
         return this;
@@ -97,7 +97,7 @@ public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNe
                 $(fieldCustomRole).shouldBe(Condition.visible);
                 fieldCustomRole.click();
                 valueField.sendKeys(Keys.SPACE);
-                waitForLivesearchMask();
+                waitForLiveSearchMask();
                 $(By.xpath("//div[contains (@style, 'visible')]//*[contains (text(), '" + employee.getLastName() + "')]")).click();
                 waitForTaskMask();
             }
