@@ -12,8 +12,8 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
-import ru.st.selenium.pagesteps.TaskSteps.UnionMessageNewPageSteps;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksPageSteps;
+import ru.st.selenium.pagesteps.Tasks.UnionMessageNewPageSteps;
+import ru.st.selenium.pagesteps.Tasks.UnionTasksPageSteps;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertFalse;

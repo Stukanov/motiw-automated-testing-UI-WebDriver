@@ -1,4 +1,4 @@
-package ru.st.selenium.pagesteps.TaskSteps;
+package ru.st.selenium.pagesteps.Tasks;
 
 import ru.st.selenium.pages.BasePage;
 

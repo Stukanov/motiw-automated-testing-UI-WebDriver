@@ -1,9 +1,9 @@
-package ru.st.selenium.pagesteps.TaskSteps;
+package ru.st.selenium.pagesteps.Tasks.Projects;
 
 import ru.st.selenium.pages.BasePage;
 
 /**
- * Страница - Проекты
+ * Проекты
  */
 public class GanttPageSteps extends BasePage {
 
