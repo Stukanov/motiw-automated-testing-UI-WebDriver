@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.BaseInternalLogic;
 import ru.st.selenium.pages.BasePage;
@@ -12,11 +13,18 @@ import ru.st.selenium.pages.pagesweb.DocflowAdministration.DictionaryEditorPage;
 import ru.st.selenium.pages.pagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.st.selenium.pages.pagesweb.Documents.NewDocumentPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
+import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksElements.UnionTasksElements;
 import ru.st.selenium.pagesteps.Tasks.UnionMessageNewPageSteps;
 import ru.st.selenium.pagesteps.Tasks.UnionTasksPageSteps;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertFalse;
+import static org.testng.AssertJUnit.assertEquals;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
@@ -24,10 +32,13 @@ import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
  */
 public class InternalPage extends BasePage implements BaseInternalLogic {
 
+    UnionTasksElements unionTasksElements = page(UnionTasksElements.class);
+    UnionTasksPageSteps unionTasksPageSteps = new UnionTasksPageSteps();
+
     /*
      * Ссылки на все пункты меню
      */
-    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]//div[contains(@class,'menu-point') and not(@class='menu-point-hidden')]")
+    @FindBy(xpath = "//div[@id='left-panel'][ancestor::div[@id='menu']]//div[contains(@class,'menu-point') and not(@class='menu-point-hidden')]//div[@class='caption']")
     private ElementsCollection menuElements;
 
     /*
@@ -397,10 +408,12 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
      *
      * @return InternalPage
      */
-    public InternalPage checkUserWorkflow() {
+    public InternalPage checkUserWorkflow(int countPanelGrouping) {
         getFrameTop();
         $(By.xpath("//*[@id='doc-search']/a")).shouldNotBe(Condition.visible);
         menuDocument.shouldNotBe(Condition.visible);
+        goToUnionTasks();
+        unionTasksPageSteps.selectTheGroupInTheGridForUserComplete(unionTasksElements.getPanelGroupingTasks(), countPanelGrouping);
         return this;
     }
 
@@ -423,6 +436,26 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     public PwdPage goToPwd() {
         threeTierNavigation(instrMenu, menuSettings, menuMyOptions);
         return page(PwdPage.class);
+    }
+
+
+    /**
+     * Метод проверки истенности загрузки внутренней стр.
+     */
+    public boolean isPageLoadedInternal() {
+        getFrameTop();
+        try {
+            List<SelenideElement> elements = new ArrayList<>();
+            for (SelenideElement selenideElement : $$(menuElements)) {
+                elements.add(selenideElement);
+            }
+            elements.get(0).shouldBe(visible).shouldHave(text("Мотив"));
+            elements.get(1).shouldBe(visible).shouldHave(text("Задачи"));
+
+            return true;
+        } catch (TimeoutException to) {
+            return false;
+        }
     }
 
 

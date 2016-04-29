@@ -49,7 +49,7 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
     /**
      * Ожидание маски грида - Задачи/Задачи
      */
-    public UnionTasksPageSteps waitForMask() {
+    public UnionTasksPageSteps waitMaskForGridTask() {
         $(By.xpath("//div[contains(@id,'ext-gen') and @class='ext-el-mask']")).shouldNotBe(present, visible);
         sleep(500);
         return this;
@@ -64,13 +64,13 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
      */
     @Override
     public void openExistingTaskInTheFolderThroughTheSearch(Task task, Folder folder) {
-        waitForMask();
+        waitMaskForGridTask();
         ensurePageLoaded();
         $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder())[0] + "')]")).click();
         getFrameTop();
         findTask(task.getTaskName());
         getFrameFlow();
-        waitForMask();
+        waitMaskForGridTask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(visible);
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
@@ -84,10 +84,10 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
      */
     @Override
     public void openAnExistingTaskInFolder(Task task, Folder folder) {
-        waitForMask();
+        waitMaskForGridTask();
         ensurePageLoaded();
         $(By.xpath("//li[@class='x-tree-node']//li//b[contains(text(),'" + parseNameFolder(folder.getNameFolder())[0] + "')]")).click();
-        waitForMask();
+        waitMaskForGridTask();
         $$(By.xpath("//*[@class='x-grid3-body']/div//td//a[contains(@href,'/user/unionmessage') and (text()='" + task.getTaskName() + "')]"))
                 .first().shouldBe(visible);
         $(By.xpath("//a[text()='" + task.getTaskName() + "']")).sendKeys(NewWindowOpen()); // Открытие найденой задачи в новом окне
@@ -121,11 +121,18 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
 
     /**
      * Метод помогающий подготовить интерфейс к взаимодействию с объектом - Папка
-     * (Проверка загрузки страницы, раскрытие всех элементов дерева подразделений)
+     * (Проверка загрузки страницы, раскрытие всех элементов дерева подразделений, выбор группировки
+     * Папка)
+     *
+     * @param countPanelGrouping передаваемое зн-ия - кол-во содержащихся элементов на ПУГЗ
+     *                           (Панель управления группировкой задач)
      */
-    public void beforeAddFolder() {
+    public void beforeAddFolder(int countPanelGrouping) {
         ensurePageLoaded();
-        selectTheGroupInTheGrid(unionTasksElements.getPanelGroupingTasks(), unionTasksElements.getGroupingFolder());
+        selectTheGroupInTheGridForUserComplete(unionTasksElements.getPanelGroupingTasks(), countPanelGrouping);
+        unionTasksElements.getGroupingFolder().click(); // выбрать группировка - Папка
+        waitMaskForGridTask();
+        $(By.xpath("//div[contains(@id,'extdd')]//img[2]")).isImage();
         unwrapAllNodesFolder();
         unionTasksElements.getFolderInTheGroup().first().shouldBe(present);
     }
@@ -145,23 +152,17 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
     }
 
     /**
-     * Выбираем группировку на ПУГЗ (панель управления группировкой задач
-     * )
+     * Выбираем группировку на ПУГЗ (панель управления группировкой задач)
      *
-     * @param panelGrouping элемент панели ПУГЗ
-     * @param grouping      выбираемая группировка
+     * @param panelGrouping      элемент панели ПУГЗ
+     * @param countPanelGrouping кол-во элементов на пенели управления группировкой задачи
      */
     @Override
-    public void selectTheGroupInTheGrid(SelenideElement panelGrouping, SelenideElement grouping) {
-        waitForMask();
+    public void selectTheGroupInTheGridForUserComplete(SelenideElement panelGrouping, int countPanelGrouping) {
+        waitMaskForGridTask();
         panelGrouping.click();
         $$(By.xpath("//div[contains(@id,'ext-gen') and contains(@style,'visibility: visible')]//div[contains(@class,'x-combo-list-item')]"))
-                .shouldHaveSize(19); // проверяем, что ПУГЗ имеет 19 значений группировок
-        // TODO 0004 - добавить проверку для пользователя WORKFLOW - у него 17 пунктов
-        grouping.click(); // выбрать группировка - Папка
-        waitForMask();
-        $(By.xpath("//div[contains(@id,'extdd')]//img[2]")).isImage();
-
+                .shouldHaveSize(countPanelGrouping); // проверяем, кол-во зн-ий в панели группировок
     }
 
     /**
@@ -173,7 +174,7 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
     public void selectTheParentFolder(Folder folder) {
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
                 + parseNameFolder(folder.getNameFolder())[0] + "')]")).shouldBe(visible, present).click();
-        waitForMask();
+        waitMaskForGridTask();
         sleep(1000);
         $(By.xpath("//div[@id='tree_folders']//div[contains(@id,'extdd')]//a//span/b[contains(text(),'"
                 + parseNameFolder(folder.getNameFolder())[0] + "')]")).shouldBe(visible, present).contextClick();
@@ -191,7 +192,7 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
                 if (folder.getParentFolder() != null) {
                     selectTheParentFolder(folder.getParentFolder()); // Выбираем родительскую папку папку и выводим КМ для взаимодействия с папкой
                 } else {
-                    waitForMask();
+                    waitMaskForGridTask();
                     sleep(1000);
                     unionTasksElements.getFolderInTheGroup().first().contextClick();
                 }
@@ -204,7 +205,8 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
                 }
                 if (folder.isSharedFolder()) editFormFoldersElements.getCheckFolderSharedFilter().click();
                 if (folder.isAddSharedFolderForAll()) editFormFoldersElements.getCheckFolderAddForAll().click();
-                if (folder.isAddSharedFolderForNewUsers()) editFormFoldersElements.getCheckAddSharedFolderForNewUsers().click();
+                if (folder.isAddSharedFolderForNewUsers())
+                    editFormFoldersElements.getCheckAddSharedFolderForNewUsers().click();
 
                 editFormFoldersElements.getSaveСhangesInTheCustomFolder().click();
                 getFrameTop();
@@ -251,14 +253,13 @@ public class UnionTasksPageSteps extends BasePage implements UnionTasksLogic, Fo
 
     }
 
-    public void checkTheMapASharedFolderFromTheNewlyCreatedUser(Folder folder) {
-        beforeAddFolder();
+    public void checkTheMapASharedFolderFromTheNewlyCreatedUser(Folder folder, int countPanelGrouping) {
+        beforeAddFolder(countPanelGrouping);
         checkDisplayCreateAFolderInTheGrid(folder.getNameFolder(), folder.isUseFilter()); // Проверяем созданные Папки
     }
 
     /**
      * Метод удаляет (0/0/0) в названии папки
-     * -при необходимости можно дабивать split();
      *
      * @param folder передаваемое значение названия папки (имя целиком со счетчиками)
      */

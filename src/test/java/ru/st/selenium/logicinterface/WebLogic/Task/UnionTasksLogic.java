@@ -14,6 +14,6 @@ public interface UnionTasksLogic {
 
     void openAnExistingTaskInFolder (Task task, Folder folder);
 
-    void selectTheGroupInTheGrid(SelenideElement panelGrouping, SelenideElement grouping);
+    void selectTheGroupInTheGridForUserComplete(SelenideElement panelGrouping, int countPanelGrouping);
 
 }

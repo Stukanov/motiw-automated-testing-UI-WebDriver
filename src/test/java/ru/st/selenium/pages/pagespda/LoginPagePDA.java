@@ -1,6 +1,8 @@
 package ru.st.selenium.pages.pagespda;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.pages.BasePage;
@@ -91,7 +93,14 @@ public class LoginPagePDA extends BasePage {
      * Проверяем то, что мы разлогинены - ПДА-интерфейс
      */
     public boolean isNotLoggedInPDA() {
-        return page(LoginPagePDA.class).isPageLoaded();
+        try {
+            loginButton.shouldBe(Condition.visible);
+            inputPassword.shouldBe(Condition.visible);
+            inputLogin.shouldBe(Condition.visible);
+            return true;
+        } catch (TimeoutException to) {
+            return false;
+        }
     }
 
 

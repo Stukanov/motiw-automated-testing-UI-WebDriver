@@ -21,7 +21,6 @@ import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -201,7 +200,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
 
         loginPage.loginAs(workflow);
         assertTrue(loginPage.newUserIsLoggedInAs(workflow));
-        createUsersPage.initializationInternalPage().checkUserWorkflow();
+        createUsersPage.initializationInternalPage().checkUserWorkflow(17);
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());

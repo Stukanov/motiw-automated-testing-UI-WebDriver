@@ -60,7 +60,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
 
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
-        unionTasksPageSteps.beforeAddFolder();
+        unionTasksPageSteps.beforeAddFolder(19);
         // Добавляем Папки(/у)
         unionTasksPageSteps.addFolders(new Folder[]{
                 folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
@@ -120,7 +120,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
 
-        unionTasksPageSteps.checkTheMapASharedFolderFromTheNewlyCreatedUser(folder[4]);
+        unionTasksPageSteps.checkTheMapASharedFolderFromTheNewlyCreatedUser(folder[4], 19);
 
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен

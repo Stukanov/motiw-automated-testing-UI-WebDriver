@@ -40,7 +40,7 @@ public class UsersAuthorizationTest extends BaseTest {
     @Title("Валидная авторизация")
     @Description("Пользователь авторизируется в систему под валидными учетными данными")
     @Test(priority = 2)
-    public void loginSuccess() throws Exception {
+    public void successfulAuthorization() throws Exception {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее

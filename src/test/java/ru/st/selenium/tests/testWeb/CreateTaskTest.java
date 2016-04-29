@@ -50,7 +50,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
 
         //---------------------------------------------------------------- Задачи/Задачи
         UnionTasksPageSteps unionTasksPageSteps = internalPage.goToUnionTasks();
-        unionTasksPageSteps.beforeAddFolder();
+        unionTasksPageSteps.beforeAddFolder(19);
         // Добавляем Папки(/у)
         unionTasksPageSteps.addFolders(new Folder[]{folder[0].setNameFolder("wD_Smart_Box " + randomString(4)).setUseFilter(true).setFilterField("Начало").setChooseRelativeValue(true)
                 .setSharedFolder(false).setAddSharedFolderForAll(false).setAddSharedFolderForNewUsers(false)});

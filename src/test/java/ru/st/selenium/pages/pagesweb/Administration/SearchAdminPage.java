@@ -21,6 +21,7 @@ public class SearchAdminPage extends BasePage implements SearchSystemLogic {
 	 * 
 	 */
 	public SearchAdminPage assertNotIndexingErrors() {
+		// TODO переделать через ArrayList; Сейчас медленно (12 sec), лишние проверки по времени из-за метода - isElementPresent
 		assertFalse(isElementPresent(By
 				.xpath("/*//*[@id='indexingInfo']/div/table/tbody/tr[2]/td[6]/a"))); //Действия
 		assertFalse(isElementPresent(By

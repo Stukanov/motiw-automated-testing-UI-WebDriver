@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.AuthorizationLogic;
 import ru.st.selenium.model.Administration.Users.Employee;
@@ -13,9 +14,8 @@ import ru.st.selenium.pages.pagesweb.Internal.LibraryPage;
 import ru.st.selenium.pages.pagesweb.Options.PwdPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /**
@@ -99,7 +99,7 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
      */
     @Override
     public boolean isLoggedIn() {
-        return page(InternalPage.class).isPageLoaded();
+        return page(InternalPage.class).isPageLoadedInternal();
     }
 
     /**
@@ -109,7 +109,22 @@ public class LoginPage extends BasePage implements AuthorizationLogic {
      */
     @Override
     public boolean isNotLoggedIn() {
-        return page(LoginPage.class).isPageLoaded();
+        return page(LoginPage.class).isPageNotLoadedInternal();
+    }
+
+    /**
+     * Метод обращается к ensurePageLoaded и возвращает булевское значение,
+     * (false - не дождались загрузки стр.; true - дождались) ждет загрузки
+     * страницы
+     */
+    public boolean isPageNotLoadedInternal() {
+        try {
+            submitButton.shouldBe(visible);
+            passwordField.shouldBe(visible);
+            return true;
+        } catch (TimeoutException to) {
+            return false;
+        }
     }
 
     /**

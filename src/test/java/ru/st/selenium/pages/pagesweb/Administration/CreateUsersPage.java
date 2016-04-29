@@ -1,7 +1,7 @@
 package ru.st.selenium.pages.pagesweb.Administration;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
@@ -13,12 +13,14 @@ import ru.st.selenium.model.Administration.Users.Status;
 import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
 import ru.st.selenium.pages.pagesweb.Login.RestorePasswordPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.testng.Assert.assertTrue;
-import static ru.st.selenium.model.Administration.Users.Module.*;
-import static ru.st.selenium.model.Administration.Users.Status.*;
+import static org.testng.Assert.*;
+import static ru.st.selenium.model.Administration.Users.Module.DOCFLOW;
+import static ru.st.selenium.model.Administration.Users.Module.WORKFLOW;
+import static ru.st.selenium.model.Administration.Users.Status.BOSS;
+import static ru.st.selenium.model.Administration.Users.Status.CLERK;
 import static ru.st.selenium.utils.ChecksUtil.isElementPresent;
 
 /**
@@ -465,10 +467,10 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * Проверка создания пользователей:
      */
-    public CreateUsersPage verifyCreateUser(Employee User) {
-        $(By.xpath("//tbody[contains(@id,'gridview')]/tr//a[text()='"
-                + User.getLastName() + " " + User.getName() + " "
-                + User.getPatronymic() + "']")).shouldBe(Condition.present);
+    public CreateUsersPage verifyCreateUser(Employee user) {
+            $(By.xpath("//tbody[contains(@id,'gridview')]/tr//a[text()='"
+                    + user.getLastName() + " " + user.getName() + " "
+                    + user.getPatronymic() + "']")).waitUntil(present, 15000);
         return this;
     }
 
@@ -479,7 +481,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      * @return CreateUsersPage
      */
     public CreateUsersPage clickUserByName(Employee user) {
-        $(By.xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(Condition.visible);
+        $(By.xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(visible);
         $(By.xpath("//a[contains (text(), '" + user.getLastName()
                 + "')]/parent::div/parent::td/preceding-sibling::td"))
                 .click();
@@ -494,7 +496,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      */
     public CreateUsersPage clickEditUserFormByName(Employee user) {
         $(By
-                .xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(Condition.visible);
+                .xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(visible);
         $(By.xpath("//a[contains(@onclick,'openEditUserForm')][contains(text(),'" + user.getLastName() + "')]"))
                 .click();
         return this;
@@ -512,9 +514,9 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
     /**
      * В окне добавления псевдонима в подразделение ищем нужный департамент
      */
-    public CreateUsersPage serarchDepForAlias(Department department) {
+    public CreateUsersPage searchDepartmentForAlias(Department department) {
         getWebDriver().switchTo().frame(addAliasFrame);
-        $(fieldSearchDepForAlias).shouldBe(Condition.visible);
+        $(fieldSearchDepForAlias).shouldBe(visible);
         fieldSearchDepForAlias.click();
         fieldSearchDepForAlias.sendKeys(department.getDepartmentName());
         buttonSearchDepForAlias.click();
@@ -568,8 +570,8 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
      * -Кнопка - Добавить пользователя; -Кнопка - Удалить пользователя.
      */
     public CreateUsersPage ensurePageLoaded() {
-        $(By.xpath("(//a[contains(@id,'button-')])[4]")).shouldBe(Condition.present);
-        $(By.xpath("(//a[contains(@id,'button-')])[5]")).shouldBe(Condition.present);
+        $(By.xpath("(//a[contains(@id,'button-')])[4]")).shouldBe(present);
+        $(By.xpath("(//a[contains(@id,'button-')])[5]")).shouldBe(present);
         return this;
     }
 
@@ -637,7 +639,7 @@ public class CreateUsersPage extends CreateDepartmentPage implements UsersLogic 
         waitForMask();
         clickUserByName(user)
                 .clickButtonCreateAlias()
-                .serarchDepForAlias(department)
+                .searchDepartmentForAlias(department)
                 .clickFoundDep()
                 .clickButtonSaveAlias();
         checkIsAlias(user, department);
