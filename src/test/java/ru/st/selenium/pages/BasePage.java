@@ -89,27 +89,5 @@ public abstract class BasePage {
         $$(tabsNameLocator).shouldHave(CollectionCondition.exactTexts(tabNames));
     }
 
-    /**
-     * Метод обращается к ensurePageLoaded и возвращает булевское значение,
-     * (false - не дождались загрузки стр.; true - дождались) ждет загрузки
-     * страницы
-     */
-    public boolean isPageLoaded() {
-        try {
-            ensurePageLoaded();
-            return true;
-        } catch (TimeoutException to) {
-            return false;
-        }
-    }
-
-    /**
-     * Метод - проверяет, где мы находимся здесь и сейчас, возвращает данную
-     * страницу И ждет загрузки страницы
-     */
-    public BasePage ensurePageLoaded() {
-        return this;
-    }
-
 
 }
