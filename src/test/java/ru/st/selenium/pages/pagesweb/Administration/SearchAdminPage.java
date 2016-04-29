@@ -2,10 +2,17 @@ package ru.st.selenium.pages.pagesweb.Administration;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import ru.st.selenium.logicinterface.WebLogic.SearchSystemLogic;
 import ru.st.selenium.pages.BasePage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.testng.Assert.assertFalse;
@@ -22,6 +29,21 @@ public class SearchAdminPage extends BasePage implements SearchSystemLogic {
 	 */
 	public SearchAdminPage assertNotIndexingErrors() {
 		// TODO переделать через ArrayList; Сейчас медленно (12 sec), лишние проверки по времени из-за метода - isElementPresent
+
+
+		try {
+			List<SelenideElement> elements = new ArrayList<>();
+			for (SelenideElement selenideElement : $$(menuElements)) {
+				elements.add(selenideElement);
+			}
+			elements.get(0).shouldBe(visible).shouldHave(text("Мотив"));
+			elements.get(1).shouldBe(visible).shouldHave(text("Задачи"));
+
+			return true;
+		} catch (TimeoutException to) {
+			return false;
+		}
+
 		assertFalse(isElementPresent(By
 				.xpath("/*//*[@id='indexingInfo']/div/table/tbody/tr[2]/td[6]/a"))); //Действия
 		assertFalse(isElementPresent(By
