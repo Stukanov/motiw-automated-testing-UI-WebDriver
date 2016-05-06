@@ -14,7 +14,7 @@ import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Tasks.TaskFormElements.*;
+import ru.st.selenium.pages.pageselementsweb.TasksElements.TaskFormElements.*;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;

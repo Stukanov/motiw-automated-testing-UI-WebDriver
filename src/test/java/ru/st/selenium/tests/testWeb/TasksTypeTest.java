@@ -7,12 +7,12 @@ import ru.st.selenium.model.Administration.Directories.Directories;
 import ru.st.selenium.model.Administration.TasksTypes.TasksTypes;
 import ru.st.selenium.model.Administration.TypesOfTables.TypesOfTables;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Administration.DirectoriesEditFormPage;
-import ru.st.selenium.pages.pagesweb.Administration.TaskTypeListObjectPage;
-import ru.st.selenium.pages.pagesweb.Administration.TaskTypesEditPage;
-import ru.st.selenium.pages.pagesweb.Administration.TypesOfTablesEditPage;
-import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
-import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.DirectoriesEditFormPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.TaskTypeListObjectPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.TaskTypesEditPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.TypesOfTablesEditPage;
+import ru.st.selenium.pages.pageselementsweb.Internal.InternalPage;
+import ru.st.selenium.pages.pageselementsweb.Login.LoginPage;
 import ru.st.selenium.tests.data.system.ModuleAdministrationObjectCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -39,7 +39,7 @@ public class TasksTypeTest extends ModuleAdministrationObjectCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 

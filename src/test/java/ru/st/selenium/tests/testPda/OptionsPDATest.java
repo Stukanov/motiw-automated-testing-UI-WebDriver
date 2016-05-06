@@ -37,7 +37,7 @@ public class OptionsPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
 

@@ -9,9 +9,9 @@ import ru.st.selenium.pages.pagespda.Task.EditTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.NewTaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TaskPagePDA;
 import ru.st.selenium.pages.pagespda.Task.TasksReportsPagePDA;
-import ru.st.selenium.pages.pagesweb.Administration.SystemOptionsPage;
-import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
-import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.SystemOptionsPage;
+import ru.st.selenium.pages.pageselementsweb.Internal.InternalPage;
+import ru.st.selenium.pages.pageselementsweb.Login.LoginPage;
 import ru.st.selenium.pagesteps.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
@@ -47,7 +47,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         loginPage.loginAs(ADMIN);
 
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
@@ -78,7 +78,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
@@ -117,7 +117,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();
@@ -163,7 +163,7 @@ public class CreateTaskPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         // Инициализируем стр. формы создание задачи и переходим на нее
         NewTaskPagePDA newTaskPagePDA = internalPagePDA.goToCreateTask();

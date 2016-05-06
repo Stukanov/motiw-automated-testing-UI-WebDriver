@@ -8,10 +8,10 @@ import ru.st.selenium.model.Administration.Users.Department;
 import ru.st.selenium.model.Administration.Users.Employee;
 import ru.st.selenium.model.Tasks.Folder;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Administration.CreateDepartmentPage;
-import ru.st.selenium.pages.pagesweb.Administration.CreateUsersPage;
-import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
-import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.CreateDepartmentPage;
+import ru.st.selenium.pages.pageselementsweb.Administration.CreateUsersPage;
+import ru.st.selenium.pages.pageselementsweb.Internal.InternalPage;
+import ru.st.selenium.pages.pageselementsweb.Login.LoginPage;
 import ru.st.selenium.pagesteps.Tasks.UnionTasksPageSteps;
 import ru.st.selenium.tests.data.system.ModuleTaskCaseTest;
 import ru.st.selenium.tests.listeners.ScreenShotOnFailListener;
@@ -55,7 +55,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
@@ -93,7 +93,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
@@ -127,7 +127,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
 
         // Авторищируемся вновь под ADMIN - Удаляем Подразделение и Пользователя
         loginPage.loginAs(ADMIN);
-        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
