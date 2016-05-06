@@ -2,13 +2,12 @@ package ru.st.selenium.pagesteps.Administration;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.FindBy;
 import ru.st.selenium.logicinterface.WebLogic.SearchSystemLogic;
 import ru.st.selenium.pages.BasePage;
+import ru.st.selenium.pages.pageselementsweb.Administration.SearchSystemElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,24 +15,14 @@ import java.util.List;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.page;
 
 /**
  * Страница - Поисковая система
  */
 public class SearchSystemPageSteps extends BasePage implements SearchSystemLogic {
 
-    /*
-    Массив элементов всех объектов в колонке "Ошибок индексирования"
-     */
-    @FindBy(xpath = "//*[@id='indexingInfo']//td[6]")
-    private ElementsCollection elementsCollectionIndexingErrors;
-
-    /*
-    Массив элементов - ссылки на ошибки индексирования в колонке "Ошибок индексирования"
-     */
-    @FindBy(xpath = "//*[@id='indexingInfo']//td[6]//a[contains(@href,'indexingErrors')]")
-    private SelenideElement indexingErrors;
-
+    SearchSystemElements searchSystemElements = page(SearchSystemElements.class);
 
     /**
      * Проверка Загрузки страницы - ожидание наличия информации о индексировании
@@ -52,7 +41,7 @@ public class SearchSystemPageSteps extends BasePage implements SearchSystemLogic
         ensurePageLoaded();
         try {
             List<SelenideElement> elementsIndexing = new ArrayList<>();
-            for (SelenideElement selenideElement : elementsCollectionIndexingErrors) {
+            for (SelenideElement selenideElement : searchSystemElements.getElementsCollectionIndexingErrors()) {
                 elementsIndexing.add(selenideElement);
             }
             elementsIndexing.get(1).find(By.xpath("//*[@id='indexingInfo']//td[6]//a[contains(@href,'indexingErrors')]")).shouldNotBe(visible); // Действия
