@@ -5,6 +5,6 @@ package ru.st.selenium.logicinterface.WebLogic;
  */
 public interface SearchSystemLogic {
 
-    void checkNotIndexingErrors();
+    boolean checkNotIndexingErrors();
 
 }

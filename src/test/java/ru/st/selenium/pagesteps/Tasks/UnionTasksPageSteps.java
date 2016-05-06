@@ -8,9 +8,9 @@ import ru.st.selenium.logicinterface.WebLogic.Task.UnionTasksLogic;
 import ru.st.selenium.model.Tasks.Folder;
 import ru.st.selenium.model.Tasks.Task;
 import ru.st.selenium.pages.BasePage;
-import ru.st.selenium.pages.pagesweb.Internal.InternalPage;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksElements.EditFormFoldersElements;
-import ru.st.selenium.pages.pagesweb.Tasks.UnionTasksElements.UnionTasksElements;
+import ru.st.selenium.pages.pageselementsweb.Internal.InternalPage;
+import ru.st.selenium.pages.pageselementsweb.TasksElements.UnionTasksElements.EditFormFoldersElements;
+import ru.st.selenium.pages.pageselementsweb.TasksElements.UnionTasksElements.UnionTasksElements;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;

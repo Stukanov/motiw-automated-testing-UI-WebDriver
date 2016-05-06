@@ -1,7 +1,7 @@
 package ru.st.selenium.logicinterface.WebLogic;
 
 import ru.st.selenium.model.Administration.Users.Employee;
-import ru.st.selenium.pages.pagesweb.Login.LoginPage;
+import ru.st.selenium.pages.pageselementsweb.Login.LoginPage;
 
 /**
  * Основные операции в Системе

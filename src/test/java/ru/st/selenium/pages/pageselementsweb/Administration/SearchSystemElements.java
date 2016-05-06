@@ -17,15 +17,15 @@ public class SearchSystemElements {
     @FindBy(xpath = "//*[@id='indexingInfo']//td[6]//a[contains(@href,'indexingErrors')]")
     private SelenideElement indexingErrors;
 
-    /*
-     Массив элементов всех объектов в колонке "Ошибок индексирования"
+    /**
+     * Массив элементов всех объектов в колонке "Ошибок индексирования"
      */
     public ElementsCollection getElementsCollectionIndexingErrors() {
         return elementsCollectionIndexingErrors;
     }
 
-    /*
-    Массив элементов - ссылки на ошибки индексирования в колонке "Ошибок индексирования"
+    /**
+     * Массив элементов - ссылки на ошибки индексирования в колонке "Ошибок индексирования"
      */
     public SelenideElement getIndexingErrors() {
         return indexingErrors;

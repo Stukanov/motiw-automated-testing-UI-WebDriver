@@ -5,5 +5,5 @@ package ru.st.selenium.logicinterface.WebLogic;
  */
 public interface SystemInformationLogic {
 
-    void checkingOfSystemServices();
+    boolean checkingOfSystemServices();
 }
