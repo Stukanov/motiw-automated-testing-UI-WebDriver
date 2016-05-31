@@ -4,15 +4,15 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentElements;
 import ru.motiw.web.model.Administration.Users.Department;
 import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.model.Administration.Users.Module;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.CreateDepartmentPage;
-import ru.motiw.web.elements.elementsweb.Administration.CreateUsersPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
-import ru.motiw.web.elements.elementsweb.Login.RestorePasswordPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Login.RestorePasswordPage;
+import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
 import tests.listeners.ScreenShotOnFailListener;
 import tests.data.system.ModuleAdministrationObjectCaseTest;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -62,8 +62,8 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
     Employee editUser = getRandomEmployer()
             .setNeedsPasswordChange(false)
             .setModule(Module.COMPLETE)
-            .setNeedsPasswordChange(false) // Проверяем редактирование пользователя
-            .setDepartment(departmentUser); // передаем подразделения того пользователя, к-го собираемся отредактировать
+            .setNeedsPasswordChange(false)
+            .setDepartment(departmentUser); // Передаем подразделение того пользователя, к-го собираемся отредактировать
 
     Employee changepass = getRandomEmployer()
             .setNeedsPasswordChange(false) // Сменить пароль при следующем входе (false - оставляем признак без изменеиня)
@@ -91,41 +91,41 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         LoginPage loginPage = Selenide.open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Инициализируем страницу и переходим на нее - Администрирование/Пользователи
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
+        DepartmentElements departmentElements = internalPage.goToDepartments();
 
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(department1);
-        createDepartmentPage.createDepartment(department2);
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(department1);
+        departmentElements.createDepartment(department2);
         /*
          * Создаем подразделение А
          * определяем для подразделения А, родительское подразделение Б, ИНАЧЕ создается, как НЕ дочернее
          * т.е. если есть в памяти - .setParentDepartment (Название родительского под-ия), подразделение создается как Дочернее
          */
-        createDepartmentPage.createDepartment(department2_1
+        departmentElements.createDepartment(department2_1
                 .setParentDepartment(department2));
-        createDepartmentPage.createDepartment(department2_1_1
+        departmentElements.createDepartment(department2_1_1
                 .setParentDepartment(department2_1));
-        createDepartmentPage.dndSavePermissions(department2_1_1, department1);
-        createDepartmentPage.createDepartment(editDepartment
+        departmentElements.dndSavePermissions(department2_1_1, department1);
+        departmentElements.createDepartment(editDepartment
                 .setParentDepartment(department1));
-        createDepartmentPage.editDepartments(editDepartment, department3);
-        createDepartmentPage.createDepartment(department2_2
+        departmentElements.editDepartments(editDepartment, department3);
+        departmentElements.createDepartment(department2_2
                 .setParentDepartment(department2_1));
 
         /*
          проверяем - удаление ранеее созданных Подразделений
          */
-        createDepartmentPage.deleteDepartment(department1);
-        createDepartmentPage.deleteDepartment(department2);
-        createDepartmentPage.deleteDepartment(department2_1);
-        createDepartmentPage.deleteDepartment(department2_1_1);
-        createDepartmentPage.deleteDepartment(department3);
-        createDepartmentPage.deleteDepartment(department2_2);
+        departmentElements.deleteDepartment(department1);
+        departmentElements.deleteDepartment(department2);
+        departmentElements.deleteDepartment(department2_1);
+        departmentElements.deleteDepartment(department2_1_1);
+        departmentElements.deleteDepartment(department3);
+        departmentElements.deleteDepartment(department2_2);
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
@@ -141,32 +141,32 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Создаем подразделения для пользователей
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(departmentUser);
-        createDepartmentPage.createDepartment(departmentUser1);
+        DepartmentElements departmentElements = internalPage.goToDepartments();
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(departmentUser);
+        departmentElements.createDepartment(departmentUser1);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
 
-        createUsersPage.beforeAdd();
-        createUsersPage.createUser(user1); // Создание пользователя
-        createUsersPage.createUser(user2);
-        createUsersPage.editUser(editUser, user2);
+        usersPage.beforeAdd();
+        usersPage.createUser(user1); // Создание пользователя
+        usersPage.createUser(user2);
+        usersPage.editUser(user2, editUser);
 
-        createUsersPage.createUser(changepass);
-        createUsersPage.createUser(workflow); // Создание пользователя с правом на модуль "WORKFLOW"
-        createUsersPage.createUser(docflow); // Создание пользователя с правом на модуль "DOCFLOW"
+        usersPage.createUser(changepass);
+        usersPage.createUser(workflow); // Создание пользователя с правом на модуль "WORKFLOW"
+        usersPage.createUser(docflow); // Создание пользователя с правом на модуль "DOCFLOW"
 
         /*
          * Проверка создания псевдонима пользователя
          */
-        createUsersPage.createAndCheckAliasForDep(user1, departmentUser1);
+        usersPage.createAndCheckAliasForDep(user1, departmentUser1);
 
         internalPage.logout(); // Выход из системы
         assertTrue(loginPage.isNotLoggedIn()); // Проверка того, что пользователь разлогинен
@@ -187,7 +187,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         assertTrue(loginPage.isNotLoggedIn());
 
         loginPage.loginAs(changepass);
-        RestorePasswordPage restorePasswordPage = createUsersPage.initializationRestorePasswordPage();
+        RestorePasswordPage restorePasswordPage = usersPage.initializationRestorePasswordPage();
         restorePasswordPage.passwordChange(changepass);
         assertTrue(loginPage.newUserIsLoggedInAs(changepass));
         internalPage.logout();
@@ -195,13 +195,13 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
 
         loginPage.loginAs(docflow);
         assertTrue(loginPage.newUserIsLoggedInAs(docflow));
-        createUsersPage.initializationInternalPage().checkUserDocflow();
+        usersPage.initializationInternalPage().checkUserDocflow();
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
 
         loginPage.loginAs(workflow);
         assertTrue(loginPage.newUserIsLoggedInAs(workflow));
-        createUsersPage.initializationInternalPage().checkUserWorkflow(17);
+        usersPage.initializationInternalPage().checkUserWorkflow(17);
 
         internalPage.logout();
         assertTrue(loginPage.isNotLoggedIn());
@@ -217,16 +217,16 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Инициализируем страницу и переходим на нее - Администрирование/Пользователи
-        CreateDepartmentPage userPage = internalPage.goToDepartments();
+        DepartmentElements userPage = internalPage.goToDepartments();
         userPage.beforeAdd();
 
         // Инициализируем страницу - Администрирование/Пользователи
-        CreateUsersPage usersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
         usersPage.deleteUser(user1);
         usersPage.deleteUser(editUser);
         usersPage.deleteUser(changepass);

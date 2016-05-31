@@ -3,9 +3,9 @@ package tests.testPda;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.pagespda.HelpHtmlPagePDA;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagespda.HelpHtmlPagePDA;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
 import tests.data.system.ModuleTaskCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -36,7 +36,7 @@ public class HelpPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = Selenide.open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
         // Инициализируем стр. формы создание задачи и переходим на нее

@@ -3,8 +3,8 @@ package tests.testWeb;
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.elements.BasePage;
 import tests.data.BaseTest;
@@ -44,7 +44,7 @@ public class UsersAuthorizationTest extends BaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
         // Выход из системы

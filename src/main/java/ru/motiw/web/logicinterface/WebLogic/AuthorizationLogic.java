@@ -1,6 +1,6 @@
 package ru.motiw.web.logicinterface.WebLogic;
 
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import ru.motiw.web.model.Administration.Users.Employee;
 
 /**

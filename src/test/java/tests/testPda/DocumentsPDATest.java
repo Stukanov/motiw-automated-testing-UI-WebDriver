@@ -5,24 +5,24 @@ import ru.motiw.web.model.Administration.TasksTypes.TasksTypes;
 import ru.motiw.web.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import ru.motiw.web.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.motiw.web.model.Document.Document;
-import ru.motiw.web.elements.elementsweb.Administration.CreateDepartmentPage;
-import ru.motiw.web.elements.elementsweb.Administration.TaskTypeListObjectPage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.FormDocRegisterCardsEditPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
-import ru.motiw.web.elements.pagespda.DocumentsPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentElements;
+import ru.motiw.web.elements.elementspagesweb.Administration.TaskTypeListObjectPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.FormDocRegisterCardsEditPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagespda.DocumentsPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
+import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
 import tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import ru.motiw.web.model.Administration.Directories.Directories;
 import ru.motiw.web.model.Administration.Users.Department;
 import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.elementsweb.Administration.CreateUsersPage;
-import ru.motiw.web.elements.elementsweb.Administration.DirectoriesEditFormPage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.DictionaryEditorPage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.GridDocRegisterCardsPage;
-import ru.motiw.web.elements.elementsweb.Documents.NewDocumentPage;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagesweb.Administration.DirectoriesEditFormPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.DictionaryEditorPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.GridDocRegisterCardsPage;
+import ru.motiw.web.elements.elementspagesweb.Documents.NewDocumentPage;
 
 import tests.listeners.ScreenShotOnFailListener;
 import org.testng.annotations.Listeners;
@@ -57,26 +57,26 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest 
         loginPage.loginAs(ADMIN);
 
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------------------------Пользователи и Подразделения
         // Инициализируем страницу и переходим на нее - Администрирование/Пользователи (Подразделения)
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
+        DepartmentElements departmentElements = internalPage.goToDepartments();
 
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(departments[0]);
-        createDepartmentPage.createDepartment(departments[1]);
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(departments[0]);
+        departmentElements.createDepartment(departments[1]);
 
         // Инициализируем страницу - Администрирование/Пользователи (пользователи)
-        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
 
-        createUsersPage.beforeAdd();
+        usersPage.beforeAdd();
 
-        createUsersPage.createUser(employees[0].setDepartment(departments[0]));
-        createUsersPage.createUser(employees[1].setDepartment(departments[1]));
-        createUsersPage.createUser(employees[2].setDepartment(departments[1]));
-        createUsersPage.createUser(employees[3].setDepartment(departments[0]));
+        usersPage.createUser(employees[0].setDepartment(departments[0]));
+        usersPage.createUser(employees[1].setDepartment(departments[1]));
+        usersPage.createUser(employees[2].setDepartment(departments[1]));
+        usersPage.createUser(employees[3].setDepartment(departments[0]));
 
         //-----------------------------------------------------------------------------------Редактор словарей
         // Переход в раздел - Администрирование ДО/Редактор словарей
@@ -122,7 +122,7 @@ public class DocumentsPDATest extends ModuleDocflowAdministrationObjectCaseTest 
         // Авторизация
         loginPagePDA.loginAsAdmin(ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
         DocumentsPagePDA documentsPagePDA = internalPagePDA.goToDocuments();

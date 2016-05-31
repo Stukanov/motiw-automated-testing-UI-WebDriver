@@ -10,10 +10,10 @@ import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.model.Administration.Users.Module;
 import ru.motiw.web.model.Tasks.Folder;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.CreateDepartmentPage;
-import ru.motiw.web.elements.elementsweb.Administration.CreateUsersPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentElements;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
+import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
 import ru.motiw.web.steps.Tasks.UnionTasksPageSteps;
 import tests.data.BaseTest;
 import tests.data.system.ModuleTaskCaseTest;
@@ -57,7 +57,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         LoginPage loginPage = Selenide.open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(BaseTest.ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
@@ -95,20 +95,20 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(BaseTest.ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Создаем подразделения для пользователей
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(department);
+        DepartmentElements departmentElements = internalPage.goToDepartments();
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
 
-        createUsersPage.beforeAdd();
-        createUsersPage.createUser(user); // Создание пользователя
+        usersPage.beforeAdd();
+        usersPage.createUser(user); // Создание пользователя
 
         // Выход из системы
         internalPage.logout();
@@ -129,18 +129,18 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
 
         // Авторищируемся вновь под ADMIN - Удаляем Подразделение и Пользователя
         loginPage.loginAs(BaseTest.ADMIN);
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Создаем подразделения для пользователей
         internalPage.goToDepartments();
 
-        createDepartmentPage.beforeAdd();
+        departmentElements.beforeAdd();
 
         // Инициализируем страницу - Администрирование/Пользователи
-        createUsersPage.deleteUser(user); // Пользователь и Подразделение
-        createDepartmentPage.deleteDepartment(department);
+        usersPage.deleteUser(user); // Пользователь и Подразделение
+        departmentElements.deleteDepartment(department);
 
         // Выход из Системы
         internalPage.logout();

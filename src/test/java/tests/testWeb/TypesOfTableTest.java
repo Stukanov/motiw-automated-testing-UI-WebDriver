@@ -3,14 +3,14 @@ package tests.testWeb;
 import com.codeborne.selenide.testng.TextReport;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.motiw.web.elements.elementsweb.Administration.TaskTypeListObjectPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.TaskTypeListObjectPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import ru.motiw.web.model.Administration.Directories.Directories;
 import ru.motiw.web.model.Administration.TypesOfTables.TypesOfTables;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.DirectoriesEditFormPage;
-import ru.motiw.web.elements.elementsweb.Administration.TypesOfTablesEditPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.DirectoriesEditFormPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.TypesOfTablesEditPage;
 import tests.data.system.ModuleAdministrationObjectCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -38,7 +38,7 @@ public class TypesOfTableTest extends ModuleAdministrationObjectCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //------------------------------------------------ Администрирование/Справочники

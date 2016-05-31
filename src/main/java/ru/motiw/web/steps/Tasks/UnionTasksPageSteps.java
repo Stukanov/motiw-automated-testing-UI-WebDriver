@@ -5,12 +5,12 @@ import org.openqa.selenium.By;
 
 import ru.motiw.web.model.Tasks.Folder;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.TasksElements.UnionTasksElements.UnionTasksElements;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Tasks.UnionTasks.UnionTasksElements;
 import ru.motiw.web.logicinterface.WebLogic.Task.FolderLogic;
 import ru.motiw.web.logicinterface.WebLogic.Task.UnionTasksLogic;
 import ru.motiw.web.model.Tasks.Task;
-import ru.motiw.web.elements.elementsweb.TasksElements.UnionTasksElements.EditFormFoldersElements;
+import ru.motiw.web.elements.elementspagesweb.Tasks.UnionTasks.EditFormFoldersElements;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;

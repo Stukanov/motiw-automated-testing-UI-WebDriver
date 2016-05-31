@@ -4,10 +4,10 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.motiw.web.model.Administration.Directories.Directories;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.DirectoriesEditFormPage;
-import ru.motiw.web.elements.elementsweb.Administration.TaskTypeListObjectPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.DirectoriesEditFormPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.TaskTypeListObjectPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import tests.data.system.ModuleAdministrationObjectCaseTest;
 import tests.listeners.CustomSoftAsserts.CustomSoftAsserts;
 import tests.listeners.CustomTextReport.CustomTextReport;
@@ -39,7 +39,7 @@ public class DirectoriesTest extends ModuleAdministrationObjectCaseTest {
         // Авторизация
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         // Переход в раздел Администрирование/Справочники

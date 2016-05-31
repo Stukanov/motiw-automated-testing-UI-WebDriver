@@ -5,12 +5,11 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.*;
 
-
 import static com.codeborne.selenide.Selenide.*;
 
 public abstract class BasePage {
 
-    public static final String WEB_PAGE_URL = "http://motiwtest4.test.lan";
+    public static final String WEB_PAGE_URL = "http://motiw";
     public static final String PDA_PAGE_URL = "http://pda.motiw";
 
     //==================================================================================== Фреймы
@@ -67,6 +66,13 @@ public abstract class BasePage {
     }
 
     /**
+     * Фрейм окна добавления псевдонима в подразделение
+     */
+    public WebDriver getFrameAlias() {
+        return switchTo().frame($(By.xpath("//*[contains (@src, 'selectdep')]")));
+    }
+
+    /**
      * Проверяем отображения текста в диалоге (alert) и взаиможействуем с объектом, если Сообщение истенно - взаимодействуем
      * -подтверждаем удаление, отменяем удаление, подтверждаем сохранение
      *
@@ -74,12 +80,12 @@ public abstract class BasePage {
      * @param expectedMessageText проверяемое сообщение
      * @param webElementButton    подтверждение (взаимодействие над объектом)
      */
-    public static String checkingMessagesConfirmationOfTheObject(SelenideElement element, String expectedMessageText, SelenideElement webElementButton) {
-        String actualMessageText = element.shouldBe(Condition.exactText(expectedMessageText)).getText();
-        if (expectedMessageText != null && expectedMessageText.equals(actualMessageText)) {
-            webElementButton.click();
-            return expectedMessageText;
-        }
+    public String checkingMessagesConfirmationOfTheObject(SelenideElement element, String expectedMessageText, SelenideElement webElementButton) {
+            String actualMessageText = element.shouldBe(Condition.exactText(expectedMessageText)).getText();
+            if (expectedMessageText != null && expectedMessageText.equals(actualMessageText)) {
+                webElementButton.click();
+                return expectedMessageText;
+            }
         return null;
     }
 

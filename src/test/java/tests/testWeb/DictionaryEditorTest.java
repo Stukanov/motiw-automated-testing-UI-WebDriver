@@ -6,9 +6,9 @@ import org.testng.annotations.Test;
 import ru.motiw.web.model.DocflowAdministration.DictionaryEditor.DictionaryEditor;
 import tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.DictionaryEditorPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.DictionaryEditorPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import tests.listeners.ScreenShotOnFailListener;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -38,7 +38,7 @@ public class DictionaryEditorTest extends ModuleDocflowAdministrationObjectCaseT
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 

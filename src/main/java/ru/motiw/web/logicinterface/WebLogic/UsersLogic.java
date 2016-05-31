@@ -17,5 +17,5 @@ public interface UsersLogic {
 
     void createUser(Employee user);
 
-    void editUser(Employee editUser, Employee user);
+    void editUser(Employee user, Employee editUser);
 }

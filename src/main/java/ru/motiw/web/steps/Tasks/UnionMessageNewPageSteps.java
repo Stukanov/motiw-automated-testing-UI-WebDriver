@@ -11,7 +11,7 @@ import ru.motiw.web.model.Administration.TasksTypes.TasksTypes;
 import ru.motiw.web.model.Tasks.Checkpoint;
 import ru.motiw.web.model.Tasks.IWG;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.TasksElements.TaskFormElements.*;
+import ru.motiw.web.elements.elementspagesweb.Tasks.TaskForm.*;
 import ru.motiw.web.model.Tasks.Project;
 import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.model.Tasks.Task;
@@ -25,7 +25,6 @@ import static ru.motiw.utils.WindowsUtil.newWindowForm;
  * форма - СОЗДАТЬ ЗАДАЧУ
  */
 public class UnionMessageNewPageSteps extends BasePage implements UnionMessageNewLogic {
-
 
     private ProjectFormElements projectFormElements = page(ProjectFormElements.class);
     private InsetDescriptionTaskFormElements insetDescriptionTaskFormElements = page(InsetDescriptionTaskFormElements.class);

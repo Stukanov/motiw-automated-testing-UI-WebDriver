@@ -5,7 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import ru.motiw.web.elements.elementsweb.Administration.SearchSystemElements;
+import ru.motiw.web.elements.elementspagesweb.Administration.SearchSystemElements;
 import ru.motiw.web.logicinterface.WebLogic.SearchSystemLogic;
 import ru.motiw.web.elements.BasePage;
 
@@ -18,11 +18,11 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.page;
 
 /**
- * Страница - Поисковая система
+ * Поисковая система
  */
 public class SearchSystemPageSteps extends BasePage implements SearchSystemLogic {
 
-    SearchSystemElements searchSystemElements = page(SearchSystemElements.class);
+   private SearchSystemElements searchSystemElements = page(SearchSystemElements.class);
 
     /**
      * Проверка Загрузки страницы - ожидание наличия информации о индексировании

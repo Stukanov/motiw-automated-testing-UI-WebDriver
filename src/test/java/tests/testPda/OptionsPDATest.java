@@ -4,12 +4,12 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.motiw.web.model.Tasks.Task;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
-import ru.motiw.web.elements.pagespda.OptionsPagePDA;
-import ru.motiw.web.elements.pagespda.Task.EditTaskPagePDA;
-import ru.motiw.web.elements.pagespda.Task.NewTaskPagePDA;
-import ru.motiw.web.elements.pagespda.Task.TaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagespda.OptionsPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.EditTaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.NewTaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.TaskPagePDA;
 import tests.data.BaseTest;
 import tests.data.system.ModuleTaskCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
@@ -40,7 +40,7 @@ public class OptionsPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = Selenide.open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(BaseTest.ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
 

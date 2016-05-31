@@ -5,16 +5,16 @@ import com.codeborne.selenide.testng.TextReport;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentElements;
 import ru.motiw.web.model.Tasks.Folder;
-import ru.motiw.web.elements.elementsweb.Administration.CreateDepartmentPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
+import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
 import tests.data.system.ModuleTaskCaseTest;
 import ru.motiw.web.model.Administration.Users.Department;
 import ru.motiw.web.model.Administration.Users.Employee;
 import ru.motiw.web.model.Tasks.Task;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.CreateUsersPage;
 import ru.motiw.web.steps.Tasks.UnionMessageNewPageSteps;
 import ru.motiw.web.steps.Tasks.UnionMessagePageSteps;
 import ru.motiw.web.steps.Tasks.UnionTasksPageSteps;
@@ -45,7 +45,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
@@ -81,27 +81,27 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Создаем подразделения для пользователей
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(department);
+        DepartmentElements departmentElements = internalPage.goToDepartments();
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
         // Авторы задачи
-        createUsersPage.createUser(author[0].setDepartment(department));
-        createUsersPage.createUser(author[1].setDepartment(department));
+        usersPage.createUser(author[0].setDepartment(department));
+        usersPage.createUser(author[1].setDepartment(department));
         // Ответственные руководители задачи
-        createUsersPage.createUser(resppers[0].setDepartment(department));
+        usersPage.createUser(resppers[0].setDepartment(department));
         // Контролеры задачи
-        createUsersPage.createUser(controller[0].setDepartment(department));
+        usersPage.createUser(controller[0].setDepartment(department));
         // Исполнители задачи
-        createUsersPage.createUser(worker[0].setDepartment(department));
-        createUsersPage.createUser(worker[1].setDepartment(department));
+        usersPage.createUser(worker[0].setDepartment(department));
+        usersPage.createUser(worker[1].setDepartment(department));
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
         UnionMessageNewPageSteps unionMessageNewPageSteps = internalPage.goToUnionMessageNew();
@@ -146,31 +146,31 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 
         // Создаем подразделения для пользователей
-        CreateDepartmentPage createDepartmentPage = internalPage.goToDepartments();
-        createDepartmentPage.beforeAdd();
-        createDepartmentPage.createDepartment(department);
+        DepartmentElements departmentElements = internalPage.goToDepartments();
+        departmentElements.beforeAdd();
+        departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        CreateUsersPage createUsersPage = internalPage.initializationUsersPage();
+        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
 
         // Ответственные руководители задачи
-        createUsersPage.createUser(resppers[0].setDepartment(department));
+        usersPage.createUser(resppers[0].setDepartment(department));
 
         // Исполнители задачи ИРГ
-        createUsersPage.createUser(IWGWorker[0].setDepartment(department));
-        createUsersPage.createUser(IWGWorker[1].setDepartment(department));
-        createUsersPage.createUser(IWGWorker[2].setDepartment(department));
+        usersPage.createUser(IWGWorker[0].setDepartment(department));
+        usersPage.createUser(IWGWorker[1].setDepartment(department));
+        usersPage.createUser(IWGWorker[2].setDepartment(department));
         // Ответственные руководители задачи ИРГ
-        createUsersPage.createUser(IWGResppers[0].setDepartment(department));
-        createUsersPage.createUser(IWGResppers[1].setDepartment(department));
+        usersPage.createUser(IWGResppers[0].setDepartment(department));
+        usersPage.createUser(IWGResppers[1].setDepartment(department));
         // Контролеры задачи ИРГ
-        createUsersPage.createUser(IWGСontroller[0].setDepartment(department));
-        createUsersPage.createUser(IWGСontroller[1].setDepartment(department));
+        usersPage.createUser(IWGСontroller[0].setDepartment(department));
+        usersPage.createUser(IWGСontroller[1].setDepartment(department));
 
         // Инициализация и переход на страницу - Задачи/Создать задачу
         UnionMessageNewPageSteps unionMessageNewPageSteps = internalPage.goToUnionMessageNew();
@@ -201,7 +201,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         LoginPage loginPage = open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
         assertTrue(loginPage.isLoggedIn());
 

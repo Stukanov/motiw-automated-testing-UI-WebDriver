@@ -13,23 +13,21 @@ import ru.motiw.web.model.DocflowAdministration.DictionaryEditor.DictionaryEdito
 import ru.motiw.web.model.DocflowAdministration.DocumentRegistrationCards.DocRegisterCards;
 import ru.motiw.web.model.Document.Document;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Administration.DirectoriesEditFormPage;
-import ru.motiw.web.elements.elementsweb.Administration.TaskTypeListObjectPage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.FormDocRegisterCardsEditPage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.DirectoriesEditFormPage;
+import ru.motiw.web.elements.elementspagesweb.Administration.TaskTypeListObjectPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.FormDocRegisterCardsEditPage;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.DictionaryEditorPage;
-import ru.motiw.web.elements.elementsweb.DocflowAdministration.GridDocRegisterCardsPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.DictionaryEditorPage;
+import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.GridDocRegisterCardsPage;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -48,7 +46,7 @@ public class DocumentRegistrationCardsTest extends ModuleDocflowAdministrationOb
         LoginPage loginPage = Selenide.open(BasePage.WEB_PAGE_URL, LoginPage.class);
         loginPage.loginAs(ADMIN);
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
 

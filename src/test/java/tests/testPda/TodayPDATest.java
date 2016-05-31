@@ -4,19 +4,19 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.motiw.web.model.Tasks.Folder;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.elementsweb.Internal.InternalPage;
-import ru.motiw.web.elements.elementsweb.Login.LoginPage;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
-import ru.motiw.web.elements.pagespda.Task.NewTaskPagePDA;
-import ru.motiw.web.elements.pagespda.Task.TaskPagePDA;
-import ru.motiw.web.elements.pagespda.Task.TasksReportsPagePDA;
-import ru.motiw.web.elements.pagespda.TodayPagePDA;
+import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
+import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.NewTaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.TaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.TasksReportsPagePDA;
+import ru.motiw.web.elements.elementspagespda.TodayPagePDA;
 import ru.motiw.web.steps.Tasks.UnionTasksPageSteps;
 import tests.data.system.ModuleTaskCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
 import ru.motiw.web.model.Tasks.Task;
-import ru.motiw.web.elements.pagespda.Task.EditTaskPagePDA;
+import ru.motiw.web.elements.elementspagespda.Task.EditTaskPagePDA;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -55,7 +55,7 @@ public class TodayPDATest extends ModuleTaskCaseTest {
         loginPage.loginAs(ADMIN);
 
         InternalPage internalPage = loginPage.initializedInsidePage(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 8 (Logo; TasksElements; Documents; Messages; Calendar; Library; Tools; Details)",
+        assertThat("Check that the displayed menu item 8 (Logo; Tasks; Documents; Messages; Calendar; Library; Tools; Details)",
                 internalPage.hasMenuUserComplete()); // Проверяем отображение п.м. на внутренней странице
 
         //---------------------------------------------------------------- Задачи/Задачи
@@ -77,7 +77,7 @@ public class TodayPDATest extends ModuleTaskCaseTest {
         loginPagePDA.loginAsAdmin(ADMIN);
 
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
 
         // Инициализируем стр. формы создание задачи и переходим на нее

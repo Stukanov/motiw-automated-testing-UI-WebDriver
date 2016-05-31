@@ -3,9 +3,9 @@ package tests.testPda;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
-import ru.motiw.web.elements.pagespda.SearchPagePDA;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagespda.SearchPagePDA;
 import tests.data.BaseTest;
 import tests.data.system.ModuleTaskCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
@@ -35,7 +35,7 @@ public class SearchPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = Selenide.open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(BaseTest.ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Инициализируем внутренюю стр. системы и переходим на нее
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         SearchPagePDA searchPagePDA = internalPagePDA.goToSearch(); // Переходим в раздел Поиска
         searchPagePDA.searchContact(BaseTest.EMPLOYEE_ADMIN); // проверяем поиск Контакта пользователя по Фамилии

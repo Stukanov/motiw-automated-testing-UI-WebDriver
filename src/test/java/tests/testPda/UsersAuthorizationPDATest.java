@@ -4,8 +4,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.testng.TextReport;
 import ru.motiw.web.elements.BasePage;
-import ru.motiw.web.elements.pagespda.InternalPagePDA;
-import ru.motiw.web.elements.pagespda.LoginPagePDA;
+import ru.motiw.web.elements.elementspagespda.InternalPagePDA;
+import ru.motiw.web.elements.elementspagespda.LoginPagePDA;
 import tests.data.BaseTest;
 import tests.data.system.ModuleTaskCaseTest;
 import tests.listeners.ScreenShotOnFailListener;
@@ -39,7 +39,7 @@ public class UsersAuthorizationPDATest extends ModuleTaskCaseTest {
         LoginPagePDA loginPagePDA = Selenide.open(BasePage.PDA_PAGE_URL, LoginPagePDA.class);
         loginPagePDA.loginAsAdmin(BaseTest.ADMIN);
         InternalPagePDA internalPagePDA = loginPagePDA.goToInternalMenu(); // Проверяем отображение п.м. системы
-        assertThat("Check that the displayed menu item 4 (TasksElements; Create TasksElements; Today; Document)",
+        assertThat("Check that the displayed menu item 4 (Tasks; Create Tasks; Today; Document)",
                 internalPagePDA.hasMenuUserComplete());
         internalPagePDA.logout(); // Выход из системы
     }
