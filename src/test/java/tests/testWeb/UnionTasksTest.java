@@ -13,7 +13,7 @@ import ru.motiw.web.elements.BasePage;
 import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentElements;
 import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
 import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
-import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
+import ru.motiw.web.steps.Administration.Users.UsersPageSteps;
 import ru.motiw.web.steps.Tasks.UnionTasksPageSteps;
 import tests.data.BaseTest;
 import tests.data.system.ModuleTaskCaseTest;
@@ -105,7 +105,7 @@ public class UnionTasksTest extends ModuleTaskCaseTest {
         departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
 
         usersPage.beforeAdd();
         usersPage.createUser(user); // Создание пользователя

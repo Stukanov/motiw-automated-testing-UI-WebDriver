@@ -16,7 +16,7 @@ import ru.motiw.web.elements.elementspagesweb.Documents.NewDocumentPage;
 import ru.motiw.web.elements.elementspagesweb.Options.PwdPage;
 import ru.motiw.web.elements.elementspagesweb.Tasks.UnionTasks.UnionTasksElements;
 import ru.motiw.web.steps.Administration.SearchSystemPageSteps;
-import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
+import ru.motiw.web.steps.Administration.Users.UsersPageSteps;
 import ru.motiw.web.steps.Tasks.UnionMessageNewPageSteps;
 import ru.motiw.web.steps.Tasks.UnionTasksPageSteps;
 
@@ -356,8 +356,8 @@ public class InternalPage extends BasePage implements BaseInternalLogic {
     /**
      * Инициализация - Администрирование/Подразделения (Пользователи)
      */
-    public UsersElementsSteps initializationUsersPage() {
-        return page(UsersElementsSteps.class);
+    public UsersPageSteps initializationUsersPage() {
+        return page(UsersPageSteps.class);
     }
 
     /**

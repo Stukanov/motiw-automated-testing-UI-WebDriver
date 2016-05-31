@@ -23,14 +23,14 @@ import static ru.motiw.utils.ChecksUtil.isElementPresent;
 /**
  * Пользователи
  */
-public class UsersElementsSteps extends DepartmentElements implements UsersLogic {
+public class UsersPageSteps extends DepartmentElements implements UsersLogic {
 
     private UsersElements usersElements = page(UsersElements.class);
 
     /**
      * Кнопка - Добавить пользователя
      */
-    public UsersElementsSteps buttonAddUser() {
+    public UsersPageSteps buttonAddUser() {
         usersElements.getButtonAddUser().click();
         return this;
     }
@@ -42,7 +42,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * @param text  передаваемая - текстовое зн-ие для ввода
      * @return UsersPageStep
      */
-    public UsersElementsSteps setEntryField(SelenideElement field, String text) {
+    public UsersPageSteps setEntryField(SelenideElement field, String text) {
         field.click();
         field.clear();
         field.sendKeys(text);
@@ -52,9 +52,9 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Выбор пола пользователя
      * @param isMan передаваемое зн-ие, если true == Мужчина
-     * @return UsersElementsSteps
+     * @return UsersPageSteps
      */
-    public UsersElementsSteps clickSex(boolean isMan) {
+    public UsersPageSteps clickSex(boolean isMan) {
         if (isMan) {
             usersElements.getCheckMan().click();
         } else {
@@ -69,7 +69,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      *
      * @param userName передаваемое Имя пользователя
      */
-    public UsersElementsSteps setNameUserLogin(String userName) {
+    public UsersPageSteps setNameUserLogin(String userName) {
         usersElements.getClickNameUserLogin().click();
         usersElements.getVisibleEditor().clear();
         usersElements.getVisibleEditor().sendKeys(userName);
@@ -82,7 +82,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * @param passwordUser передаваемый - пароль - пользователя
      * @return CreateUserPage
      */
-    public UsersElementsSteps setPasswordUser(String passwordUser) {
+    public UsersPageSteps setPasswordUser(String passwordUser) {
         usersElements.getPasswordUser().click();
         usersElements.getVisibleEditor().clear();
         usersElements.getVisibleEditor().sendKeys(passwordUser);
@@ -97,7 +97,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * @param confirmationPassword передаваемое значение - подтверждение пароля - пользователя
      * @return CreateUserPage
      */
-    public UsersElementsSteps setConfirmationPassword(String confirmationPassword) {
+    public UsersPageSteps setConfirmationPassword(String confirmationPassword) {
         usersElements.getСonfirmationPassword().click();
         usersElements.getVisibleEditor().clear();
         usersElements.getVisibleEditor().sendKeys(confirmationPassword);
@@ -109,7 +109,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      *
      * @return CreateUserPage
      */
-    public UsersElementsSteps setStatus(Status status) {
+    public UsersPageSteps setStatus(Status status) {
         usersElements.getStatus().click();
         if (status == Status.BOSS) {
             usersElements.getVisibleEditor().sendKeys(Keys.chord(Keys
@@ -139,7 +139,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      *
      * @return CreateUserPage
      */
-    public UsersElementsSteps clickNeedPasswordChange(boolean needsPassChange) {
+    public UsersPageSteps clickNeedPasswordChange(boolean needsPassChange) {
         if (needsPassChange) {
             usersElements.getNeedPasswordChange().click();
         }
@@ -151,7 +151,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      *
      * @return CreateUserPage
      */
-    public UsersElementsSteps saveUser() {
+    public UsersPageSteps saveUser() {
         usersElements.getSave().click();
         waitForMask();
         return this;
@@ -160,9 +160,9 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Удалить пользователя
      *
-     * @return UsersElementsSteps
+     * @return UsersPageSteps
      */
-    public UsersElementsSteps removeUser() {
+    public UsersPageSteps removeUser() {
         usersElements.getRemoveUser().click();
         return this;
     }
@@ -170,7 +170,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Проверка создания пользователей:
      */
-    public UsersElementsSteps verifyCreateUser(Employee user) {
+    public UsersPageSteps verifyCreateUser(Employee user) {
         $(By.xpath("//tbody[contains(@id,'gridview')]/tr//a[text()='"
                 + user.getLastName() + " " + user.getName() + " "
                 + user.getPatronymic() + "']")).waitUntil(present, 15000);
@@ -181,9 +181,9 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * Выбор пользователя в гриде
      *
      * @param user передаваемые реквизиты пользователя
-     * @return UsersElementsSteps
+     * @return UsersPageSteps
      */
-    public UsersElementsSteps clickUserByName(Employee user) {
+    public UsersPageSteps clickUserByName(Employee user) {
         $(By.xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(visible);
         $(By.xpath("//a[contains (text(), '" + user.getLastName()
                 + "')]/parent::div/parent::td/preceding-sibling::td"))
@@ -195,9 +195,9 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * Выбор пользователя (открытие формы редактирования пользователя) в гриде
      *
      * @param user передаваемые реквизиты пользователя
-     * @return UsersElementsSteps
+     * @return UsersPageSteps
      */
-    public UsersElementsSteps clickEditUserFormByName(Employee user) {
+    public UsersPageSteps clickEditUserFormByName(Employee user) {
         $(By
                 .xpath("//a[contains (text(), '" + user.getLastName() + "')]")).shouldBe(visible);
         $(By.xpath("//a[contains(@onclick,'openEditUserForm')][contains(text(),'" + user.getLastName() + "')]"))
@@ -208,7 +208,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Создать псевдоним
      */
-    public UsersElementsSteps createAnAlias() {
+    public UsersPageSteps createAnAlias() {
         usersElements.getCreateAnalias().click();
         return this;
 
@@ -217,7 +217,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * В окне добавления псевдонима в подразделение ищем нужный департамент
      */
-    public UsersElementsSteps searchDepartmentForAlias(Department department) {
+    public UsersPageSteps searchDepartmentForAlias(Department department) {
         getFrameAlias();
         $(usersElements.getFieldSearchDepForAlias()).shouldBe(visible);
         usersElements.getFieldSearchDepForAlias().click();
@@ -229,7 +229,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Кликаем чекбокс найденного департамента
      */
-    public UsersElementsSteps clickFoundDep() {
+    public UsersPageSteps clickFoundDep() {
         usersElements.getSelectedCheckBox().click();
         return this;
     }
@@ -237,7 +237,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Кликаем кнопку сохранить в окне добавления псевдонима
      */
-    public UsersElementsSteps clickButtonSaveAlias() {
+    public UsersPageSteps clickButtonSaveAlias() {
         usersElements.getButtonSaveAlias().click();
         return this;
     }
@@ -245,7 +245,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
     /**
      * Проверка наличия на странице псевдонима для подразделения
      */
-    public UsersElementsSteps assertHasAlias(Employee user, Department department) {
+    public UsersPageSteps assertHasAlias(Employee user, Department department) {
         assertTrue(isElementPresent(By.xpath("/*//*[contains (text(), '" + user.getLastName() + " " + user.getName() + " "
                 + user.getPatronymic() + " (для задач по " + department.getDepartmentName() + ")')]")));
         return this;
@@ -256,7 +256,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      *
      * @param module параметр установки прав на определенные модули системы
      */
-    public UsersElementsSteps selModule(Module module) {
+    public UsersPageSteps selModule(Module module) {
         if (module == Module.DOCFLOW) {
             usersElements.getWorkflow().click();
         }
@@ -271,7 +271,7 @@ public class UsersElementsSteps extends DepartmentElements implements UsersLogic
      * Проверяем и ожидаем, что на странице имеется соответствующий элемент:
      * -Кнопка - Добавить пользователя; -Кнопка - Удалить пользователя.
      */
-    public UsersElementsSteps ensurePageLoaded() {
+    public UsersPageSteps ensurePageLoaded() {
         $(By.xpath("(//a[contains(@id,'button-')])[4]")).shouldBe(present);
         $(By.xpath("(//a[contains(@id,'button-')])[5]")).shouldBe(present);
         return this;

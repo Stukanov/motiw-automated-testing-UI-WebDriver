@@ -9,7 +9,7 @@ import ru.motiw.web.elements.elementspagesweb.Administration.Users.DepartmentEle
 import ru.motiw.web.model.Tasks.Folder;
 import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
 import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
-import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
+import ru.motiw.web.steps.Administration.Users.UsersPageSteps;
 import tests.data.system.ModuleTaskCaseTest;
 import ru.motiw.web.model.Administration.Users.Department;
 import ru.motiw.web.model.Administration.Users.Employee;
@@ -91,7 +91,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
         // Авторы задачи
         usersPage.createUser(author[0].setDepartment(department));
         usersPage.createUser(author[1].setDepartment(department));
@@ -156,7 +156,7 @@ public class CreateTaskTest extends ModuleTaskCaseTest {
         departmentElements.createDepartment(department);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
 
         // Ответственные руководители задачи
         usersPage.createUser(resppers[0].setDepartment(department));

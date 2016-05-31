@@ -12,7 +12,7 @@ import ru.motiw.web.elements.BasePage;
 import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
 import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
 import ru.motiw.web.elements.elementspagesweb.Login.RestorePasswordPage;
-import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
+import ru.motiw.web.steps.Administration.Users.UsersPageSteps;
 import tests.listeners.ScreenShotOnFailListener;
 import tests.data.system.ModuleAdministrationObjectCaseTest;
 import ru.yandex.qatools.allure.annotations.Description;
@@ -152,7 +152,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         departmentElements.createDepartment(departmentUser1);
 
         // Инициализируем страницу - Администрирование/Пользователи
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
 
         usersPage.beforeAdd();
         usersPage.createUser(user1); // Создание пользователя
@@ -226,7 +226,7 @@ public class UsersTest extends ModuleAdministrationObjectCaseTest {
         userPage.beforeAdd();
 
         // Инициализируем страницу - Администрирование/Пользователи
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
         usersPage.deleteUser(user1);
         usersPage.deleteUser(editUser);
         usersPage.deleteUser(changepass);

@@ -11,7 +11,7 @@ import ru.motiw.web.elements.elementspagesweb.Administration.TaskTypeListObjectP
 import ru.motiw.web.elements.elementspagesweb.DocflowAdministration.FormDocRegisterCardsEditPage;
 import ru.motiw.web.elements.elementspagesweb.Internal.InternalPage;
 import ru.motiw.web.elements.elementspagesweb.Login.LoginPage;
-import ru.motiw.web.steps.Administration.Users.UsersElementsSteps;
+import ru.motiw.web.steps.Administration.Users.UsersPageSteps;
 import tests.data.system.ModuleDocflowAdministrationObjectCaseTest;
 import ru.motiw.web.model.Administration.Directories.Directories;
 import ru.motiw.web.model.Administration.Users.Department;
@@ -63,7 +63,7 @@ public class CreateDocumentTest extends ModuleDocflowAdministrationObjectCaseTes
         departmentElements.createDepartment(departments[1]);
 
         // Инициализируем страницу - Администрирование/Пользователи (пользователи)
-        UsersElementsSteps usersPage = internalPage.initializationUsersPage();
+        UsersPageSteps usersPage = internalPage.initializationUsersPage();
 
         usersPage.beforeAdd();
 
